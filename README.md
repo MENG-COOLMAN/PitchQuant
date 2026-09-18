@@ -1,6 +1,6 @@
 <div align="center">
 
-# ⚽ Football Odds Analysis Model
+# ⚽ PitchQuant
 ### 足球赔率分析模型 · V3.5.74
 
 **LLM as runtime · Backtests as discipline**
@@ -75,7 +75,7 @@ pip install -r requirements.txt   # optional: river (online-learning module)
 **Step 2 — Get the code**
 ```bash
 git clone <your-repo-url>
-cd football-odds-model
+cd PitchQuant
 ```
 
 **Step 3 — Configure API keys** (free tiers are enough)
@@ -169,7 +169,7 @@ pip install -r requirements.txt   # 可选依赖: river（在线学习模块）
 **第 2 步 · 获取代码**
 ```bash
 git clone <你的仓库地址>
-cd football-odds-model
+cd PitchQuant
 ```
 
 **第 3 步 · 配置 API key**（免费额度即可）

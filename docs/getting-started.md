@@ -24,7 +24,7 @@
 ```bash
 # ① 拉代码
 git clone <your-repo-url>
-cd football-odds-model
+cd PitchQuant
 
 # ② （可选）装依赖
 pip install -r requirements.txt

@@ -1,4 +1,4 @@
-# Football Odds Analysis Model — Python 依赖
+# PitchQuant — Python 依赖
 # 说明: 核心流水线脚本（scripts/tmp/）以标准库为主，无第三方依赖即可运行。
 #       以下为可选依赖，按需安装。
 
