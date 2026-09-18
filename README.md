@@ -1,7 +1,7 @@
 <div align="center">
 
 # ⚽ PitchQuant
-### 足球赔率分析模型 · V3.5.74
+### 足球赔率分析模型 · Public Release v1.0 ｜ Core Model V3.5.74
 
 **Pitch**（绿茵场）× **Quant**（量化）—— 用量化研究的方式对待足球数据，但始终记得：**足球是混沌的，市场是高效的**。
 
@@ -68,6 +68,8 @@ Pipeline: **PreStep** → Data acquisition → Hardcore (12) → Movement (V1-V6
 
 ## Quick Start
 
+> **⚠️ 运行时说明**：本项目不是独立 CLI 工具，而是一套 **LLM as runtime** 分析流水线。Python 脚本只做确定性计算（去水/泊松/查表），规则判断与逐步推理由 LLM（Claude / GPT / 豆包等）按 `skills/` 下的 SKILL.md 执行。你需要一个支持文件读写的 LLM 环境来驱动它。
+
 **Step 1 — Python 3.10+**
 ```bash
 python --version        # 3.10 or newer
@@ -104,8 +106,9 @@ Outputs: de-vig probabilities → hardcore items → direction engine → live s
 
 **Step 6 — Verify the environment**
 ```bash
-python scripts/tmp/check_sync.py      # 238 checks
-python scripts/tmp/output_checker.py <your-analysis.txt>   # 35 required blocks
+python -m compileall -q scripts/ templates/          # syntax check
+python scripts/tmp/calc_poisson.py --home 2.50 --draw 3.40 --away 2.80 --o25 1.90 --u25 1.85 --top 5
+# Expected: λh/λa values + score Top5 table printed
 ```
 
 ## Data Notice
@@ -119,6 +122,17 @@ python scripts/tmp/output_checker.py <your-analysis.txt>   # 35 required blocks
 ## Disclaimer
 
 Research/engineering use only. Long-term EV is negative. Comply with local laws and data-source ToS.
+
+## Scope & Limitations
+
+| Item | Detail |
+|:--|:--|
+| **Primary leagues** | Premier League, La Liga, Bundesliga, Serie A, Ligue 1 + Champions League / Europa League |
+| **Other leagues** | Not calibrated — use at your own risk |
+| **Input required** | Manual plain-text odds file (Chinese lottery format) — no auto-scraping |
+| **Backtest size** | 227k league matches + 1,174 European fixtures |
+| **No guarantee** | Historical backtest results are methodology validation only, not future performance promises |
+| **Known issue** | `check_sync.py` requires the full model's AGENTS.md (not included in public release) |
 
 ---
 
@@ -162,6 +176,8 @@ Research/engineering use only. Long-term EV is negative. Comply with local laws 
 
 ## 快速开始（每一步）
 
+> **⚠️ 运行时说明**：本项目不是独立命令行工具，而是一套 **LLM as runtime** 分析流水线。Python 脚本只做确定性计算（去水/泊松/查表），规则判断与逐步推理由 LLM（Claude / GPT / 豆包等）按 `skills/` 下的 SKILL.md 执行。你需要一个支持文件读写的 LLM 环境来驱动它。
+
 **第 1 步 · 环境（Python 3.10+）**
 ```bash
 python --version        # 需 3.10 或更新
@@ -198,10 +214,11 @@ python scripts/tmp/calc_all.py <你的赔率.txt> 英超 --eu 1.55,4.20,6.00 --h
 ```
 输出包含：去水概率 → 硬核 12 项 → 方向引擎 → **实时比分引擎**（多源动态融合）→ 一致性检查（锚 vs 市场 / 锚 vs 量级）→ 一份**必核清单**（LLM 必须逐项走完）。
 
-**第 6 步 · 验证环境完整**
+**第 6 步 · 验证环境**
 ```bash
-python scripts/tmp/check_sync.py                          # 238 条一致性校验
-python scripts/tmp/output_checker.py <你的分析输出.txt>     # 35 个必填块校验
+python -m compileall -q scripts/ templates/          # 语法检查
+python scripts/tmp/calc_poisson.py --home 2.50 --draw 3.40 --away 2.80 --o25 1.90 --u25 1.85 --top 5
+# 预期输出: λh/λa + 比分Top5表
 ```
 
 ## 数据说明
@@ -216,6 +233,17 @@ python scripts/tmp/output_checker.py <你的分析输出.txt>     # 35 个必填
 ## 免责声明
 
 仅供研究与工程学习。长期串关 EV 为负。请遵守当地法律法规与数据源服务条款。
+
+## 适用范围与限制
+
+| 项目 | 说明 |
+|:--|:--|
+| **主打联赛** | 英超、西甲、德甲、意甲、法甲 + 欧冠/欧联 |
+| **其他联赛** | 未校准，自行评估风险 |
+| **输入方式** | 手动准备纯文本赔率文件（竞彩格式），不自动抓取 |
+| **回测规模** | 联赛 22.7 万场 + 欧战 1,174 场 |
+| **不保证收益** | 历史回测数字仅验证方法论，不代表未来表现 |
+| **已知问题** | `check_sync.py` 需要完整版模型的 AGENTS.md（公开版不含） |
 
 ---
 
