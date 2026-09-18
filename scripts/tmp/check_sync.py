@@ -1,5 +1,5 @@
-# ⚠️ NOTE: 本脚本是完整版模型的自检工具（需 AGENTS.md / data 等完整文件），公开版直接运行会报 FileNotFoundError —— 保留版本仅作方法论参考（238 条校验规则示例）。
 # -*- coding: utf-8 -*-
+# ⚠️ NOTE: 本脚本是完整版模型的自检工具（需 AGENTS.md / data 等完整文件），公开版直接运行会报 FileNotFoundError —— 保留版本仅作方法论参考（238 条校验规则示例）。
 """V3.5.74 更新同步校验器——每次模型修改后必须运行·全绿才完成
 检查: ①版本一致性 ②skill引用覆盖(41) ③流水线Step0-11 ④数据文件在位 ⑤双路径md5 ⑥关键铁律存在性"""
 import os, re, hashlib, re, sys, glob
