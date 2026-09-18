@@ -134,3 +134,8 @@ Research & engineering use only · Long-term EV is negative · Not betting advic
 仅供研究与工程学习 · 长期 EV 为负 · 不构成投注建议。
 
 各 API 的使用须遵守其服务条款与配额限制。
+
+
+---
+
+> ⚠️ **FOR ACADEMIC & EDUCATIONAL USE ONLY** · 仅用于学术交流与技术学习 · **严禁用于博彩/投注** · 完整法律条款: [DISCLAIMER.md](../DISCLAIMER.md)

@@ -12,8 +12,15 @@
 ![Checks](https://img.shields.io/badge/Auto--Checks-238-orange)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
-> ⚠️ **Research & engineering only.** Long-term parlay EV is negative — this is **NOT betting advice**.
-> ⚠️ **仅供研究与工程学习。** 竞彩串关长期 EV 为负 —— 本项目**不构成任何投注建议**。
+> ## ⚠️ 重要声明 · IMPORTANT NOTICE
+>
+> **本项目仅用于学术交流与技术学习。严禁用于任何博彩、投注、赌博用途。不构成任何投注建议。**
+> **FOR ACADEMIC & EDUCATIONAL USE ONLY. Use for gambling/betting is strictly PROHIBITED. NOT betting advice.**
+>
+> 📄 完整法律条款（禁止用途 / 无保证声明 / 第三方权利 / 责任限制 / 使用者合规责任）：**[DISCLAIMER.md](DISCLAIMER.md)**
+> 📄 Full legal terms: **[DISCLAIMER.md](DISCLAIMER.md)**
+>
+> 作者**诚实披露**：竞彩串关长期 **EV 为负**（结构性特征，与任何模型无关）。历史回测数字**仅用于方法论验证**，不代表未来表现。
 
 </div>
 
@@ -218,5 +225,7 @@ python scripts/tmp/output_checker.py <你的分析输出.txt>     # 35 个必填
 | [`docs/architecture.md`](docs/architecture.md) | 架构与规则优先级 · Architecture & rule priorities |
 | [`docs/methodology.md`](docs/methodology.md) | 关键回测结论 · Key backtest findings |
 | [`examples/`](examples/) | 脱敏完整案例（含误判复盘）· Anonymized real case |
+| **[`DISCLAIMER.md`](DISCLAIMER.md)** | ⚠️ **法律免责声明**（学术用途 / 禁止博彩 / 无保证 / 责任限制 / 合规责任）· Legal disclaimer |
+| **[`NOTICE.md`](NOTICE.md)** | 第三方商标与数据来源归属 · Third-party trademark & data attribution |
 
 **License**: MIT · Contributions & issues welcome · 欢迎 Issue 与 PR
