@@ -3,6 +3,8 @@
 # ⚽ PitchQuant
 ### 足球赔率分析模型 · V3.5.74
 
+**Pitch**（绿茵场）× **Quant**（量化）—— 用量化研究的方式对待足球数据，但始终记得：**足球是混沌的，市场是高效的**。
+
 **LLM as runtime · Backtests as discipline**
 **把 LLM 当运行时 · 把回测当纪律**
 
