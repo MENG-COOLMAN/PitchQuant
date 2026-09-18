@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+jobs:
+  syntax-and-tables:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 全部脚本语法编译
+        run: python -m compileall -q scripts/ templates/ || (echo "语法错误" && exit 1)
+
+      - name: 蒸馏表 JSON 完整性（可解析 + 非空）
+        run: |
+          python - <<'EOF'
+          import json, glob, sys
+          files = sorted(glob.glob('tables/*.json'))
+          assert files, 'tables/ 目录为空'
+          for f in files:
+              d = json.load(open(f, encoding='utf-8'))
+              assert d, f'{f} 内容为空'
+              print(f'OK {f} ({len(d)} 顶层键)')
+          print(f'共 {len(files)} 个表通过校验')
+          EOF
+
+      - name: 密钥残留扫描（防误提交）
+        run: |
+          if grep -rIlE "(api[_-]?key|apikey|secret|token)\s*[:=]\s*['\"][A-Za-z0-9]{16,}['\"]" . \
+               --include='*.py' --include='*.md' --include='*.json' --include='*.toml' 2>/dev/null; then
+            echo "🔴 疑似硬编码密钥，请改为环境变量"; exit 1
+          else
+            echo "✅ 未发现硬编码密钥"
+          fi

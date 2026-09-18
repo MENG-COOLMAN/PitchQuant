@@ -1,0 +1,35 @@
+# ---- Python 缓存 ----
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.venv/
+venv/
+env/
+
+# ---- 密钥与私密配置（绝不提交）----
+.env
+.env.*
+!.env.example
+*.key
+secrets.json
+reasonix.toml
+
+# ---- 原始数据（体积大 / 来源条款限制）----
+*.sql
+Matches.csv
+data/europe/
+data/case-library/raw/
+data/backups/
+
+# ---- 运行产物 ----
+*.log
+state/
+prediction_log*
+gate_status.json
+*.tmp
+
+# ---- 系统 ----
+.DS_Store
+Thumbs.db
+desktop.ini
