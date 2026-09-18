@@ -209,6 +209,7 @@ python scripts/tmp/output_checker.py <你的分析输出.txt>     # 35 个必填
 | `tables/*.json`（蒸馏表） | ✅ 已包含 | 本项目回测产物，可自由使用 |
 | 22.7 万场原始 CSV / SQL / 欧战库 | ❌ 未包含 | 体积 + 数据来源条款 |
 | API keys | ❌ 绝不含 | 一律走环境变量 |
+| **竞彩赔率（输入数据）** | — | 取自 **中国体育彩票官方网站**（<https://www.lottery.gov.cn/jc/index.html>）**每日公开数据**（使用者自行抄录 · 本项目不内置）· 详见 [DISCLAIMER.md](DISCLAIMER.md) §4.5 |
 
 ## 免责声明
 

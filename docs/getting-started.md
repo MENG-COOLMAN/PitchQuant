@@ -41,6 +41,8 @@ python scripts/tmp/check_sync.py
 
 ## 2. 输入格式详解 · Input Format 🔴
 
+**数据来源**：竞彩赔率取自 **中国体育彩票官方网站**（<https://www.lottery.gov.cn/jc/index.html>）的**每日公开数据** —— 赛前多次抄录同场赛事即可形成"变动序列"。本项目**仅作研究引用**（不涉及非授权获取、不进行再分发），详见 [DISCLAIMER.md](../DISCLAIMER.md) §4.5。
+
 模型的输入 = **一个纯文本赔率文件**（竞彩赔率变动序列）。最小可用格式：
 
 ```
