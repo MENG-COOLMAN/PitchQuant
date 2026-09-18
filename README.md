@@ -4,6 +4,9 @@
 
 ### 足球赔率分析模型 · Public Release v1.0 ｜ Core Model V3.5.74
 
+> ### 🎯 A football-odds pipeline where the LLM **executes** a 238-check auditable workflow — and every weight is **earned from 227k-match backtests**.
+> ### 🎯 一条由 **238 道校验**锁定的 LLM 分析流水线 —— 每一个权重都来自 **22.7 万场回测**。
+
 **Pitch**（绿茵场）× **Quant**（量化）—— 用量化研究的方式对待足球数据，但始终记得：**足球是混沌的，市场是高效的**。
 
 **LLM as runtime · Backtests as discipline**
@@ -46,6 +49,20 @@ PitchQuant:    Data ──▶ Scripts (math) ──▶ Checklist ──▶ LLM (
 
 The result is not a better crystal ball. It is an **auditable analysis system that is allowed to reject itself** — when our own online-learning layer failed its backtest (−14.2 pp vs baseline), we disabled it and demoted it to "logging only". Most projects only ship their successes; a system that can *falsify its own components* is the actual engineering claim here.
 
+### 📟 What the output actually looks like
+
+```
+$ python scripts/tmp/calc_poisson.py --home 2.50 --draw 3.40 --away 2.80 --o25 1.90 --u25 1.85 --top 5
+
+λh=1.34  λa=1.31      |  Direction: Home 37.6% / Draw 26.1% / Away 36.2%
+Convergence: converged  (multi-init deviation 0.00 · Dixon-Coles ρ=-0.12)
+Net-margin probs:  Home+1 19.1% · Home+2 11.0% · Home+3 6.0% · Draw 29.1% · Away+1 18.7% ...
+Over 2.5: 49.3%       |  Expected total goals: 2.65
+Score Top-5:  1:1 13.9% (main) │ 0:0 8.6% (secondary) │ 2:1 8.3% │ 1:2 8.1% │ 1:0 8.0%
+```
+
+*Real output — not a mock-up. The core is deterministic: same input ⇒ same numbers.*
+
 ## The Core Idea: LLM as Runtime, Not Oracle
 
 | Dimension | LLM-as-Oracle (common) | **PitchQuant (LLM-as-Runtime)** |
@@ -56,6 +73,15 @@ The result is not a better crystal ball. It is an **auditable analysis system th
 | Auditability | None | **Every analysis archived** with 8 sections + evidence trail |
 | Failure mode | Silent hallucination | **Compile-time failure** (238 automated checks) |
 | Self-correction | Rare | **Built-in falsification gates** (backtest + significance + rollback) |
+
+### 🧰 Tech Stack & Keywords
+
+| Area | Technologies / terms |
+|:--|:--|
+| **Statistics** | **Poisson distribution** modelling · **Dixon-Coles** low-score correction (ρ=−0.12) · **de-vigging** (proportional + calibration-table) · **Kelly criterion** · **time-split backtesting** · probability calibration curves |
+| **Markets** | **Asian handicap** (spread + water level) · Over/Under totals · correct-score (CS) matrices · BTTS · half-time/full-time · **odds-movement morphology** (drift pattern classification) |
+| **Engineering** | deterministic Python core · **LLM orchestration** (runtime, not oracle) · script-generated checklists · **238 automated consistency checks** · anti-overfitting gates · tri-state evidence tagging · reproducible archives |
+| **Data sources** | odds-api (European markets) · api-football (official predictions / injuries) · ClubElo (ELO) · Understat (xG) · Chinese Sports Lottery official public odds |
 
 ## What Makes It Different
 
@@ -237,6 +263,20 @@ PitchQuant: 数据 ──▶ 脚本(算) ──▶ 必核清单 ──▶ 大模
 
 它给出的不是更好的水晶球，而是一套**可审计、且允许自我否决的分析系统**——当我们的在线学习层没有通过回测（较基准 −14.2 个百分点）时，**我们把它关掉了**，降级为"仅记录"。多数项目只展示成功；**一个能证伪自己组件的系统**，才是这里真正的工程主张。
 
+### 📟 实际输出长什么样
+
+```
+$ python scripts/tmp/calc_poisson.py --home 2.50 --draw 3.40 --away 2.80 --o25 1.90 --u25 1.85 --top 5
+
+λh=1.34  λa=1.31      |  方向: 主 37.6% / 平 26.1% / 客 36.2%
+收敛状态: converged    （多初始值偏差 0.00 · Dixon-Coles ρ=-0.12）
+净胜档概率: 主胜1球 19.1% · 主胜2球 11.0% · 主胜3+球 6.0% · 平局 29.1% · 客胜1球 18.7% …
+大球 O2.5: 49.3%      |  总进球期望: 2.65
+比分 Top5:  1:1 13.9%（主锚）│ 0:0 8.6%（次锚）│ 2:1 8.3% │ 1:2 8.1% │ 1:0 8.0%
+```
+
+*这是真实输出（非示意图）。内核是确定性的：同输入 ⇒ 同数字。*
+
 ## 核心理念：把 LLM 当运行时，而不是预言机
 
 | 维度 | LLM 即预言机（常见） | **PitchQuant（LLM 即运行时）** |
@@ -247,6 +287,15 @@ PitchQuant: 数据 ──▶ 脚本(算) ──▶ 必核清单 ──▶ 大模
 | 可审计性 | 无 | **每场分析全量存档**（八节 + 证据链） |
 | 失效模式 | 静默幻觉 | **编译期失败**（238 条自动校验） |
 | 自我修正 | 罕见 | **内建证伪门禁**（回测 + 显著性 + 自动回滚） |
+
+### 🧰 技术栈与关键词
+
+| 领域 | 技术 / 术语 |
+|:--|:--|
+| **统计学** | **泊松分布**建模 · **Dixon-Coles** 低比分修正（ρ=−0.12）· **去水**（等比例 + 校准表）· **凯利公式** · **时间分割回测** · 概率校准曲线 |
+| **盘口市场** | **亚盘让球/水位** · 大小球 · 比分盘矩阵 · BTTS · 半全场 · **赔率变动形态学**（漂移形态分类） |
+| **工程** | 确定性 Python 内核 · **LLM 编排**（运行时而非预言机）· 脚本生成必核清单 · **238 条自动一致性校验** · 防过拟合门禁 · 三态证据标注 · 可复现存档 |
+| **数据源** | odds-api（欧盘）· api-football（官方概率/伤停）· ClubElo（ELO）· Understat（xG）· 中国体育彩票官方公开赔率 |
 
 ## 核心优势（为什么值得一读）
 
@@ -426,6 +475,12 @@ PitchQuant/
 | **[`NOTICE.md`](NOTICE.md)** | 第三方商标与数据来源归属 · Third-party trademark & data attribution |
 
 **License**: MIT · Contributions & issues welcome · 欢迎 Issue 与 PR
+
+---
+
+## ⭐ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=MENG-COOLMAN/PitchQuant&type=Date)](https://star-history.com/#MENG-COOLMAN/PitchQuant&Date)
 
 ---
 
