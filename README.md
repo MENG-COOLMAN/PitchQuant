@@ -485,6 +485,8 @@ PitchQuant/
 | [`examples/`](examples/) | 脱敏完整案例（含一次误判复盘）<br>Anonymized real case, including a mis-prediction post-mortem |
 | **[`DISCLAIMER.md`](DISCLAIMER.md)** | ⚠️ **法律免责声明**——学术用途 / 禁止博彩 / 无保证 / 责任限制<br>Legal disclaimer — academic use only, prohibitions, limitation of liability |
 | **[`NOTICE.md`](NOTICE.md)** | 第三方商标与数据来源归属<br>Third-party trademarks & data attribution |
+| **[`CHANGELOG.md`](CHANGELOG.md)** | 更新日志（版本变更与维护记录）<br>Changelog — release history & maintenance log |
+| **[`CONTRIBUTING.md`](CONTRIBUTING.md)** | 贡献指南（代码约定 / 法律前提）<br>Contributing guide — code conventions & legal prerequisites |
 
 **License**: MIT · Contributions & issues welcome · 欢迎 Issue 与 PR
 
