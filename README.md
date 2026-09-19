@@ -479,6 +479,19 @@ PitchQuant/
 
 ---
 
+## 💬 Contact · 交流
+
+有任何问题、想法或合作意向，欢迎邮件交流：
+
+**📧 jiekefalali@gmail.com**
+
+> 欢迎讨论：**方法论细节 · 回测复现 · 工程实践 · 数据源建议** —— 任何你感兴趣的切入点。
+> 也欢迎直接开 [Issue](https://github.com/MENG-COOLMAN/PitchQuant/issues)，公开讨论能让更多人受益。
+
+*Questions, ideas, or collaboration? Feel free to reach out: **jiekefalali@gmail.com** — or [open an issue](https://github.com/MENG-COOLMAN/PitchQuant/issues).*
+
+---
+
 ## ⭐ Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=MENG-COOLMAN/PitchQuant&type=Date)](https://star-history.com/#MENG-COOLMAN/PitchQuant&Date)
