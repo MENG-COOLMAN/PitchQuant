@@ -1,11 +1,11 @@
 ---
 name: SL-history-analyzer
-description: 历史数据查询：从6.3万场SQL缓存中提取H2H交锋+近10场战绩，补充1.10基本面
+description: 历史数据查询：从6.3 万场历史赛果缓存中提取H2H交锋+近10场战绩，补充1.10基本面
 ---
 
 # SL-history-analyzer：历史数据查询模块
 
-从 football-api.sql 的预建缓存中提取历史交锋、近期战绩。
+从 历史赛果数据库的预建缓存中提取历史交锋、近期战绩。
 
 ## 使用方式
 ```bash
@@ -18,12 +18,12 @@ python data/SL-history-analyzer.py "主队名" "客队名"
 - 客队近10场战绩
 
 ## 数据源
-`football-api.sql (path via env SQL_PATH)` → 缓存 `data/fixture_cache.json` (5.6MB)
+历史赛果库（路径经环境变量配置） → 缓存 `data/fixture_cache.json` (5.6MB)
 63,023场完场比赛，51个联赛，覆盖2022-2026赛季
 
 ## 依赖
 - 缓存文件已预建（data/fixture_cache.json）
-- 无需每次读取2.2GB SQL文件
+- 无需每次读取原始数据库文件
 
 ## 模板嵌入
 在1.10基本面数据后，调用此模块补充：
