@@ -471,6 +471,7 @@ PitchQuant/
 | [`docs/architecture.md`](docs/architecture.md) | 架构与规则优先级 · Architecture & rule priorities |
 | [`docs/methodology.md`](docs/methodology.md) | 关键回测结论 · Key backtest findings |
 | [`examples/`](examples/) | 脱敏完整案例（含误判复盘）· Anonymized real case |
+| **[`prompts/`](prompts/README.md)** | 🔴 **Prompt 规范集**（分析执行 / 完成度检验 / 结果审计 / 模型工程审计 · 四件套闭环）· LLM orchestration specs |
 | **[`DISCLAIMER.md`](DISCLAIMER.md)** | ⚠️ **法律免责声明**（学术用途 / 禁止博彩 / 无保证 / 责任限制 / 合规责任）· Legal disclaimer |
 | **[`NOTICE.md`](NOTICE.md)** | 第三方商标与数据来源归属 · Third-party trademark & data attribution |
 
