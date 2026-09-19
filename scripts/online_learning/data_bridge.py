@@ -23,12 +23,12 @@ DATA = os.path.dirname(HERE)                 # data/
 TMP = os.path.join(DATA, 'tmp')
 ROOT = os.path.dirname(DATA)
 sys.path.insert(0, HERE)
-# 🔴stdout 包装移至 __main__（被 import 时不得重复包装·防 I/O closed 错误）
+# stdout 包装移至 __main__（被 import 时不得重复包装·防 I/O closed 错误）
 ENV = dict(os.environ, PYTHONIOENCODING='utf-8')
 
 
 # ═══════════════════════════════════════════════════════════
-# 统一队名多别名映射（2026-09-14升级·161中文队名/239+英文别名）
+# 统一队名多别名映射（升级·161中文队名/239+英文别名）
 # 结构: {中文名: [英文关键词1, 英文关键词2, ...]}
 # 归一化: NFKD去组合符 + 小写 + 特殊字符替换
 # ═══════════════════════════════════════════════════════════
@@ -218,8 +218,8 @@ TEAM_ALIASES = {
     "马赛": ["Marseille", "OM", "Olympique Marseille"],
 }
 
-# 🔴2026-09-15 workbuddy修复: 补充常用**中文简称**（原表只收全称 → 中文txt用"皇马/巴萨/马竞"等简称时
-#   normalize_name 去非 ASCII 得空串 → haf/h2h/api_football/clubelo/news 五源恒失配）。
+# workbuddy修复: 补充常用**中文简称**（原表只收全称 → 中文txt用"皇马/巴萨/马竞"等简称时
+# normalize_name 去非 ASCII 得空串 → haf/h2h/api_football/clubelo/news 五源恒失配）。
 TEAM_ALIASES.update({
     # 西甲
     "皇马": ["Real Madrid", "Real Madrid CF"], "巴萨": ["Barcelona", "FC Barcelona", "Barca"],
@@ -394,7 +394,7 @@ def src_haf(home, away):
             return None
         if name in teams:
             return teams[name]
-        # 🔴2026-09-15 workbuddy修复: 中文队名先转英文关键词(别名)再与英文档案键匹配
+        # workbuddy修复: 中文队名先转英文关键词(别名)再与英文档案键匹配
         cands = [c for c in (cn_to_en_keywords(name) or []) if c] or [normalize_name(name)]
         for k, v in teams.items():
             if k == '_meta' or not isinstance(k, str):
@@ -432,7 +432,7 @@ def src_clubelo(home, away):
             nm = (it.get('name') or '').strip()
             if nm:
                 flat[nm.lower()] = it
-    # 🔴2026-09-14 升级: 使用统一多别名映射+归一化（原38条单值→164中文/395英文别名）
+    # 升级: 使用统一多别名映射+归一化（原38条单值→164中文/395英文别名）
     def _clubelo_pick(name):
         if not name:
             return None
@@ -472,7 +472,7 @@ def src_xg(home, away):
 def src_api_fb(date_str, home=None, away=None):
     """api-football: fixtures?date → 定位 → predictions/odds/injuries"""
     key = os.environ.get('API_FOOTBALL_KEY', '')
-    # 🔴2026-09-15 workbuddy 适配: 本地 key 配置（无 reasonix.toml 时的来源）
+    # workbuddy 适配: 本地 key 配置（无 reasonix.toml 时的来源）
     if not key:
         try:
             _lk = json.load(open(os.path.join(DATA, 'tmp', 'api_keys.json'), encoding='utf-8'))
@@ -481,7 +481,7 @@ def src_api_fb(date_str, home=None, away=None):
             pass
     cfg = os.path.join(ROOT, 'reasonix.toml')
     if not key and os.path.exists(cfg):
-        # 🔴2026-09-11 修复: 原宽泛正则可能取到其他插件的 key（曾取错致误判"账户暂停"）
+        # 修复: 原宽泛正则可能取到其他插件的 key（曾取错致误判"账户暂停"）
         _cfg = open(cfg, encoding='utf-8', errors='replace').read()
         _m = re.search(r'api[_-]?football[\s\S]{0,800}?([0-9a-f]{32})', _cfg, re.I)
         if not _m:
@@ -510,7 +510,7 @@ def src_api_fb(date_str, home=None, away=None):
     except Exception as e:
         return 'error', {}, 'fixtures 请求失败: %s' % str(e)[:80]
     fid = None
-    # 🔴2026-09-14 升级: 使用统一多别名映射+归一化
+    # 升级: 使用统一多别名映射+归一化
     def _api_en(n):
         if not n:
             return ""
@@ -545,7 +545,7 @@ def src_h2h(home, away):
     m = os.path.join(DATA, 'Matches.csv')
     if not os.path.exists(m):
         return 'missing', {}, 'Matches.csv 不在位'
-    # 🔴2026-09-14 升级: 使用统一多别名映射+归一化
+    # 升级: 使用统一多别名映射+归一化
     def _h2h_en(n):
         if not n:
             return None
@@ -628,8 +628,8 @@ def src_news(home, away):
 LEAGUE_SLUG = {'西甲': 'spain-laliga', 'SP1': 'spain-laliga', '英超': 'england-premier-league', 'E0': 'england-premier-league',
                '意甲': 'italy-serie-a', 'I1': 'italy-serie-a', '德甲': 'germany-bundesliga', 'D1': 'germany-bundesliga',
                '法甲': 'france-ligue-1', 'F1': 'france-ligue-1'}
-# 🔴2026-09-16 清洁: key 外部化(防硬编码/泄露)——解析优先级
-#   ① 环境变量 ODDS_API_KEY  ② data/tmp/api_keys.json 的 odds_api  ③ 内联回退(向后兼容·不破坏现网)
+# 清洁: key 外部化(防硬编码/泄露)——解析优先级
+# ① 环境变量 ODDS_API_KEY ② data/tmp/api_keys.json 的 odds_api ③ 内联回退(向后兼容·不破坏现网)
 _ODDS_API_KEY_FALLBACK = os.environ.get('ODDS_API_KEY', '')
 
 
@@ -693,9 +693,9 @@ def src_euro_odds(home, away, league=None, date_str=None):
         return 'missing', {}, '联赛未映射 slug（%s）' % league
     import urllib.request, json as _j
     def _get(url):
-        # 🔴2026-09-15 workbuddy修复: Odds-API 返回 Content-Encoding: gzip·原直接 utf-8 解码报
-        #   "'utf-8' codec can't decode byte 0x8b" → 欧盘源恒 error。现按 gzip 魔数解压。
-        # 🔴2026-09-16 修复: 改走 _open_dual(直连优先+代理回退)·原硬编码代理致无 VPN 时恒 error
+        # workbuddy修复: Odds-API 返回 Content-Encoding: gzip·原直接 utf-8 解码报
+        # "'utf-8' codec can't decode byte 0x8b" → 欧盘源恒 error。现按 gzip 魔数解压。
+        # 修复: 改走 _open_dual(直连优先+代理回退)·原硬编码代理致无 VPN 时恒 error
         import gzip as _gz
         with _open_dual(url, timeout=40) as r:
             raw = r.read()
@@ -716,15 +716,15 @@ def src_euro_odds(home, away, league=None, date_str=None):
           '拜仁': 'bayern', '曼联': 'man', '罗马': 'roma', '费内巴切': 'fenerbahce', '朗斯': 'lens',
           '莱比锡': 'leipzig', '科莫': 'como', '斯拉维亚': 'slavia', '巴黎': 'paris', '皇马': 'realmadrid', '巴萨': 'barcelona'}
     def _en(n):
-        # 🔴2026-09-15 workbuddy修复: 原仅查 37 条内联 EN 表 → 埃尔切等队失配。
-        #   改为优先用 TEAM_ALIASES 归一化(cn_to_en_keywords)·再回退内联表。
-        #   🔴返回前去空格: 事件名侧同样 replace(' ','') → 否则 'real madrid'[:5] 含空格前缀失配。
+        # workbuddy修复: 原仅查 37 条内联 EN 表 → 埃尔切等队失配。
+        # 改为优先用 TEAM_ALIASES 归一化(cn_to_en_keywords)·再回退内联表。
+        # 返回前去空格: 事件名侧同样 replace(' ','') → 否则 'real madrid'[:5] 含空格前缀失配。
         kws = cn_to_en_keywords(n or '')
         base = kws[0] if kws else EN.get(n or '', normalize_name(n or ''))
         return (base or '').replace(' ', '')
     eh, ea = _en(home), _en(away)
     fid = None
-    # 🔴2026-09-16 修复(P0): 队名未解析 → 明确归因(别赖数据源)
+    # 修复(P0): 队名未解析 → 明确归因(别赖数据源)
     if not (eh and ea):
         return 'missing', {'n_events': len(events), 'home_raw': home, 'away_raw': away}, \
                '队名未解析（txt 未取到主客队名·home=%r away=%r → 检查 txt 对阵行格式）' % (home, away)
@@ -737,8 +737,8 @@ def src_euro_odds(home, away, league=None, date_str=None):
     if not cands:
         return 'missing', {'n_events': len(events), 'home_en': eh, 'away_en': ea}, \
                '未匹配本场（%d 场待赛·队名/联赛）' % len(events)
-    # 🔴2026-09-16 修复(P0): 事件表是**整赛季**待赛(西甲 107 场) → 原「取首个同名命中」会锚到
-    #   错误轮次(同赛季主客两回合必然重名)。现按 date_str(赛程 UTC 日) 优先同日·再按时间最近取。
+    # 修复(P0): 事件表是**整赛季**待赛(西甲 107 场) → 原「取首个同名命中」会锚到
+    # 错误轮次(同赛季主客两回合必然重名)。现按 date_str(赛程 UTC 日) 优先同日·再按时间最近取。
     fid = _pick_fixture(cands, date_str)
     try:
         od = _get('https://api.odds-api.io/v3/odds?apiKey=%s&eventId=%s&bookmakers=1xbet' % (ODDS_API_KEY, fid))
@@ -768,8 +768,8 @@ def src_euro_odds(home, away, league=None, date_str=None):
 # ---------- 主接入 ----------
 def collect(txt_path, league=None, net=False, date_str=None):
     home, away, head = extract_teams(txt_path)
-    # 🔴2026-09-16 修复(P0): 赛程日期提前解析 → 供 euro_odds 选场消歧(原仅在 api_football 段
-    #   才解析 → 欧盘拿到 date_str=None → 整赛季事件表只能取首个同名 → 可能锚错轮次)
+    # 修复(P0): 赛程日期提前解析 → 供 euro_odds 选场消歧(原仅在 api_football 段
+    # 才解析 → 欧盘拿到 date_str=None → 整赛季事件表只能取首个同名 → 可能锚错轮次)
     _kick_bj, _kick_utc = extract_match_date(txt_path)
     res = {'txt_path': txt_path, 'head': head, 'home': home, 'away': away,
            'kickoff': {'beijing': _kick_bj, 'utc': _kick_utc},
@@ -840,7 +840,7 @@ def collect(txt_path, league=None, net=False, date_str=None):
         res['features']['h2h_home_win_rate'] = 0
         res['features']['h2h_avg_goals'] = 0
 
-    # HAF 汇入 features（🔴2026-09-11 修正: 真实结构=队名→联赛→主场/客场→{场均进球,胜率%,...}）
+    # HAF 汇入 features（🔴修正: 真实结构=队名→联赛→主场/客场→{场均进球,胜率%,...}）
     haf = res['sources'].get('haf') or {}
     def _haf_flat(node):
         """取该队任一联赛的主/客场档案（结构: {联赛: {'主场':{...}, '客场':{...}}}）"""
@@ -869,7 +869,7 @@ def collect(txt_path, league=None, net=False, date_str=None):
                     res['features'][_dst] = float(_a[_src])
                 except Exception:
                     pass
-    # xG 汇入（解析 understat 输出中的数值对·2026-09-11）
+    # xG 汇入（解析 understat 输出中的数值对·）
     xgd = res['sources'].get('xg') or {}
     if isinstance(xgd.get('output'), str):
         import re as _rex
@@ -893,7 +893,7 @@ def collect(txt_path, league=None, net=False, date_str=None):
             pct = pdata.get('percent') or {}
             winner = (pdata.get('winner') or {}).get('name')
             vals = [str(pct.get(k, '')).replace('%', '') for k in ('home', 'draw', 'away')]
-            # 🔴2026-09-11 修复: api 无结论时返回 33/33/33 默认值 → 不得当真实概率汇入
+            # 修复: api 无结论时返回 33/33/33 默认值 → 不得当真实概率汇入
             _is_default = vals[0] == '33' and vals[1] == '33' and vals[2] == '33'
             if not winner and _is_default:
                 res['status']['api_football']['note'] = (res['status']['api_football'].get('note') or '') +                     ' | 官方预测无结论(33/33/33默认·未汇入)'

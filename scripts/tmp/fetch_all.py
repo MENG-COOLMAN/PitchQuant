@@ -1,7 +1,7 @@
-# fetch_all.py — 外部数据源聚合拉取器（2026-09-02·步骤遗失根除·支柱B）
+# fetch_all.py — 外部数据源聚合拉取器（步骤遗失根除·支柱B）
 # 用法: python fetch_all.py --league 英超 --home 主队 --away 客队 [--event 欧盘eventId]
 # 原理: 一次尝试拉齐全部外部数据源(ELO/xG/api-football/footballcharts)·拉不到自动标"无数据(原因)"
-#       ——数据缺不缺由脚本定·不由LLM记不记得(防"没拉标缺失"·防"忘了拉")
+# ——数据缺不缺由脚本定·不由LLM记不记得(防"没拉标缺失"·防"忘了拉")
 # 现实降级: 新闻伤停(SL-news-crawl)需VPN手动·api/footballcharts需MCP·本脚本聚合可用源+三态标注
 
 import io, sys, os, subprocess, json

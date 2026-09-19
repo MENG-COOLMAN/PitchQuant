@@ -9,7 +9,7 @@ R14 v2 条件化比分量级（2026-08-25·五大联赛 43,254 场·替代死板
 import csv, json, collections
 import sys
 
-# GBK console guard (2026-09-15)
+# GBK console guard
 try:
     if hasattr(sys.stdout, 'reconfigure'):
         sys.stdout.reconfigure(encoding='utf-8')

@@ -43,10 +43,10 @@ def draw_signal_aggregator(signals, p_draw, d1_up=False):
     return (round(total,1), trigger, {'组A资金': a_score, '组B盘口': b_score, '组C基本面': c_score, '组D赛事': d_score})
 
 if __name__ == '__main__':
-    # case96 回测: 浅盘主胜防反·原4信号触发并列·去相关后应不触发
+    # 回测: 浅盘主胜防反·原4信号触发并列·去相关后应不触发
     case96 = {'S1':1,'S2':1,'S4':1,'S6':1}  # S1+S2同组A·S4+S6同组C
     print('case96 去相关:', draw_signal_aggregator(case96, 0.273))
-    # case42/44 回测: 平局信号全现·应仍触发并列
+    # /44 回测: 平局信号全现·应仍触发并列
     case42 = {'S1':1,'S2':1,'S4':1,'S6':1,'S3':1,'S9':1}
     print('case42 去相关:', draw_signal_aggregator(case42, 0.30))
     # 全覆盖

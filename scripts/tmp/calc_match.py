@@ -30,7 +30,7 @@ def parse_txt(text):
                 current = 'spf'
             elif '让球' in name:
                 current = 'rq'
-                # 🔴2026-09-04审计修复: 保留竞彩让球数/方向(标题"让球:+1"主受让1=客让1·"-1"主让1)——margin候选方向依据
+                # 审计修复: 保留竞彩让球数/方向(标题"让球:+1"主受让1=客让1·"-1"主让1)——margin候选方向依据
                 _mh = re.search(r'让球[:：]?\s*([+-]\d+(?:\.\d+)?)', name)  # 🔴2026-09-11修复: 兼容'让球-1'(无冒号·要求符号)
                 sections['_rq_handicap'] = float(_mh.group(1)) if _mh else None
             elif '总进球' in name:
@@ -58,7 +58,7 @@ def parse_txt(text):
             if current == 'bf':
                 # 比分盘两种格式:
                 # ①旧格式: 胜方比分:1:0=10.00,2:0=7.50 或 胜方比分 1:0=10.00(含"胜其它/胜其他"档)
-                # ②表头对齐格式(实际主流): 表头"发布时间,1:0,2:0,...,胜其它" + 数据行"2026-08-21 09:55:11,18.00,..."
+                # ②表头对齐格式(实际主流): 表头"发布时间,1:0,2:0,...,胜其它" + 数据行"09:55:11,18.00,..."
                 if '=' in rest and ('比分' in rest or '其他' in rest or '其它' in rest):
                     odds = {}
                     for kv in re.finditer(r'(\d+:\d+)=([\d.]+)', rest):
@@ -141,7 +141,7 @@ def main():
         vig, prob = dejuice(odds)
         print(f"\n【胜平负】末盘({ts}): {odds}")
         print(f"  去抽水率: {vig*100:.2f}% → 隐含: 主{prob.get('胜',0)*100:.1f}%/平{prob.get('平',0)*100:.1f}%/客{prob.get('负',0)*100:.1f}%")
-        # 🔴2026-08-29评审固化·P0-1: 校准后概率（prob_calibration.json·热门低估偏差·禁仅等比例去水）
+        # 评审固化·P0-1: 校准后概率（prob_calibration.json·热门低估偏差·禁仅等比例去水）
         try:
             calib = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'prob_calibration.json'), encoding='utf-8'))
             ph = prob.get('胜', 0)
@@ -152,18 +152,18 @@ def main():
             print(f"  🔴校准后主胜概率(P0-1): {ph*100:.1f}% + {adj*100:+.1f}pp = {(ph+adj)*100:.1f}% (prob_calibration.json·热门低估·用于凯利/λ反推)")
         except Exception:
             print(f"  🔴提示: 等比例去抽水未校准「赔率理解修正」(深盘热门隐含55-85%实际命中率+2.4~3.3pp·市场低估热门)·方向判定以联赛档位实际概率为主·隐含仅作资金流/背离参考")
-        # 方向差距分级（最大两方向差距）+ 🔴skew精确计算(2026-08-24·模型手算易错·case72教训: 43.2/31.6=137%温和共识非无共识)
+        # 方向差距分级（最大两方向差距）+ 🔴skew精确计算
         probs_sorted = sorted(prob.values(), reverse=True)
         if len(probs_sorted) >= 2:
             gap = (probs_sorted[0] - probs_sorted[1]) * 100
             level = '明确区(>15pt)' if gap > 15 else ('倾向区(10-15pt)' if gap >= 10 else ('微弱区(5-10pt)' if gap >= 5 else '均衡区(<5pt)'))
             top2 = sorted(prob.items(), key=lambda x: -x[1])[:2]
             print(f"  方向差距(前两方向): {gap:.1f}pt ({top2[0][0]}vs{top2[1][0]}) → {level}")
-            # 🔴skew = 最高隐含/次高隐含(精确·禁手算): <100%无共识/100-150%温和/150-200%高/≥200%极端
+            # skew = 最高隐含/次高隐含(精确·禁手算): <100%无共识/100-150%温和/150-200%高/≥200%极端
             skew = probs_sorted[0] / probs_sorted[1] * 100
             sklvl = '无共识(<100%)' if skew < 100 else ('温和共识(100-150%)' if skew < 150 else ('高共识(150-200%)' if skew < 200 else '极端(≥200%)'))
             print(f"  🔴skew精确计算: {probs_sorted[0]*100:.1f}/{probs_sorted[1]*100:.1f} = {skew:.0f}% → {sklvl} (修正32判定依据·禁手算)")
-            # 🔴弱共识场平局并列铁律（2026-09-13·22.7万场回测: skew<150%→市场首选仅36.4-43.0%≈随机）
+            # 弱共识场平局并列铁律（22.7万场回测: skew<150%→市场首选仅36.4-43.0%≈随机）
             if skew < 150:
                 print(f"  🔴🔴弱共识场(skew={skew:.1f}%<150%) → 市场首选方向命中率仅 36.4-43.0%(≈随机) → "
                       f"**平局必须与市场首选并列（禁单押市场首选）**·置信度按原档降1档")
@@ -172,7 +172,7 @@ def main():
         # 凯利
         k = kelly(odds, prob)
         print(f"  凯利指数(单源·恒<1·仅相对排序): " + " ".join(f"{kk}={vv:.3f}" for kk, vv in k.items()) + " 🔴单源凯利=1/Σ(1/o) 恒<1 无价值判断·有效凯利需跨市场(竞彩赔率×欧盘概率)")
-        # 反抽水（欧盘抽水基准·🔴2026-08-23修复: 原固定3.1%错误→16联赛查表(与SL-jc-reverse基准表一致·Matches.csv 10万+场)·缺省6.9%）
+        # 反抽水（欧盘抽水基准·🔴修复: 原固定3.1%错误→16联赛查表(与SL-jc-reverse基准表一致·Matches.csv 10万+场)·缺省6.9%）
         LEAGUE_VIG = {'epl':0.0561,'championship':0.0652,'league1':0.0685,'league2':0.0667,
                       'bundesliga':0.0689,'bundesliga2':0.0784,'seriea':0.0675,'laliga':0.0684,
                       'ligue1':0.0710,'eredivisie':0.0799,'portugal':0.0814,'finland':0.0703,
@@ -205,7 +205,7 @@ def main():
     if 'zjq' in secs and secs['zjq']:
         ts, odds = secs['zjq'][-1]
         vig, prob = dejuice(odds)
-        # 2026-08-31 fix: key with '球' char (0球/7+球) -> normalize
+        # fix: key with '球' char (0球/7+球) -> normalize
         prob = {k.replace('球', ''): v for k, v in prob.items()}
         keys = sorted([k for k in prob if re.match(r'^\d+(\+?)$', k)], key=lambda x: int(x.rstrip('+')))
         print(f"\n【总进球】末盘({ts}): {odds}")
@@ -222,7 +222,7 @@ def main():
         print(f"  O2.5 ≈ {1/o25:.2f} (over {o25*100:.0f}%)" if o25 > 0 else "  O2.5 极端")
         o35 = 1 - p3
         print(f"  O3.5 ≈ {1/o35:.2f} (over {o35*100:.0f}%)" if o35 > 0 else "  O3.5 极端")
-        # 🔴2026-09-06: 竞彩总进球赔率反推增强(goal_odds_analyzer·方案阈值优化版)——大小球五级倾向+比分量级
+        # 竞彩总进球赔率反推增强(goal_odds_analyzer·方案阈值优化版)——大小球五级倾向+比分量级
         try:
             sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
             from goal_odds_analyzer import analyze_goal_odds
@@ -293,7 +293,7 @@ def main():
                     chg = (odds[k] - first_odds[k]) / first_odds[k] * 100
                     print(f"    {k}: {first_odds[k]}→{odds[k]} ({chg:+.1f}% {'流入' if chg < 0 else '流出'})")
 
-    # 🔴扩展模块（2026-08-24·防手算: D1背离/修正53预计算/V5跨市场·--eu 参数）
+    # 扩展模块（防手算: D1背离/修正53预计算/V5跨市场·--eu 参数）
     eu_odds = None
     if '--eu' in sys.argv:
         try:
@@ -308,7 +308,7 @@ def main():
     print("提示: 模型消费以上结果做【判断】——资金流方向/诱阻识别/信号聚合/主锚次锚·计算不占推理")
 
 
-# ============ 扩展模块（2026-08-24·防手算错误·结构性机制） ============
+# ============ 扩展模块（防手算错误·结构性机制） ============
 
 def parse_features(text):
     """解析【特征分析】段 → {交锋平数, 主队近10平率, 客队客场平率, 主队近10战绩, 客队客场战绩}"""
@@ -383,7 +383,7 @@ def x53_predict(sections, feat):
         s6 = f"⚠️(交锋{feat['交锋平数']}平·位置不确定·观察)"
     # S7: 两回合首回合（非欧战=0）
     s7 = '✗(非两回合)'
-    # 🔴2026-08-29评审固化·P0-2: 分组去相关（组A资金/S1+S2+S8·组B盘口/S9-S11·组C基本面/S4+S6+S12·组D赛事/S3+S7·组内最多计1/1.5分·禁重复计数）
+    # 评审固化·P0-2: 分组去相关（组A资金/S1+S2+S8·组B盘口/S9-S11·组C基本面/S4+S6+S12·组D赛事/S3+S7·组内最多计1/1.5分·禁重复计数）
     try:
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
         from draw_signal_aggregator import draw_signal_aggregator
@@ -417,8 +417,8 @@ def margin_candidates_pool(sections):
         return "  [netmargin] 无亚盘数据->[0]平局档保守"
     seq = sections['rq']
     last = seq[-1][1] if isinstance(seq[-1], tuple) else seq[-1]
-    # 🔴2026-09-04审计修复(客让场方向缺陷·case129/130/131三现): 优先用标题让球数(符号=主队视角: -1主让1/+1客让1)
-    #  原逻辑从让球盘赔率取数恒取负(abs·当主让)→客让场必输出主胜候选(如皇马客让场出4:0/5:0)·已废弃
+    # 审计修复(客让场方向缺陷·/130/131三现): 优先用标题让球数(符号=主队视角: -1主让1/+1客让1)
+    # 原逻辑从让球盘赔率取数恒取负(abs·当主让)→客让场必输出主胜候选(如皇马客让场出4:0/5:0)·已废弃
     hs = sections.get('_rq_handicap')
     if hs is None:  # 无标题让球数(非标txt)·降级旧逻辑但修正: 取让球盘行数字仅当无'+/-'标题时
         hs = None
@@ -544,7 +544,7 @@ def run_extensions(sections, feat, eu_odds=None):
         vig, prob = dejuice(odds)
         out.append(x53_predict(sections, feat))
         out.append(v5_divergence(prob, eu_odds))
-    # 🔴2026-09-02结构性根除: 接入孤儿函数(防步骤遗失·曾main未调用)
+    # 结构性根除: 接入孤儿函数(防步骤遗失·曾main未调用)
     out.append('')
     out.append('🔴净胜档多档候选(margin_candidates_pool):')
     out.append(margin_candidates_pool(sections))

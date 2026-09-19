@@ -64,7 +64,7 @@ def extract(txt_path):
     # 联赛
     league = '?'
     head = s.split('\n')[0]
-    # 🔴2026-09-16 修复(P0): 前 5 行文本块 —— 两行式 txt 的联赛/队名可能落在第 2 行
+    # 修复(P0): 前 5 行文本块 —— 两行式 txt 的联赛/队名可能落在第 2 行
     head_block = '\n'.join(s.split('\n')[:5])
     detail['league_raw'] = head[:60]
     for kw in ('欧冠', '欧联', '欧协联', '英超', '西甲', '意甲', '德甲', '法甲', '英冠', '日职'):
@@ -141,7 +141,7 @@ def extract(txt_path):
         'is_top5': 1 if league in ('E0', 'SP1', 'I1', 'D1', 'F1', '英超', '西甲', '意甲', '德甲', '法甲') else 0,
         'is_europe': 1 if league in ('欧冠', '欧联', '欧协联') else 0,
         'elo_diff': 0, 'handicap_layer': _layer(handi),
-        # B. 半全场/比分盘/总进球衍生（2026-09-11 增强·零成本·原丢弃在 detail）
+        # B. 半全场/比分盘/总进球衍生（增强·零成本·原丢弃在 detail）
         'bqc_half_home_prob': _bqc_half_prob(bq, 'home'),
         'bqc_half_draw_prob': _bqc_half_prob(bq, 'draw'),
         'bqc_half_away_prob': _bqc_half_prob(bq, 'away'),
@@ -161,8 +161,8 @@ def extract(txt_path):
         'home_attack_strength': round(stats.get('home_avg_goals', 0) / 1.35, 3) if stats.get('home_avg_goals') else 0,
         'away_defense_vuln': round(stats.get('away_avg_conceded', 0) / 1.35, 3) if stats.get('away_avg_conceded') else 0,
     }
-    # C3. 近期攻防回退（2026-09-16·优化1·Matches.csv 近 N 场实战均值）
-    #     txt 缺「场均进/失」行时回退填充 6 特征·来源标注进 detail（三态: txt/matches_csv/none）
+    # C3. 近期攻防回退（优化1·Matches.csv 近 N 场实战均值）
+    # txt 缺「场均进/失」行时回退填充 6 特征·来源标注进 detail（三态: txt/matches_csv/none）
     team_stats_source = 'txt' if stats else 'none'
     if not stats:
         home, away = _parse_teams(head_block)
@@ -283,7 +283,7 @@ def _layer(handi):
 
 if __name__ == '__main__':
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
-    # 🔴stdout 包装移至 __main__（被 import 时不得重复包装·防 I/O closed 错误）
+    # stdout 包装移至 __main__（被 import 时不得重复包装·防 I/O closed 错误）
     if len(sys.argv) < 2:
         print(__doc__); sys.exit(0)
     f, d = extract(sys.argv[1])

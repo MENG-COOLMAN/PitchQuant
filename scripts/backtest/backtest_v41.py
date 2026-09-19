@@ -1,6 +1,6 @@
 import csv
 
-# V3.5.40 vs V3.5.41 对比回测
+# vs 对比回测
 OUT = {
     'total': [0, 0],
     'v40_high': [0, 0],  # V3.5.40 high confidence
@@ -106,7 +106,7 @@ with open('data/Matches.csv', 'r', encoding='utf-8', errors='ignore') as f:
             except:
                 pass
 
-        # V3.5.40 confidence
+        # confidence
         v40_conf = 'mid'
         if is_deep or is_extreme or max_deep_sig:
             v40_conf = 'high'
@@ -118,7 +118,7 @@ with open('data/Matches.csv', 'r', encoding='utf-8', errors='ignore') as f:
         OUT['v40_' + v40_conf][0] += 1
         OUT['v40_' + v40_conf][1] += int(correct)
 
-        # V3.5.41 confidence (adds ELO)
+        # confidence (adds ELO)
         v41_conf = v40_conf
         if elo_ok:
             if v41_conf == 'mid':

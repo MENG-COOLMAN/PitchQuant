@@ -21,7 +21,7 @@ from collections import Counter
 conf = Counter(r[idx['置信度层']] for r in done if r[idx['置信度层']])
 print('置信度层分布:', dict(conf))
 
-# ========= 分锚比分口径(P0-3·V3.5.74) =========
+# ========= 分锚比分口径(P0-3·) =========
 print()
 print('======== 分锚比分口径(P0-3·V3.5.74) ========')
 try:

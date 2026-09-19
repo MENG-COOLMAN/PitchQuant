@@ -23,7 +23,7 @@ def extract_1x2(path):
     series = []
     for line in block.strip().split('\n'):
         line = line.lstrip('- ').strip()
-        # 格式A: 胜1.74 平3.35 负3.90  / 格式B: 主3.85 平3.02 客1.86
+        # 格式A: 胜1.74 平3.35 负3.90 / 格式B: 主3.85 平3.02 客1.86
         mm = re.match(r'.*?(?:主|胜)([\d.]+)[↑↓]?\s*平([\d.]+)[↑↓]?\s*(?:客|负)([\d.]+)', line)
         if mm:
             series.append((float(mm.group(1)), float(mm.group(2)), float(mm.group(3))))

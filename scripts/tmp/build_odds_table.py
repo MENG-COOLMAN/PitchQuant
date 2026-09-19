@@ -6,7 +6,7 @@
 """
 import csv, json, sys
 
-# GBK console guard (2026-09-15)
+# GBK console guard
 try:
     if hasattr(sys.stdout, 'reconfigure'):
         sys.stdout.reconfigure(encoding='utf-8')

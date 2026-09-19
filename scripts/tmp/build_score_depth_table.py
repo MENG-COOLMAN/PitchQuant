@@ -40,7 +40,7 @@ with open('data/Matches.csv', encoding='utf-8-sig') as f:
         rows.append((int(gh+0.1), int(ga+0.1), oh, od, oa, ov, r[idx['Division']].strip()))
 
 cell = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))
-# 🔴D2(2026-08-29): 平局档加 OddDraw 3 档子维度(<3.0/3.0-3.5/>3.5·验证0:0差10.4pp显著)
+# D2: 平局档加 OddDraw 3 档子维度(<3.0/3.0-3.5/>3.5·验证0:0差10.4pp显著)
 dcell = defaultdict(lambda: defaultdict(lambda: defaultdict(int)))  # [sbin][dbin][score]
 wcell = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: defaultdict(int))))  # [bucket][wbin][sbin][score]·D1
 def dbin(od):

@@ -20,12 +20,12 @@ def check_case(cid):
     for p in raws:
         t = open(p, encoding='utf-8').read()
         need = ['## 一、竞彩全文', '## 二、欧盘', '## 三、场景', '## 四、基本面', '## 五、结论', '## 六、硬核层12项', '## 七、xG深度判定']
-        # 🔴2026-09-11 新增(case159起): raw 须含「学习成果/融合判定」留痕（闭环可审计）
+        # 新增(case159起): raw 须含「学习成果/融合判定」留痕（闭环可审计）
         _learn_trace = False
         _cidi = int(cid) if str(cid).isdigit() else 0
         if _cidi < 97:
-            # 🔴2026-09-13 旧格式兼容（模板固化前 case65-96·用户选择）: 节标题变体 + 六/七节不强制
-            #   旧格式实例: '## 五、模型结论' / '## 三、API数据'(代替场景) / 无六、七节(模板后加)
+            # 旧格式兼容（模板固化前 -96·用户选择）: 节标题变体 + 六/七节不强制
+            # 旧格式实例: '## 五、模型结论' / '## 三、API数据'(代替场景) / 无六、七节(模板后加)
             _legacy_need = [('一、竞彩', ('竞彩',)), ('二、欧盘', ('欧盘', 'Odds-API')),
                             ('三、场景/API数据', ('场景', 'API数据')), ('四、基本面', ('基本面',)),
                             ('五、结论', ('结论',))]
@@ -36,18 +36,18 @@ def check_case(cid):
             for n in need:
                 if n not in t:
                     issues.append(f'case{cid} ({os.path.basename(p)}): 缺节 [{n}]')
-        # 🔴2026-09-13 新增(审计P1): raw 须含市场源/锚-量级一致性留痕
+        # 新增(raw 须含市场源/锚-量级一致性留痕
         _new_rules = ['市场', '量级']
-        # 🔴2026-09-13: 三类新规则留痕仅对 case168 起强制（历史 raw 不回溯·防噪音·既定策略）
+        # 三类新规则留痕仅对 起强制（历史 raw 不回溯·防噪音·既定策略）
         _cidi = int(cid) if str(cid).isdigit() else 0
         if _cidi >= 168 and not any(k in t for k in ('市场源', '市场净胜', 'market')):
             issues.append(f'case{cid}: raw 缺【市场源/市场净胜档】留痕(2026-09-13起)')
         if _cidi >= 168 and not any(k in t for k in ('锚-量级', '量级一致', '量级矛盾')):
             issues.append(f'case{cid}: raw 缺【锚-量级一致性】留痕(2026-09-13起)')
-        # 🔴2026-09-13 新增(用户要求"锚定一定要与市场信号一致"): raw 须含锚-市场一致性留痕
+        # 新增(用户要求"锚定一定要与市场信号一致"): raw 须含锚-市场一致性留痕
         if _cidi >= 168 and not any(k in t for k in ('锚-市场', '市场一致性', 'market_anchor')):
             issues.append(f'case{cid}: raw 缺【锚-市场一致性】留痕(2026-09-13起·用户要求)')
-        # 🔴2026-09-19 审计修复(P1-1/2/3·case188审计): raw 第八节「执行留痕」六子块校验(case189+强制) — 治「审计看不到=判未执行」: 对话输出做了但 raw 没写 → 审计误判未执行
+        # 审计修复(P1-1/2/3·case188审计): raw 第八节「执行留痕」六子块校验(+强制) — 治「审计看不到=判未执行」: 对话输出做了但 raw 没写 → 审计误判未执行
         if _cidi >= 189:
             if ('## 八' not in t) and ('八、执行留痕' not in t) and ('执行留痕' not in t):
                 issues.append(f'case{cid}: raw 缺第八节「执行留痕」标题(## 八、执行留痕·2026-09-19起)')
@@ -92,7 +92,7 @@ def main():
         print('❌ 问题:')
         for i in all_issues: print(' ', i)
         sys.exit(1)
-    # 🔴case159起: 学习成果/融合判定留痕校验（2026-09-11·闭环审计）
+    # case159起: 学习成果/融合判定留痕校验（闭环审计）
     import re as _re2, os as _os2
     _miss_trace = []
     for _f in _os2.listdir('data/case-library/raw'):

@@ -24,7 +24,7 @@ WATER = load('water_table.json')
 ODDS = load('odds_table.json')
 LG_CODE = {'E0':'英超','SP1':'西甲','D1':'德甲','I1':'意甲','F1':'法甲','EC':'欧战/资格赛'}
 
-# 🔴联赛归一化（2026-09-15 审计 P1 修复）—— 原 R 判定全依赖 a.div 精确匹配代码，
+# 联赛归一化（审计 P1 修复）—— 原 R 判定全依赖 a.div 精确匹配代码，
 # 传 epl/laliga/中文名 等写法时 R1(超深盘档)/R4(意甲升权)/R10(欧战降档)/R16-R18(机制层) 全部静默失效。
 _LG_TO_CODE = {
     '英超': 'E0', '西甲': 'SP1', '意甲': 'I1', '德甲': 'D1', '法甲': 'F1',
@@ -92,7 +92,7 @@ def main():
             emit(1, '触发', '超深盘<1.30 资格赛/小联赛 → 最高MID+平局升权(R1·平局爆冷37.5%)', f'主{min_oh}/客{min_oa}')
     else:
         emit(1, '不触发', '无超深盘(<1.30)')
-    # 🔴R7/R8 欧盘口径(Matches.csv回测·正确单一来源·竞彩抽水12.8%会使档位偏移)
+    # R7/R8 欧盘口径(Matches.csv回测·正确单一来源·竞彩抽水12.8%会使档位偏移)
     for side, o in [('主', min_oh), ('客', min_oa)]:
         if o and 1.80 <= o < 2.10:
             emit(7, f'触发({side}胜1.80-2.10·欧盘口径)', '中深盘→强制MID-LOW(命中49.1%≈随机·需额外信号才MID)', str(o))
@@ -178,7 +178,7 @@ def main():
         emit(6, '触发', f'欧盘CS最低平局比分{a.cs_draw}<4.5→平局信号S8+1(case68 0:0 4.17被忽略教训)', str(a.cs_draw))
     if a.o25 and a.o25 < 1.7:
         emit(9, '触发', '大球强(O25<1.7)→主锚总进球≥3硬约束(大球率66%+)', str(a.o25))
-    # ── 🔴净胜双出口硬约束（Step7·2026-08-27固化·case84/87/88执行不足教训·2026-08-28修正: 次锚覆盖净3+档·具体比分按大球深度精准判定非固定3:0/4:0）──
+    # ── 🔴净胜双出口硬约束（Step7·固化·/87/88执行不足教训·修正: 次锚覆盖净3+档·具体比分按大球深度精准判定非固定3:0/4:0）──
     if a.oh and a.oh < 1.5:
         if a.o25 and a.o25 < 1.7:
             emit('净胜双出口', '🔴数据驱动', f'深盘主{a.oh}<1.5+大球强(O25<1.7)→净3+=39%·🔴2026-08-29修正: 按档位数据覆盖(主胜3档次锚=4:1自然覆盖·主胜2球第三候选4:2=10.5%不强制升次锚·3:1=36.2%更高·主胜4+次锚5:0/5:1)·调score_depth_lookup查表+calc_poisson融合·废除一刀切强制·禁只锚净1/2', f'oh={a.oh} o25={a.o25}')
@@ -190,7 +190,7 @@ def main():
     print('── 提示: calc_poisson.py 数值主模型须同步调用(主锚Top1/次锚Top2) + R3净胜出口 + score_depth_table查表+泊松融合(tie-break) ──')
 
 
-# ── 🔴比分深度查表（2026-08-29·score_depth_table.json v2.0·23万场·九档位×5档Over25·替代粗糙score_table）──
+# ── 🔴比分深度查表（score_depth_table.json v2.0·23万场·九档位×5档Over25·替代粗糙score_table）──
 def score_depth_lookup(margin, over25, league=None, odd_draw=None, win_odd=None, table_path=None):
     if odd_draw is None: odd_draw = 3.3   # 🔴容错(2026-08-29): D0档缺odd_draw→默认3.3·防KeyError
     """输入净胜球(正=主胜负=客胜,0=平)+Over25赔率+联赛代码 → 主锚/次锚/第三+条件概率
@@ -230,7 +230,7 @@ def score_depth_lookup(margin, over25, league=None, odd_draw=None, win_odd=None,
     res = {**res_base, 'anchor': cell['anchor'], 'anchor_pct': cell['anchor_pct'],
            'second': cell['second'], 'second_pct': cell['second_pct'],
            'third': cell['third'], 'third_pct': cell['third_pct'], 'n': cell['n'], 'league_adjustment': None}
-    # F3(2026-08-29): 4+档泊松精细排序标记——主锚=查表anchor(4:0/0:4)·次锚/第三由泊松Top3排除主锚后选(4+档比分分散·查表仅定主锚·n样本有限)
+    # F3: 4+档泊松精细排序标记——主锚=查表anchor(4:0/0:4)·次锚/第三由泊松Top3排除主锚后选(4+档比分分散·查表仅定主锚·n样本有限)
     if b in ('H4+', 'A4+'):
         res['f3_poisson'] = True
         res['f3_note'] = '4+档: 主锚=查表' + str(cell['anchor']) + '·次锚/候选由calc_poisson Top3排除主锚后排序'
@@ -247,7 +247,7 @@ def score_depth_lookup(margin, over25, league=None, odd_draw=None, win_odd=None,
     return res
 
 
-# ── 🔴M1 贝叶斯融合（2026-08-29·查表^α × 泊松^β·替代启发式阈值·α=样本量·β=收敛性）──
+# ── 🔴M1 贝叶斯融合（查表^α × 泊松^β·替代启发式阈值·α=样本量·β=收敛性）──
 def fusion_score_depth(lookup_res, poisson_dist, alpha_max=1.0, beta=1.0):
     """贝叶斯融合: 后验 ∝ 查表概率^α × 泊松概率^β·归一化·输出融合Top3
     lookup_res: score_depth_lookup 输出(anchor/second/third+pct·收缩后)
@@ -273,7 +273,7 @@ def fusion_score_depth(lookup_res, poisson_dist, alpha_max=1.0, beta=1.0):
     ranked = sorted(post.items(), key=lambda x: -x[1])[:3]
     return [{'score': s, 'post_pct': round(p/tot*100, 1)} for s, p in ranked]
 
-# ── 🔴E4 跨档候选池扩展（2026-08-29·方向置信度低时跨档覆盖·防净胜档误判全失效）──
+# ── 🔴E4 跨档候选池扩展（方向置信度低时跨档覆盖·防净胜档误判全失效）──
 ADJ = {
     'H4+': [('H3', '3:0')], 'H3': [('H2', '2:0'), ('H4+', '4:0')],
     'H2': [('H1', '1:0'), ('H3', '3:0')], 'H1': [('D0', '1:1'), ('H2', '2:0')],
@@ -295,7 +295,7 @@ def expand_candidates(bucket, confidence, core_cands):
             for b3, sc3 in ADJ.get(b2, []): pool.append({'score': sc3, 'src': '跨2档'})
     return pool
 
-# ── 🔴F1 红牌率融入（2026-08-29·联赛红牌率>20%+深盘+大球强→次锚向高比分偏移一档）──
+# ── 🔴F1 红牌率融入（联赛红牌率>20%+深盘+大球强→次锚向高比分偏移一档）──
 RED_RATE = {'西甲': 29.0, '意甲': 27.0, '法甲': 23.8, '德甲': 17.3, '英超': 14.8}  # 张/100场·league_red_rate.json
 def _weight_adjust(candidates, high_bias, strength):
     """方向性权重调整(2026-08-29修正·禁机械固定偏移): 按候选总进球加权重排——
@@ -322,7 +322,7 @@ def adjust_by_red(league_cn, win_odd, over25, candidates):
         return _weight_adjust(candidates, True, 1.3), True
     return candidates, False
 
-# ── 🔴D5 球队攻防分层 + D4 半场先验（2026-08-29·融合层调整·不扩表）──
+# ── 🔴D5 球队攻防分层 + D4 半场先验（融合层调整·不扩表）──
 import os as _os, json as _json
 _TEAM_AD = None
 def _load_team_ad():
@@ -347,7 +347,7 @@ def adjust_by_team_half(team_h, team_a, half_draw_prob, candidates):
         changes.append('D4: 半场平%d%%>=45 低比分候选加权' % (half_draw_prob*100))
     return candidates, changes
 
-# ── 🔴P0-2 方向判定脚本化（2026-08-29·问题1评审·最大剩余风险·LLM仅确认）──
+# ── 🔴P0-2 方向判定脚本化（问题1评审·最大剩余风险·LLM仅确认）──
 def direction_full(oh, od, oa, over25=None, league_div=None, draw_group_score=0.0, inj_score_h=0, inj_score_a=0, handi=None, home_water=None, official_dc=None):
     """🔴V3.5.73方向判定升级(2026-09-02·用户反馈机械依赖低赔): 赔率档基础 × 亚盘盘口深度校正 × 水位意图 → 综合方向
     数据: Matches 95144场——同低赔主胜1.3-1.8·浅让0.5-0.75实际主胜56.4%(诱主·欧亚背离)vs深让1.5+74.5%(真实)·差18pp
@@ -391,7 +391,7 @@ def direction_full(oh, od, oa, over25=None, league_div=None, draw_group_score=0.
     elif main_p >= 0.52: conf = 'MID'
     elif main_p >= 0.45: conf = 'MID-LOW'
     else: conf = 'LOW'
-    # 🔴欧亚盘口深度校正(2026-09-02·95144场: 低赔1.3-1.8×浅让56.4% vs 深让74.5%·差18pp)
+    # 欧亚盘口深度校正
     trap = []
     if handi is not None and 1.3 <= oh < 1.8 and main_dir == '主胜':
         if -0.85 <= handi <= -0.45:  # 低赔但浅让0.5-0.75
@@ -401,8 +401,8 @@ def direction_full(oh, od, oa, over25=None, league_div=None, draw_group_score=0.
             trap.append(('欧亚一致: 主胜%.2f+深让%.2f(74.5%%实主)→真实·主胜可信') % (oh, -handi))
     if home_water and main_dir == '主胜' and home_water > 2.05:
         trap.append(('高水主让(%.2f): 诱主迹象·庄家收割主队筹码(低水56.1 vs 高水46.3·水位量化)') % home_water)
-    # 🔴③.5 三层校准(V3.5.74·P0修复·2026-09-07·读 league-modules/league_calibration.json·数值微调不改main_dir/conf·不反转)
-    #   联赛校准(5大联赛·主胜/平局校准pp级·校准=微调) + 欧战赛事校准(欧冠+3/欧联0/欧协联-2) + 欧战赔率档矩阵(7档·仅欧战)
+    # ③.5 三层校准(P0修复·读 league-modules/league_calibration.json·数值微调不改main_dir/conf·不反转)
+    # 联赛校准(5大联赛·主胜/平局校准pp级·校准=微调) + 欧战赛事校准(欧冠+3/欧联0/欧协联-2) + 欧战赔率档矩阵(7档·仅欧战)
     try:
         import os as _osl, json as _jsonl
         _lcf = _osl.path.join(_osl.path.dirname(_osl.path.dirname(_osl.path.abspath(__file__))), 'league-modules', 'league_calibration.json')
@@ -436,20 +436,20 @@ def direction_full(oh, od, oa, over25=None, league_div=None, draw_group_score=0.
     # 并列建议
     second_p = sorted([ph, pd, pa])[1]
     parallel = 'yes' if (second_p - (main_p - 0.15)) > 0 and draw_signal in ('parallel','sole') else 'no'
-    # 🔴执行提示(2026-08-30案例库102场首析机制化·不改变判定·仅把已固化规则执行提示确定性输出)
+    # 执行提示
     hints = []
     if main_dir == '主胜' and (oh < 1.5 or (over25 and over25 < 1.7)):
         hints.append('H3+出口: 候选池需含3:0/4:0类(净胜双出口·2026-08-27固化·案例库H3+锚定仅6%执行不足)')
     if main_dir == '客胜' and 3.0 <= od <= 3.5:
-        # 🔴O2回退(2026-09-02自查): 客胜实平23.7% < R8并列阈值28%·parallel保持'no'·仅提示防平·禁机械并列
+        # O2回退: 客胜实平23.7% < R8并列阈值28%·parallel保持'no'·仅提示防平·禁机械并列
         hints.append('客胜防平: 平赔3.0-3.5+客胜→平局参考(实平23.7%·未达R8 28%阈值·仅提示不并列·禁机械)')
-    # 🔴LOW档修正方向(2026-09-02·用户要求提高三档准确率·案例库LOW 19场实主32%非主68%):
-    #   LOW档(中盘+浅让诱主)判主基本必错→输出「修正方向: 防主胜」供LLM综合(档级校准·19场聚合+Matches浅让57%降级+用户授权·非单场机械反转)
+    # LOW档修正方向:
+    # LOW档(中盘+浅让诱主)判主基本必错→输出「修正方向: 防主胜」供LLM综合(档级校准·19场聚合+Matches浅让57%降级+用户授权·非单场机械反转)
     fix_dir = None
     if conf == 'LOW' and main_dir == '主胜' and handi is not None and -0.85 <= handi <= -0.45:
         fix_dir = '防主胜·倾向平/客(诱主LOW档·实主32%非主68%·反向参考)'
-    # 🔴中盘细分(2026-09-02·用户要求提高MID/MID-LOW档·Matches 28327场):
-    #   1.8-2.1模糊区主胜48%仍首选(禁反转)·细分价值=并列/防客提升any口径
+    # 中盘细分:
+    # 1.8-2.1模糊区主胜48%仍首选(禁反转)·细分价值=并列/防客提升any口径
     if main_dir == '主胜' and 1.8 <= oh < 2.1:
         if od < 3.2:
             hints.append(('中盘细分: 平赔%.2f<3.2→平局32%%(28327场·主48%%仍首选)·建议平局并列(any口径·R8 32%%>=28%%达标)') % od)
@@ -457,8 +457,8 @@ def direction_full(oh, od, oa, over25=None, league_div=None, draw_group_score=0.
                 parallel = 'yes'  # 平32%>=R8阈值·并列合法
         if oa < 3.5:
             hints.append(('中盘细分: 客赔%.2f<3.5→客队强(客27%%·主降46%%)·防主·客胜次选') % oa)
-    # 🔴O9小概率管理(2026-09-05·用户方法论·默认正常事件·猫腻微小冲突组合≥2才降档)
-    #   超深盘爆冷为小概率(基础<1.2档12.2%·1.35-1.5档31.7%)·不因历史爆冷常态防御·仅盘面猫腻触发提示
+    # O9小概率管理
+    # 超深盘爆冷为小概率(基础<1.2档12.2%·1.35-1.5档31.7%)·不因历史爆冷常态防御·仅盘面猫腻触发提示
     M = []
     if inj_score_h >= 15 and main_dir == '主胜':
         M.append('M1主队伤停≥15仍热门(盘面未降档·逆基本面·case129型)')
@@ -477,31 +477,31 @@ def direction_full(oh, od, oa, over25=None, league_div=None, draw_group_score=0.
         sp_note = '⚠️猫腻观察(单信号·默认正常不降档·LLM综合M4诱阻/盘面判断): ' + M[0]
     else:
         sp_note = '正常(无盘面猫腻·默认按档位正常事件判定·爆冷为小概率不常态防御·M4诱阻见分类段·M5净胜需泊松)'
-    # 🔴D规则(2026-09-07·V3.5.74数据驱动·Matches 22.75万实测复现·方案actuary分析验证):
-    #   D1两端校准(实测: 超冷ph<0.2实际+3.9pp·大热0.7-0.8 +3.7pp·超深0.85+ -1.3pp)
+    # D规则:
+    # D1两端校准(实测: 超冷ph<0.2实际+3.9pp·大热0.7-0.8 +3.7pp·超深0.85+ -1.3pp)
     if ph < 0.20: ph += 0.030
     elif 0.70 <= ph < 0.85: ph += 0.030
     elif ph >= 0.85: ph -= 0.010
     _tot = ph + pd + pa; ph, pd, pa = ph/_tot, pd/_tot, pa/_tot
-    #   D3赔率组合(实测: 主2.0×平2.5→平39.6%≈主40.9%平局追平·主2.5×平3.0→三方37.4/31.4/31.2均衡)
+    # D3赔率组合(实测: 主2.0×平2.5→平39.6%≈主40.9%平局追平·主2.5×平3.0→三方37.4/31.4/31.2均衡)
     if 1.9 <= oh <= 2.1 and 2.4 <= od <= 2.6:
         parallel = 'yes'; hints.append('D3赔率组合(主%.1f×平%.1f): 实测平39.6%%≈主40.9%%→平局并列(2026-09-07数据·n728)' % (oh, od))
     elif 2.4 <= oh <= 2.6 and 2.9 <= od <= 3.1:
         hints.append('D3赔率组合(主%.1f×平%.1f): 实测三方均衡37.4/31.4/31.2→主/平/客三方覆盖(n26086)' % (oh, od))
-    #   D5亚盘深浅(实测: 深盘让2+净胜2+合计72%%大胜可信·浅盘让0.25-0.5赢盘45.5%%防下/防平)
+    # D5亚盘深浅(实测: 深盘让2+净胜2+合计72%%大胜可信·浅盘让0.25-0.5赢盘45.5%%防下/防平)
     if handi is not None:
         if handi <= -2.0 and main_dir == '主胜':
             hints.append('D5深盘(让%.2f): 实测净胜2+概率72%%→净胜双出口/大胜可信' % abs(handi))
         elif -0.5 < handi < 0 and main_dir == '主胜':
             hints.append('D5浅盘(让%.2f): 实测赢盘45.5%%(防下盘)·平局风险升(净胜+0.4≈盘口)' % abs(handi))
-    #   D6平手/客浅高水(实测: 赢盘率43.3%%<45%%→诱上·主胜降权)
+    # D6平手/客浅高水(实测: 赢盘率43.3%%<45%%→诱上·主胜降权)
     if handi is not None and -0.3 <= handi <= 0.3 and home_water and home_water > 1.0 and main_dir == '主胜':
         hints.append('D6平手/客浅高水(%.2f): 实测赢盘率43.3%%→诱上嫌疑·主胜降权考虑' % home_water)
         if conf == 'HIGH': conf = 'MID-HIGH'
-    # 🔴P0-2置信度标签(2026-09-06·V3.5.74): LOW诱主修正=反向高命中·区分原始档
+    # P0-2置信度标签: LOW诱主修正=反向高命中·区分原始档
     conf_label = 'LOW-反向高命中(诱主修正·实非主68%)' if (conf == 'LOW' and fix_dir) else conf
-    # 🔴P1-1 MID-LOW专项(2026-09-06·V3.5.74·保守提示级·禁自动降档/强制并列——方向判定权归LLM):
-    #   MID-LOW 52.9%最弱档·模糊区默认并列参考+欧亚背离提示(仅hint·不改conf/parallel)
+    # P1-1 MID-LOW专项:
+    # MID-LOW 52.9%最弱档·模糊区默认并列参考+欧亚背离提示(仅hint·不改conf/parallel)
     if conf == 'MID-LOW':
         if handi is not None and main_dir == '主胜' and abs(ph - (0.56 if abs(handi) >= 0.5 else 0.48)) > 0.05:
             hints.append('MID-LOW欧亚背离提示: 主隐%.0f%% vs 亚盘让%.2f档期望——背离超5pp·考虑降档LOW或并列(诱盘嫌疑·LLM定)' % (ph*100, abs(handi)))
@@ -517,7 +517,7 @@ def direction_full(oh, od, oa, over25=None, league_div=None, draw_group_score=0.
 if __name__ == "__main__":
     main()
 
-# ── 🔴净胜档多档候选（2026-08-29深入评估优化·替代泊松Top1单档·2万场+26.4pp）──
+# ── 🔴净胜档多档候选（深入评估优化·替代泊松Top1单档·2万场+26.4pp）──
 MARGIN_CAND = {
     'H4+': [4, 3], 'H3': [3, 2], 'H2': [2, 1], 'H1': [1, 2, 0],
     'D0': [0, 1, -1], 'A1': [-1, 0], 'A2': [-2, -1], 'A3': [-3, -2], 'A4+': [-4, -3],
@@ -535,7 +535,7 @@ def margin_candidates(handi):
     if handi <= -0.45: return MARGIN_CAND['D0']  # 主让0.5-0.75→平局候选
     if handi <= -0.05: return MARGIN_CAND['D0']  # 主让0.25/0.1→浅让平局候选(2026-08-29修复: 原误判A1)
     if handi < 0.45: return MARGIN_CAND['D0']    # 客让0.1-0.4→浅让平局候选
-    # 🔴2026-09-15审计P0修复: 受让盘分支缺失——原 handi>=0.45 一律返回 A1(客胜1球+平)，
+    # 受让盘分支缺失——原 handi>=0.45 一律返回 A1(客胜1球+平)，
     # 致受让1.5/2/2.5等深盘净胜档严重低估(实测 Elche vs 皇马 受让2.0 误判净[-1,0]·实应客胜3-4球)
     if handi >= 2.0: return MARGIN_CAND['A4+']   # 受让2+ → 客胜3-4球(镜像 让2+ = H4+)
     if handi >= 1.6: return MARGIN_CAND['A3']    # 受让1.75 → 客胜2-3球(镜像 H3)
@@ -543,7 +543,7 @@ def margin_candidates(handi):
     if handi >= 0.85: return MARGIN_CAND['A1']   # 受让1.0 → 客胜1球+平(镜像 H1)
     return MARGIN_CAND['D0']                     # 受让0.5-0.75 → 平局候选
 
-# ── 🔴O1比分量级硬约束（2026-09-02批量回测固化·118场: 方向✅比分❌48场中50%净胜≥3·真实净3+仅6.9%锚定）──
+# ── 🔴O1比分量级硬约束（批量回测固化·118场: 方向✅比分❌48场中50%净胜≥3·真实净3+仅6.9%锚定）──
 def score_pool_with_big(po, oh, o25, top=4):
     """深盘主胜+大球强 → 候选池必含净3+比分（O1固化·替代仅执行提示）
     依据: 批量回测118场——净胜双出口规则已固化但执行不足·方向✅比分❌50%错因净≥3·
@@ -558,11 +558,11 @@ def score_pool_with_big(po, oh, o25, top=4):
     big3 = [k for k, p in po if k[0]-k[1] >= 3]
     if big3:
         inject = big3[0]
-        # 🔴注入第3参考位·不进主锚次锚(防机械锚定·尊重概率排序·不提升命中口径·仅执行提示数据化)
+        # 注入第3参考位·不进主锚次锚(防机械锚定·尊重概率排序·不提升命中口径·仅执行提示数据化)
     pool = pool[:2] + [inject] + [k for k in pool[2:] if k != inject][:top-3]
     return pool[:top]
 
-# ── 🔴总进球档查表（V3.5.74·2026-09-15升级·148397场·goal_bins_table.json·O2.5→总进球档+净3+概率+典型比分）──
+# ── 🔴总进球档查表（升级·148397场·goal_bins_table.json·O2.5→总进球档+净3+概率+典型比分）──
 _GOAL_BINS = None
 def goal_bin_probs(o25):
     """O2.5赔率→总进球档概率(0-1/2/3/4+球)+净胜3+概率+典型比分Top4·数据驱动查表(替代主观λ判断)
@@ -600,12 +600,12 @@ def goal_bin_probs(o25):
 
 
 
-# ── 🔴盘口诱阻识别模块（2026-09-02·诱阻识别文档落地·核心三函数）──
+# ── 🔴盘口诱阻识别模块（诱阻识别文档落地·核心三函数）──
 # 原则: 先分类(正常/模糊/庄家主导·70%正常不硬套) → 庄家主导才7维意图分析
 # 铁律: 只调置信度1档·永不反转L2方向·无数据指标标0不算分(防假精度)
 
 def true_handicap_calculator(elo_diff=None, home_adv=0.0, inj_h=0, inj_a=0, form_h=0, form_a=0):
-    # 🔴2026-09-07实测降权: 控制赔率后ELO残差对结果影响<1.4pp(无预测力·方案发现3复现)·本函数输出=参考信息·不参与方向/诱盘判定(诱盘判定须用离散度/水位/资金动态)
+    # 实测降权: 控制赔率后ELO残差对结果影响<1.4pp(无预测力·方案发现3复现)·本函数输出=参考信息·不参与方向/诱盘判定(诱盘判定须用离散度/水位/资金动态)
     """真实实力盘计算(文档5.4.1·线性近似): ELO差100≈0.25球 + 主客场0.25 + 伤停±0.1/缺
     输入: elo_diff=主队ELO-客队ELO(正=主强)·inj_h/a=伤停影响分(0-5)·form差
     返回: 真实实力盘(正=主让·负=主受让) + 置信度·无ELO→None"""
@@ -681,7 +681,7 @@ def handicap_intent_analyzer(cf, direction, trap_signals, fundamental_dir=None, 
     # 投票统计: 至少2条证据同向(数据可得受限·降级为2·文档3维·实际数据2-3源)
     # 降级门槛: classifier总分>=3(庄家主导确证) + 至少1条方向性诱盘信号 → 输出意图
     # (文档理想3维·实际免费数据1-2源·降级为 classifier总分3 + 信号1条)
-    # 🔴9类意图扩展(2026-09-02文档3.1/3.2补全): 诱平(平赔<3.0超买)·诱大球(大小球高开大球低水)/诱小球(低开小球低水)·阻大球(大球高水升)/阻小球
+    # 9类意图扩展: 诱平(平赔<3.0超买)·诱大球(大小球高开大球低水)/诱小球(低开小球低水)·阻大球(大球高水升)/阻小球
     if o25 is not None:
         if o25 < 1.5: votes.append(('诱大球', '大球低水强·诱大球→真实小球倾向(防守场)'))
         elif o25 > 2.2 and draw_odd and draw_odd < 3.0: votes.append(('诱小球', '小球高水+平赔低·诱小球'))
@@ -705,7 +705,7 @@ def handicap_intent_analyzer(cf, direction, trap_signals, fundamental_dir=None, 
     return {'intent_type': 'balanced', 'true_direction': direction, 'confidence': 0.0, 'dimension_votes': dict(votes), 'vote_count': len(votes),
             'reasoning': '非庄家主导或诱盘信号不足·不调整'}
 
-# ── 🔴诱阻识别辅助模块补全（2026-09-02·文档P1/P2缺失补齐·维度1-7独立函数）──
+# ── 🔴诱阻识别辅助模块补全（文档P1/P2缺失补齐·维度1-7独立函数）──
 # 全部无数据降级返回None·禁假精度
 
 def odds_anomaly_detector(odds_list, label_list=None):

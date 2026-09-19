@@ -6,7 +6,7 @@
 """
 import requests, json, sys, os, time
 
-# 🔴GBK 控制台防护(2026-09-15·防 emoji/中文在 GBK 控制台崩溃)
+# GBK 控制台防护
 try:
     if hasattr(sys.stdout, 'reconfigure'):
         sys.stdout.reconfigure(encoding='utf-8')

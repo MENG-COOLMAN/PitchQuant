@@ -33,8 +33,8 @@ def _cand_norms(team_cn):
         cands = {_norm(team_cn)}
         try:
             from data_bridge import cn_to_en_keywords
-            # 🔴二次 _norm: data_bridge.normalize_name 不去空格('real madrid')·
-            #   而 Matches.csv 侧匹配用本模块 _norm('realmadrid')·必须归一到同一标度
+            # 二次 _norm: data_bridge.normalize_name 不去空格('real madrid')·
+            # 而 Matches.csv 侧匹配用本模块 _norm('realmadrid')·必须归一到同一标度
             cands |= {_norm(c) for c in cn_to_en_keywords(team_cn) if c}
         except Exception:
             pass

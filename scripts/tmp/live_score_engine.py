@@ -206,8 +206,8 @@ def market_matrix(oh, od, oa, o25, u25=None):
     inv = {1: 1/oh, 0: 1/od, 2: 1/oa}
     t = sum(inv.values())
     p = {k: v/t for k, v in inv.items()}
-    # 总进球期望: O25→期望（🔴2026-09-13 修复: 原硬编码 2.35/2.70/2.55 非单调·低估强攻场 0.81 球
-    #   → 改由 goal_bin_probs(148397场实测档分布·2026-09-15重建) 动态反推·随表更新·兜底单调近似·详见 _o25_expect）
+    # 总进球期望: O25→期望（🔴修复: 原硬编码 2.35/2.70/2.55 非单调·低估强攻场 0.81 球
+    # → 改由 goal_bin_probs(148397场实测档分布·重建) 动态反推·随表更新·兜底单调近似·详见 _o25_expect）
     tot = _o25_expect(o25)
     # 净胜期望: 主胜≈+1.4球·客胜≈-1.4球·平≈0
     exp_net = p[1]*1.35 + p[2]*(-1.35) + p[0]*(-0.05)
@@ -540,7 +540,7 @@ def analyze_live(oh, od, oa, o25, u25=None, handi=None, cs_odds=None, bqc_odds=N
         return {'status': 'error', 'message': '泊松反推失败（赔率无效）'}
     poisson_P, lh, la = pm
     matrices = {'poisson': poisson_P}
-    # 🔴市场源（2026-09-13·用户建议+回测验证）
+    # 市场源（用户建议+回测验证）
     try:
         _mkt, _lam = market_matrix(oh, od, oa, o25, u25)
         matrices['market'] = _mkt
@@ -550,7 +550,7 @@ def analyze_live(oh, od, oa, o25, u25=None, handi=None, cs_odds=None, bqc_odds=N
     result['lambda'] = {'home': round(lh,2), 'away': round(la,2), 'total': round(lh+la,2)}
     result['sources_used'].append('poisson')
 
-    # 步骤2：CS比分盘(优先cs_deep_analyzer抽水偏差·V3.5.74审计: 原简单去水弱化CS深度·深接·退化简单)
+    # 步骤2：CS比分盘(优先cs_deep_analyzer抽水偏差·审计: 原简单去水弱化CS深度·深接·退化简单)
     cs_P, cs_vig = None, 0
     try:
         import sys as _sy2, os as _os2
@@ -605,7 +605,7 @@ def analyze_live(oh, od, oa, o25, u25=None, handi=None, cs_odds=None, bqc_odds=N
     weights = calculate_dynamic_weights(matrices, data_comp)
     result['dynamic_weights'] = weights
 
-    # 步骤5.5：16格先验表弱先验(2026-09-07·降级·🔴禁机械锚定·仅弱平滑/数据不足兜底)
+    # 步骤5.5：16格先验表弱先验
     try:
         import json as _json, os as _os
         _fp = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), 'odds_score_prior.json')
@@ -644,14 +644,14 @@ def analyze_live(oh, od, oa, o25, u25=None, handi=None, cs_odds=None, bqc_odds=N
     if final_P is None:
         return {'status': 'error', 'message': '融合失败'}
 
-    # 🔴步骤7.5：量级一致性重排（2026-09-13·用户指出"判大球却机械锚定1:1"根因修复）
-    #   问题: 融合后直接按概率排序 → CS/半场/泊松共同倾向 1:1 → 1:1 惯性主导
-    #        导致"大球判定 + 小球锚(1:1)"的逻辑不自洽（case164: 大球4+36.9% 却锚1:1·真实2:2）
-    #   修正: 按大小球判定对候选**降权重排**（不排除·只降权·保留全谱）
+    # 步骤7.5：量级一致性重排（用户指出"判大球却机械锚定1:1"根因修复）
+    # 问题: 融合后直接按概率排序 → CS/半场/泊松共同倾向 1:1 → 1:1 惯性主导
+    # 导致"大球判定 + 小球锚(1:1)"的逻辑不自洽（大球4+36.9% 却锚1:1·真实2:2）
+    # 修正: 按大小球判定对候选**降权重排**（不排除·只降权·保留全谱）
     _tot = sum(final_P.values()) or 1
     _over_p = sum(p for (h, a), p in final_P.items() if h + a >= 3) / _tot
-    # 🔴判据优先级: O25 市场直读（最可靠）→ 融合 over_p 兜底
-    #   O25<1.70=大球强 · O25>2.10=小球强（与 goalbins 分档一致）
+    # 判据优先级: O25 市场直读（最可靠）→ 融合 over_p 兜底
+    # O25<1.70=大球强 · O25>2.10=小球强（与 goalbins 分档一致）
     _mag_tag = ''
     _big = (o25 is not None and o25 < 1.70) or (o25 is None and _over_p >= 0.55)
     _small = (o25 is not None and o25 > 2.10) or (o25 is None and _over_p <= 0.42)
@@ -675,7 +675,7 @@ def analyze_live(oh, od, oa, o25, u25=None, handi=None, cs_odds=None, bqc_odds=N
 
     # 步骤8：输出Top10
     ranked = sorted(final_P.items(), key=lambda x: -x[1])[:10]
-    # 🔴量级-锚一致性告警（2026-09-13）: Top1 总进球与量级判定矛盾时显式告警
+    # 量级-锚一致性告警（）: Top1 总进球与量级判定矛盾时显式告警
     if ranked:
         _top1 = ranked[0][0]
         _g1 = sum(_top1)
@@ -691,9 +691,9 @@ def analyze_live(oh, od, oa, o25, u25=None, handi=None, cs_odds=None, bqc_odds=N
                 % (o25 or 0, _top1[0], _top1[1], _g1, ' / '.join(_small_cands) or '无'))
     result['top10'] = [{'score': f'{h}:{a}', 'prob': round(p*100,1)} for (h,a), p in ranked]
 
-    # 🔴步骤8.5：锚-市场一致性检查（2026-09-13·用户要求"模型锚定一定要与市场信号一致"·脚本级强制）
-    #   锚(主锚/次锚)须与市场信号三项一致: ①净胜档∈市场净胜期望档±1球 ②总进球方向 vs 市场大小球 ③方向 vs 亚盘
-    #   矛盾 → 以市场为准给【建议锚】（LLM 必须按建议取锚·禁机械照搬 Top1）
+    # 步骤8.5：锚-市场一致性检查（用户要求"模型锚定一定要与市场信号一致"·脚本级强制）
+    # 锚(主锚/次锚)须与市场信号三项一致: ①净胜档∈市场净胜期望档±1球 ②总进球方向 vs 市场大小球 ③方向 vs 亚盘
+    # 矛盾 → 以市场为准给【建议锚】（LLM 必须按建议取锚·禁机械照搬 Top1）
     _amc = anchor_market_check([f'{h}:{a}' for (h, a), _p in ranked], oh, od, oa,
                                o25=o25, u25=u25, handi=handi)
     result['market_anchor_check'] = _amc

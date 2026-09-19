@@ -135,7 +135,7 @@ def predict(m, features):
     out['direction_probs'] = predict_before_learn(m, features)
     try:
         g = float(m['goals'].predict_one(f) or 0)
-        # 🔴2026-09-11 修复: 线性回归未收敛会外推爆炸(实测 5e13) → 超合理范围标 None
+        # 修复: 线性回归未收敛会外推爆炸(实测 5e13) → 超合理范围标 None
         out['goals'] = round(g, 2) if 0 <= g <= 8 else None
         out['goals_note'] = '' if out['goals'] is not None else '未收敛(输出%.2g·已丢弃)' % g
     except Exception:

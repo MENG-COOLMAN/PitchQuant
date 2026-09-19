@@ -8,7 +8,7 @@ ClubElo 抓取v3(最终): 五大联赛当前 ELO（2026-27·每日更新·免费
 import re, json, os, datetime, urllib.request
 import sys
 
-# GBK console guard (2026-09-15)
+# GBK console guard
 try:
     if hasattr(sys.stdout, 'reconfigure'):
         sys.stdout.reconfigure(encoding='utf-8')

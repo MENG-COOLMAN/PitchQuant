@@ -145,7 +145,7 @@ def cbr_predict(features, top_k=15):
     errs = retrieve(features, top_k=10, errors_only=True)
     warn = None
     if errs:
-        # 🔴2026-09-12 修复: None 安全（导入案例 prediction.direction 可能为 None）
+        # 修复: None 安全（导入案例 prediction.direction 可能为 None）
         home_over = sum(1 for _, c in errs
                         if int(c.get('prediction', {}).get('direction') or -1) == 1
                         and int(c.get('actual', {}).get('direction') or -1) != 1)

@@ -10,7 +10,7 @@
 import math
 import sys
 
-# 🔴GBK 控制台防护(2026-09-15·防 emoji/中文在 GBK 控制台崩溃)
+# GBK 控制台防护
 try:
     if hasattr(sys.stdout, 'reconfigure'):
         sys.stdout.reconfigure(encoding='utf-8')
@@ -40,7 +40,7 @@ def core_features(hf, af, avg_xga):
     sum_xg = hf['xg_mean'] + af['xg_mean']
     std_xg = (hf['xg_std'] + af['xg_std']) / 2
     open_score = (hf['xg_mean'] + af['xga_mean']) + (af['xg_mean'] + hf['xga_mean'])
-    # 🔴修正版λ0（相对防守·真实数据+2.9pp）
+    # 修正版λ0（相对防守·真实数据+2.9pp）
     lh0 = hf['xg_mean'] * (af['xga_mean'] / avg_xga)
     la0 = af['xg_mean'] * (hf['xga_mean'] / avg_xga)
     return dxg, sum_xg, std_xg, open_score, lh0, la0
@@ -57,7 +57,7 @@ def five_stage(lh0, la0, res_gd, res_total, std_xg, o25_odds, k1=0.05, k2=0.3, k
     gd_new = gd0 * max(0.95, min(1.05, 1 + k1 * res_gd))
     # 步骤3: s 缩放（🔴防守联赛收紧·进攻联赛放宽·默认0.6-1.4）
     s = max(0.6, min(1.4, 1 + k2 * res_total + k3 * std_xg))
-    # 🔴工程最优方案A: 强制净胜不变·只改总量
+    # 工程最优方案A: 强制净胜不变·只改总量
     lh3 = (s * total0 + gd_new) / 2
     la3 = (s * total0 - gd_new) / 2
     return lh3, la3, gd_new, s

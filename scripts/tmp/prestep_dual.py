@@ -142,9 +142,9 @@ def evaluate(name, oh, od, oa, handi, o25, water_gap=0, league=''):
     ss, stags = score_score(oh, od, oa, handi, o25)
     anc, hit = anchor_hint(oh, od, oa, handi, o25, league)
     at, at_reason = anchor_trust(o25, handi)   # 🔴2026-09-13 锚可信度分级
-    # 🔴2026-09-12 升维: 四级分档(实测·2400场时间分割) + 方向分兼顾
-    #   比分分≥2.5: Top2 30.42%(+5.55pp·802场覆盖33%) · ≤-3: 19.57%(-5.31pp)
-    # 四档（2026-09-12 放宽·1pp标度）: ≥1.5 强推荐 / ≥0.5 推荐 / ≥-2 参考 / <-2 不可预测
+    # 升维: 四级分档(实测·2400场时间分割) + 方向分兼顾
+    # 比分分≥2.5: Top2 30.42%(+5.55pp·802场覆盖33%) · ≤-3: 19.57%(-5.31pp)
+    # 四档（放宽·1pp标度）: ≥1.5 强推荐 / ≥0.5 推荐 / ≥-2 参考 / <-2 不可预测
     if ss >= 1.5:   grade = '强推荐(比分)'
     elif ss >= 0.5: grade = '推荐(比分)'
     elif ss >= -2:  grade = '参考(比分)'

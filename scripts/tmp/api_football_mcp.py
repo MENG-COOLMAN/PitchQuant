@@ -112,7 +112,7 @@ def call_tool(name: str, args: dict) -> dict:
                 "register_url": "https://dashboard.api-football.com/register"}
     clean = {k: v for k, v in args.items() if k != "_apiKey"}
     if name == "fixtures":
-        # 🔴2026-09-19 固化(防重复纠错): 免费计划禁 league+season(当前赛季>2024) → 误带则**自动剥离**·强制走 date/team 定位
+        # 固化(防重复纠错): 免费计划禁 league+season(当前赛季>2024) → 误带则**自动剥离**·强制走 date/team 定位
         warn = None
         try:
             if clean.get("season") and int(clean.get("season")) > 2024:

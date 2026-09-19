@@ -1,4 +1,4 @@
-# calc_all.py — 全覆盖预计算聚合器 + 必核清单生成器（2026-09-02·步骤遗失结构性根除·支柱A）
+# calc_all.py — 全覆盖预计算聚合器 + 必核清单生成器（步骤遗失结构性根除·支柱A）
 # 用法: python calc_all.py <竞彩txt路径> [联赛key] [--eu 主,平,客] [--handi 盘口] [--o25 大小球赔率] [--home_water 主水] [--elo 主队ELO差]
 # 原理: 一次性输出全部确定性计算(calc_match管道) + 脚本生成的必核清单(非LLM自我清单·防自我遗漏)
 # 输出: 完整预计算报告 + [必核清单] 段——LLM 照清单逐项消费·缺项=输出不完整
@@ -41,7 +41,7 @@ CHECKLIST = [
     ('C30', '落盘: case_write add/review + raw七节 + check_luopan', None, 'case_write'),
 ]
 
-# 🔴统一联赛归一化（2026-09-15 审计 P0 修复·三套命名空间统一）——
+# 统一联赛归一化（审计 P0 修复·三套命名空间统一）——
 # 原 _LMAP 只认 E0/SP1/I1/D1/F1/ec，传 epl/laliga/seriea/bundesliga/ligue1 等常见别名时
 # 静默降级为「非五大」→ C13 联赛子模型 / C25 footballcharts / C27 xG 三大模块不触发
 # （实测对比: 同一场英超 epl→[不触发·非五大] / E0→[必做]，已证实）。
@@ -98,7 +98,7 @@ def _extract_cs_bqc(txt_path):
     cs = {}
     for m in _re.finditer(r'(\d+:\d+)=([\d.]+)', s):
         cs[m.group(1)] = float(m.group(2))
-    # 🔴2026-09-15审计P1修复: CS 补齐逗号表头格式(格式B)——原仅支持 `1:0=` 等号格式，
+    # CS 补齐逗号表头格式(格式B)——原仅支持 `1:0=` 等号格式，
     # 致逗号表头txt 的 cs={} → live引擎丢失CS源(0.20权重)·Elche vs 皇马实测复现
     if not cs:
         mhc = _re.search(r'发布时间,1:0,2:0', s)
@@ -123,7 +123,7 @@ def _extract_cs_bqc(txt_path):
         if mh:
             keys = ['胜胜', '胜平', '胜负', '平胜', '平平', '平负', '负胜', '负平', '负负']
             seg = s[mh.start():]
-            # 🔴2026-09-15审计P0修复: 原 seg 未截断到下一节 → seg_rows[-1] 取到【比分固定奖金】段末行
+            # 原 seg 未截断到下一节 → seg_rows[-1] 取到【比分固定奖金】段末行
             # → bq 全错(实测 Elche vs 皇马 bq = CS值 50/90/35/300/100/70/500/300/300)·污染 live引擎 ht源(0.24权重)
             _nxt = seg.find('【', 5)
             if _nxt > 0: seg = seg[:_nxt]
@@ -134,7 +134,7 @@ def _extract_cs_bqc(txt_path):
                     for i, k in enumerate(keys):
                         try: bq[k] = float(last[i])
                         except Exception: pass
-    # 🔴2026-09-10格式C: 纯逗号无表头数据行(原始粘贴竞彩txt·【半全场】段后时间行直接9值)·映射按固定顺序
+    # 格式C: 纯逗号无表头数据行(原始粘贴竞彩txt·【半全场】段后时间行直接9值)·映射按固定顺序
     if not bq:
         keys = ['胜胜', '胜平', '胜负', '平胜', '平平', '平负', '负胜', '负平', '负负']
         segm = _re.search(r'【半全场胜平负固定奖金】\s*\n', s)
@@ -180,7 +180,7 @@ def main():
         return
     txt_path = sys.argv[1]
     league = sys.argv[2] if len(sys.argv) > 2 else None
-    # ⚡ 学习成果提示(learned_rules.json·2026-09-10·提示级不改变任何计算/判定)
+    # ⚡ 学习成果提示(learned_rules.json·提示级不改变任何计算/判定)
     try:
         _lf = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'learned_rules.json')
         if os.path.exists(_lf):
@@ -195,7 +195,7 @@ def main():
                 print('  → 状态: 提示级=复发累积; 待批量回测验证=达门槛; 已固化=回测验证通过')
     except Exception as _le:
         print('  ⚠️学习提示读取失败:', str(_le)[:60])
-    # ⚡ L3 误差规则 + L4 CBR + L1 观察（2026-09-11接线·原本定义未调用=存在≠活跃修复）
+    # ⚡ L3 误差规则 + L4 CBR + L1 观察（接线·原本定义未调用=存在≠活跃修复）
     try:
         _old2 = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'online_learning')
         if os.path.isdir(_old2):
@@ -241,7 +241,7 @@ def main():
                         _dp = _pv['direction_probs']
                         print('  ⚡ L1 在线ML(第6源): 主%.0f%% 平%.0f%% 客%.0f%% | 进球λ≈%s' % (
                             _dp.get(1, 0) * 100, _dp.get(0, 0) * 100, _dp.get(2, 0) * 100, _pv.get('goals')))
-                        # 🔴学习结果接入预测(2026-09-11·融合·含门禁+防噪音影响门槛)
+                        # 学习结果接入预测
                         _l1_degen = False
                         try:
                             _gate = {}
@@ -251,9 +251,9 @@ def main():
                             _w = float(_gate.get('weight', 0.10)) if _gate.get('enabled', True) else 0.0
                             if _gate.get('status') == 'degraded':
                                 _w = 0.0
-                            # 🔴2026-09-16 全面审计(L1 退化守卫·P1): 在线ML 实测饱和退化
-                            #   (max>0.95 / min<1e-6 / 平局恒 0) → 强制权重 0·不参与融合
-                            #   否则饱和输出会按权重 0.10 混入 → 把弱共识场硬推成强方向
+                            # 全面审计(L1 退化守卫·P1): 在线ML 实测饱和退化
+                            # (max>0.95 / min<1e-6 / 平局恒 0) → 强制权重 0·不参与融合
+                            # 否则饱和输出会按权重 0.10 混入 → 把弱共识场硬推成强方向
                             if (max(_dp.values()) > 0.95) or (min(_dp.values()) < 1e-6):
                                 print('  🔴L1 退化守卫: 输出饱和(max=%.3f/min=%.6f) → 权重强制 0·不参与融合'
                                       % (max(_dp.values()), min(_dp.values())))
@@ -271,7 +271,7 @@ def main():
                                     _mk_src = '欧盘--eu'
                                 except Exception:
                                     _mk = None
-                            # 🔴2026-09-11 修复(P1-2): 未传 --eu 时用竞彩 txt 末盘去水（自动·不依赖参数）
+                            # 修复(P1-2): 未传 --eu 时用竞彩 txt 末盘去水（自动·不依赖参数）
                             if _mk is None:
                                 _oh5, _od5, _oa5 = (_feat2.get('home_odds'), _feat2.get('draw_odds'), _feat2.get('away_odds'))
                                 if _oh5 and _od5 and _oa5:
@@ -283,9 +283,9 @@ def main():
                                     except Exception:
                                         _mk = None
                             if _mk and (_w > 0 or _l1_degen):
-                                # 🔴2026-09-16 防过拟合/降噪: 融合「进入判定」需**独立门禁**(默认关·可回滚)
-                                #   依据: 融合监测 n=22 → 融合命中8 = 基准命中8(**无增益**);
-                                #   且 L1 已 degraded → 融合=市场·无新增信息 → 只提示不进入判定
+                                # 防过拟合/降噪: 融合「进入判定」需**独立门禁**(默认关·可回滚)
+                                # 依据: 融合监测 n=22 → 融合命中8 = 基准命中8(**无增益**);
+                                # 且 L1 已 degraded → 融合=市场·无新增信息 → 只提示不进入判定
                                 try:
                                     _fdec_gate = json.load(open(os.path.join(_old2, 'state', 'gate.json'), encoding='utf-8')).get('L1_fusion_in_decision', {})
                                 except Exception:
@@ -328,7 +328,7 @@ def main():
                     pass
     except Exception as _l3:
         print('  ⚠️L3/L4/L1 接线失败:', str(_l3)[:60])
-    # 📄 预测日志(2026-09-11·分析时自动存特征 → 赛果时 learn_from_result --from-log 回溯)
+    # 📄 预测日志
     try:
         import sys as _sys2
         _oldir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'online_learning')
@@ -336,12 +336,12 @@ def main():
             _sys2.path.insert(0, _oldir)
             try:
                 import data_bridge as _db
-                # 🔴2026-09-11: 离线模式（快·保证源状态写入）·网络源仅记录 skipped
-                # 🔴2026-09-14 修复: 新增 --net 开关 —— **完整分析必须传 --net**，否则网络源
-                #   (clubelo ELO/xg/api_football/h2h/news/euro_odds) 全部 skipped → prediction_log
-                #   仅 1/8 源(27键/18非空) → 学习模块特征残缺。传 --net 后 3-4/8 源(32-37键)。
+                # 离线模式（快·保证源状态写入）·网络源仅记录 skipped
+                # 修复: 新增 --net 开关 —— **完整分析必须传 --net**，否则网络源
+                # (clubelo ELO/xg/api_football/h2h/news/euro_odds) 全部 skipped → prediction_log
+                # 仅 1/8 源(27键/18非空) → 学习模块特征残缺。传 --net 后 3-4/8 源(32-37键)。
                 _netflag = ('--net' in sys.argv)
-                # 🔴2026-09-14 修复: 原用 _league_cn（392行才定义）→ UnboundLocalError → 每次静默降级 txt(1/8源)
+                # 修复: 原用 _league_cn（392行才定义）→ UnboundLocalError → 每次静默降级 txt(1/8源)
                 _lcn = norm_league(league)
                 _br = _db.collect(txt_path, _lcn, net=_netflag)
                 _feat = _br.get('features') or {}
@@ -367,7 +367,7 @@ def main():
                 print('  [预测日志] 特征已存: prediction_log/%s (赛果时 --from-log 自动回溯)' % _pname)
     except Exception as _pe:
         print('  ⚠️预测日志写入失败:', str(_pe)[:60])
-    # 🧠 在线学习系统状态(2026-09-11·L1 实测无增益已默认关闭·仅状态提示)
+    # 🧠 在线学习系统状态
     try:
         _ol = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'online_learning', 'state', 'river', 'n.json')
         import json as _oj
@@ -377,8 +377,8 @@ def main():
     except Exception:
         pass
     # 解析可选参数
-    # 🔴2026-09-15合并(源自workbuddy): 原实现 `--eu --handi` 会把 '--handi' 当成 eu 的值 →
-    #   eu.split(',') 长度≠3 → 现场引擎 ls 未赋值 → 掩盖真实原因。现改为仅当下一个 token 非 '--' 开头才取值。
+    # 合并(): 原实现 `--eu --handi` 会把 '--handi' 当成 eu 的值 →
+    # eu.split(',') 长度≠3 → 现场引擎 ls 未赋值 → 掩盖真实原因。现改为仅当下一个 token 非 '--' 开头才取值。
     eu = handi = o25 = u25 = home_water = elo = inj_h = inj_a = off = None
     _OVFLAGS = ('--eu', '--handi', '--o25', '--u25', '--home_water', '--elo', '--inj_h', '--inj_a', '--off')
     _ov = {}
@@ -407,7 +407,7 @@ def main():
     try:
         r = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', timeout=60)
         out = r.stdout
-        # 🔴2026-09-04链路优化: calc_match内部从竞彩盘反推O2.5常失败(竞彩txt无大小球盘段)→输出"O2.5未识别"会误导LLM跳过C17档位查表
+        # 链路优化: calc_match内部从竞彩盘反推O2.5常失败(竞彩txt无大小球盘段)→输出"O2.5未识别"会误导LLM跳过C17档位查表
         # 当调用方显式提供 --o25 时, 用真实档位分布替换该误导行(与calc_match同款格式·消除calc_match段与②量级段的矛盾观感)
         if o25 and out and 'O2.5未识别' in out:
             try:
@@ -440,12 +440,12 @@ def main():
                 oh, od, oa = map(float, parts)
                 hs = float(handi) if handi else None
                 hw = float(home_water) if home_water else None
-                # 🔴2026-09-16 修复(P1·参数缺失致功能静默降级·与 F3/F5 同类):
-                #   ① draw_group_score: 修正53 分组分(组A-D 去相关后总分) → direction_full 内部
-                #      「平局并列/唯一」判定（>=4 唯一 / >=2.5 并列 / >=1.5 / >=1.0 加权）。
-                #      原恒用默认 0.0 → **内部并列判定恒不触发**，与 calc_match 段输出的并列建议口径不一致。
-                #   ② true_handi: 真实实力盘 → match_classifier 的「盘口背离」异常指标（|handi-true|>0.25）。
-                #      原恒 None → 该指标恒不参与 → 诱阻分类 total_score 少一维(可能漏判庄家主导盘)。
+                # 修复(P1·参数缺失致功能静默降级·与 F3/F5 同类):
+                # ① draw_group_score: 修正53 分组分(组A-D 去相关后总分) → direction_full 内部
+                # 「平局并列/唯一」判定（>=4 唯一 / >=2.5 并列 / >=1.5 / >=1.0 加权）。
+                # 原恒用默认 0.0 → **内部并列判定恒不触发**，与 calc_match 段输出的并列建议口径不一致。
+                # ② true_handi: 真实实力盘 → match_classifier 的「盘口背离」异常指标（|handi-true|>0.25）。
+                # 原恒 None → 该指标恒不参与 → 诱阻分类 total_score 少一维(可能漏判庄家主导盘)。
                 _draw_score = 0.0
                 try:
                     _mds = re.search(r'总分(\d+(?:\.\d+)?)\s*→', out)
@@ -502,7 +502,7 @@ def main():
     _league_cn = norm_league(league)
     is_eu = _league_cn in ('欧冠', '欧联', '欧协联')
     is_top5 = _league_cn in ('英超', '西甲', '意甲', '德甲', '法甲')
-    # 🔴2026-09-19 审计修复(P1-4·case188审计): 联赛基准自动输出(league_table.json·大球率/平局率/本场档位H-D-A) — 原靠人工记→易漏「Step0-6 联赛校准缺基准」→ 脚本化零遗漏(审计项0-6·硬核④平局基准自动满足)
+    # 审计修复(P1-4·case188审计): 联赛基准自动输出(league_table.json·大球率/平局率/本场档位H-D-A) — 原靠人工记→易漏「Step0-6 联赛校准缺基准」→ 脚本化零遗漏(审计项0-6·硬核④平局基准自动满足)
     if is_top5:
         try:
             _lt = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'league_table.json'), encoding='utf-8'))
@@ -523,7 +523,7 @@ def main():
             print('  (联赛基准读取失败: %s·降级人工查表)' % _e)
     print(gen_checklist(league, is_europe=is_eu, is_top5=is_top5))
     print('=' * 70)
-    # ④ 现场比分引擎(V3.5.74·评审P0修复2026-09-07·半场反推/CS深度/5源融合实际接入·脚本计算LLM消费)
+    # ④ 现场比分引擎(评审P0修复半场反推/CS深度/5源融合实际接入·脚本计算LLM消费)
     if eu:
         print('=' * 70)
         print('🔴现场比分引擎(live_score_engine·多源动态融合·主锚建议=脚本Top1·LLM确认):')
@@ -546,7 +546,7 @@ def main():
                     print('  Top5比分: %s' % ' | '.join('%s(%.1f%%)' % (x['score'], x['prob']) for x in ls['top10'][:5]))
                     print('  🔴主锚建议: %s | 次锚建议: %s(比分锚定起点·LLM综合本场基本面确认·禁机械照搬)' % (
                         ls['top10'][0]['score'], ls['top10'][1]['score']))
-                # 🔴市场净胜期望档（2026-09-13·用户建议"按市场信号查表"·回测: 市场定净胜档±1球68.3%）
+                # 市场净胜期望档（用户建议"按市场信号查表"·回测: 市场定净胜档±1球68.3%）
             try:
                 _eu_f = [float(x) for x in (eu if isinstance(eu, (list, tuple)) else str(eu).split(','))]
                 _inv = {'H': 1/_eu_f[0], 'D': 1/_eu_f[1], 'A': 1/_eu_f[2]}
@@ -559,7 +559,7 @@ def main():
                       % (_band, _en))
             except Exception:
                 pass
-        # 🔴锚-量级一致性告警消费（2026-09-13·用户指出"判大球却锚1:1"）
+        # 锚-量级一致性告警消费（用户指出"判大球却锚1:1"）
             if ls and ls.get('status') == 'ok':
                 for _w in (ls.get('warnings') or []):
                     if '锚-量级矛盾' in _w:
@@ -574,7 +574,7 @@ def main():
                              _amc['band'], _amc['exp_net'] or 0))
                     for _c in _amc['conflicts']:
                         print('     ❌ ' + _c)
-                # 🔴锚可信度分级（2026-09-13·案例库157场回测固化·用户要求"运用到模型主体"·output_checker N08）
+                # 锚可信度分级（案例库157场回测固化·用户要求"运用到模型主体"·output_checker N08）
                 try:
                     from prestep_dual import anchor_trust as _at
                     _atv, _atr = _at(_o25v, _hsv)
@@ -591,8 +591,8 @@ def main():
                 print('  ⚠️现场引擎:', (ls.get('message') if ls else '欧盘参数缺失/未启用(见上方提示)'))
         except Exception as e:
             print('  ⚠️现场引擎未执行(降级泊松+查表):', str(e)[:120])
-        # 🔴半场推断量级(V3.0方案F1瘦身版·2026-09-09·上限验证43.8% vs O25 26.9%·+16.9pp):
-        #   9格半全场→半场进球分布→ht_ft_cond 175476场→全场5层(0-1/2/3/4/5+球)·与goal_bin校准分布并列第三源
+        # 半场推断量级(V3.0方案F1瘦身版·上限验证43.8% vs O25 26.9%·+16.9pp):
+        # 9格半全场→半场进球分布→ht_ft_cond 175476场→全场5层(0-1/2/3/4/5+球)·与goal_bin校准分布并列第三源
         try:
             _bq5 = _extract_cs_bqc(txt_path)[1] if eu else None
             if _bq5:
@@ -613,7 +613,7 @@ def main():
                         print('    (半全场分散·推断置信低·仅参考·主判以O25校准分布为准)')
         except Exception:
             pass
-        # 让球动态量级(V2.0·2026-09-10·9层先验->因子->贝叶斯->动态候选池·禁机械锚·评审标注独立增益待P2回测)
+        # 让球动态量级(V2.0·9层先验->因子->贝叶斯->动态候选池·禁机械锚·评审标注独立增益待P2回测)
         try:
             _hd = float(handi) if handi else None
             if _hd is not None and abs(_hd) >= 1.5 and eu:
@@ -626,7 +626,7 @@ def main():
                     _css = ','.join('%s=%.2f' % (k, v) for k, v in _csd.items()) if isinstance(_csd, dict) and _csd else (_csd if _csd else None)
                     _tgs = None
                     _tgtxt = open(txt_path, encoding='utf-8').read()
-                    # 🔴2026-09-19 审计修复(V3.0·数据格式不匹配): 原只认 '发布时间,0,1,2,...'(无后缀) → 真实竞彩 txt 全部为 '发布时间,0球,1球,2球,...' → F8_总进球盘因子**恒静默失效**（存在≠活跃）→ 已兼容 球 后缀
+                    # 审计修复(V3.0·数据格式不匹配): 原只认 '发布时间,0,1,2,...'(无后缀) → 真实竞彩 txt 全部为 '发布时间,0球,1球,2球,...' → F8_总进球盘因子**恒静默失效**（存在≠活跃）→ 已兼容 球 后缀
                     _mh8 = re.search(r'发布时间,0(?:球)?,1(?:球)?,2(?:球)?', _tgtxt)
                     if _mh8:
                         _rows8 = re.findall(r'^(\d{4}-\d{2}-\d{2} [\d:]+),(.+)$', _tgtxt[_mh8.start():], re.M)
@@ -659,7 +659,7 @@ def main():
     else:
         print('=' * 70)
         print('  ⚠️未传 --eu 主,平,客 → 现场比分引擎不触发: 比分锚定降级纯LLM/查表(非5源融合)·🔴调用必带 --eu 主,平,客(--o25/--handi 同步传)防引擎静默缺')
-    # ⑤ 欧战三层校准(V3.5.74·P0修复2026-09-07·europe_two_leg/group_stage实际接入·subprocess调用非仅文档)
+    # ⑤ 欧战三层校准(P0修复europe_two_leg/group_stage实际接入·subprocess调用非仅文档)
     if _league_cn in ('欧冠', '欧联', '欧协联') and eu:
         print('=' * 70)
         print('🔴欧战三层校准(europe_two_leg/group_stage·赛事分层+赛程阶段+赔率档):')
@@ -679,7 +679,7 @@ def main():
                     _md = 4
                     _mmd = _re5md.search(r'第\s*(\d+)\s*轮', open(txt_path, encoding='utf-8').read())
                     if _mmd: _md = int(_mmd.group(1))
-                    # 🔴积分txt提取(2026-09-10·错误3: 无积分数据保留默认9/3·由LLM/外部更正)
+                    # 积分txt提取
                     _hp5, _ap5 = 9, 3
                     _ct5 = open(txt_path, encoding='utf-8').read()
                     _hpm5 = re.search(r'主队[^：:\n]{0,6}(?:积分|排名)?[：:]\s*(\d+)', _ct5)

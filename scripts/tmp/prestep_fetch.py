@@ -19,7 +19,7 @@ LG = {'england-premier-league': '英超', 'spain-laliga': '西甲', 'germany-bun
       'italy-serie-a': '意甲', 'france-ligue-1': '法甲',
       'international-clubs-uefa-europa-league': '欧联',
       'international-clubs-uefa-champions-league': '欧冠'}
-# 🔴2026-09-12: Odds-API 实测**可直连**（无需 VPN）→ 优先直连·失败回退代理
+# Odds-API 实测**可直连**（无需 VPN）→ 优先直连·失败回退代理
 _op_direct = urllib.request.build_opener()
 _op_proxy = urllib.request.build_opener(urllib.request.ProxyHandler({'http': PROXY, 'https': PROXY}))
 
@@ -31,7 +31,7 @@ def get(u, tries=2):
             try:
                 with op.open(urllib.request.Request(u, headers={'User-Agent': 'Mozilla/5.0'}), timeout=25) as r:
                     raw = r.read()
-                    # 🔴2026-09-15修复: Odds-API 返回 Content-Encoding: gzip，而 urllib **不自动解压**
+                    # 修复: Odds-API 返回 Content-Encoding: gzip，而 urllib **不自动解压**
                     # → json.loads(gzip字节) 报 "Expecting value: line 1 column 1"（伪装成空响应/接口不可用）
                     if raw[:2] == b'\x1f\x8b':
                         import gzip
@@ -126,7 +126,7 @@ def main():
             print('  ⚠️ %s 拉取失败: %s' % (cn, str(e)[:60])); continue
         for e in (evs or []):
             d = (e.get('date') or '')
-            # 🔴2026-09-13 修正: 含窗口上界（'到三点'须含 03:00 整开赛场次——Real Sociedad vs Atletico 曾被漏）
+            # 修正: 含窗口上界（'到三点'须含 03:00 整开赛场次——Real Sociedad vs Atletico 曾被漏）
             if u0 <= d[:16] <= u1:
                 rows.append({'cn': cn, 'id': e['id'], 'home': e['home'], 'away': e['away'], 'date': d})
     print('窗口内赛事: %d 场' % len(rows))
@@ -161,4 +161,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-# 🔴2026-09-17: LG 补欧联/欧冠 slug（Odds-API 实测已收录·旧记录已过时）+ 新增 --leagues 过滤（先验指令按联赛筛选用）
+# LG 补欧联/欧冠 slug（Odds-API 实测已收录·旧记录已过时）+ 新增 --leagues 过滤（先验指令按联赛筛选用）

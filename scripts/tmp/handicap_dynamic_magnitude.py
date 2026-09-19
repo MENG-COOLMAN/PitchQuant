@@ -60,7 +60,7 @@ def factor_euro_asia(oh, od, oa, handi):
     return {'name': 'F2_欧亚一致性', 'magnitude_adjust': round(adj, 3), 'confidence': 0.6,
             'detail': '隐含让%.1f vs 实际%.1f' % (implied, -handi)}
 
-# ═══ F3: ELO匹配度(保留·标注共线风险·评审2026-09-10 ELO已证伪于O25分层) ═══
+# ═══ F3: ELO匹配度(保留·标注共线风险·评审ELO已证伪于O25分层) ═══
 def factor_elo(elo_diff, layer):
     if elo_diff is None: return None
     base = PRIOR[layer].get('base_elo_diff') or 0
@@ -169,7 +169,7 @@ def dynamic_candidates(post_mag, direction, layer, top_n=5):
             cands.append((f'{h}:{a}', w))
     cands.sort(key=lambda x: -x[1])
     scores = [sc for sc, _ in cands]
-    # 硬约束边界(仅补足·非替换·fx03·2026-09-10): 超深含4+球·主让2含净2
+    # 硬约束边界(仅补足·非替换·fx03·): 超深含4+球·主让2含净2
     def _add(tg, h, a):
         if (h, a) not in [(int(x.split(':')[0]), int(x.split(':')[1])) for x in scores]:
             cands.append((f'{h}:{a}', max(0.2, math.exp(-0.5 * ((tg - post_mag) / 1.2) ** 2) * 0.8)))

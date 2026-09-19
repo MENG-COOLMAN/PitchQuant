@@ -1,7 +1,7 @@
 import csv
 from collections import defaultdict
 
-# ==================== V3.5.42 完整回测 ====================
+# ==================== 完整回测 ====================
 import time
 t0 = time.time()
 
@@ -73,7 +73,7 @@ with open('data/Matches.csv', 'r', encoding='utf-8', errors='ignore') as f:
             ou_pred = '?'
         both_ok = (dir_ok and ou_ok)
 
-        # === HARDCORE TIER (V3.5.40 base) ===
+        # === HARDCORE TIER (base) ===
         is_deep = (min(h, a) < 1.30)
         skew = abs(h - a) / min(h, a)
         v40_high = is_deep or skew > 2.0
@@ -244,7 +244,7 @@ h_cov = hl['high'][0] / TOTAL * 100
 l_cov = hl['low'][0] / TOTAL * 100
 print('  分离度: %.1fpp | 高置信覆盖: %.1f%% | 低置信覆盖: %.1f%%' % (sep_dir, h_cov, l_cov))
 
-# 2. BOTH TIERS (NEW in V3.5.42)
+# 2. BOTH TIERS (NEW in )
 print()
 print('--- 2. Both(方向+O/U)分层准确率 (V3.5.42新增) ---')
 bl = {}

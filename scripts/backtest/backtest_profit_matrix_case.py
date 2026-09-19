@@ -8,7 +8,7 @@ import sys, re, glob, os
 sys.stdout.reconfigure(encoding="utf-8")
 
 RAW = "data/case-library/raw"
-# case33-35 赛果来自用户提供(2026-08-16复盘)
+# -35 赛果来自用户提供
 KNOWN = {"case30_阿森纳vs曼城": "3:0", "case31_葡国民vs埃斯托里": "2:0", "case32_卡尔马vs哈马比": "0:4",
          "case33_阿贾克斯vs海伦芬": "2:2", "case34_伯恩利vs西汉姆联": "2:2", "case35_桑坦德vs比利亚雷": "2:2"}
 

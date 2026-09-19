@@ -19,7 +19,7 @@ self_iterate.py —— 赛后自我迭代学习引擎（V3.5.74·2026-09-10 固�
 """
 import sys, os, csv, io, re
 
-# 🔴GBK 控制台防护(2026-09-15·复盘时实测崩溃: ✅/❌ emoji 无法编码·漏补 reconfigure)
+# GBK 控制台防护
 try:
     if hasattr(sys.stdout, 'reconfigure'):
         sys.stdout.reconfigure(encoding='utf-8')
@@ -99,9 +99,9 @@ def cmd_learn(args):
     net_dev = ('真实净%d vs 锚净%s' % (net_real, neth)) if neth else ''
     tags = _attr(rg, center, net_real, neth, dir_ok, real_dir == '平')
     rows = _load()
-    # 🔴去重 + 真实日期（2026-09-15 修复）: 原实现无去重且日期硬编码 '2026-09-10' →
-    #    重复调用(learn.py 内部调 + 手动调)致台账虚增(实测 46 行→去重后仅 26 场·case179 重复6次)
-    #    → 门槛判定被污染(方向误判 count 11 虚高·实际仅 8·未达门槛10)
+    # 去重 + 真实日期（修复）: 原实现无去重且日期硬编码 '' →
+    # 重复调用(learn.py 内部调 + 手动调)致台账虚增(实测 46 行→去重后仅 26 场·重复6次)
+    # → 门槛判定被污染(方向误判 count 11 虚高·实际仅 8·未达门槛10)
     import datetime as _dt
     _today = _dt.date.today().isoformat()
     for t, why in tags:

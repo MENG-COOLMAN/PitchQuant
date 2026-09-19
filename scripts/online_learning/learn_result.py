@@ -12,7 +12,7 @@
 """
 import os, sys, io, csv, json, argparse, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-# 🔴stdout 包装移至 __main__（被 import 时不得重复包装·防 I/O closed 错误）
+# stdout 包装移至 __main__（被 import 时不得重复包装·防 I/O closed 错误）
 import config as C
 import persistence as P
 import river_models as RM
@@ -96,7 +96,7 @@ def cmd_backfill(args):
         if not (oh and od and oa):
             continue
         league = r.get('联赛') or '?'
-        # 🔴2026-09-12 修复: 优先用 raw 提取的完整特征（A+B 类）·退化到显式赔率 11 特征
+        # 修复: 优先用 raw 提取的完整特征（A+B 类）·退化到显式赔率 11 特征
         f = None
         try:
             import importlib.util as _iu

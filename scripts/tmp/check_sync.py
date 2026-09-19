@@ -43,7 +43,7 @@ for s in skills:
         missing.append(s)
 chk(len(missing) == 0, f"{len(skills)} 个 skill 映射全覆盖" + (f" 缺: {missing}" if missing else ""))
 
-# 🔴2026-09-12 清理校验: 旧API key + 文档断链
+# 清理校验: 旧API key + 文档断链
 _OLD_KEY = "8dd5cad6"
 _key_files = ["AGENTS.md", "data/足球分析模型.txt"] + [f".reasonix/skills/{d}/SKILL.md" for d in os.listdir(".reasonix/skills")]
 _key_bad = [f for f in _key_files if os.path.exists(f) and _OLD_KEY in open(f, encoding="utf-8").read()]
@@ -81,7 +81,7 @@ league_skills = [s for s in skills if s.startswith('SK-league-')]
 chk(len(league_skills) == 5, f"联赛 skill 5 个（实际{len(league_skills)}）")
 euro_files = glob.glob('data/europe/*.csv')
 chk(len(euro_files) >= 3, f"欧战库 CSV ≥3（实际{len(euro_files)}）")
-# 半场模块（V3.5.73）
+# 半场模块（）
 ht_json = [f for f in glob.glob('data/league-modules/*.json') if '半场先验' in open(f, encoding='utf-8').read()]
 chk(len(ht_json) == 5, f"联赛 json 半场节 5/5（实际{len(ht_json)}）")
 ht_skill = [s for s in glob.glob('.reasonix/skills/SK-league-*/SKILL.md') if 'R11' in open(s, encoding='utf-8').read()]
@@ -176,7 +176,7 @@ chk("'E0'" in open("scripts/tmp/calc_all.py", encoding="utf-8").read() and "is_t
 chk("bqc=_bqs" in open("scripts/tmp/calc_all.py", encoding="utf-8").read() and "cs=_css" in open("scripts/tmp/calc_all.py", encoding="utf-8").read() and "tg=_tgs" in open("scripts/tmp/calc_all.py", encoding="utf-8").read(), "让球动态量级8因子参数全传(F6/F7/F8生效)")
 chk(os.path.exists("scripts/tmp/handicap_dynamic_magnitude.py") and os.path.exists("data/tmp/handicap_prior_table.json") and "handicap_dynamic_magnitude" in open("scripts/tmp/calc_all.py", encoding="utf-8").read() and "handicap_dynamic_magnitude" in open(".reasonix/skills/SK-v3572-rules/SKILL.md", encoding="utf-8").read(), "让球动态量级V2.0(9层先验+8因子+calc_all接入+SK消费)")
 chk("extract_ht_goals_layer" in open("scripts/tmp/live_score_engine.py", encoding="utf-8").read() and "_bqc_to_ht_dist" in open("scripts/tmp/live_score_engine.py", encoding="utf-8").read() and "extract_ht_goals_layer" in open("scripts/tmp/calc_all.py", encoding="utf-8").read(), "半场推断量级模块(DRY公共+calc_all接入)")
-# 🔴2026-09-15审计P0/P1修复校验（防回退·原缺陷: 传 epl/laliga 等别名时 C13/C25/C27 静默不触发）
+# 审计P0/P1修复校验（防回退·原缺陷: 传 epl/laliga 等别名时 C13/C25/C27 静默不触发）
 _ca_src = open("scripts/tmp/calc_all.py", encoding="utf-8").read()
 chk("def norm_league" in _ca_src and "'epl': '英超'" in _ca_src and "is_top5 = _league_cn in" in _ca_src, "calc_all联赛统一归一化(norm_league·接受中文名/E0码/英文别名·C13/C25/C27触发正确)")
 chk("_LMAP = {" not in _ca_src, "calc_all无旧_LMAP重复映射定义残留")
@@ -188,7 +188,7 @@ _ln_src = open("scripts/online_learning/learn.py", encoding="utf-8").read()
 chk("'is_top5': 1 if _lg in" in _ln_src, "learn.py显式参数路径is_top5动态计算(原硬编码0)")
 
 print("\n" + "="*60)
-# E2(2026-08-29): score_depth_table 时效校验
+# E2: score_depth_table 时效校验
 try:
     import json as _json
     _sd = _json.load(open('data/tmp/score_depth_table.json', encoding='utf-8'))
@@ -198,7 +198,7 @@ try:
     chk(str(_ver) >= '3.0', f"score_depth_table version≥3.0(D1/E1): {_ver}")
 except Exception as _e:
     chk(False, f"score_depth_table读取失败: {_e}")
-# E2b(2026-08-29·问题7评审): 134格低样本校验
+# E2b: 134格低样本校验
 try:
     import json as _j2
     _sd2 = _j2.load(open('data/tmp/score_depth_table.json', encoding='utf-8'))
@@ -237,7 +237,7 @@ chk(os.path.exists("scripts/tmp/calc_all.py") and "必核清单" in open("script
 chk(os.path.exists("scripts/tmp/output_checker.py") and os.path.exists("scripts/tmp/fetch_all.py"), "output_checker+fetch_all存在(三支柱闭环)")
 chk("诱平" in open("scripts/tmp/calc_v3572.py", encoding="utf-8").read() and "诱大球" in open("scripts/tmp/calc_v3572.py", encoding="utf-8").read(), "intent_analyzer支持9类意图(诱平/诱大球等)")
 chk("goal_bin_probs" in open(".reasonix/skills/SK-v3572-rules/SKILL.md", encoding="utf-8").read() and "goal_bin_probs" in open("AGENTS.md", encoding="utf-8").read(), "SK-v3572-rules+AGENTS 含 goal_bin_probs(O1消费链)")
-# 🔴大小球精细化升级(2026-09-15)
+# 大小球精细化升级
 _gb = open("data/tmp/goal_bins_table.json", encoding="utf-8").read() if os.path.exists("data/tmp/goal_bins_table.json") else ""
 chk('"top"' in _gb, "goal_bins_table含典型比分top字段(2026-09-15全量重建·148397场)")
 chk(os.path.exists("scripts/tmp/build_goal_bins.py"), "goal_bins生成脚本存在(build_goal_bins.py·可复现)")
@@ -251,7 +251,7 @@ chk("44-48%边缘带" not in open("scripts/tmp/calc_match.py", encoding="utf-8")
 chk(os.path.exists("data/case-library/案例库模板.md"), "案例库统一模板存在(CSV 15列+raw 七节)")
 chk(os.path.exists("scripts/tmp/case_write.py"), "案例库填写脚本存在(case_write·防乱码串码遗失)")
 chk("case_write" in open(".reasonix/skills/SK-model-v3-analysis/SKILL.md", encoding="utf-8").read() and "case_write" in open(".reasonix/skills/SL-case-library/SKILL.md", encoding="utf-8").read(), "主技能+SL-case-library 含 case_write(填写执行链)")
-# ⑦ 投注方案生成模块(2026-09-04)
+# ⑦ 投注方案生成模块
 print("\n⑦ 投注方案生成模块(betting_plan_generator·2026-09-04)")
 _ag = open("AGENTS.md", encoding="utf-8").read()
 _bp = open("scripts/tmp/betting_plan_generator.py", encoding="utf-8").read() if os.path.exists("scripts/tmp/betting_plan_generator.py") else ""
@@ -267,7 +267,7 @@ chk("小概率管理" in _v3 and "M1" in _v3 and "M2" in _v3 and "M3" in _v3, "c
 chk(os.path.isdir(".reasonix/skills/SL-betting-plan") and "SL-betting-plan" in _ag, "SL-betting-plan skill存在且AGENTS接入(Step11购买方案指令)")
 chk("betting_plan_generator" in _ag and "betting_plan_generator" in open(".reasonix/skills/SL-betting-plan/SKILL.md", encoding="utf-8").read(), "投注生成器三处引用一致(AGENTS+skill)")
 
-# ⑯ 防过拟合/降噪校验(2026-09-16·用户「清洁模型·防止过拟合和噪声」)
+# ⑯ 防过拟合/降噪校验
 print("\n⑯ 防过拟合/降噪校验(2026-09-16)")
 _gj_src = open("data/online_learning/state/gate.json", encoding="utf-8").read()
 _ca_src2 = open("scripts/tmp/calc_all.py", encoding="utf-8").read()
@@ -275,7 +275,7 @@ chk("L1_fusion_in_decision" in _gj_src, "gate.json 含融合判定独立门禁(L
 chk("degraded" in _gj_src, "L1 在线ML 已显式降级(degraded·防退化污染)")
 chk("_fdec_gate" in _ca_src2 and "仅提示·不进入判定" in _ca_src2, "calc_all 消费融合判定门禁(默认仅提示·不进入判定)")
 chk("防过拟合" in open("AGENTS.md", encoding="utf-8").read(), "AGENTS 含防过拟合/降噪记录")
-# 🔴2026-09-16 梳理补充: 参数完整性 + 规则冲突标注(防回退)
+# 梳理补充: 参数完整性 + 规则冲突标注(防回退)
 chk("draw_group_score=_draw_score" in _ca_src2 and "_true_handi" in _ca_src2, "calc_all 补传 draw_group_score + true_handi(原缺失致功能静默降级)")
 chk("true_handicap_calculator" in _ca_src2, "calc_all 消费真实实力盘(盘口背离指标激活)")
 chk("2026-09-16 现状（优先级最高·覆盖本条）" in open("AGENTS.md", encoding="utf-8").read()
@@ -343,28 +343,28 @@ chk("europe_two_leg" in open(".reasonix/skills/SK-model-v3-analysis/SKILL.md", e
 chk("europe_two_leg" in open("data/足球分析模型.txt", encoding="utf-8").read(), "txt含欧战模块(三处同步)")
 
 
-# ── 🔴数据源成功路径固化(2026-09-19·防重复纠错·四文件) ──
+# ── 🔴数据源成功路径固化──
 chk("数据源成功路径固化表" in open("AGENTS.md", encoding="utf-8").read(), "AGENTS含数据源成功路径固化表(2026-09-19防重复纠错)")
 chk("禁带 league/season" in open("AGENTS.md", encoding="utf-8").read(), "AGENTS含api-football禁league/season铁律(纯date定位)")
 chk("数据源成功路径固化表" in open(".reasonix/skills/SK-model-v3-analysis/SKILL.md", encoding="utf-8").read(), "主技能含数据源成功路径固化表")
 chk("数据源成功路径固化表" in open("data/足球分析模型.txt", encoding="utf-8").read(), "txt含数据源成功路径固化表")
 chk("自动剥离" in open("scripts/tmp/api_football_mcp.py", encoding="utf-8").read(), "api_football_mcp含误带league/season自动剥离(脚本级防错)")
 chk("fetch_clubelo.py" in open("AGENTS.md", encoding="utf-8").read(), "AGENTS含clubelo脚本通道(fetch_clubelo·禁curl)")
-# ── 🔴txt 通用归一化层(2026-09-19·四文件) ──
+# ── 🔴txt 通用归一化层──
 chk("txt 通用归一化层" in open("AGENTS.md", encoding="utf-8").read(), "AGENTS含txt通用归一化层(2026-09-19)")
 chk("txt 通用归一化层" in open(".reasonix/skills/SK-model-v3-analysis/SKILL.md", encoding="utf-8").read(), "主技能含txt归一化层")
 chk("txt 通用归一化层" in open("data/足球分析模型.txt", encoding="utf-8").read(), "txt含txt归一化层")
 chk("txt_normalize.py" in open("AGENTS.md", encoding="utf-8").read(), "AGENTS含txt_normalize.py入口")
-# ── 🔴模型维护最小化纪律 skill(2026-09-19·用户提议·借鉴 Ponytail 内核) ──
+# ── 🔴模型维护最小化纪律 skill──
 chk("SK-model-maintenance" in open("AGENTS.md", encoding="utf-8").read(), "AGENTS含SK-model-maintenance注册(33 skill)")
 chk(os.path.exists(".reasonix/skills/SK-model-maintenance/SKILL.md"), "SK-model-maintenance skill 文件存在")
 chk("分析场景不读" in open(".reasonix/skills/SK-model-maintenance/SKILL.md", encoding="utf-8").read(), "维护纪律含场景隔离(分析场景不读)")
-# ── 🔴SK-audit 模型审计 skill(2026-09-19·融合 V3.0+V4.0·被动双模式) ──
+# ── 🔴SK-audit 模型审计 skill──
 chk("SK-audit" in open("AGENTS.md", encoding="utf-8").read(), "AGENTS含SK-audit注册(34 skill)")
 chk(os.path.exists(".reasonix/skills/SK-audit/SKILL.md"), "SK-audit skill 文件存在")
 chk(("存在≠活跃" in open(".reasonix/skills/SK-audit/SKILL.md", encoding="utf-8").read()) and ("未列出=未执行" in open(".reasonix/skills/SK-audit/SKILL.md", encoding="utf-8").read()), "SK-audit含双模式核心铁律(存在≠活跃/未列出=未执行)")
 chk("审计入口" in open("AGENTS.md", encoding="utf-8").read(), "AGENTS审计入口已升级指SK-audit")
-# ── 🔴case188审计修复(2026-09-19·P1-1~P1-5/P2-1~P2-5·raw第八节执行留痕链防回退) ──
+# ── 🔴case188审计修复──
 _ag = open("AGENTS.md", encoding="utf-8").read()
 _tx = open("data/足球分析模型.txt", encoding="utf-8").read()
 _sk = open(".reasonix/skills/SK-model-v3-analysis/SKILL.md", encoding="utf-8").read()
@@ -377,15 +377,15 @@ chk("联赛基准" in open("scripts/tmp/calc_all.py", encoding="utf-8").read(), 
 chk("第八节" in open("scripts/tmp/check_luopan.py", encoding="utf-8").read(), "check_luopan含第八节校验(fix_s3·case189+强制)")
 _oc = open("scripts/tmp/output_checker.py", encoding="utf-8").read()
 chk(all(b in _oc for b in ("'N10'", "'N11'", "'N12'", "'N13'", "'N14'", "'N15'")), "output_checker含N10-N15留痕块(fix_s4)")
-# ── 🔴数据链三层风险原则(2026-09-19·用户核心关切「一切以模型数据链不出错为基准」) ──
+# ── 🔴数据链三层风险原则──
 _sm = open(".reasonix/skills/SK-model-maintenance/SKILL.md", encoding="utf-8").read()
 chk("数据链三层风险" in _sm, "维护纪律含数据链三层风险(输入解析/数据表/展示留痕·L1-L7不引入决策)")
 _au = open(".reasonix/skills/SK-audit/SKILL.md", encoding="utf-8").read()
 chk(("术语差异" in _au) and ("改动分层纪律" in _au), "SK-audit含术语差异判定+改动分层纪律")
-# ── 🔴审计入口三处同步(2026-09-19·AGENTS/主技能/txt 均指 SK-audit) ──
+# ── 🔴审计入口三处同步──
 chk("审计入口" in _sk, "主技能含审计入口(指SK-audit·2026-09-19)")
 chk("审计入口" in _tx, "txt含审计入口(指SK-audit·2026-09-19)")
-# ── 总结果(V3.5.74审计修正: 移至全部chk后·含⑧-⑪扩展段·防段后失败漏报) ──
+# ── 总结果(审计修正: 移至全部chk后·含⑧-⑪扩展段·防段后失败漏报) ──
 print()
 print(f"总结果(含全部校验): ✅{len(OK)} ⚠️{len(WARN)} ❌{len(FAIL)}")
 if FAIL:

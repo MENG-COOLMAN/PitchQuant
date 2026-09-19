@@ -156,7 +156,7 @@ def dynamic_tickets(pool, include_second=True):
         tag = '3串1' if k == 3 else f'{k}串1'
         tickets.append(make_ticket(sec_legs[:k], f'{tag}·比分次锚票(与主锚票互补·一场两比分)',
                                    f'{k}场次锚比分·与票2构成同场双比分覆盖'))
-    # —— 进球数串票(🔴2026-09-04用户核心玩法: 各场进球热档/高赔档·单注口径·每场一档) ——
+    # —— 进球数串票(🔴用户核心玩法: 各场进球热档/高赔档·单注口径·每场一档) ——
     gl_legs = []
     for m, ops in entries:
         go = next((x for x in ops if x['kind'] == 'goals'), None)

@@ -49,7 +49,7 @@ def load_args(argv):
     return args
 
 def cmd_add(args):
-    # 🔴2026-09-04修复: 键别名归一(docstring用--home/--away英文·HDR表头为中文·原实现args.get('主队')=None→写空行)
+    # 修复: 键别名归一(docstring用--home/--away英文·HDR表头为中文·原实现args.get('主队')=None→写空行)
     _ALIAS = {'league': '联赛', 'home': '主队', 'away': '客队', 'pred': '预测方向', 'anchor': '预测比分',
               'conf': '置信度层', 'signal': '触发信号', 'assoc': '关联假设', 'date': '日期'}
     for _en, _cn in _ALIAS.items():
