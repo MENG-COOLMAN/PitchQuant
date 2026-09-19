@@ -226,9 +226,14 @@ PitchQuant/
 
 | Data | Included? | Why |
 |:--|:--|:--|
-| `tables/*.json` (distilled) | ✅ | Our backtest artifacts — free to use |
-| Raw 227k-match CSV / SQL / European DB | ❌ | Size + source terms |
+| `tables/*.json` (distilled) | ✅ | Our **statistical derivatives** (hit rates / ratios) — free to use |
+| Raw 227k-match CSV / SQL / European DB | ❌ | Size + source terms — see below for full credits |
 | API keys | ❌ never | Env vars only |
+
+**Backtest data sources** (publicly available, used for research):
+**Football-Data.co.uk** (results / stats / odds) · **ClubElo** (ELO ratings) · integrated dataset **xgabora/Club-Football-Match-Data** (Gábor, A.) · **China Sports Lottery** official public odds.
+
+📄 Full credits, citation and compliance statement: **[NOTICE.md](NOTICE.md)**
 
 ## Disclaimer
 
@@ -440,10 +445,16 @@ PitchQuant/
 
 | 数据 | 是否包含 | 原因 |
 |:--|:--|:--|
-| `tables/*.json`（蒸馏表） | ✅ 已包含 | 本项目回测产物，可自由使用 |
-| 22.7 万场原始 CSV / SQL / 欧战库 | ❌ 未包含 | 体积 + 数据来源条款 |
+| `tables/*.json`（蒸馏表） | ✅ 已包含 | 本项目**统计衍生结果**（命中率/比率），可自由使用 |
+| 22.7 万场原始 CSV / SQL / 欧战库 | ❌ 未包含 | 体积 + 来源条款（**完整致谢见 [NOTICE.md](NOTICE.md) §二**） |
 | API keys | ❌ 绝不含 | 一律走环境变量 |
 | **竞彩赔率（输入数据）** | — | 取自 **中国体育彩票官方网站**（<https://www.lottery.gov.cn/jc/index.html>）**每日公开数据**（使用者自行抄录 · 本项目不内置）· 详见 [DISCLAIMER.md](DISCLAIMER.md) §4.5 |
+
+**回测数据来源**（均为公开数据 · 用于研究）：
+**Football-Data.co.uk**（赛果/统计/赔率）· **ClubElo**（ELO 评分）· 整合数据集 **xgabora/Club-Football-Match-Data**（Gábor, A.）· **中国体育彩票**官方公开赔率。
+
+> 本仓库**不含**任何来源的原始数据文件；`tables/` 仅为统计衍生结果（事实性数据）。
+> 完整致谢、引用格式与合规声明：**[NOTICE.md](NOTICE.md) §二**
 
 ## 免责声明
 
