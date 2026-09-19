@@ -18,8 +18,8 @@
   仅比分≥2.5 → 比分有谱·方向弱 | 比分≤-3 → 比分不可预测 | 双低 → 跳过
 
 用法:
-  python data/tmp/prestep_dual.py --match "费内巴切vs罗马,3.32,3.55,1.83,1,3.09"
-  python data/tmp/prestep_dual.py --file data/tmp/_prestep_input.txt   # 每行: 赛事,主,平,客,让球,O25
+  python scripts/tmp/prestep_dual.py --match "费内巴切vs罗马,3.32,3.55,1.83,1,3.09"
+  python scripts/tmp/prestep_dual.py --file data/tmp/_prestep_input.txt   # 每行: 赛事,主,平,客,让球,O25
 """
 import sys, io, os, argparse
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')

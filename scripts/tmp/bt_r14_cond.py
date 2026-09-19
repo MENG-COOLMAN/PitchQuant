@@ -4,7 +4,7 @@ R14 v2 条件化比分量级（2026-08-25·五大联赛 43,254 场·替代死板
 维度A: 隐含差档(接近/中等/悬殊) × 方向(H/D/A) → 比分Top5/净胜分布/O2.5 → 主锚按方向条件选
 维度B: 盘口档(-HandiSize主让深度) × 方向 → 净胜分布 → 比分量级按盘口校准
 输出: data/tmp/r19_conditional_scores.json（合并+分联赛）
-用法: PYTHONIOENCODING=utf-8 python data/tmp/bt_r14_cond.py
+用法: PYTHONIOENCODING=utf-8 python scripts/tmp/bt_r14_cond.py
 """
 import csv, json, collections
 import sys

@@ -33,3 +33,7 @@ gate_status.json
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# 运行产物（脚本执行时自动生成）
+prediction_log/
+__pycache__/

@@ -2,7 +2,7 @@
 """
 calc_match.py — V3.5.58 计算脚本（方案1+4：负载超载缓解·计算脚本化）
 用途：解析竞彩txt → 一次性算完全部确定性计算，模型只消费结果做判断。
-用法：PYTHONIOENCODING=utf-8 python data/tmp/calc_match.py <txt路径>
+用法：PYTHONIOENCODING=utf-8 python scripts/tmp/calc_match.py <txt路径>
 输出：各盘去抽水/隐含概率/凯利/CS-P_i排序/半场三元+45A推导/总进球分布/O2.5映射/方向差距分级
 """
 import re, sys, io, os, json

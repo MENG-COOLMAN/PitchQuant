@@ -8,14 +8,14 @@ self_iterate.py —— 赛后自我迭代学习引擎（V3.5.74·2026-09-10 固�
 
 用法:
   # 1) 单场学习录入（复盘后必跑）
-  python data/tmp/self_iterate.py learn --case 158 --real 1:1 --pred "客胜+平(并列)" \
+  python scripts/tmp/self_iterate.py learn --case 158 --real 1:1 --pred "客胜+平(并列)" \
       --anchor "1:1|1:2" --center 2.5 --handi -1 --o25 3.09
 
   # 2) 观察池汇总 + 门槛判定（每批复盘后跑）
-  python data/tmp/self_iterate.py status
+  python scripts/tmp/self_iterate.py status
 
   # 3) 归因类型汇总（哪些偏差模式在累积）
-  python data/tmp/self_iterate.py patterns
+  python scripts/tmp/self_iterate.py patterns
 """
 import sys, os, csv, io, re
 

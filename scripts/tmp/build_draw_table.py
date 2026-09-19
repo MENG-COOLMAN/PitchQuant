@@ -45,7 +45,7 @@ T = {
  '主胜2.1-3.0×亚盘': rate(lambda d: b(d['HandiSize'],[-0.5,0.0,0.5,1.0],['受让','平手','让0.25-0.5','让0.75-1','让≥1']), cond=lambda d: b(d['OddHome'],[2.1,3.0],['','x'])=='x'),
  '客强50-200×平赔': rate(lambda d: b(d['OddDraw'],[3.0,3.5],['平<3.0','平3.0-3.5','平>3.5']), cond=lambda d: d['HomeElo'].strip() and d['AwayElo'].strip() and 50<=float(d['AwayElo'])-float(d['HomeElo'])<200),
 }
-T['_meta'] = {'来源': 'Matches.csv 230557场·2026-08-25·R20平局温度计查表·生成脚本 data/tmp/build_draw_table.py', '基准': {'n': 230554, 'draw%': 26.5}}
+T['_meta'] = {'来源': 'Matches.csv 230557场·2026-08-25·R20平局温度计查表·生成脚本 scripts/tmp/build_draw_table.py', '基准': {'n': 230554, 'draw%': 26.5}}
 with open('data/tmp/draw_table.json','w',encoding='utf-8') as f:
     json.dump(T, f, ensure_ascii=False, indent=1)
 print('draw_table.json 已生成')

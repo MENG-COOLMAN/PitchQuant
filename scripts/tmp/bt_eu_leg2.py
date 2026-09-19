@@ -3,7 +3,7 @@
 欧冠/欧战第二回合回测 (V3.5.72+ 欧战精算升级·2026-08-25)
 维度A 统计学: 方向/总进球/大球/比分谱系/净胜/半场/首回合传导
 维度B 精算类: 欧赔档位/隐含校准/抽水/亚盘盘口/水位/水位×盘口/欧亚背离/价值档
-用法: PYTHONIOENCODING=utf-8 python data/tmp/bt_eu_leg2.py [--all]
+用法: PYTHONIOENCODING=utf-8 python scripts/tmp/bt_eu_leg2.py [--all]
 """
 import csv, collections, re, sys, json, os
 import sys

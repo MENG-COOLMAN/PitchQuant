@@ -4,8 +4,8 @@
   → L1 River 参数更新 + L2 增量表 + L3 误差模式 + L4 案例库 + 融合监测
 防重复: 查 learning_log 已有 case 列表
 用法:
-  python data/online_learning/batch_learn.py            # 执行批量学习
-  python data/online_learning/batch_learn.py --dry-run  # 仅预览哪些场会被学
+  python scripts/online_learning/batch_learn.py            # 执行批量学习
+  python scripts/online_learning/batch_learn.py --dry-run  # 仅预览哪些场会被学
 """
 import os, sys, io, json, argparse, time
 HERE = os.path.dirname(os.path.abspath(__file__))

@@ -14,7 +14,7 @@
   H news       新闻伤停（网络·VPN）        → 伤停清单文本
 
 用法:
-  python data/online_learning/data_bridge.py <txt路径> [--league 欧冠] [--net] [--json]
+  python scripts/online_learning/data_bridge.py <txt路径> [--league 欧冠] [--net] [--json]
     --net  启用网络源（clubelo/xg/api-football·默认关闭以保速度与稳定）
 """
 import os, re, sys, io, json, subprocess, time

@@ -4,12 +4,12 @@
 
 用法:
   # 单场（推荐 --txt 自动接入 8 源特征）
-  python data/online_learning/learn.py --case 158 --real 1:1 --txt data/tmp/fen158.txt \
+  python scripts/online_learning/learn.py --case 158 --real 1:1 --txt data/tmp/fen158.txt \
       --league 欧冠 --pred "客胜+平" --pred-dir 2 --anchor "1:1|1:2" --center 2.5
   # 仅日志回溯（calc_all 分析时已存特征）
-  python data/online_learning/learn.py --case 158 --real 1:1 --from-log fen158
+  python scripts/online_learning/learn.py --case 158 --real 1:1 --from-log fen158
   # 汇总 / 状态
-  python data/online_learning/learn.py --status
+  python scripts/online_learning/learn.py --status
 """
 import os, sys, io, subprocess, argparse, json
 HERE = os.path.dirname(os.path.abspath(__file__))

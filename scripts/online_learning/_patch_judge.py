@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """学习成果进入判定(2026-09-11·用户要求): 弱判定场(<45%)融合方向参与主方向判定"""
-p = 'data/tmp/calc_all.py'
+p = 'scripts/tmp/calc_all.py'
 s = open(p, encoding='utf-8').read()
 old = """                                elif abs(_dpp) > 5:
                                     if _mk_top < 45:

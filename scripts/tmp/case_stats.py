@@ -1,4 +1,4 @@
-"""案例库全量统计（标准15列+分锚3列格式·V3.5.74）: python data/tmp/case_stats.py"""
+"""案例库全量统计（标准15列+分锚3列格式·V3.5.74）: python scripts/tmp/case_stats.py"""
 import csv, io, sys
 sys.stdout.reconfigure(encoding='utf-8')
 rows = list(csv.reader(open('data/case-library/实战案例.csv', encoding='utf-8-sig')))

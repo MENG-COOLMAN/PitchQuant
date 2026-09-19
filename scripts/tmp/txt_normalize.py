@@ -26,7 +26,7 @@
   【比分固定奖金】<ts> / 胜方比分：1:0=7.50，… / 平局比分：… / 负方比分：…
 
 用法:
-  python data/tmp/txt_normalize.py <原始.txt> [--out X.txt] [--check-only]
+  python scripts/tmp/txt_normalize.py <原始.txt> [--out X.txt] [--check-only]
 """
 import os
 import re

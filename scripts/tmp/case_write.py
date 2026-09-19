@@ -1,7 +1,7 @@
 """案例库结构化写入（防乱码/串码/遗失·2026-08-30）
 用法:
-  python data/tmp/case_write.py add    --league 英超 --home 曼城 --away 伯恩茅斯 --pred 主胜 --anchor "2:1,3:1" --conf HIGH --signal "D1+G1" --assoc 无
-  python data/tmp/case_write.py review --case 70 --real "2:1" [--dir 是|否] [--score 是|否] [--concl 复盘结论]
+  python scripts/tmp/case_write.py add    --league 英超 --home 曼城 --away 伯恩茅斯 --pred 主胜 --anchor "2:1,3:1" --conf HIGH --signal "D1+G1" --assoc 无
+  python scripts/tmp/case_write.py review --case 70 --real "2:1" [--dir 是|否] [--score 是|否] [--concl 复盘结论]
 铁律: 案例库写入必须走本脚本·禁止手写CSV（防串码）·字段清洗+写后读回校验（防遗失）·编码utf-8-sig（防乱码）
 """
 import csv, io, sys, os, re, datetime

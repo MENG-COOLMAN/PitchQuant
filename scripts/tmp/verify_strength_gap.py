@@ -4,7 +4,7 @@
 数据: Matches.csv 22.7万场(2000-2024+)·仅五大联赛(E0英超/SP1西甲/D1德甲/I1意甲/F1法甲)
 度量: ①欧赔隐含差|P主-P客|(去水·市场口径) ②ELO差|HomeElo-AwayElo|(纯实力交叉)
 指标: 总进球均值/O2.5率/O3.5率(≥4球)/净胜≥3率/大球小比分率(≥3球且净胜≤1)/方向
-用法: PYTHONIOENCODING=utf-8 python data/tmp/verify_strength_gap.py
+用法: PYTHONIOENCODING=utf-8 python scripts/tmp/verify_strength_gap.py
 """
 import csv, collections, re
 import sys

@@ -2,13 +2,13 @@
 """赛果自动学习入口（用户给比分即触发·一条命令）
 用法:
   # 单场（显式特征）
-  python data/online_learning/learn_result.py --case 158 --real 1:1 --league 欧冠 \
+  python scripts/online_learning/learn_result.py --case 158 --real 1:1 --league 欧冠 \
       --home-odds 3.32 --draw-odds 3.55 --away-odds 1.83 --handi 1 --o25 3.09 \
       --pred-dir 2 --pred-total 2.5 --pred-top2 "1:1|1:2"
 
   # 批量回填（用实战案例.csv 已复盘场次顺序学习·模拟学习曲线）
-  python data/online_learning/learn_result.py --backfill
-  python data/online_learning/learn_result.py --status
+  python scripts/online_learning/learn_result.py --backfill
+  python scripts/online_learning/learn_result.py --status
 """
 import os, sys, io, csv, json, argparse, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))

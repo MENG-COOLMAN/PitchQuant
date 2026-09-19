@@ -5,8 +5,8 @@ raw 结构: 「一、竞彩数据」含 ### 胜平负 / ### 让球-N / ### 半�
   C/D/E 类(HAF/xG/api/H2H)历史不可得 → None（如实标注·不臆造）
 
 用法:
-  python data/tmp/raw_features.py --case case100          # 单场提取预览
-  python data/tmp/raw_features.py --fill-all               # 批量补全案例库
+  python scripts/tmp/raw_features.py --case case100          # 单场提取预览
+  python scripts/tmp/raw_features.py --fill-all               # 批量补全案例库
 """
 import os, re, sys, io, json, glob, argparse
 HERE = os.path.dirname(os.path.abspath(__file__))

@@ -3,7 +3,7 @@
 ClubElo 抓取v3(最终): 五大联赛当前 ELO（2026-27·每日更新·免费）
 来源: http://clubelo.com/  HTML表格解析（每国家一 table·Level1节）
 输出: data/tmp/clubelo_<date>.json
-用法: PYTHONIOENCODING=utf-8 python data/tmp/fetch_clubelo.py
+用法: PYTHONIOENCODING=utf-8 python scripts/tmp/fetch_clubelo.py
 """
 import re, json, os, datetime, urllib.request
 import sys

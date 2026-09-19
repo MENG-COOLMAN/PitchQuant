@@ -8,9 +8,9 @@
   4) 输出裁剪: 超合理范围丢弃、缺失填 0 不计入、无数据三态标注
 
 用法:
-  python data/online_learning/gate.py --status           # 当前门禁状态
-  python data/online_learning/gate.py --log --case 158 --pred-fused 1 --actual 0   # 记录融合预测 vs 实际
-  python data/online_learning/gate.py --rollback-check   # 滚动偏差检查（超阈值自动降级）
+  python scripts/online_learning/gate.py --status           # 当前门禁状态
+  python scripts/online_learning/gate.py --log --case 158 --pred-fused 1 --actual 0   # 记录融合预测 vs 实际
+  python scripts/online_learning/gate.py --rollback-check   # 滚动偏差检查（超阈值自动降级）
 """
 import os, sys, io, json, argparse, time
 HERE = os.path.dirname(os.path.abspath(__file__))

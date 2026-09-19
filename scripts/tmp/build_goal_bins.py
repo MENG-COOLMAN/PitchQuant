@@ -8,7 +8,7 @@
   · 保留细分档（1.0-1.3 与 1.3-1.5 差异 11.3pp·合并损失精度）
   · 新增 top 字段（典型比分 Top4·供候选池分配）
   · 末档改为开区间 2.60-99.00（修旧表 3.2 上限越界归并）
-用法: python data/tmp/build_goal_bins.py [--out data/tmp/goal_bins_table.json]
+用法: python scripts/tmp/build_goal_bins.py [--out data/tmp/goal_bins_table.json]
 """
 import sys, os, csv, json, argparse
 from collections import Counter

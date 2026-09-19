@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """预测日志补全（2026-09-11·用 data_bridge 采集完整源状态写入 prediction_log）
-用法: python data/online_learning/refresh_predlog.py [--net]
+用法: python scripts/online_learning/refresh_predlog.py [--net]
 """
 import os, sys, io, json, glob
 HERE = os.path.dirname(os.path.abspath(__file__))

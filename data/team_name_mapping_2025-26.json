@@ -1,0 +1,2065 @@
+{
+  "version": "2025-26",
+  "generated": "2026-09-14",
+  "total_teams": 246,
+  "leagues": {
+    "英超": 20,
+    "西甲": 20,
+    "德甲": 18,
+    "意甲": 20,
+    "法甲": 18,
+    "欧冠": 36,
+    "欧联": 36
+  },
+  "teams": [
+    {
+      "en": "Arsenal",
+      "cn": "阿森纳",
+      "code": "ARS",
+      "leagues": [
+        "英超",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Man City",
+      "cn": "曼彻斯特城",
+      "code": "MCI",
+      "leagues": [
+        "英超",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Liverpool",
+      "cn": "利物浦",
+      "code": "LIV",
+      "leagues": [
+        "英超",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Chelsea",
+      "cn": "切尔西",
+      "code": "CHE",
+      "leagues": [
+        "英超",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Aston Villa",
+      "cn": "阿斯顿维拉",
+      "code": "AVL",
+      "leagues": [
+        "英超",
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Man United",
+      "cn": "曼彻斯特联",
+      "code": "MUN",
+      "leagues": [
+        "英超"
+      ]
+    },
+    {
+      "en": "Newcastle",
+      "cn": "纽卡斯尔联",
+      "code": "NEW",
+      "leagues": [
+        "英超",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Brighton",
+      "cn": "布莱顿",
+      "code": "BHA",
+      "leagues": [
+        "英超"
+      ]
+    },
+    {
+      "en": "Bournemouth",
+      "cn": "伯恩茅斯",
+      "code": "BOU",
+      "leagues": [
+        "英超"
+      ]
+    },
+    {
+      "en": "Crystal Palace",
+      "cn": "水晶宫",
+      "code": "CRY",
+      "leagues": [
+        "英超"
+      ]
+    },
+    {
+      "en": "Everton",
+      "cn": "埃弗顿",
+      "code": "EVE",
+      "leagues": [
+        "英超"
+      ]
+    },
+    {
+      "en": "Leeds",
+      "cn": "利兹联",
+      "code": "LEE",
+      "leagues": [
+        "英超"
+      ]
+    },
+    {
+      "en": "Tottenham",
+      "cn": "托特纳姆热刺",
+      "code": "TOT",
+      "leagues": [
+        "英超",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Forest",
+      "cn": "诺丁汉森林",
+      "code": "NFO",
+      "leagues": [
+        "英超",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Fulham",
+      "cn": "富勒姆",
+      "code": "FUL",
+      "leagues": [
+        "英超"
+      ]
+    },
+    {
+      "en": "Sunderland",
+      "cn": "桑德兰",
+      "code": "SUN",
+      "leagues": [
+        "英超"
+      ]
+    },
+    {
+      "en": "Ipswich",
+      "cn": "伊普斯维奇",
+      "code": "IPS",
+      "leagues": [
+        "英超"
+      ]
+    },
+    {
+      "en": "Leicester",
+      "cn": "莱斯特城",
+      "code": "LEI",
+      "leagues": [
+        "英超"
+      ]
+    },
+    {
+      "en": "West Ham",
+      "cn": "西汉姆联",
+      "code": "WHU",
+      "leagues": [
+        "英超"
+      ]
+    },
+    {
+      "en": "Wolves",
+      "cn": "伍尔弗汉普顿流浪者",
+      "code": "WOL",
+      "leagues": [
+        "英超"
+      ]
+    },
+    {
+      "en": "Barcelona",
+      "cn": "巴塞罗那",
+      "code": "BAR",
+      "leagues": [
+        "西甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Real Madrid",
+      "cn": "皇家马德里",
+      "code": "RMA",
+      "leagues": [
+        "西甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Atlético",
+      "cn": "马德里竞技",
+      "code": "ATM",
+      "leagues": [
+        "西甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Atletico Madrid",
+      "cn": "马德里竞技",
+      "code": "ATM",
+      "leagues": [
+        "西甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Betis",
+      "cn": "皇家贝蒂斯",
+      "code": "BET",
+      "leagues": [
+        "西甲",
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Real Betis",
+      "cn": "皇家贝蒂斯",
+      "code": "BET",
+      "leagues": [
+        "西甲",
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Villarreal",
+      "cn": "比利亚雷亚尔",
+      "code": "VIL",
+      "leagues": [
+        "西甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Real Sociedad",
+      "cn": "皇家社会",
+      "code": "RSO",
+      "leagues": [
+        "西甲",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Athletic Club",
+      "cn": "毕尔巴鄂竞技",
+      "code": "BIL",
+      "leagues": [
+        "西甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Athletic Bilbao",
+      "cn": "毕尔巴鄂竞技",
+      "code": "BIL",
+      "leagues": [
+        "西甲"
+      ]
+    },
+    {
+      "en": "Celta",
+      "cn": "塞尔塔维戈",
+      "code": "CEL",
+      "leagues": [
+        "西甲",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Celta Vigo",
+      "cn": "塞尔塔维戈",
+      "code": "CEL",
+      "leagues": [
+        "西甲",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Valencia",
+      "cn": "瓦伦西亚",
+      "code": "VAL",
+      "leagues": [
+        "西甲"
+      ]
+    },
+    {
+      "en": "Rayo Vallecano",
+      "cn": "巴列卡诺",
+      "code": "RAY",
+      "leagues": [
+        "西甲"
+      ]
+    },
+    {
+      "en": "Osasuna",
+      "cn": "奥萨苏纳",
+      "code": "OSA",
+      "leagues": [
+        "西甲"
+      ]
+    },
+    {
+      "en": "Alaves",
+      "cn": "阿拉维斯",
+      "code": "ALA",
+      "leagues": [
+        "西甲"
+      ]
+    },
+    {
+      "en": "Deportivo Alaves",
+      "cn": "阿拉维斯",
+      "code": "ALA",
+      "leagues": [
+        "西甲"
+      ]
+    },
+    {
+      "en": "Sevilla",
+      "cn": "塞维利亚",
+      "code": "SEV",
+      "leagues": [
+        "西甲"
+      ]
+    },
+    {
+      "en": "Levante",
+      "cn": "莱万特",
+      "code": "LEV",
+      "leagues": [
+        "西甲"
+      ]
+    },
+    {
+      "en": "Getafe",
+      "cn": "赫塔费",
+      "code": "GET",
+      "leagues": [
+        "西甲"
+      ]
+    },
+    {
+      "en": "Espanyol",
+      "cn": "西班牙人",
+      "code": "ESP",
+      "leagues": [
+        "西甲"
+      ]
+    },
+    {
+      "en": "Elche",
+      "cn": "埃尔切",
+      "code": "ELC",
+      "leagues": [
+        "西甲"
+      ]
+    },
+    {
+      "en": "Depor",
+      "cn": "拉科鲁尼亚",
+      "code": "DEP",
+      "leagues": [
+        "西甲"
+      ]
+    },
+    {
+      "en": "Deportivo La Coruna",
+      "cn": "拉科鲁尼亚",
+      "code": "DEP",
+      "leagues": [
+        "西甲"
+      ]
+    },
+    {
+      "en": "Santander",
+      "cn": "桑坦德竞技",
+      "code": "RAC",
+      "leagues": [
+        "西甲"
+      ]
+    },
+    {
+      "en": "Racing Santander",
+      "cn": "桑坦德竞技",
+      "code": "RAC",
+      "leagues": [
+        "西甲"
+      ]
+    },
+    {
+      "en": "Malaga",
+      "cn": "马拉加",
+      "code": "MAL",
+      "leagues": [
+        "西甲"
+      ]
+    },
+    {
+      "en": "Girona",
+      "cn": "赫罗纳",
+      "code": "GIR",
+      "leagues": [
+        "西甲"
+      ]
+    },
+    {
+      "en": "Mallorca",
+      "cn": "马略卡",
+      "code": "MLL",
+      "leagues": [
+        "西甲"
+      ]
+    },
+    {
+      "en": "Valladolid",
+      "cn": "巴拉多利德",
+      "code": "VLL",
+      "leagues": [
+        "西甲"
+      ]
+    },
+    {
+      "en": "Las Palmas",
+      "cn": "拉斯帕尔马斯",
+      "code": "LPA",
+      "leagues": [
+        "西甲"
+      ]
+    },
+    {
+      "en": "Leganes",
+      "cn": "莱加内斯",
+      "code": "LEG",
+      "leagues": [
+        "西甲"
+      ]
+    },
+    {
+      "en": "Bayern München",
+      "cn": "拜仁慕尼黑",
+      "code": "FCB",
+      "leagues": [
+        "德甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Bayern Munich",
+      "cn": "拜仁慕尼黑",
+      "code": "FCB",
+      "leagues": [
+        "德甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Dortmund",
+      "cn": "多特蒙德",
+      "code": "BVB",
+      "leagues": [
+        "德甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Borussia Dortmund",
+      "cn": "多特蒙德",
+      "code": "BVB",
+      "leagues": [
+        "德甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Leverkusen",
+      "cn": "勒沃库森",
+      "code": "B04",
+      "leagues": [
+        "德甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Bayer Leverkusen",
+      "cn": "勒沃库森",
+      "code": "B04",
+      "leagues": [
+        "德甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Stuttgart",
+      "cn": "斯图加特",
+      "code": "VFB",
+      "leagues": [
+        "德甲",
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "VfB Stuttgart",
+      "cn": "斯图加特",
+      "code": "VFB",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "RB Leipzig",
+      "cn": "莱比锡红牛",
+      "code": "RBL",
+      "leagues": [
+        "德甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Leipzig",
+      "cn": "莱比锡红牛",
+      "code": "RBL",
+      "leagues": [
+        "德甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Freiburg",
+      "cn": "弗赖堡",
+      "code": "SCF",
+      "leagues": [
+        "德甲",
+        "欧联"
+      ]
+    },
+    {
+      "en": "SC Freiburg",
+      "cn": "弗赖堡",
+      "code": "SCF",
+      "leagues": [
+        "德甲",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Hoffenheim",
+      "cn": "霍芬海姆",
+      "code": "TSG",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "TSG Hoffenheim",
+      "cn": "霍芬海姆",
+      "code": "TSG",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "Mainz",
+      "cn": "美因茨",
+      "code": "M05",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "Mainz 05",
+      "cn": "美因茨",
+      "code": "M05",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "Frankfurt",
+      "cn": "法兰克福",
+      "code": "SGE",
+      "leagues": [
+        "德甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Eintracht Frankfurt",
+      "cn": "法兰克福",
+      "code": "SGE",
+      "leagues": [
+        "德甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Augsburg",
+      "cn": "奥格斯堡",
+      "code": "FCG",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "FC Augsburg",
+      "cn": "奥格斯堡",
+      "code": "FCG",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "Union Berlin",
+      "cn": "柏林联合",
+      "code": "FCU",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "Gladbach",
+      "cn": "门兴格拉德巴赫",
+      "code": "BMG",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "Borussia Mönchengladbach",
+      "cn": "门兴格拉德巴赫",
+      "code": "BMG",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "Werder",
+      "cn": "云达不莱梅",
+      "code": "SVW",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "Werder Bremen",
+      "cn": "云达不莱梅",
+      "code": "SVW",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "Elversberg",
+      "cn": "埃尔弗斯贝格",
+      "code": "SVE",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "Hamburg",
+      "cn": "汉堡",
+      "code": "HSV",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "Hamburger SV",
+      "cn": "汉堡",
+      "code": "HSV",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "Köln",
+      "cn": "科隆",
+      "code": "KOE",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "FC Köln",
+      "cn": "科隆",
+      "code": "KOE",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "Cologne",
+      "cn": "科隆",
+      "code": "KOE",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "Paderborn",
+      "cn": "帕德博恩",
+      "code": "SCP",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "Schalke",
+      "cn": "沙尔克04",
+      "code": "S04",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "FC Schalke 04",
+      "cn": "沙尔克04",
+      "code": "S04",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "Heidenheim",
+      "cn": "海登海姆",
+      "code": "FCH",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "Wolfsburg",
+      "cn": "沃尔夫斯堡",
+      "code": "WOB",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "VfL Wolfsburg",
+      "cn": "沃尔夫斯堡",
+      "code": "WOB",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "Bochum",
+      "cn": "波鸿",
+      "code": "BOC",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "VfL Bochum",
+      "cn": "波鸿",
+      "code": "BOC",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "Darmstadt",
+      "cn": "达姆施塔特",
+      "code": "D98",
+      "leagues": [
+        "德甲"
+      ]
+    },
+    {
+      "en": "Internazionale",
+      "cn": "国际米兰",
+      "code": "INT",
+      "leagues": [
+        "意甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Inter",
+      "cn": "国际米兰",
+      "code": "INT",
+      "leagues": [
+        "意甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Inter Milan",
+      "cn": "国际米兰",
+      "code": "INT",
+      "leagues": [
+        "意甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Roma",
+      "cn": "罗马",
+      "code": "ROM",
+      "leagues": [
+        "意甲",
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "AS Roma",
+      "cn": "罗马",
+      "code": "ROM",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Juventus",
+      "cn": "尤文图斯",
+      "code": "JUV",
+      "leagues": [
+        "意甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Napoli",
+      "cn": "那不勒斯",
+      "code": "NAP",
+      "leagues": [
+        "意甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "SSC Napoli",
+      "cn": "那不勒斯",
+      "code": "NAP",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Milan",
+      "cn": "AC米兰",
+      "code": "MIL",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "AC Milan",
+      "cn": "AC米兰",
+      "code": "MIL",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Atalanta",
+      "cn": "亚特兰大",
+      "code": "ATA",
+      "leagues": [
+        "意甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Atalanta BC",
+      "cn": "亚特兰大",
+      "code": "ATA",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Como",
+      "cn": "科莫",
+      "code": "COM",
+      "leagues": [
+        "意甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Lazio",
+      "cn": "拉齐奥",
+      "code": "LAZ",
+      "leagues": [
+        "意甲",
+        "欧联"
+      ]
+    },
+    {
+      "en": "SS Lazio",
+      "cn": "拉齐奥",
+      "code": "LAZ",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Bologna",
+      "cn": "博洛尼亚",
+      "code": "BOL",
+      "leagues": [
+        "意甲",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Bologna FC",
+      "cn": "博洛尼亚",
+      "code": "BOL",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Udinese",
+      "cn": "乌迪内斯",
+      "code": "UDI",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Fiorentina",
+      "cn": "佛罗伦萨",
+      "code": "FIO",
+      "leagues": [
+        "意甲",
+        "欧联"
+      ]
+    },
+    {
+      "en": "ACF Fiorentina",
+      "cn": "佛罗伦萨",
+      "code": "FIO",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Sassuolo",
+      "cn": "萨索洛",
+      "code": "SAS",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Torino",
+      "cn": "都灵",
+      "code": "TOR",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Torino FC",
+      "cn": "都灵",
+      "code": "TOR",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Frosinone",
+      "cn": "弗罗西诺内",
+      "code": "FRO",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Genoa",
+      "cn": "热那亚",
+      "code": "GEN",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Genoa CFC",
+      "cn": "热那亚",
+      "code": "GEN",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Venezia",
+      "cn": "威尼斯",
+      "code": "VEN",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Cagliari",
+      "cn": "卡利亚里",
+      "code": "CAG",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Parma",
+      "cn": "帕尔马",
+      "code": "PAR",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Parma Calcio",
+      "cn": "帕尔马",
+      "code": "PAR",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Monza",
+      "cn": "蒙扎",
+      "code": "MON",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Lecce",
+      "cn": "莱切",
+      "code": "LEC",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "US Lecce",
+      "cn": "莱切",
+      "code": "LEC",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Verona",
+      "cn": "维罗纳",
+      "code": "HEL",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Hellas Verona",
+      "cn": "维罗纳",
+      "code": "HEL",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Empoli",
+      "cn": "恩波利",
+      "code": "EMP",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Salernitana",
+      "cn": "萨勒尼塔纳",
+      "code": "SAL",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Cremonese",
+      "cn": "克雷莫纳",
+      "code": "CRE",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Sampdoria",
+      "cn": "桑普多利亚",
+      "code": "SAM",
+      "leagues": [
+        "意甲"
+      ]
+    },
+    {
+      "en": "Paris SG",
+      "cn": "巴黎圣日耳曼",
+      "code": "PSG",
+      "leagues": [
+        "法甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Paris Saint-Germain",
+      "cn": "巴黎圣日耳曼",
+      "code": "PSG",
+      "leagues": [
+        "法甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "PSG",
+      "cn": "巴黎圣日耳曼",
+      "code": "PSG",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Lens",
+      "cn": "朗斯",
+      "code": "RCL",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "RC Lens",
+      "cn": "朗斯",
+      "code": "RCL",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Monaco",
+      "cn": "摩纳哥",
+      "code": "ASM",
+      "leagues": [
+        "法甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "AS Monaco",
+      "cn": "摩纳哥",
+      "code": "ASM",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Lille",
+      "cn": "里尔",
+      "code": "LOSC",
+      "leagues": [
+        "法甲",
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "LOSC Lille",
+      "cn": "里尔",
+      "code": "LOSC",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Lyon",
+      "cn": "里昂",
+      "code": "OL",
+      "leagues": [
+        "法甲",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Olympique Lyonnais",
+      "cn": "里昂",
+      "code": "OL",
+      "leagues": [
+        "法甲",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Olympique Lyon",
+      "cn": "里昂",
+      "code": "OL",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Marseille",
+      "cn": "马赛",
+      "code": "OM",
+      "leagues": [
+        "法甲",
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Olympique Marseille",
+      "cn": "马赛",
+      "code": "OM",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Rennes",
+      "cn": "雷恩",
+      "code": "SRFC",
+      "leagues": [
+        "法甲",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Stade Rennais",
+      "cn": "雷恩",
+      "code": "SRFC",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Strasbourg",
+      "cn": "斯特拉斯堡",
+      "code": "RCSA",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "RC Strasbourg",
+      "cn": "斯特拉斯堡",
+      "code": "RCSA",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Paris FC",
+      "cn": "巴黎FC",
+      "code": "PFC",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Lorient",
+      "cn": "洛里昂",
+      "code": "FCL",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "FC Lorient",
+      "cn": "洛里昂",
+      "code": "FCL",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Toulouse",
+      "cn": "图卢兹",
+      "code": "TFC",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Toulouse FC",
+      "cn": "图卢兹",
+      "code": "TFC",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Brest",
+      "cn": "布雷斯特",
+      "code": "SB29",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Stade Brestois",
+      "cn": "布雷斯特",
+      "code": "SB29",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Nice",
+      "cn": "尼斯",
+      "code": "OGCN",
+      "leagues": [
+        "法甲",
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "OGC Nice",
+      "cn": "尼斯",
+      "code": "OGCN",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Auxerre",
+      "cn": "欧塞尔",
+      "code": "AJA",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "AJ Auxerre",
+      "cn": "欧塞尔",
+      "code": "AJA",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Troyes",
+      "cn": "特鲁瓦",
+      "code": "ESTAC",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Angers",
+      "cn": "昂热",
+      "code": "SCO",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Le Havre",
+      "cn": "勒阿弗尔",
+      "code": "HAC",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Le Mans",
+      "cn": "勒芒",
+      "code": "MANS",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Nantes",
+      "cn": "南特",
+      "code": "FCN",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "FC Nantes",
+      "cn": "南特",
+      "code": "FCN",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Metz",
+      "cn": "梅斯",
+      "code": "FCM",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Montpellier",
+      "cn": "蒙彼利埃",
+      "code": "MHSC",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Reims",
+      "cn": "兰斯",
+      "code": "SdR",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Clermont",
+      "cn": "克莱蒙",
+      "code": "CF63",
+      "leagues": [
+        "法甲"
+      ]
+    },
+    {
+      "en": "Benfica",
+      "cn": "本菲卡",
+      "code": "SLB",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Sporting CP",
+      "cn": "葡萄牙体育",
+      "code": "SCP",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Sporting Lisbon",
+      "cn": "葡萄牙体育",
+      "code": "SCP",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Porto",
+      "cn": "波尔图",
+      "code": "FCP",
+      "leagues": [
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "FC Porto",
+      "cn": "波尔图",
+      "code": "FCP",
+      "leagues": [
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Ajax",
+      "cn": "阿贾克斯",
+      "code": "AJA",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "PSV",
+      "cn": "埃因霍温",
+      "code": "PSV",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "PSV Eindhoven",
+      "cn": "埃因霍温",
+      "code": "PSV",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Feyenoord",
+      "cn": "费耶诺德",
+      "code": "FEY",
+      "leagues": [
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Club Brugge",
+      "cn": "布鲁日",
+      "code": "CLB",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Union SG",
+      "cn": "圣吉罗斯联合",
+      "code": "USG",
+      "leagues": [
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Union Saint-Gilloise",
+      "cn": "圣吉罗斯联合",
+      "code": "USG",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Galatasaray",
+      "cn": "加拉塔萨雷",
+      "code": "GAL",
+      "leagues": [
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Fenerbahçe",
+      "cn": "费内巴切",
+      "code": "FEN",
+      "leagues": [
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Fenerbahce",
+      "cn": "费内巴切",
+      "code": "FEN",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Slavia Praha",
+      "cn": "布拉格斯拉维亚",
+      "code": "SLA",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Slavia Prague",
+      "cn": "布拉格斯拉维亚",
+      "code": "SLA",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Bodø/Glimt",
+      "cn": "博德闪耀",
+      "code": "BOD",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Bodo/Glimt",
+      "cn": "博德闪耀",
+      "code": "BOD",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Olympiacos",
+      "cn": "奥林匹亚科斯",
+      "code": "OLY",
+      "leagues": [
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "AEK Athens",
+      "cn": "雅典AEK",
+      "code": "AEK",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Copenhagen",
+      "cn": "哥本哈根",
+      "code": "FCK",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "FC Copenhagen",
+      "cn": "哥本哈根",
+      "code": "FCK",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Pafos",
+      "cn": "帕福斯",
+      "code": "PAF",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Pafos FC",
+      "cn": "帕福斯",
+      "code": "PAF",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Qarabağ",
+      "cn": "卡拉巴赫",
+      "code": "QAR",
+      "leagues": [
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Qarabag",
+      "cn": "卡拉巴赫",
+      "code": "QAR",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Kairat Almaty",
+      "cn": "海拉提阿拉木图",
+      "code": "KAI",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Shakhtar Donetsk",
+      "cn": "顿涅茨克矿工",
+      "code": "SHA",
+      "leagues": [
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Shakhtar",
+      "cn": "顿涅茨克矿工",
+      "code": "SHA",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "LASK",
+      "cn": "林茨",
+      "code": "LASK",
+      "leagues": [
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "LASK Linz",
+      "cn": "林茨",
+      "code": "LASK",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Slovan Bratislava",
+      "cn": "布拉迪斯拉发",
+      "code": "SLO",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Celtic",
+      "cn": "凯尔特人",
+      "code": "CEL",
+      "leagues": [
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Rangers",
+      "cn": "格拉斯哥流浪者",
+      "code": "RAN",
+      "leagues": [
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Glasgow Rangers",
+      "cn": "格拉斯哥流浪者",
+      "code": "RAN",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Dinamo Zagreb",
+      "cn": "萨格勒布迪纳摩",
+      "code": "DZG",
+      "leagues": [
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "GNK Dinamo",
+      "cn": "萨格勒布迪纳摩",
+      "code": "DZG",
+      "leagues": [
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Red Star Belgrade",
+      "cn": "贝尔格莱德红星",
+      "code": "RSB",
+      "leagues": [
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Crvena Zvezda",
+      "cn": "贝尔格莱德红星",
+      "code": "RSB",
+      "leagues": [
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Ferencváros",
+      "cn": "费伦茨瓦罗斯",
+      "code": "FTC",
+      "leagues": [
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Ferencvaros",
+      "cn": "费伦茨瓦罗斯",
+      "code": "FTC",
+      "leagues": [
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Maccabi Tel Aviv",
+      "cn": "特拉维夫马卡比",
+      "code": "MTA",
+      "leagues": [
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Young Boys",
+      "cn": "伯尔尼年轻人",
+      "code": "YB",
+      "leagues": [
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "BSC Young Boys",
+      "cn": "伯尔尼年轻人",
+      "code": "YB",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Malmö FF",
+      "cn": "马尔默",
+      "code": "MFF",
+      "leagues": [
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Malmo FF",
+      "cn": "马尔默",
+      "code": "MFF",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Raków Częstochowa",
+      "cn": "琴斯托霍瓦",
+      "code": "RAC",
+      "leagues": [
+        "欧冠",
+        "欧联"
+      ]
+    },
+    {
+      "en": "Rakow Czestochowa",
+      "cn": "琴斯托霍瓦",
+      "code": "RAC",
+      "leagues": [
+        "欧冠"
+      ]
+    },
+    {
+      "en": "Nottingham Forest",
+      "cn": "诺丁汉森林",
+      "code": "NFO",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "Braga",
+      "cn": "布拉加",
+      "code": "SCP",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "Sporting Braga",
+      "cn": "布拉加",
+      "code": "SCP",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "Go Ahead Eagles",
+      "cn": "前进之鹰",
+      "code": "GAE",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "AZ Alkmaar",
+      "cn": "阿尔克马尔",
+      "code": "AZ",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "AZ",
+      "cn": "阿尔克马尔",
+      "code": "AZ",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "Genk",
+      "cn": "亨克",
+      "code": "GNK",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "KRC Genk",
+      "cn": "亨克",
+      "code": "GNK",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "Anderlecht",
+      "cn": "安德莱赫特",
+      "code": "AND",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "RSC Anderlecht",
+      "cn": "安德莱赫特",
+      "code": "AND",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "Salzburg",
+      "cn": "萨尔茨堡红牛",
+      "code": "RBS",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "RB Salzburg",
+      "cn": "萨尔茨堡红牛",
+      "code": "RBS",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "Sturm Graz",
+      "cn": "格拉茨风暴",
+      "code": "STG",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "Viktoria Plzeň",
+      "cn": "比尔森胜利",
+      "code": "VPZ",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "Viktoria Plzen",
+      "cn": "比尔森胜利",
+      "code": "VPZ",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "Sparta Prague",
+      "cn": "布拉格斯巴达",
+      "code": "SPA",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "Midtjylland",
+      "cn": "中日德兰",
+      "code": "MID",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "FC Midtjylland",
+      "cn": "中日德兰",
+      "code": "MID",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "Panathinaikos",
+      "cn": "帕纳辛奈科斯",
+      "code": "PAO",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "PAOK",
+      "cn": "塞萨洛尼基",
+      "code": "PAOK",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "PAOK Thessaloniki",
+      "cn": "塞萨洛尼基",
+      "code": "PAOK",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "Ludogorets",
+      "cn": "卢多戈雷茨",
+      "code": "LUD",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "Ludogorets Razgrad",
+      "cn": "卢多戈雷茨",
+      "code": "LUD",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "Basel",
+      "cn": "巴塞尔",
+      "code": "FCB",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "FC Basel",
+      "cn": "巴塞尔",
+      "code": "FCB",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "FCSB",
+      "cn": "布加勒斯特星",
+      "code": "FCSB",
+      "leagues": [
+        "欧联"
+      ]
+    },
+    {
+      "en": "Fredrikstad",
+      "cn": "腓特烈斯塔",
+      "code": "FFK",
+      "leagues": [
+        "欧联"
+      ]
+    }
+  ]
+}

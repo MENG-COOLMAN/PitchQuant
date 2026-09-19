@@ -3,9 +3,9 @@
 拉 pending 赛事 → 按时间窗口过滤 → 取 1xbet 赔率(均衡线+2.5线/插值) → 调 prestep_dual 双向评级
 
 用法:
-  python data/tmp/prestep_fetch.py --from 2026-09-12T15:00 --to 2026-09-12T19:00   # UTC 窗口
-  python data/tmp/prestep_fetch.py --bj "23:00-03:00"                               # 北京窗口(今日23点→次日3点)
-  python data/tmp/prestep_fetch.py --bj "22:00-06:00" --leagues 西甲,欧联            # 只筛指定联赛
+  python scripts/tmp/prestep_fetch.py --from 2026-09-12T15:00 --to 2026-09-12T19:00   # UTC 窗口
+  python scripts/tmp/prestep_fetch.py --bj "23:00-03:00"                               # 北京窗口(今日23点→次日3点)
+  python scripts/tmp/prestep_fetch.py --bj "22:00-06:00" --leagues 西甲,欧联            # 只筛指定联赛
 
 🔴2026-09-17: 补欧战 slug（实测 Odds-API 已收录·旧记录「欧战未收录404」已过时）：
   international-clubs-uefa-europa-league（欧联·pending 99 场）/ ...-champions-league（欧冠·90 场）
