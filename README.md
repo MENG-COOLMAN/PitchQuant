@@ -184,7 +184,7 @@ cp .env.example .env
 > Optional: a local proxy (`HTTPS_PROXY`) helps reach some sources on restricted networks.
 > 📋 Full checklist (what you must provide / which APIs / free tiers / graceful degradation): **[docs/data-and-apis.md](docs/data-and-apis.md)**
 
-**Step 4 — Prepare your input** — a plain-text odds file (Chinese lottery format):
+**Step 4 — Prepare your input** (or run the bundled sample: `examples/sample-odds.txt`) — a plain-text odds file (Chinese lottery format):
 ```
 【胜平负】2.67,3.22,2.25 → 2.75,3.22,2.20 → 2.67,3.22,2.25
 【让球+1】1.47,3.95,5.10 → ... → 1.48,3.95,5.00
@@ -403,7 +403,7 @@ cp .env.example .env
 
 > 📋 **完整清单**（你必须自备哪些数据 / 需要哪些 API / 免费额度 / 没有 key 时的降级行为）：**[docs/data-and-apis.md](docs/data-and-apis.md)**
 
-**第 4 步 · 准备输入**——一个纯文本赔率文件（竞彩格式）：
+**第 4 步 · 准备输入**（也可直接用自带样例：`examples/sample-odds.txt`）——一个纯文本赔率文件（竞彩格式）：
 ```
 【胜平负】2.67,3.22,2.25 → 2.75,3.22,2.20 → 2.67,3.22,2.25
 【让球+1】1.47,3.95,5.10 → ... → 1.48,3.95,5.00
