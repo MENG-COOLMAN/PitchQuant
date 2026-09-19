@@ -464,16 +464,16 @@ PitchQuant/
 
 ## 📚 Further Reading · 延伸阅读
 
-| Doc | 内容 |
+| Document | 内容 / What's inside |
 |:--|:--|
-| [`docs/data-and-apis.md`](docs/data-and-apis.md) | 🔴 **数据与 API 清单**（你必须自备什么 / 哪些 API / 免费额度）· Required data & APIs |
-| [`docs/getting-started.md`](docs/getting-started.md) | 详细操作手册（含输出解读与常见问题）· Detailed walkthrough |
-| [`docs/architecture.md`](docs/architecture.md) | 架构与规则优先级 · Architecture & rule priorities |
-| [`docs/methodology.md`](docs/methodology.md) | 关键回测结论 · Key backtest findings |
-| [`examples/`](examples/) | 脱敏完整案例（含误判复盘）· Anonymized real case |
-| **[`prompts/`](prompts/README.md)** | 🔴 **Prompt 规范集**（分析执行 / 完成度检验 / 结果审计 / 模型工程审计 · 四件套闭环）· LLM orchestration specs |
-| **[`DISCLAIMER.md`](DISCLAIMER.md)** | ⚠️ **法律免责声明**（学术用途 / 禁止博彩 / 无保证 / 责任限制 / 合规责任）· Legal disclaimer |
-| **[`NOTICE.md`](NOTICE.md)** | 第三方商标与数据来源归属 · Third-party trademark & data attribution |
+| 🔴 **[`prompts/`](prompts/README.md)** | **Prompt 规范集**——分析执行 / 自查补充 / 独立审计 / 模型体检（四件套闭环）<br>Prompt specification set — analyze · self-check · audit · model health |
+| [`docs/getting-started.md`](docs/getting-started.md) | 操作手册——输入格式 / 参数解读 / 输出解读 / FAQ / 故障排查<br>Hands-on walkthrough — input format, CLI flags, reading the output, FAQ |
+| 🔴 **[`docs/data-and-apis.md`](docs/data-and-apis.md)** | **数据与 API 清单**——你必须自备什么 / 哪些 API / 免费额度 / 降级行为<br>Required data & APIs — what you must provide, free tiers, graceful degradation |
+| [`docs/architecture.md`](docs/architecture.md) | 架构与规则优先级——四层结构 / L1–L5 优先级体系 / 四道质量门<br>Architecture & rule priorities — four layers, priority system, quality gates |
+| [`docs/methodology.md`](docs/methodology.md) | 方法论——关键回测结论 + 数学公式 + 复现步骤<br>Methodology — backtest findings, formulas, reproduction steps |
+| [`examples/`](examples/) | 脱敏完整案例（含一次误判复盘）<br>Anonymized real case, including a mis-prediction post-mortem |
+| **[`DISCLAIMER.md`](DISCLAIMER.md)** | ⚠️ **法律免责声明**——学术用途 / 禁止博彩 / 无保证 / 责任限制<br>Legal disclaimer — academic use only, prohibitions, limitation of liability |
+| **[`NOTICE.md`](NOTICE.md)** | 第三方商标与数据来源归属<br>Third-party trademarks & data attribution |
 
 **License**: MIT · Contributions & issues welcome · 欢迎 Issue 与 PR
 
