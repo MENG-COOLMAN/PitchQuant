@@ -69,7 +69,7 @@ else:
 
 ---
 
-## 🔴备用通道：API-Football injuries（源B3·2026-08-20接入·case49验证）
+## 🔴备用通道：API-Football injuries（源B3·接入·case49验证）
 
 > 触发：新闻抓取失败（coverage少/站点反爬）或需要精确伤停位置时。
 > case49 实证：Bing代理无预览/Sportsmole无场/CBSSports 406/MSN空 → API-Football injuries 直接返回 20 条伤停（含位置·主力门将Steffen缺阵→触发修正58）。

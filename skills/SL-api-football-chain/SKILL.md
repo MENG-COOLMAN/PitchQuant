@@ -3,7 +3,7 @@ name: SL-api-football-chain
 description: api-football 三端点链（源B3·Step0⑨）——fixtures?date 定位当前赛季 fixture id → predictions(官方模型概率)/odds(13家博彩赔率)/injuries(本场伤停) 按 fixture 查·补 Odds-API 未覆盖赔率+伤停交叉验证·仅五大联赛+欧战·免费 key 限制处理
 ---
 
-# SL-api-football-chain — api-football 三端点链（V3.5.71接入·2026-08-23实测）
+# SL-api-football-chain — api-football 三端点链（V3.5.71接入）
 
 > 🔴触发条件: **Step0 第⑨步**，所有分析场次（仅五大联赛+欧战·其他联赛不查）
 > 数据源: 自建轻量 MCP server `data/tmp/api_football_mcp.py`（零依赖 Python stdio·9工具·key 已配 reasonix.toml `API_FOOTBALL_KEY`·直连不走代理）
@@ -60,7 +60,7 @@ injuries: 本场伤停清单（Injury/Suspended·reason）→ Step0④ 与 SL-ne
 - odds 13 家赔率与源B1 Odds-API/源B2 zgzcw 42家 交叉·冲突以欧盘口径处理（修正30/44D）
 - 官方 @pipeworx/mcp-api-football 包无 bin 无法启动+无伤停工具·已弃用·勿再使用
 
-## 🔴消费判定标准（2026-08-23起草·🔴待回测验证·非固化规则·方法论铁律: 判定标准需≥20-30场同向回测支撑才固化）
+## 🔴消费判定标准（🔴待回测验证·非固化规则·方法论铁律: 判定标准需≥20-30场同向回测支撑才固化）
 
 ### A. 伤停交叉验证（api-football injuries vs SL-news-crawl·Step0④/修正58/铁则32）
 | 情形 | 判定 | 状态 |
@@ -69,7 +69,7 @@ injuries: 本场伤停清单（Injury/Suspended·reason）→ Step0④ 与 SL-ne
 | api 独有（新闻漏·尤其 Suspended 停赛） | 纳入判定·停赛确定性强补新闻缺口 | ⏳待回测(补录逻辑) |
 | 新闻独有（api 无）/ 人数冲突 | 以新闻为准（唯一主源）·标注「伤停源分歧」 | ✅既有铁则(新闻唯一主源) |
 | api+新闻合计伤停 ≥3 人 | 🔴触发铁则32（平局上调检查·与修正53 联动） | ✅铁则32为既有回测规则 |
-| 🔴伤停位置级→比分锚消费(2026-09-03实证) | 进攻核心缺阵(射手/前腰/边锋)→λh/λa降·该队进球比分权重降(实证: 图卢兹 Francis缺阵→0:1升/1:2降)·主力后防缺→失球比分(0:1/1:2场景)升·门将缺→总进球+1参考·🟡按位置调候选权重·禁机械套规则 | ✅位置级修正58延伸·api提供具体球员位置信息 |
+| 🔴伤停位置级→比分锚消费（实证) | 进攻核心缺阵(射手/前腰/边锋)→λh/λa降·该队进球比分权重降(实证: 图卢兹 Francis缺阵→0:1升/1:2降)·主力后防缺→失球比分(0:1/1:2场景)升·门将缺→总进球+1参考·🟡按位置调候选权重·禁机械套规则 | ✅位置级修正58延伸·api提供具体球员位置信息 |
 | 盘口未响应伤停（V6 窗口） | 修正58 判定诱盘 | ✅既有规则 |
 
 ### B. 三源赔率冲突优先级（api-football 13家 vs 源B1 vs 源B2·Step5）
@@ -80,7 +80,7 @@ injuries: 本场伤停清单（Injury/Suspended·reason）→ Step0④ 与 SL-ne
 api 亚盘/大小球 → V6联动(修正54-58)补充数据源·与Odds-API Spread/Totals交叉   ✅既有V6规则
 ```
 
-### C. predictions 官方概率交叉（Step5 方向）✅回测(2026-08-23·2024英超15场抽样)
+### C. predictions 官方概率交叉（Step5 方向）✅回测（2024英超15场抽样)
 > 🔴回测结论: 官方概率命中率 93.3%(14/15) **但全部为双机会命中**(draw+away或home+draw·45%并列·纯单方向命中率 **0/15=0%**)——官方预测**从不给出单一强方向**·本质=双机会保守模型
 > 🔴推论: 官方概率**无单方向判别力**→ 不能支撑方向增强/降级判定·仅作「双机会弱参考」
 | 情形 | 判定（回测支撑） |

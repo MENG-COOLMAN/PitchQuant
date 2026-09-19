@@ -3,7 +3,7 @@ name: SL-footballcharts-fetch
 description: footballcharts 五大联赛基本面（源B5·Step0⑩）——积分榜(含expected_points/luck/大球率/ROI)+赛程(Dixon-Coles λ期望进球+校准概率+BTTS/over)+蒙特卡洛赛季预测·🔴仅五大联赛(无欧战/美职联)·外部模型仅交叉验证禁混主判·→Step5/6/7消费
 ---
 
-# SL-footballcharts-fetch — footballcharts 五大联赛基本面（V3.5.71接入·2026-08-23实测）
+# SL-footballcharts-fetch — footballcharts 五大联赛基本面（V3.5.71接入）
 
 > 🔴触发条件: **Step0 第⑩步**，仅五大联赛（premier/spain1/germany1/italy1/france1）+ 荷甲等无 xG 联赛
 > 🔴欧战/美职联不查（93 联赛无欧冠/欧联/欧协联·无 MLS）
@@ -39,7 +39,7 @@ calibrated: P_home / P_draw / P_away / P_btts_yes / P_over2.5
 ## 🔴边界（必须遵守）
 
 - 🔴**仅五大联赛+欧战需求**：欧战不查（无数据·用 SL-europe-db rule51-66）；美职联不需要
-- 🔴外部模型输出**仅交叉验证·禁止混入主判**（主判=赔率水位+基本面·V3.5.67）
+- 🔴外部模型输出**仅交叉验证·禁止混入主判**（主判=赔率水位+基本面）
 - λ/校准概率仅作 Step6 大球/Step7 比分**辅助参考**·不替代源B1 赔率·不写入回测规律库（方法论铁律：禁止单场固化规则）
 - get_fixtures 的 data_status 需核对：`stale:true` 或 `matches_behind>0` → 标「数据滞后·参考降级」
 - 免费 FC_API_KEY 5000 次/日（占位邮箱注册）·够用
@@ -52,9 +52,9 @@ calibrated: P_home / P_draw / P_away / P_btts_yes / P_over2.5
 | `fetch failed`（代理关闭） | 移除代理直连重试（后端 onrender.com 直连可达·实测） |
 | 工具返回空 | 赛季参数错误→换 season（2026-2027/2025-2026） |
 
-## 🔴消费判定标准（2026-08-23·🔴基于真实回测·未回测项标注「待回测」·禁止当作固化规则）
+## 🔴消费判定标准（🔴基于真实回测·未回测项标注「待回测」·禁止当作固化规则）
 
-> 🔴回测依据: footballcharts get_track_record(365天·546信号·官方模型已结算对账·2026-08-23实取):
+> 🔴回测依据: footballcharts get_track_record(365天·546信号·官方模型已结算对账·实取):
 > 总 hit_rate 46.67% · 1x2(方向) **30.95%**(n=129) · ft_ou_25 50.0%(n=146) · ft_ou_35 57.45%(n=94) · ht_ou_15 56.57%(n=100) · bts 40.26%(n=77)
 > 🔴铁则: 外部模型仅交叉验证·判定标准需≥20-30场同向回测支撑才固化(方法论铁律)
 

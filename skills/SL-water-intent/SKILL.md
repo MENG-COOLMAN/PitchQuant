@@ -17,7 +17,7 @@ description: 修正20：水位意图分析——庄家防御与收割的量化�
 
 🔴双源水位（哪个真实用哪个）：
 - 源A 竞彩全盘水位（用户提供·抽水12.8%偏高）
-- 源B 欧盘亚盘水位（Odds-API get_odds_movements market=Spread&marketLine=盘口 → 上盘/下盘逐点变动，抽水6.9%真实）⚠️免费tier 404不可用(2026-08-20实测)·改用 get_odds Spread 盘口+水位 + zgzcw ypdb 初即盘口水位对比
+- 源B 欧盘亚盘水位（Odds-API get_odds_movements market=Spread&marketLine=盘口 → 上盘/下盘逐点变动，抽水6.9%真实）⚠️免费tier 404不可用·改用 get_odds Spread 盘口+水位 + zgzcw ypdb 初即盘口水位对比
 - 冲突以源B欧盘为准；竞彩水位>12%时以欧盘水位替代（铁则39）
 
 | 水位区间 | 机构意图 | 信号强度 |

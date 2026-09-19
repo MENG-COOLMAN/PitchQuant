@@ -19,16 +19,16 @@ description: 多家机构赔率剔除抽水、计算隐含胜平负概率、凯�
 | 能力 | 状态 |
 |:--|:--|
 | 欧战当前赔率（1X2/让球/大小球/半全场/比分/BTTS） | ✅ |
-| 赔率变动线（opening→latest 带时间戳） | ⚠️ 免费tier 404不可用（2026-08-20实测）·改用 get_odds 自带 updatedAt 时间戳 + zgzcw 初即盘口对比 |
+| 赔率变动线（opening→latest 带时间戳） | ⚠️ 免费tier 404不可用·改用 get_odds 自带 updatedAt 时间戳 + zgzcw 初即盘口对比 |
 | 历史赔率（/historical/*） | ❌ 需付费 |
 | 博彩公司 | 仅 2 家（1xbet 全市场 + Bet365 仅ML），无 Pinnacle/Betfair |
 | 限流 | 100 请求/小时 |
 
 ### 调用流程（MCP 工具 mcp__odds-api__*）
 
-🔴平台澄清（2026-08-23实测）: 本 MCP = **odds-api.io**（基址 `https://api2.odds-api.io/v3`·认证 query param `apiKey`）·**不是 the-odds-api.com**（勿用旧平台测 key·会 401 INVALID_KEY）·必须走代理 127.0.0.1:7897（无代理 HTTP:000 被墙）。
+🔴平台澄清: 本 MCP = **odds-api.io**（基址 `https://api2.odds-api.io/v3`·认证 query param `apiKey`）·**不是 the-odds-api.com**（勿用旧平台测 key·会 401 INVALID_KEY）·必须走代理 127.0.0.1:7897（无代理 HTTP:000 被墙）。
 
-🔴REST 直连降级方案（MCP 不可用时·防跳过·2026-08-23实测可用）:
+🔴REST 直连降级方案（MCP 不可用时·防跳过·可用）:
 ```bash
 # 事件列表（RFC3339 时间·非 epoch）
 curl --proxy http://127.0.0.1:7897 "https://api2.odds-api.io/v3/events?apiKey=$ODDS_API_KEY&sport=football&league=italy-serie-a&from=2026-08-23T14:00:00Z&to=2026-08-23T22:00:00Z&status=pending"
@@ -40,10 +40,10 @@ curl --proxy http://127.0.0.1:7897 "https://api2.odds-api.io/v3/leagues?apiKey=$
 
 1. **选博彩公司**（首次会话）：`mcp__odds-api__select_bookmakers` 选 `1xbet,Bet365`
 2. **拿欧战比赛**：`mcp__odds-api__get_events`（sport=football, league=欧战 slug）
-   - 欧冠：`international-clubs-uefa-champions-league-playoff-round`
-   - 欧联：`international-clubs-uefa-europa-league-playoff-round`
-   - 欧协联：`international-clubs-uefa-conference-league-playoff-round`
-   - 联赛全量：`mcp__odds-api__get_leagues`（sport=football，共857个）
+ - 欧冠：`international-clubs-uefa-champions-league-playoff-round`
+ - 欧联：`international-clubs-uefa-europa-league-playoff-round`
+ - 欧协联：`international-clubs-uefa-conference-league-playoff-round`
+ - 联赛全量：`mcp__odds-api__get_leagues`（sport=football，共857个）
 3. **拿赔率**：`mcp__odds-api__get_odds`（eventId）→ 1X2(ML)/让球(Spread)/大小球(Totals)/半全场(HT/FT)/比分(Correct Score)/BTTS
 4. **拿变动线**（🔴变动层V1核心）：`mcp__odds-api__get_odds_movements`（eventId, bookmaker=Bet365, market=ML）→ 开盘→最新完整序列带时间戳
 
@@ -53,7 +53,7 @@ curl --proxy http://127.0.0.1:7897 "https://api2.odds-api.io/v3/leagues?apiKey=$
 
 ---
 
-## 数据源2b：zgzcw 三页面（🔴数据补充·2026-08-20主从升级·Odds-API不可用时替代源B）
+## 数据源2b：zgzcw 三页面（🔴数据补充·主从升级·Odds-API不可用时替代源B）
 
 > 触发：Odds-API 网络不可达（VPN未开）或需要多机构交叉验证时。
 > 脚本：`data/tmp/pw_odds_v2.py <mid>` → 输出 `data/tmp/zgzcw_{mid}_pw.json`
