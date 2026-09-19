@@ -1,0 +1,5 @@
+# 统一行尾（消除 CRLF 警告）
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.gif binary
