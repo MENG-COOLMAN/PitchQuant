@@ -20,7 +20,7 @@ def check_case(cid):
     for p in raws:
         t = open(p, encoding='utf-8').read()
         need = ['## 一、竞彩全文', '## 二、欧盘', '## 三、场景', '## 四、基本面', '## 五、结论', '## 六、硬核层12项', '## 七、xG深度判定']
-        # 新增(case159起): raw 须含「学习成果/融合判定」留痕（闭环可审计）
+        # 新增(起): raw 须含「学习成果/融合判定」留痕（闭环可审计）
         _learn_trace = False
         _cidi = int(cid) if str(cid).isdigit() else 0
         if _cidi < 97:
@@ -47,7 +47,7 @@ def check_case(cid):
         # 新增(用户要求"锚定一定要与市场信号一致"): raw 须含锚-市场一致性留痕
         if _cidi >= 168 and not any(k in t for k in ('锚-市场', '市场一致性', 'market_anchor')):
             issues.append(f'case{cid}: raw 缺【锚-市场一致性】留痕(2026-09-13起·用户要求)')
-        # 审计修复(P1-1/2/3·case188审计): raw 第八节「执行留痕」六子块校验(+强制) — 治「审计看不到=判未执行」: 对话输出做了但 raw 没写 → 审计误判未执行
+        # 审计修复(P1-1/2/3·审计): raw 第八节「执行留痕」六子块校验(+强制) — 治「审计看不到=判未执行」: 对话输出做了但 raw 没写 → 审计误判未执行
         if _cidi >= 189:
             if ('## 八' not in t) and ('八、执行留痕' not in t) and ('执行留痕' not in t):
                 issues.append(f'case{cid}: raw 缺第八节「执行留痕」标题(## 八、执行留痕·2026-09-19起)')
@@ -92,7 +92,7 @@ def main():
         print('❌ 问题:')
         for i in all_issues: print(' ', i)
         sys.exit(1)
-    # case159起: 学习成果/融合判定留痕校验（闭环审计）
+    # 起: 学习成果/融合判定留痕校验（闭环审计）
     import re as _re2, os as _os2
     _miss_trace = []
     for _f in _os2.listdir('data/case-library/raw'):

@@ -502,7 +502,7 @@ def main():
     _league_cn = norm_league(league)
     is_eu = _league_cn in ('欧冠', '欧联', '欧协联')
     is_top5 = _league_cn in ('英超', '西甲', '意甲', '德甲', '法甲')
-    # 审计修复(P1-4·case188审计): 联赛基准自动输出(league_table.json·大球率/平局率/本场档位H-D-A) — 原靠人工记→易漏「Step0-6 联赛校准缺基准」→ 脚本化零遗漏(审计项0-6·硬核④平局基准自动满足)
+    # 审计修复(P1-4·审计): 联赛基准自动输出(league_table.json·大球率/平局率/本场档位H-D-A) — 原靠人工记→易漏「Step0-6 联赛校准缺基准」→ 脚本化零遗漏(审计项0-6·硬核④平局基准自动满足)
     if is_top5:
         try:
             _lt = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'league_table.json'), encoding='utf-8'))

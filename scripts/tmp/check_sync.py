@@ -364,7 +364,7 @@ chk("SK-audit" in open("AGENTS.md", encoding="utf-8").read(), "AGENTS含SK-audit
 chk(os.path.exists(".reasonix/skills/SK-audit/SKILL.md"), "SK-audit skill 文件存在")
 chk(("存在≠活跃" in open(".reasonix/skills/SK-audit/SKILL.md", encoding="utf-8").read()) and ("未列出=未执行" in open(".reasonix/skills/SK-audit/SKILL.md", encoding="utf-8").read()), "SK-audit含双模式核心铁律(存在≠活跃/未列出=未执行)")
 chk("审计入口" in open("AGENTS.md", encoding="utf-8").read(), "AGENTS审计入口已升级指SK-audit")
-# ── 🔴case188审计修复──
+# ── 🔴审计修复──
 _ag = open("AGENTS.md", encoding="utf-8").read()
 _tx = open("data/足球分析模型.txt", encoding="utf-8").read()
 _sk = open(".reasonix/skills/SK-model-v3-analysis/SKILL.md", encoding="utf-8").read()
