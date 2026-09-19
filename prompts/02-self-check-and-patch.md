@@ -1,4 +1,4 @@
-# ② 分析完成度检验与补充 · Completeness Check Specification
+# ② 分析完成度自查与补充 · Self-Check & Patch Specification
 
 > **用途**：在一场分析完成之后、输出最终结论之前，检验分析过程是否严格按规范执行；**发现遗漏 → 立即补充 → 更新结论**。
 > **适用范围**：任何多步骤的分析流水线（本规范从 PitchQuant 的实战教训中提炼，**不绑定具体实现**）。
