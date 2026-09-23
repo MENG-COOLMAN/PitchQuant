@@ -18,7 +18,7 @@ description: api-football 三端点链（源B3·Step0⑨）——fixtures?date �
    🔴date 时区(2026-09-03实证): api-football date=UTC 日·北京 09-04 02:45/03:00 开球场次(UTC 09-03 18:45/19:00)属 date=2026-09-03·非北京日·误用北京日会 count=0/漏场
    🔴MCP 截断降级(2026-09-03实证·大日必用): fixtures?date 大日(单日>100场·如162/464场)MCP 返回仅显示前~50条截断→无法翻页定位晚场→降级直连 REST:
      python -c "urllib.request GET https://v3.football.api-sports.io/fixtures?date=YYYY-MM-DD header x-apisports-key=<KEY> → 全量JSON本地过滤两队→fixture id"
-     🔴key 获取: reasonix.toml [[server]] api-football env.API_FOOTBALL_KEY(实测 $API_FOOTBALL_KEY)·直连不走代理·免费 100次/天 够用
+     🔴key 获取: reasonix.toml [[server]] api-football env.API_FOOTBALL_KEY(实测 <你的key>)·直连不走代理·免费 100次/天 够用
      实证: 2026-09-03 图卢兹vs里尔 fixture 1552754·皇家社会vs塞尔塔 fixture 1570392(MCP截断·直连过滤秒得)
 ② predictions?fixture=<id> → 官方模型概率（winner/win_or_draw/percent home-draw-away/advice）
 ③ odds?fixture=<id> → 🔴13家博彩赔率（Match Winner/Home-Away/Asian Handicap/Goals Over-Under/BTTS/半场市场·update 实时）

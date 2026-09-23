@@ -78,7 +78,7 @@ else:
 ```bash
 # 1. 找 fixture id（按日期+队伍）
 curl -s --max-time 20 -x http://127.0.0.1:7897 "https://v3.football.api-sports.io/fixtures?date=YYYY-MM-DD&timezone=Asia/Shanghai" \
-  -H "x-apisports-key: $API_FOOTBALL_KEY"
+  -H "x-apisports-key: <YOUR_API_FOOTBALL_KEY>"
 # 2. 伤停（触发铁则32/修正58·含位置reason字段）
 curl -s --max-time 20 -x http://127.0.0.1:7897 "https://v3.football.api-sports.io/injuries?fixture={id}" -H "x-apisports-key: ..."
 # 3. 可选：阵容 lineups / 统计 statistics / H2H fixtures/headtohead

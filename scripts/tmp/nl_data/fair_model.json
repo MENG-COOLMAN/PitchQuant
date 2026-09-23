@@ -1,0 +1,60 @@
+{
+ "version": "v2",
+ "params": {
+  "base": 0.8,
+  "sh": 0.0005,
+  "sa": 0.0017200000000000002,
+  "adv": 60.7
+ },
+ "params_free": {
+  "base": 0.7,
+  "sh": 0.0002,
+  "sa": 0.0024400000000000003,
+  "adv": 150.0
+ },
+ "cut": 526,
+ "n": 658,
+ "train_ll": -1241.115008055256,
+ "valid": {
+  "hit": 71,
+  "n": 132,
+  "acc": 0.5378787878787878,
+  "buckets": {
+   "<0.40": {
+    "ok": 0,
+    "n": 0
+   },
+   "0.40-0.50": {
+    "ok": 21,
+    "n": 57
+   },
+   "0.50-0.60": {
+    "ok": 17,
+    "n": 33
+   },
+   "≥0.60": {
+    "ok": 33,
+    "n": 42
+   }
+  },
+  "o25": {
+   "ok": 70,
+   "n": 132
+  }
+ },
+ "baseline_home": 0.4090909090909091,
+ "gate": {
+  "dir_min_abs": 0.538,
+  "dir_abs_met": true,
+  "dir_vs_baseline_pp": 12.9,
+  "dir_vs_baseline_met": true,
+  "hi_conf_min": 0.7,
+  "hi_conf": 0.7857,
+  "hi_conf_met": true,
+  "monotonic": true,
+  "o25_reproduced": false,
+  "verdict_direction": "PASS",
+  "verdict_o25": "FAIL (53.0% ≈ 基准 → 不接入)"
+ },
+ "gate_note": "门禁改为「对比基准」而非对比 A 报告数字；O2.5 未复现 → N5 仅接方向 edge，O2.5 不接"
+}

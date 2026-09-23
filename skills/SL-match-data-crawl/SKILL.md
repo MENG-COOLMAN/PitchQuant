@@ -7,7 +7,7 @@ description: 批量爬取联赛历史对战、近期6场战绩、攻防均值、
 
 调用 API-Football (v3.football.api-sports.io) 批量拉取比赛数据，自动规整为规范 CSV。
 
-**API Key**: `$API_FOOTBALL_KEY`（已内置，环境变量 x-apisports-key）
+**API Key**: `<YOUR_API_FOOTBALL_KEY>`（环境变量 x-apisports-key）
 
 ---
 
@@ -35,11 +35,11 @@ Arguments 中需包含一个 JSON，格式如下：
 ```bash
 # 按日期拉取
 curl -s "https://v3.football.api-sports.io/fixtures?date={date}" \
-  -H "x-apisports-key: $API_FOOTBALL_KEY" > /tmp/fixtures.json
+  -H "x-apisports-key: <YOUR_API_FOOTBALL_KEY>" > /tmp/fixtures.json
 
 # 或按 fixture_id
 curl -s "https://v3.football.api-sports.io/fixtures?id={fixture_id}" \
-  -H "x-apisports-key: $API_FOOTBALL_KEY" > /tmp/fixtures.json
+  -H "x-apisports-key: <YOUR_API_FOOTBALL_KEY>" > /tmp/fixtures.json
 ```
 
 ### Step 2: 拉取每个 Fixture 的赔率
@@ -47,7 +47,7 @@ curl -s "https://v3.football.api-sports.io/fixtures?id={fixture_id}" \
 对于每个 fixture，获取 odds：
 ```bash
 curl -s "https://v3.football.api-sports.io/odds?fixture={id}" \
-  -H "x-apisports-key: $API_FOOTBALL_KEY" > /tmp/odds_{id}.json
+  -H "x-apisports-key: <YOUR_API_FOOTBALL_KEY>" > /tmp/odds_{id}.json
 ```
 
 ### Step 3: 拉取球队近况
@@ -55,7 +55,7 @@ curl -s "https://v3.football.api-sports.io/odds?fixture={id}" \
 对于每个 fixture 的 home/away team：
 ```bash
 curl -s "https://v3.football.api-sports.io/fixtures?team={team_id}&last=6" \
-  -H "x-apisports-key: $API_FOOTBALL_KEY" > /tmp/team_{id}_form.json
+  -H "x-apisports-key: <YOUR_API_FOOTBALL_KEY>" > /tmp/team_{id}_form.json
 ```
 
 ### Step 4: Python 解析 → CSV

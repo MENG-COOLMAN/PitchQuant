@@ -8,6 +8,13 @@ description: 模型审计（V3.0 工程审计 + V4.0 结果审计 融合··**�
 > 🔴**被动 skill**：仅在用户提出审计要求时读取执行；常规分析/复盘**不触发**。
 > 🔴**审计不修改被审对象**（B 模式）· **审计发现问题必修到可验证**（A 模式）。
 
+## 🔴 host 工具链纪律（锁规避）
+bash 被报 `cannot declare which files it changes while a read-evidence requirement is outstanding` = 缺"写入边界声明"（非"读不够"）。
+① **声明生成**: `python data/tmp/lock_dirs.py --scan`（自动扫描子目录·防漏）
+② **顺序**: write/edit → 下一轮 read → bash + 全量声明（一次跑完）
+③ **轮末编辑**: 多文件编辑放轮末；**兜底**: edit_file 不受锁影响
+（详见 AGENTS「read-evidence 锁解法」节）
+
 ## 🔴 触发与模式路由
 
 | 用户表述 | 模式 | 对象 |
