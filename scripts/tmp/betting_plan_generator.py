@@ -13,7 +13,7 @@
   ⑧ 每腿 source_field 可追溯
 用法: python betting_plan_generator.py <input.json> [--per 每注参考金额(默认10元·可选)]
 """
-import json, sys, itertools, io, math
+import json, sys, itertools, io, math, os
 
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8') if hasattr(sys.stdout, 'buffer') else sys.stdout
 
@@ -156,7 +156,7 @@ def dynamic_tickets(pool, include_second=True):
         tag = '3串1' if k == 3 else f'{k}串1'
         tickets.append(make_ticket(sec_legs[:k], f'{tag}·比分次锚票(与主锚票互补·一场两比分)',
                                    f'{k}场次锚比分·与票2构成同场双比分覆盖'))
-    # —— 进球数串票(🔴用户核心玩法: 各场进球热档/高赔档·单注口径·每场一档) ——
+    # —— 进球数串票(🔴2026-09-04用户核心玩法: 各场进球热档/高赔档·单注口径·每场一档) ——
     gl_legs = []
     for m, ops in entries:
         go = next((x for x in ops if x['kind'] == 'goals'), None)
@@ -182,6 +182,13 @@ def dynamic_tickets(pool, include_second=True):
 def main():
     if len(sys.argv) < 2:
         print(__doc__); return
+    if sys.argv[1].startswith('--'):
+        print('🔴 参数错误: 第 1 个参数应为 <input.json> 路径, 收到 %r' % sys.argv[1])
+        print('   用法: python betting_plan_generator.py <input.json> [--per 每注参考金额(默认10元)]')
+        print('   （无 --bankroll 参数·本模块设计为「无资金限制」）')
+        return
+    if not os.path.exists(sys.argv[1]):
+        print('🔴 输入文件不存在: %s' % sys.argv[1]); return
     data = json.load(open(sys.argv[1], encoding='utf-8'))
     per = float(sys.argv[sys.argv.index('--per') + 1]) if '--per' in sys.argv else 10.0
     pool = []

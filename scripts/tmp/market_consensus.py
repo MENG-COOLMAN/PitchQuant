@@ -9,7 +9,7 @@
 
 🔴 数据源分工（宽窄互补）:
   · 广度（分歧度量）→ the-odds-api（21 家·家数最多）  ★主
-  · 合并池（去水）  → the-odds-api + api-football（13 家）合并去重
+  · 合并池（去水）  → the-odds-api（21-32 家）合并去重
   · 锐度锚          → Pinnacle / 1xbet（若在池中·可选加权·⚠️启发式未回测）
   · 兜底            → 竞彩 txt 去水（独立源）
 
@@ -107,16 +107,46 @@ def txt_teams(argv):
         if m:
             return m.group(1).strip(), m.group(2).strip()
         # 🔴格式B: 「赛事：周六016 欧国联 英格兰(主) VS 西班牙(客)」（case209 实测格式）
-        m2 = re.search(r'([^\s:：()（）,，]+)\s*[(（]主[)）]\s*(?:VS|vs|Vs|vS|对阵)\s*([^\s:：()（）,，]+)\s*[(（]客[)）]', s)
+        # 🔴2026-11-01 修：原 `[^\s:：()（）,，]+` **排除空格** → 英文队名
+        #   `Machida Zelvia` / `V-Varen Nagasaki` 恒失配 → 队名为空 → P10/P8/纵向/R11 连锁失效
+        #   （case308/309 实证：三源不齐 + 纵向不启用 + R11 无输出）
+        # 🔴2026-11-01 加 【】\n 边界：否则「【赛事】英超 曼城」整串被当队名
+        m2 = re.search(r'([^\[\]【】:：()（）,，\n]{2,60}?)\s*[(（]主[)）]\s*'
+                       r'(?:VS|vs|Vs|vS|对阵)\s*'
+                       r'([^\[\]【】:：()（）,，\n]{2,60}?)\s*[(（]客[)）]', s)
         if m2:
-            return m2.group(1).strip(), m2.group(2).strip()
+            _h, _a = m2.group(1).strip(), m2.group(2).strip()
+            # 去掉可能的联赛前缀（「日职 联 Machida Zelvia」→「Machida Zelvia」）
+            _LG_WORDS = ('英超', '西甲', '德甲', '意甲', '法甲', '日职联', '日职 联',
+                         '韩职联', '欧联', '欧冠', '英联赛杯', '亚冠精英', '欧国联',
+                         '日职', '韩职', '英冠', '苏超', '荷甲', '葡超', '土超',
+                         '巴甲', '阿甲', '美职', '日乙', '韩K2')
+            for _w in _LG_WORDS:
+                if _h.startswith(_w):
+                    _h = _h[len(_w):].strip()
+                    break
+                if _a.startswith(_w):
+                    _a = _a[len(_w):].strip()
+                    break
+            # 兜底：若仍含「X 联 / X 超」等 2-3 字 + 空格 的联赛残留，取最后一个空格后的部分
+            #   （仅当剩余部分仍含空格且前缀是 2-3 个中文字时触发）
+            for _k in ('_h', '_a'):
+                _v = locals()[_k]
+                _mm = re.match(r'^([\u4e00-\u9fa5]{1,3})\s+(.+)$', _v or '')
+                if _mm and len(_mm.group(2)) >= 3:
+                    if _k == '_h':
+                        _h = _mm.group(2).strip()
+                    else:
+                        _a = _mm.group(2).strip()
+            if _h and _a:
+                return _h, _a
     return None, None
 
 
 # 🔴 国家队中英映射（2026-09-27 补·局部表·仅服务「场次错配校验」）
 #   根因（实测）: data_bridge.normalize_name 用 `[^a-z0-9]` 剔除中文 → 中文名归一为空串；
 #     且 TEAM_ALIASES(191 队) / team_name_mapping_2025-26.json 均**无国家队** → 中英永不互认。
-#   🔴 不改 data_bridge（被 haf/clubelo/h2h/euro_odds/api_football 五源共用）→ 局部表零污染。
+#   🔴 不改 data_bridge（被 haf/clubelo/h2h/euro_odds 等源共用）→ 局部表零污染。
 NATION_ALIASES = {
     '英格兰': ['england'], '西班牙': ['spain'], '法国': ['france'], '德国': ['germany'],
     '意大利': ['italy'], '葡萄牙': ['portugal'], '荷兰': ['netherlands', 'holland'],
@@ -201,6 +231,26 @@ def _hit(x, y):
                 return True
     except Exception:
         pass
+    # 4. 🔴2026-10-30 补：cn2en_extra 表（**非五大球队唯一来源**·与 snapshot_save.cn2en_list 同源）
+    #    实证 case294: books=('Hammarby IF','IK Sirius') vs txt=('哈马比','天狼星')
+    #    → 中文名不在 data_bridge.TEAM_ALIASES（只有五大+欧战）→ 第3步恒 False → **误判场次错配**
+    #    → 39 家机构被整层拒绝消费。这里补读 extra 表 + 去重音子串匹配。
+    try:
+        _ex = json.load(io.open(os.path.join(HERE, 'cn2en_extra.json'), encoding='utf-8'))
+    except Exception:
+        _ex = {}
+    if _ex:
+        import unicodedata
+
+        def _da(s):
+            return ''.join(c for c in unicodedata.normalize('NFKD', str(s))
+                           if not unicodedata.combining(c)).lower().strip()
+
+        for a, b in ((x, y), (y, x)):
+            for cand in (_ex.get(a) or []):
+                ca, cb = _da(cand), _da(b)
+                if ca and cb and (ca in cb or cb in ca):
+                    return True
     return False
 
 

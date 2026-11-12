@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-"""资金盘信号统一入口（模型升级 V3.5.75 · 2026-09-21）
+"""资金盘信号统一入口（模型升级 V3.5.76 · 2026-09-29）
 
 覆盖方案全模块：
   P0-1 跨机构分歧（方向/O25/U25）  → bookmaker_spread.py（已回测·可进判定）
   P0-2 Pinnacle sharp 基准          → sharp_baseline.py（待回测·仅提示）
-  P0-3 RLM 反向线移动               → 本模块（竞彩逐T vs 亚盘跟进·待回测·仅提示）
+  P0-3 RLM 反向线移动               → 本模块（竞彩逐T vs 真实亚盘跟进·待回测·仅提示）
   P1-1 全盘 vig 诊断                → 本模块（已回测：无方向信息 → 降级依据）
   P1-3 Steam Move                   → 本模块（需多时点快照·待积累）
   P2-2 比分盘赔率变动               → 本模块（竞彩 txt 逐T·待积累·仅提示）
@@ -13,10 +13,17 @@
 🔴 铁律：所有资金盘信号**只调置信度·永不反转 L2 硬核方向**·最多 ±1 档
 🔴 状态分级：backtested（可进判定） / pending_backtest（仅提示） / pending_data（待积累）
 
+🔴 2026-09-29 修复（《双通道动态判定机制（V3.5.76）问题汇总》）:
+  · P1-2 存在≠活跃: analyze() 新增 ah_from/ah_to/window_min 并透传 rlm_detect
+    （此前唯一调用点未传 → 新增的「真实亚盘盘口逆浅≥0.25」「临场窗口过滤」两分支走不到）
+  · 附带修运算符优先级 bug: 原 `_a0, _a1 = _ah_hdp(ah_from), _ah_hdp(ah_to) if ah_from or ah_to else (None, None)`
+    在只给 ah_from 时 _a1=(None,None) 仍 truthy → 后续 None-float → TypeError
+  · P2-2 口径: follow 唯一判定归 dual_channel.C2（snapshot_save）· 本模块 RLM 为**佐证/独立观测**
+
 CLI:
   python data/tmp/fundflow_analyzer.py --jc-txt <txt> [--fav-odd X] [--books <json>]
   python data/tmp/fundflow_analyzer.py --odd 1.85 --max 1.92 --o25 1.95 --max-o25 2.02
-  python data/tmp/fundflow_analyzer.py --jc-txt <txt> --eu-books <json> --fav-odd 1.85 --fav-dir H
+  python data/tmp/fundflow_analyzer.py --jc-txt <txt> --ah-from "让-1.00 主3.22/客1.30" --ah-to "让-1.25 主3.10/客1.32" --window-min 45
 """
 import argparse
 import json
@@ -71,11 +78,37 @@ def _devig3(h, d, a):
     return (1 / h / inv, 1 / d / inv, 1 / a / inv), inv - 1
 
 
-def rlm_detect(jc_1x2, jc_handi):
+def _ah_hdp(s):
+    """亚盘串 → (盘口, 主水, 客水)｜"让-1.00 主3.22/客1.30" → (-1.0, 3.22, 1.3)
+    🔴V3.5.76 新增（rlm_detect 用真实亚盘盘口判 RLM·此前本模块无此工具→会 NameError）"""
+    m = re.search(r'让([+-][0-9.]+)\s*主([0-9.]+)/客([0-9.]+)', s or '')
+    return (float(m.group(1)), float(m.group(2)), float(m.group(3))) if m else None
+
+
+def _wmin(v):
+    """窗口分钟数 → float 或 None（防 str 比较 TypeError）"""
+    if v is None:
+        return None
+    try:
+        return float(v)
+    except (TypeError, ValueError):
+        return None
+
+
+def rlm_detect(jc_1x2, jc_handi, ah_from=None, ah_to=None, window_min=None):
     """P0-3 RLM（代理口径：竞彩热门降赔 × 亚盘是否跟进）
 
     竞彩不公开投注比例 → 用「竞彩热门方向移动」代理公众情绪，
     「亚盘让球是否跟进」代理 sharp 意愿。
+
+    🔴V3.5.76 升级（2026-09-29 用户方案《竞彩×欧亚盘双通道判定机制》§5.1）:
+      ① **临场窗口过滤**: window_min=距开赛分钟数 → 仅 ≤90min 的变动计强信号（>48h 早盘烟雾弹降级）
+      ② **盘口逆浅 ≥0.25 档**: 优先用**真实亚盘盘口**(ah_from/ah_to·欧亚通道)判「不跟进」，
+         而非竞彩让球赔率（jc_handi 保留为兜底）→ 对齐方案「盘口变浅 ≥1/4 档 = 触发线」
+
+    🔴P2-2 口径（2026-09-29）: **follow 的唯一判定口径 = snapshot_save.dual_channel.C2**
+      （盘口+水位双条件）。本函数为**佐证/独立观测**（阈值不同：本模块用盘口 ≥0.25 档强线），
+      两者不互相替代，结论分歧时以 dual_channel.C2 为准。
     """
     res = {'status': 'na', 'signals': [], 'note': ''}
     if len(jc_1x2) < 2:
@@ -92,8 +125,42 @@ def rlm_detect(jc_1x2, jc_handi):
     res['status'] = 'ok'
     res['jc_move'] = {'fav': fav_name, 'from': v0[fav_i], 'to': v1[fav_i], 'pct': round(drop, 2),
                       't0': t0, 't1': t1}
-    # 亚盘让球跟进判定（竞彩让球胜平负：让胜降赔 ≈ 升盘/看好主队穿盘）
-    if len(jc_handi) >= 2:
+    # 🔴窗口过滤（方案 §四·排除「早盘烟雾弹」）
+    _strong = True
+    _w = _wmin(window_min)
+    if _w is not None:
+        if _w > 48 * 60:
+            _strong = False
+            res['window'] = {'min': _w, 'grade': '⏳早盘>48h → 烟雾弹·降级为弱参考'}
+        elif _w <= 90:
+            res['window'] = {'min': _w, 'grade': '✅临场≤90min → 信息密度最高'}
+        else:
+            res['window'] = {'min': _w, 'grade': '一般（>90min·<48h）'}
+    # ── 亚盘跟进判定：优先真实亚盘盘口（欧亚通道）·兜底竞彩让球赔率 ──
+    _hdp_chg = None
+    _a0, _a1 = _ah_hdp(ah_from), _ah_hdp(ah_to)   # 🔴修复: 原三元表达式优先级错误致 _a1=(None,None) 仍 truthy
+    if _a0 and _a1:
+        _hdp_chg = round(_a1[0] - _a0[0], 2)
+        res['ah_hdp_change'] = _hdp_chg
+    if _hdp_chg is not None:
+        # 热门=主 → 盘口加深(更负)才算跟进；热门=客 → 盘口变浅(更正)才算跟进
+        if fav_name == 'H':
+            _not_follow = _hdp_chg > -0.01        # 未加深
+        elif fav_name == 'A':
+            _not_follow = _hdp_chg < 0.01         # 未变浅
+        else:
+            _not_follow = abs(_hdp_chg) >= 0.25   # 平局热门：盘口明显移动=不跟进
+        if drop <= -2 and _not_follow and abs(_hdp_chg) >= 0.25:
+            res['signals'].append({
+                'type': 'RLM_JC_VS_HANDI', 'severity': 'P0',
+                'desc': f'竞彩 {fav_name} 降赔 {drop:.1f}% 但亚盘盘口逆浅 {_hdp_chg:+.2f} 档（≥0.25 触发线）→ 热门陷阱嫌疑',
+                'action': '✅ 已接入 Q2 诱盘象限（方案 §5.1）·降档不反向', 'status': 'active'})
+        elif drop <= -2 and not _not_follow:
+            res['signals'].append({
+                'type': 'JC_HANDI_CONFIRM', 'severity': 'P1',
+                'desc': f'竞彩 {fav_name} 降赔且亚盘盘口同向跟进（{_hdp_chg:+.2f} 档）→ 资金确认',
+                'action': '✅ Q1 共识象限佐证', 'status': 'active'})
+    elif len(jc_handi) >= 2:
         h0, h1 = jc_handi[0][1], jc_handi[-1][1]
         if len(h0) >= 3 and len(h1) >= 3:
             follow = (h1[0] - h0[0]) / h0[0] * 100   # 让胜赔率变动
@@ -102,12 +169,12 @@ def rlm_detect(jc_1x2, jc_handi):
                 res['signals'].append({
                     'type': 'RLM_JC_VS_HANDI', 'severity': 'P0',
                     'desc': f'竞彩 {fav_name} 降赔 {drop:.1f}% 但让球盘未跟进（让胜赔率 {follow:+.1f}%）→ 热门陷阱嫌疑',
-                    'action': '待回测·当前不调整（仅记录·禁用）', 'status': 'pending_backtest'})
+                    'action': '⚠️ 兜底口径（竞彩让球赔率·非真实盘口）·仅记录', 'status': 'pending_backtest'})
             elif drop <= -2 and follow < 0:
                 res['signals'].append({
                     'type': 'JC_HANDI_CONFIRM', 'severity': 'P1',
                     'desc': f'竞彩 {fav_name} 降赔且让球盘同向跟进（{follow:+.1f}%）→ 资金确认',
-                    'action': '不调整（一致）', 'status': 'pending_backtest'})
+                    'action': '兜底口径·仅记录', 'status': 'pending_backtest'})
     if not res['signals']:
         res['note'] = '无 RLM 触发'
     return res
@@ -199,7 +266,13 @@ def time_weight(jc_series, kickoff=None):
 
 def analyze(jc_text=None, jc_path=None, books=None, odd=None, mx=None, o25=None,
             max_o25=None, u25=None, max_u25=None, fav_odd=None, fav_dir=None,
-            snapshots=None, kickoff=None, odd_h=None, odd_a=None, max_h=None, max_a=None):
+            snapshots=None, kickoff=None, odd_h=None, odd_a=None, max_h=None, max_a=None,
+            ah_from=None, ah_to=None, window_min=None):
+    """🔴2026-09-29 P1-2 修复（《双通道问题汇总》P1-2·存在≠活跃）:
+    新增 ah_from/ah_to/window_min 并透传 rlm_detect ——
+      此前调用点未传 → rlm_detect 新增的「真实亚盘盘口逆浅 ≥0.25 触发线」「临场窗口过滤」
+      两分支**走不到**，恒落入旧 jc_handi 兜底（pending_backtest）= 升级从未生效。
+    现由调用方（calc_all ⑤.5 / 双通道）传入真实快照盘口与距开赛分钟。"""
     if jc_path and not jc_text:
         with open(jc_path, encoding='utf-8', errors='replace') as fh:
             jc_text = fh.read()
@@ -214,7 +287,7 @@ def analyze(jc_text=None, jc_path=None, books=None, odd=None, mx=None, o25=None,
         res['P0-2'] = SB.sharp_vs_soft(books)
     else:
         res['P0-2'] = {'status': 'no_books', 'fallback': 'use_spread(替代 P0-1)',
-                       'reason': '未提供逐家赔率（需 api-football 13 家）'}
+                       'reason': '未提供逐家赔率（需 the-odds-api 21-32 家）'}
 
     # ── 竞彩序列类 ──
     if jc_text:
@@ -222,7 +295,8 @@ def analyze(jc_text=None, jc_path=None, books=None, odd=None, mx=None, o25=None,
         shandi = _parse_section(jc_text, 'handi')
         scs = _parse_section(jc_text, 'cs')
         res['sections'] = {'1x2_points': len(s1x2), 'handi_points': len(shandi), 'cs_points': len(scs)}
-        res['P0-3'] = rlm_detect(s1x2, shandi)
+        # 🔴P1-2 修复: 透传真实亚盘早盘/临场 + 窗口（None 时自动退回 jc_handi 兜底）
+        res['P0-3'] = rlm_detect(s1x2, shandi, ah_from, ah_to, window_min)
         res['P2-2'] = cs_series_detect(scs)
         res['P2-3'] = time_weight(s1x2, kickoff)
         # P1-1 诊断（vig 实测无方向信息 → 仅作降级说明）
@@ -268,6 +342,10 @@ def render(res):
         if r.get('jc_move'):
             L.append(f"  竞彩热门移动: {r['jc_move']['fav']} {r['jc_move']['from']}→{r['jc_move']['to']} "
                      f"({r['jc_move']['pct']:+.2f}%)")
+        if r.get('ah_hdp_change') is not None:
+            L.append(f"  真实亚盘盘口变动: {r['ah_hdp_change']:+.2f} 档（欧亚通道）")
+        if r.get('window'):
+            L.append(f"  窗口: {r['window']['grade']}")
         if r.get('handi_move'):
             L.append(f"  让球盘跟进: {r['handi_move']['pct']:+.2f}%")
         for s in r.get('signals', []):
@@ -299,7 +377,7 @@ def render(res):
 def main():
     ap = argparse.ArgumentParser(description='资金盘信号统一入口（P0-1/P0-2/P0-3/P1-1/P1-3/P2-2/P2-3）')
     ap.add_argument('--jc-txt', help='竞彩 txt 路径')
-    ap.add_argument('--books', help='api-football 逐家赔率 JSON 路径（[{bookmaker,h,d,a}]）')
+    ap.add_argument('--books', help='the-odds-api 逐家赔率 JSON 路径（[{bookmaker,h,d,a}]）')
     ap.add_argument('--odd', type=float, help='方向均值赔率（热门或主）')
     ap.add_argument('--max', type=float, dest='mx', help='方向最高价（MaxHome）')
     ap.add_argument('--o25', type=float)
@@ -310,6 +388,10 @@ def main():
     ap.add_argument('--fav-dir', dest='fav_dir', choices=['H', 'D', 'A'])
     ap.add_argument('--snapshots', help='多时点快照 JSON（P1-3 Steam）')
     ap.add_argument('--kickoff', help='开赛时间（P2-3）')
+    # 🔴2026-09-29 P1-2: RLM 真实亚盘盘口 + 临场窗口（此前无法从 CLI 传入 → 升级分支不可达）
+    ap.add_argument('--ah-from', dest='ah_from', help='早盘亚盘串（如 "让-1.00 主3.22/客1.30"）')
+    ap.add_argument('--ah-to', dest='ah_to', help='临场亚盘串')
+    ap.add_argument('--window-min', dest='window_min', type=float, help='距开赛分钟数（窗口过滤）')
     ap.add_argument('--json', action='store_true', help='输出 JSON')
     args = ap.parse_args()
 
@@ -333,7 +415,8 @@ def main():
         args.fav_odd = args.odd
     res = analyze(jc_path=args.jc_txt, books=books, odd=args.odd, mx=args.mx, o25=args.o25,
                   max_o25=args.max_o25, u25=args.u25, max_u25=args.max_u25,
-                  fav_odd=args.fav_odd, fav_dir=args.fav_dir, snapshots=snaps, kickoff=args.kickoff)
+                  fav_odd=args.fav_odd, fav_dir=args.fav_dir, snapshots=snaps, kickoff=args.kickoff,
+                  ah_from=args.ah_from, ah_to=args.ah_to, window_min=args.window_min)
     print(json.dumps(res, ensure_ascii=False, indent=2) if args.json else render(res))
 
 

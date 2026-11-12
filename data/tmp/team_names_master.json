@@ -1,0 +1,5011 @@
+{
+ "source": "用户提供 clipboard-20261031 映射表",
+ "n_teams": 691,
+ "n_leagues": 107,
+ "teams": [
+  {
+   "lg_cn": "英超",
+   "lg_en": "Premier League",
+   "cn": "阿森纳",
+   "en": "Arsenal"
+  },
+  {
+   "lg_cn": "英超",
+   "lg_en": "Premier League",
+   "cn": "阿斯顿维拉",
+   "en": "Aston Villa"
+  },
+  {
+   "lg_cn": "英超",
+   "lg_en": "Premier League",
+   "cn": "伯恩茅斯",
+   "en": "AFC Bournemouth"
+  },
+  {
+   "lg_cn": "英超",
+   "lg_en": "Premier League",
+   "cn": "布伦特福德",
+   "en": "Brentford"
+  },
+  {
+   "lg_cn": "英超",
+   "lg_en": "Premier League",
+   "cn": "布莱顿",
+   "en": "Brighton & Hove Albion"
+  },
+  {
+   "lg_cn": "英超",
+   "lg_en": "Premier League",
+   "cn": "切尔西",
+   "en": "Chelsea"
+  },
+  {
+   "lg_cn": "英超",
+   "lg_en": "Premier League",
+   "cn": "水晶宫",
+   "en": "Crystal Palace"
+  },
+  {
+   "lg_cn": "英超",
+   "lg_en": "Premier League",
+   "cn": "埃弗顿",
+   "en": "Everton"
+  },
+  {
+   "lg_cn": "英超",
+   "lg_en": "Premier League",
+   "cn": "富勒姆",
+   "en": "Fulham"
+  },
+  {
+   "lg_cn": "英超",
+   "lg_en": "Premier League",
+   "cn": "利物浦",
+   "en": "Liverpool"
+  },
+  {
+   "lg_cn": "英超",
+   "lg_en": "Premier League",
+   "cn": "曼城",
+   "en": "Manchester City"
+  },
+  {
+   "lg_cn": "英超",
+   "lg_en": "Premier League",
+   "cn": "曼联",
+   "en": "Manchester United"
+  },
+  {
+   "lg_cn": "英超",
+   "lg_en": "Premier League",
+   "cn": "纽卡斯尔联",
+   "en": "Newcastle United"
+  },
+  {
+   "lg_cn": "英超",
+   "lg_en": "Premier League",
+   "cn": "诺丁汉森林",
+   "en": "Nottingham Forest"
+  },
+  {
+   "lg_cn": "英超",
+   "lg_en": "Premier League",
+   "cn": "热刺",
+   "en": "Tottenham Hotspur"
+  },
+  {
+   "lg_cn": "英超",
+   "lg_en": "Premier League",
+   "cn": "西汉姆联",
+   "en": "West Ham United"
+  },
+  {
+   "lg_cn": "英超",
+   "lg_en": "Premier League",
+   "cn": "狼队",
+   "en": "Wolverhampton Wanderers"
+  },
+  {
+   "lg_cn": "英超",
+   "lg_en": "Premier League",
+   "cn": "伊普斯维奇",
+   "en": "Ipswich Town"
+  },
+  {
+   "lg_cn": "英超",
+   "lg_en": "Premier League",
+   "cn": "莱斯特城",
+   "en": "Leicester City"
+  },
+  {
+   "lg_cn": "英超",
+   "lg_en": "Premier League",
+   "cn": "南安普顿",
+   "en": "Southampton"
+  },
+  {
+   "lg_cn": "西甲",
+   "lg_en": "La Liga",
+   "cn": "皇家马德里",
+   "en": "Real Madrid"
+  },
+  {
+   "lg_cn": "西甲",
+   "lg_en": "La Liga",
+   "cn": "巴塞罗那",
+   "en": "Barcelona"
+  },
+  {
+   "lg_cn": "西甲",
+   "lg_en": "La Liga",
+   "cn": "马德里竞技",
+   "en": "Atlético Madrid"
+  },
+  {
+   "lg_cn": "西甲",
+   "lg_en": "La Liga",
+   "cn": "毕尔巴鄂竞技",
+   "en": "Athletic Bilbao"
+  },
+  {
+   "lg_cn": "西甲",
+   "lg_en": "La Liga",
+   "cn": "皇家社会",
+   "en": "Real Sociedad"
+  },
+  {
+   "lg_cn": "西甲",
+   "lg_en": "La Liga",
+   "cn": "比利亚雷亚尔",
+   "en": "Villarreal"
+  },
+  {
+   "lg_cn": "西甲",
+   "lg_en": "La Liga",
+   "cn": "皇家贝蒂斯",
+   "en": "Real Betis"
+  },
+  {
+   "lg_cn": "西甲",
+   "lg_en": "La Liga",
+   "cn": "塞维利亚",
+   "en": "Sevilla"
+  },
+  {
+   "lg_cn": "西甲",
+   "lg_en": "La Liga",
+   "cn": "瓦伦西亚",
+   "en": "Valencia"
+  },
+  {
+   "lg_cn": "西甲",
+   "lg_en": "La Liga",
+   "cn": "赫罗纳",
+   "en": "Girona"
+  },
+  {
+   "lg_cn": "西甲",
+   "lg_en": "La Liga",
+   "cn": "奥萨苏纳",
+   "en": "Osasuna"
+  },
+  {
+   "lg_cn": "西甲",
+   "lg_en": "La Liga",
+   "cn": "塞尔塔",
+   "en": "Celta Vigo"
+  },
+  {
+   "lg_cn": "西甲",
+   "lg_en": "La Liga",
+   "cn": "马略卡",
+   "en": "Mallorca"
+  },
+  {
+   "lg_cn": "西甲",
+   "lg_en": "La Liga",
+   "cn": "阿拉维斯",
+   "en": "Alavés"
+  },
+  {
+   "lg_cn": "西甲",
+   "lg_en": "La Liga",
+   "cn": "拉斯帕尔马斯",
+   "en": "Las Palmas"
+  },
+  {
+   "lg_cn": "西甲",
+   "lg_en": "La Liga",
+   "cn": "赫塔费",
+   "en": "Getafe"
+  },
+  {
+   "lg_cn": "西甲",
+   "lg_en": "La Liga",
+   "cn": "西班牙人",
+   "en": "Espanyol"
+  },
+  {
+   "lg_cn": "西甲",
+   "lg_en": "La Liga",
+   "cn": "莱加内斯",
+   "en": "Leganés"
+  },
+  {
+   "lg_cn": "西甲",
+   "lg_en": "La Liga",
+   "cn": "巴拉多利德",
+   "en": "Real Valladolid"
+  },
+  {
+   "lg_cn": "西甲",
+   "lg_en": "La Liga",
+   "cn": "巴列卡诺",
+   "en": "Rayo Vallecano"
+  },
+  {
+   "lg_cn": "意甲",
+   "lg_en": "Serie A",
+   "cn": "国际米兰",
+   "en": "Inter Milan"
+  },
+  {
+   "lg_cn": "意甲",
+   "lg_en": "Serie A",
+   "cn": "AC米兰",
+   "en": "AC Milan"
+  },
+  {
+   "lg_cn": "意甲",
+   "lg_en": "Serie A",
+   "cn": "尤文图斯",
+   "en": "Juventus"
+  },
+  {
+   "lg_cn": "意甲",
+   "lg_en": "Serie A",
+   "cn": "那不勒斯",
+   "en": "Napoli"
+  },
+  {
+   "lg_cn": "意甲",
+   "lg_en": "Serie A",
+   "cn": "罗马",
+   "en": "Roma"
+  },
+  {
+   "lg_cn": "意甲",
+   "lg_en": "Serie A",
+   "cn": "拉齐奥",
+   "en": "Lazio"
+  },
+  {
+   "lg_cn": "意甲",
+   "lg_en": "Serie A",
+   "cn": "亚特兰大",
+   "en": "Atalanta"
+  },
+  {
+   "lg_cn": "意甲",
+   "lg_en": "Serie A",
+   "cn": "佛罗伦萨",
+   "en": "Fiorentina"
+  },
+  {
+   "lg_cn": "意甲",
+   "lg_en": "Serie A",
+   "cn": "博洛尼亚",
+   "en": "Bologna"
+  },
+  {
+   "lg_cn": "意甲",
+   "lg_en": "Serie A",
+   "cn": "都灵",
+   "en": "Torino"
+  },
+  {
+   "lg_cn": "意甲",
+   "lg_en": "Serie A",
+   "cn": "乌迪内斯",
+   "en": "Udinese"
+  },
+  {
+   "lg_cn": "意甲",
+   "lg_en": "Serie A",
+   "cn": "热那亚",
+   "en": "Genoa"
+  },
+  {
+   "lg_cn": "意甲",
+   "lg_en": "Serie A",
+   "cn": "卡利亚里",
+   "en": "Cagliari"
+  },
+  {
+   "lg_cn": "意甲",
+   "lg_en": "Serie A",
+   "cn": "维罗纳",
+   "en": "Hellas Verona"
+  },
+  {
+   "lg_cn": "意甲",
+   "lg_en": "Serie A",
+   "cn": "恩波利",
+   "en": "Empoli"
+  },
+  {
+   "lg_cn": "意甲",
+   "lg_en": "Serie A",
+   "cn": "莱切",
+   "en": "Lecce"
+  },
+  {
+   "lg_cn": "意甲",
+   "lg_en": "Serie A",
+   "cn": "帕尔马",
+   "en": "Parma"
+  },
+  {
+   "lg_cn": "意甲",
+   "lg_en": "Serie A",
+   "cn": "科莫",
+   "en": "Como"
+  },
+  {
+   "lg_cn": "意甲",
+   "lg_en": "Serie A",
+   "cn": "威尼斯",
+   "en": "Venezia"
+  },
+  {
+   "lg_cn": "意甲",
+   "lg_en": "Serie A",
+   "cn": "蒙扎",
+   "en": "Monza"
+  },
+  {
+   "lg_cn": "德甲",
+   "lg_en": "Bundesliga",
+   "cn": "拜仁慕尼黑",
+   "en": "Bayern Munich"
+  },
+  {
+   "lg_cn": "德甲",
+   "lg_en": "Bundesliga",
+   "cn": "多特蒙德",
+   "en": "Borussia Dortmund"
+  },
+  {
+   "lg_cn": "德甲",
+   "lg_en": "Bundesliga",
+   "cn": "勒沃库森",
+   "en": "Bayer Leverkusen"
+  },
+  {
+   "lg_cn": "德甲",
+   "lg_en": "Bundesliga",
+   "cn": "莱比锡红牛",
+   "en": "RB Leipzig"
+  },
+  {
+   "lg_cn": "德甲",
+   "lg_en": "Bundesliga",
+   "cn": "法兰克福",
+   "en": "Eintracht Frankfurt"
+  },
+  {
+   "lg_cn": "德甲",
+   "lg_en": "Bundesliga",
+   "cn": "斯图加特",
+   "en": "VfB Stuttgart"
+  },
+  {
+   "lg_cn": "德甲",
+   "lg_en": "Bundesliga",
+   "cn": "门兴格拉德巴赫",
+   "en": "Borussia Mönchengladbach"
+  },
+  {
+   "lg_cn": "德甲",
+   "lg_en": "Bundesliga",
+   "cn": "沃尔夫斯堡",
+   "en": "VfL Wolfsburg"
+  },
+  {
+   "lg_cn": "德甲",
+   "lg_en": "Bundesliga",
+   "cn": "弗赖堡",
+   "en": "SC Freiburg"
+  },
+  {
+   "lg_cn": "德甲",
+   "lg_en": "Bundesliga",
+   "cn": "霍芬海姆",
+   "en": "TSG Hoffenheim"
+  },
+  {
+   "lg_cn": "德甲",
+   "lg_en": "Bundesliga",
+   "cn": "美因茨",
+   "en": "Mainz 05"
+  },
+  {
+   "lg_cn": "德甲",
+   "lg_en": "Bundesliga",
+   "cn": "奥格斯堡",
+   "en": "FC Augsburg"
+  },
+  {
+   "lg_cn": "德甲",
+   "lg_en": "Bundesliga",
+   "cn": "柏林联合",
+   "en": "Union Berlin"
+  },
+  {
+   "lg_cn": "德甲",
+   "lg_en": "Bundesliga",
+   "cn": "不来梅",
+   "en": "Werder Bremen"
+  },
+  {
+   "lg_cn": "德甲",
+   "lg_en": "Bundesliga",
+   "cn": "波鸿",
+   "en": "VfL Bochum"
+  },
+  {
+   "lg_cn": "德甲",
+   "lg_en": "Bundesliga",
+   "cn": "圣保利",
+   "en": "FC St. Pauli"
+  },
+  {
+   "lg_cn": "德甲",
+   "lg_en": "Bundesliga",
+   "cn": "海登海姆",
+   "en": "1. FC Heidenheim"
+  },
+  {
+   "lg_cn": "德甲",
+   "lg_en": "Bundesliga",
+   "cn": "荷尔斯泰因基尔",
+   "en": "Holstein Kiel"
+  },
+  {
+   "lg_cn": "法甲",
+   "lg_en": "Ligue 1",
+   "cn": "巴黎圣日耳曼",
+   "en": "Paris Saint-Germain"
+  },
+  {
+   "lg_cn": "法甲",
+   "lg_en": "Ligue 1",
+   "cn": "摩纳哥",
+   "en": "AS Monaco"
+  },
+  {
+   "lg_cn": "法甲",
+   "lg_en": "Ligue 1",
+   "cn": "马赛",
+   "en": "Olympique Marseille"
+  },
+  {
+   "lg_cn": "法甲",
+   "lg_en": "Ligue 1",
+   "cn": "里昂",
+   "en": "Olympique Lyonnais"
+  },
+  {
+   "lg_cn": "法甲",
+   "lg_en": "Ligue 1",
+   "cn": "里尔",
+   "en": "Lille OSC"
+  },
+  {
+   "lg_cn": "法甲",
+   "lg_en": "Ligue 1",
+   "cn": "尼斯",
+   "en": "OGC Nice"
+  },
+  {
+   "lg_cn": "法甲",
+   "lg_en": "Ligue 1",
+   "cn": "朗斯",
+   "en": "RC Lens"
+  },
+  {
+   "lg_cn": "法甲",
+   "lg_en": "Ligue 1",
+   "cn": "雷恩",
+   "en": "Stade Rennais"
+  },
+  {
+   "lg_cn": "法甲",
+   "lg_en": "Ligue 1",
+   "cn": "斯特拉斯堡",
+   "en": "RC Strasbourg"
+  },
+  {
+   "lg_cn": "法甲",
+   "lg_en": "Ligue 1",
+   "cn": "图卢兹",
+   "en": "Toulouse FC"
+  },
+  {
+   "lg_cn": "法甲",
+   "lg_en": "Ligue 1",
+   "cn": "南特",
+   "en": "FC Nantes"
+  },
+  {
+   "lg_cn": "法甲",
+   "lg_en": "Ligue 1",
+   "cn": "兰斯",
+   "en": "Stade de Reims"
+  },
+  {
+   "lg_cn": "法甲",
+   "lg_en": "Ligue 1",
+   "cn": "蒙彼利埃",
+   "en": "Montpellier HSC"
+  },
+  {
+   "lg_cn": "法甲",
+   "lg_en": "Ligue 1",
+   "cn": "欧塞尔",
+   "en": "Auxerre"
+  },
+  {
+   "lg_cn": "法甲",
+   "lg_en": "Ligue 1",
+   "cn": "布雷斯特",
+   "en": "Stade Brestois"
+  },
+  {
+   "lg_cn": "法甲",
+   "lg_en": "Ligue 1",
+   "cn": "勒阿弗尔",
+   "en": "Le Havre AC"
+  },
+  {
+   "lg_cn": "法甲",
+   "lg_en": "Ligue 1",
+   "cn": "昂热",
+   "en": "Angers SCO"
+  },
+  {
+   "lg_cn": "法甲",
+   "lg_en": "Ligue 1",
+   "cn": "圣埃蒂安",
+   "en": "AS Saint-Étienne"
+  },
+  {
+   "lg_cn": "英冠",
+   "lg_en": "EFL Championship",
+   "cn": "利兹联",
+   "en": "Leeds United"
+  },
+  {
+   "lg_cn": "英冠",
+   "lg_en": "EFL Championship",
+   "cn": "伯恩利",
+   "en": "Burnley"
+  },
+  {
+   "lg_cn": "英冠",
+   "lg_en": "EFL Championship",
+   "cn": "桑德兰",
+   "en": "Sunderland"
+  },
+  {
+   "lg_cn": "英冠",
+   "lg_en": "EFL Championship",
+   "cn": "谢菲尔德联",
+   "en": "Sheffield United"
+  },
+  {
+   "lg_cn": "英冠",
+   "lg_en": "EFL Championship",
+   "cn": "考文垂",
+   "en": "Coventry City"
+  },
+  {
+   "lg_cn": "英冠",
+   "lg_en": "EFL Championship",
+   "cn": "米德尔斯堡",
+   "en": "Middlesbrough"
+  },
+  {
+   "lg_cn": "英冠",
+   "lg_en": "EFL Championship",
+   "cn": "西布罗姆维奇",
+   "en": "West Bromwich Albion"
+  },
+  {
+   "lg_cn": "英冠",
+   "lg_en": "EFL Championship",
+   "cn": "诺维奇城",
+   "en": "Norwich City"
+  },
+  {
+   "lg_cn": "英冠",
+   "lg_en": "EFL Championship",
+   "cn": "沃特福德",
+   "en": "Watford"
+  },
+  {
+   "lg_cn": "英冠",
+   "lg_en": "EFL Championship",
+   "cn": "布莱克本",
+   "en": "Blackburn Rovers"
+  },
+  {
+   "lg_cn": "英冠",
+   "lg_en": "EFL Championship",
+   "cn": "斯旺西",
+   "en": "Swansea City"
+  },
+  {
+   "lg_cn": "英冠",
+   "lg_en": "EFL Championship",
+   "cn": "布里斯托尔城",
+   "en": "Bristol City"
+  },
+  {
+   "lg_cn": "英冠",
+   "lg_en": "EFL Championship",
+   "cn": "赫尔城",
+   "en": "Hull City"
+  },
+  {
+   "lg_cn": "英冠",
+   "lg_en": "EFL Championship",
+   "cn": "米尔沃尔",
+   "en": "Millwall"
+  },
+  {
+   "lg_cn": "英冠",
+   "lg_en": "EFL Championship",
+   "cn": "女王公园巡游者",
+   "en": "Queens Park Rangers"
+  },
+  {
+   "lg_cn": "英冠",
+   "lg_en": "EFL Championship",
+   "cn": "普雷斯顿",
+   "en": "Preston North End"
+  },
+  {
+   "lg_cn": "英冠",
+   "lg_en": "EFL Championship",
+   "cn": "斯托克城",
+   "en": "Stoke City"
+  },
+  {
+   "lg_cn": "英冠",
+   "lg_en": "EFL Championship",
+   "cn": "加的夫城",
+   "en": "Cardiff City"
+  },
+  {
+   "lg_cn": "英冠",
+   "lg_en": "EFL Championship",
+   "cn": "德比郡",
+   "en": "Derby County"
+  },
+  {
+   "lg_cn": "英冠",
+   "lg_en": "EFL Championship",
+   "cn": "朴茨茅斯",
+   "en": "Portsmouth"
+  },
+  {
+   "lg_cn": "英冠",
+   "lg_en": "EFL Championship",
+   "cn": "卢顿",
+   "en": "Luton Town"
+  },
+  {
+   "lg_cn": "英冠",
+   "lg_en": "EFL Championship",
+   "cn": "牛津联",
+   "en": "Oxford United"
+  },
+  {
+   "lg_cn": "英冠",
+   "lg_en": "EFL Championship",
+   "cn": "谢周三",
+   "en": "Sheffield Wednesday"
+  },
+  {
+   "lg_cn": "英冠",
+   "lg_en": "EFL Championship",
+   "cn": "诺茨郡",
+   "en": "Notts County"
+  },
+  {
+   "lg_cn": "西乙",
+   "lg_en": "LaLiga 2",
+   "cn": "埃尔切",
+   "en": "Elche CF"
+  },
+  {
+   "lg_cn": "西乙",
+   "lg_en": "LaLiga 2",
+   "cn": "希洪竞技",
+   "en": "Sporting Gijón"
+  },
+  {
+   "lg_cn": "西乙",
+   "lg_en": "LaLiga 2",
+   "cn": "莱万特",
+   "en": "Levante UD"
+  },
+  {
+   "lg_cn": "西乙",
+   "lg_en": "LaLiga 2",
+   "cn": "奥维耶多",
+   "en": "Real Oviedo"
+  },
+  {
+   "lg_cn": "西乙",
+   "lg_en": "LaLiga 2",
+   "cn": "埃瓦尔",
+   "en": "SD Eibar"
+  },
+  {
+   "lg_cn": "西乙",
+   "lg_en": "LaLiga 2",
+   "cn": "阿尔梅里亚",
+   "en": "UD Almería"
+  },
+  {
+   "lg_cn": "西乙",
+   "lg_en": "LaLiga 2",
+   "cn": "萨拉戈萨",
+   "en": "Real Zaragoza"
+  },
+  {
+   "lg_cn": "西乙",
+   "lg_en": "LaLiga 2",
+   "cn": "卡塔赫纳",
+   "en": "FC Cartagena"
+  },
+  {
+   "lg_cn": "西乙",
+   "lg_en": "LaLiga 2",
+   "cn": "阿尔瓦塞特",
+   "en": "Albacete Balompié"
+  },
+  {
+   "lg_cn": "西乙",
+   "lg_en": "LaLiga 2",
+   "cn": "韦斯卡",
+   "en": "SD Huesca"
+  },
+  {
+   "lg_cn": "西乙",
+   "lg_en": "LaLiga 2",
+   "cn": "布尔戈斯",
+   "en": "Burgos CF"
+  },
+  {
+   "lg_cn": "西乙",
+   "lg_en": "LaLiga 2",
+   "cn": "米兰德斯",
+   "en": "CD Mirandés"
+  },
+  {
+   "lg_cn": "西乙",
+   "lg_en": "LaLiga 2",
+   "cn": "费罗尔竞技",
+   "en": "Racing Ferrol"
+  },
+  {
+   "lg_cn": "西乙",
+   "lg_en": "LaLiga 2",
+   "cn": "埃登斯",
+   "en": "CD Eldense"
+  },
+  {
+   "lg_cn": "西乙",
+   "lg_en": "LaLiga 2",
+   "cn": "特内里费",
+   "en": "CD Tenerife"
+  },
+  {
+   "lg_cn": "西乙",
+   "lg_en": "LaLiga 2",
+   "cn": "马拉加",
+   "en": "Málaga CF"
+  },
+  {
+   "lg_cn": "西乙",
+   "lg_en": "LaLiga 2",
+   "cn": "科尔多瓦",
+   "en": "Córdoba CF"
+  },
+  {
+   "lg_cn": "西乙",
+   "lg_en": "LaLiga 2",
+   "cn": "格拉纳达",
+   "en": "Granada CF"
+  },
+  {
+   "lg_cn": "西乙",
+   "lg_en": "LaLiga 2",
+   "cn": "加的斯",
+   "en": "Cádiz CF"
+  },
+  {
+   "lg_cn": "西乙",
+   "lg_en": "LaLiga 2",
+   "cn": "卡斯蒂利翁",
+   "en": "CD Castellón"
+  },
+  {
+   "lg_cn": "西乙",
+   "lg_en": "LaLiga 2",
+   "cn": "拉科鲁尼亚",
+   "en": "Deportivo La Coruña"
+  },
+  {
+   "lg_cn": "意乙",
+   "lg_en": "Serie B",
+   "cn": "萨索洛",
+   "en": "Sassuolo"
+  },
+  {
+   "lg_cn": "意乙",
+   "lg_en": "Serie B",
+   "cn": "桑普多利亚",
+   "en": "Sampdoria"
+  },
+  {
+   "lg_cn": "意乙",
+   "lg_en": "Serie B",
+   "cn": "巴里",
+   "en": "Bari"
+  },
+  {
+   "lg_cn": "意乙",
+   "lg_en": "Serie B",
+   "cn": "克雷莫内塞",
+   "en": "Cremonese"
+  },
+  {
+   "lg_cn": "意乙",
+   "lg_en": "Serie B",
+   "cn": "佩斯卡拉",
+   "en": "Pescara"
+  },
+  {
+   "lg_cn": "意乙",
+   "lg_en": "Serie B",
+   "cn": "斯佩齐亚",
+   "en": "Spezia"
+  },
+  {
+   "lg_cn": "意乙",
+   "lg_en": "Serie B",
+   "cn": "比萨",
+   "en": "Pisa"
+  },
+  {
+   "lg_cn": "意乙",
+   "lg_en": "Serie B",
+   "cn": "雷吉纳",
+   "en": "Reggina"
+  },
+  {
+   "lg_cn": "意乙",
+   "lg_en": "Serie B",
+   "cn": "卡坦扎罗",
+   "en": "Catanzaro"
+  },
+  {
+   "lg_cn": "意乙",
+   "lg_en": "Serie B",
+   "cn": "科森扎",
+   "en": "Cosenza"
+  },
+  {
+   "lg_cn": "意乙",
+   "lg_en": "Serie B",
+   "cn": "特尔纳纳",
+   "en": "Ternana"
+  },
+  {
+   "lg_cn": "意乙",
+   "lg_en": "Serie B",
+   "cn": "摩德纳",
+   "en": "Modena"
+  },
+  {
+   "lg_cn": "意乙",
+   "lg_en": "Serie B",
+   "cn": "弗罗西诺内",
+   "en": "Frosinone"
+  },
+  {
+   "lg_cn": "意乙",
+   "lg_en": "Serie B",
+   "cn": "奇塔代拉",
+   "en": "Cittadella"
+  },
+  {
+   "lg_cn": "意乙",
+   "lg_en": "Serie B",
+   "cn": "布雷西亚",
+   "en": "Brescia"
+  },
+  {
+   "lg_cn": "意乙",
+   "lg_en": "Serie B",
+   "cn": "南蒂罗尔",
+   "en": "Südtirol"
+  },
+  {
+   "lg_cn": "意乙",
+   "lg_en": "Serie B",
+   "cn": "萨勒尼塔纳",
+   "en": "Salernitana"
+  },
+  {
+   "lg_cn": "意乙",
+   "lg_en": "Serie B",
+   "cn": "莱科",
+   "en": "Lecco"
+  },
+  {
+   "lg_cn": "意乙",
+   "lg_en": "Serie B",
+   "cn": "卡拉雷塞",
+   "en": "Carrarese"
+  },
+  {
+   "lg_cn": "德乙",
+   "lg_en": "2. Bundesliga",
+   "cn": "汉堡",
+   "en": "Hamburger SV"
+  },
+  {
+   "lg_cn": "德乙",
+   "lg_en": "2. Bundesliga",
+   "cn": "科隆",
+   "en": "1. FC Köln"
+  },
+  {
+   "lg_cn": "德乙",
+   "lg_en": "2. Bundesliga",
+   "cn": "汉诺威96",
+   "en": "Hannover 96"
+  },
+  {
+   "lg_cn": "德乙",
+   "lg_en": "2. Bundesliga",
+   "cn": "柏林赫塔",
+   "en": "Hertha BSC"
+  },
+  {
+   "lg_cn": "德乙",
+   "lg_en": "2. Bundesliga",
+   "cn": "沙尔克04",
+   "en": "Schalke 04"
+  },
+  {
+   "lg_cn": "德乙",
+   "lg_en": "2. Bundesliga",
+   "cn": "纽伦堡",
+   "en": "1. FC Nürnberg"
+  },
+  {
+   "lg_cn": "德乙",
+   "lg_en": "2. Bundesliga",
+   "cn": "达姆施塔特",
+   "en": "SV Darmstadt 98"
+  },
+  {
+   "lg_cn": "德乙",
+   "lg_en": "2. Bundesliga",
+   "cn": "杜塞尔多夫",
+   "en": "Fortuna Düsseldorf"
+  },
+  {
+   "lg_cn": "德乙",
+   "lg_en": "2. Bundesliga",
+   "cn": "帕德博恩",
+   "en": "SC Paderborn"
+  },
+  {
+   "lg_cn": "德乙",
+   "lg_en": "2. Bundesliga",
+   "cn": "卡尔斯鲁厄",
+   "en": "Karlsruher SC"
+  },
+  {
+   "lg_cn": "德乙",
+   "lg_en": "2. Bundesliga",
+   "cn": "马格德堡",
+   "en": "1. FC Magdeburg"
+  },
+  {
+   "lg_cn": "德乙",
+   "lg_en": "2. Bundesliga",
+   "cn": "菲尔特",
+   "en": "SpVgg Greuther Fürth"
+  },
+  {
+   "lg_cn": "德乙",
+   "lg_en": "2. Bundesliga",
+   "cn": "乌尔姆",
+   "en": "SSV Ulm"
+  },
+  {
+   "lg_cn": "德乙",
+   "lg_en": "2. Bundesliga",
+   "cn": "雷根斯堡",
+   "en": "SSV Jahn Regensburg"
+  },
+  {
+   "lg_cn": "德乙",
+   "lg_en": "2. Bundesliga",
+   "cn": "凯泽斯劳滕",
+   "en": "1. FC Kaiserslautern"
+  },
+  {
+   "lg_cn": "德乙",
+   "lg_en": "2. Bundesliga",
+   "cn": "布伦瑞克",
+   "en": "Eintracht Braunschweig"
+  },
+  {
+   "lg_cn": "德乙",
+   "lg_en": "2. Bundesliga",
+   "cn": "埃森",
+   "en": "Rot-Weiss Essen"
+  },
+  {
+   "lg_cn": "德乙",
+   "lg_en": "2. Bundesliga",
+   "cn": "普鲁士明斯特",
+   "en": "SC Preußen Münster"
+  },
+  {
+   "lg_cn": "法乙",
+   "lg_en": "Ligue 2",
+   "cn": "洛里昂",
+   "en": "FC Lorient"
+  },
+  {
+   "lg_cn": "法乙",
+   "lg_en": "Ligue 2",
+   "cn": "梅斯",
+   "en": "FC Metz"
+  },
+  {
+   "lg_cn": "法乙",
+   "lg_en": "Ligue 2",
+   "cn": "亚眠",
+   "en": "Amiens SC"
+  },
+  {
+   "lg_cn": "法乙",
+   "lg_en": "Ligue 2",
+   "cn": "巴黎FC",
+   "en": "Paris FC"
+  },
+  {
+   "lg_cn": "法乙",
+   "lg_en": "Ligue 2",
+   "cn": "特鲁瓦",
+   "en": "ES Troyes"
+  },
+  {
+   "lg_cn": "法乙",
+   "lg_en": "Ligue 2",
+   "cn": "格勒诺布尔",
+   "en": "Grenoble Foot 38"
+  },
+  {
+   "lg_cn": "法乙",
+   "lg_en": "Ligue 2",
+   "cn": "波尔多",
+   "en": "Girondins de Bordeaux"
+  },
+  {
+   "lg_cn": "法乙",
+   "lg_en": "Ligue 2",
+   "cn": "罗德兹",
+   "en": "Rodez AF"
+  },
+  {
+   "lg_cn": "法乙",
+   "lg_en": "Ligue 2",
+   "cn": "卡昂",
+   "en": "SM Caen"
+  },
+  {
+   "lg_cn": "法乙",
+   "lg_en": "Ligue 2",
+   "cn": "巴斯蒂亚",
+   "en": "SC Bastia"
+  },
+  {
+   "lg_cn": "法乙",
+   "lg_en": "Ligue 2",
+   "cn": "阿雅克肖",
+   "en": "AC Ajaccio"
+  },
+  {
+   "lg_cn": "法乙",
+   "lg_en": "Ligue 2",
+   "cn": "克莱蒙",
+   "en": "Clermont Foot"
+  },
+  {
+   "lg_cn": "法乙",
+   "lg_en": "Ligue 2",
+   "cn": "敦刻尔克",
+   "en": "USL Dunkerque"
+  },
+  {
+   "lg_cn": "法乙",
+   "lg_en": "Ligue 2",
+   "cn": "拉瓦勒",
+   "en": "Stade Lavallois"
+  },
+  {
+   "lg_cn": "法乙",
+   "lg_en": "Ligue 2",
+   "cn": "波城",
+   "en": "Pau FC"
+  },
+  {
+   "lg_cn": "法乙",
+   "lg_en": "Ligue 2",
+   "cn": "瓦朗谢讷",
+   "en": "Valenciennes FC"
+  },
+  {
+   "lg_cn": "法乙",
+   "lg_en": "Ligue 2",
+   "cn": "红星",
+   "en": "Red Star FC"
+  },
+  {
+   "lg_cn": "法乙",
+   "lg_en": "Ligue 2",
+   "cn": "尼奥尔",
+   "en": "Chamois Niortais"
+  },
+  {
+   "lg_cn": "巴甲",
+   "lg_en": "Campeonato Brasileiro Série A",
+   "cn": "弗拉门戈",
+   "en": "Flamengo"
+  },
+  {
+   "lg_cn": "巴甲",
+   "lg_en": "Campeonato Brasileiro Série A",
+   "cn": "帕尔梅拉斯",
+   "en": "Palmeiras"
+  },
+  {
+   "lg_cn": "巴甲",
+   "lg_en": "Campeonato Brasileiro Série A",
+   "cn": "圣保罗",
+   "en": "São Paulo"
+  },
+  {
+   "lg_cn": "巴甲",
+   "lg_en": "Campeonato Brasileiro Série A",
+   "cn": "科林蒂安",
+   "en": "Corinthians"
+  },
+  {
+   "lg_cn": "巴甲",
+   "lg_en": "Campeonato Brasileiro Série A",
+   "cn": "桑托斯",
+   "en": "Santos"
+  },
+  {
+   "lg_cn": "巴甲",
+   "lg_en": "Campeonato Brasileiro Série A",
+   "cn": "格雷米奥",
+   "en": "Grêmio"
+  },
+  {
+   "lg_cn": "巴甲",
+   "lg_en": "Campeonato Brasileiro Série A",
+   "cn": "巴西国际",
+   "en": "Internacional"
+  },
+  {
+   "lg_cn": "巴甲",
+   "lg_en": "Campeonato Brasileiro Série A",
+   "cn": "克鲁塞罗",
+   "en": "Cruzeiro"
+  },
+  {
+   "lg_cn": "巴甲",
+   "lg_en": "Campeonato Brasileiro Série A",
+   "cn": "米内罗竞技",
+   "en": "Atlético Mineiro"
+  },
+  {
+   "lg_cn": "巴甲",
+   "lg_en": "Campeonato Brasileiro Série A",
+   "cn": "博塔弗戈",
+   "en": "Botafogo"
+  },
+  {
+   "lg_cn": "巴甲",
+   "lg_en": "Campeonato Brasileiro Série A",
+   "cn": "弗鲁米嫩塞",
+   "en": "Fluminense"
+  },
+  {
+   "lg_cn": "巴甲",
+   "lg_en": "Campeonato Brasileiro Série A",
+   "cn": "瓦斯科达伽马",
+   "en": "Vasco da Gama"
+  },
+  {
+   "lg_cn": "巴甲",
+   "lg_en": "Campeonato Brasileiro Série A",
+   "cn": "巴拉纳竞技",
+   "en": "Athletico Paranaense"
+  },
+  {
+   "lg_cn": "巴甲",
+   "lg_en": "Campeonato Brasileiro Série A",
+   "cn": "巴伊亚",
+   "en": "Bahia"
+  },
+  {
+   "lg_cn": "巴甲",
+   "lg_en": "Campeonato Brasileiro Série A",
+   "cn": "库里蒂巴",
+   "en": "Coritiba"
+  },
+  {
+   "lg_cn": "巴甲",
+   "lg_en": "Campeonato Brasileiro Série A",
+   "cn": "戈亚斯",
+   "en": "Goiás"
+  },
+  {
+   "lg_cn": "巴甲",
+   "lg_en": "Campeonato Brasileiro Série A",
+   "cn": "福塔莱萨",
+   "en": "Fortaleza"
+  },
+  {
+   "lg_cn": "巴甲",
+   "lg_en": "Campeonato Brasileiro Série A",
+   "cn": "塞阿拉",
+   "en": "Ceará"
+  },
+  {
+   "lg_cn": "巴甲",
+   "lg_en": "Campeonato Brasileiro Série A",
+   "cn": "布拉甘蒂诺红牛",
+   "en": "Red Bull Bragantino"
+  },
+  {
+   "lg_cn": "巴甲",
+   "lg_en": "Campeonato Brasileiro Série A",
+   "cn": "米拉索尔",
+   "en": "Mirassol"
+  },
+  {
+   "lg_cn": "荷甲",
+   "lg_en": "Eredivisie",
+   "cn": "阿贾克斯",
+   "en": "Ajax"
+  },
+  {
+   "lg_cn": "荷甲",
+   "lg_en": "Eredivisie",
+   "cn": "埃因霍温",
+   "en": "PSV Eindhoven"
+  },
+  {
+   "lg_cn": "荷甲",
+   "lg_en": "Eredivisie",
+   "cn": "费耶诺德",
+   "en": "Feyenoord"
+  },
+  {
+   "lg_cn": "荷甲",
+   "lg_en": "Eredivisie",
+   "cn": "阿尔克马尔",
+   "en": "AZ Alkmaar"
+  },
+  {
+   "lg_cn": "荷甲",
+   "lg_en": "Eredivisie",
+   "cn": "特温特",
+   "en": "FC Twente"
+  },
+  {
+   "lg_cn": "荷甲",
+   "lg_en": "Eredivisie",
+   "cn": "乌得勒支",
+   "en": "FC Utrecht"
+  },
+  {
+   "lg_cn": "荷甲",
+   "lg_en": "Eredivisie",
+   "cn": "维特斯",
+   "en": "Vitesse"
+  },
+  {
+   "lg_cn": "荷甲",
+   "lg_en": "Eredivisie",
+   "cn": "格罗宁根",
+   "en": "FC Groningen"
+  },
+  {
+   "lg_cn": "荷甲",
+   "lg_en": "Eredivisie",
+   "cn": "海伦芬",
+   "en": "SC Heerenveen"
+  },
+  {
+   "lg_cn": "荷甲",
+   "lg_en": "Eredivisie",
+   "cn": "威廉二世",
+   "en": "Willem II"
+  },
+  {
+   "lg_cn": "荷甲",
+   "lg_en": "Eredivisie",
+   "cn": "奈梅亨",
+   "en": "NEC Nijmegen"
+  },
+  {
+   "lg_cn": "荷甲",
+   "lg_en": "Eredivisie",
+   "cn": "鹿特丹斯巴达",
+   "en": "Sparta Rotterdam"
+  },
+  {
+   "lg_cn": "荷甲",
+   "lg_en": "Eredivisie",
+   "cn": "赫拉克勒斯",
+   "en": "Heracles Almelo"
+  },
+  {
+   "lg_cn": "荷甲",
+   "lg_en": "Eredivisie",
+   "cn": "瓦尔韦克",
+   "en": "RKC Waalwijk"
+  },
+  {
+   "lg_cn": "荷甲",
+   "lg_en": "Eredivisie",
+   "cn": "兹沃勒",
+   "en": "PEC Zwolle"
+  },
+  {
+   "lg_cn": "荷甲",
+   "lg_en": "Eredivisie",
+   "cn": "前进之鹰",
+   "en": "Go Ahead Eagles"
+  },
+  {
+   "lg_cn": "荷甲",
+   "lg_en": "Eredivisie",
+   "cn": "福图纳锡塔德",
+   "en": "Fortuna Sittard"
+  },
+  {
+   "lg_cn": "荷甲",
+   "lg_en": "Eredivisie",
+   "cn": "布雷达",
+   "en": "NAC Breda"
+  },
+  {
+   "lg_cn": "葡超",
+   "lg_en": "Primeira Liga",
+   "cn": "本菲卡",
+   "en": "Benfica"
+  },
+  {
+   "lg_cn": "葡超",
+   "lg_en": "Primeira Liga",
+   "cn": "波尔图",
+   "en": "Porto"
+  },
+  {
+   "lg_cn": "葡超",
+   "lg_en": "Primeira Liga",
+   "cn": "葡萄牙体育",
+   "en": "Sporting CP"
+  },
+  {
+   "lg_cn": "葡超",
+   "lg_en": "Primeira Liga",
+   "cn": "布拉加",
+   "en": "SC Braga"
+  },
+  {
+   "lg_cn": "葡超",
+   "lg_en": "Primeira Liga",
+   "cn": "吉马良斯",
+   "en": "Vitória de Guimarães"
+  },
+  {
+   "lg_cn": "葡超",
+   "lg_en": "Primeira Liga",
+   "cn": "博阿维斯塔",
+   "en": "Boavista"
+  },
+  {
+   "lg_cn": "葡超",
+   "lg_en": "Primeira Liga",
+   "cn": "法马利康",
+   "en": "Famalicão"
+  },
+  {
+   "lg_cn": "葡超",
+   "lg_en": "Primeira Liga",
+   "cn": "摩里伦斯",
+   "en": "Moreirense"
+  },
+  {
+   "lg_cn": "葡超",
+   "lg_en": "Primeira Liga",
+   "cn": "吉维森特",
+   "en": "Gil Vicente"
+  },
+  {
+   "lg_cn": "葡超",
+   "lg_en": "Primeira Liga",
+   "cn": "埃斯托里尔",
+   "en": "Estoril Praia"
+  },
+  {
+   "lg_cn": "葡超",
+   "lg_en": "Primeira Liga",
+   "cn": "波尔蒂芒",
+   "en": "Portimonense"
+  },
+  {
+   "lg_cn": "葡超",
+   "lg_en": "Primeira Liga",
+   "cn": "马里迪莫",
+   "en": "Marítimo"
+  },
+  {
+   "lg_cn": "葡超",
+   "lg_en": "Primeira Liga",
+   "cn": "阿罗卡",
+   "en": "FC Arouca"
+  },
+  {
+   "lg_cn": "葡超",
+   "lg_en": "Primeira Liga",
+   "cn": "里奥阿维",
+   "en": "Rio Ave"
+  },
+  {
+   "lg_cn": "葡超",
+   "lg_en": "Primeira Liga",
+   "cn": "卡萨皮亚",
+   "en": "Casa Pia"
+  },
+  {
+   "lg_cn": "葡超",
+   "lg_en": "Primeira Liga",
+   "cn": "法鲁人",
+   "en": "SC Farense"
+  },
+  {
+   "lg_cn": "葡超",
+   "lg_en": "Primeira Liga",
+   "cn": "圣克拉拉",
+   "en": "Santa Clara"
+  },
+  {
+   "lg_cn": "葡超",
+   "lg_en": "Primeira Liga",
+   "cn": "阿维斯",
+   "en": "AVS Futebol SAD"
+  },
+  {
+   "lg_cn": "比甲",
+   "lg_en": "Belgian Pro League",
+   "cn": "布鲁日",
+   "en": "Club Brugge"
+  },
+  {
+   "lg_cn": "比甲",
+   "lg_en": "Belgian Pro League",
+   "cn": "安德莱赫特",
+   "en": "Anderlecht"
+  },
+  {
+   "lg_cn": "比甲",
+   "lg_en": "Belgian Pro League",
+   "cn": "根特",
+   "en": "Gent"
+  },
+  {
+   "lg_cn": "比甲",
+   "lg_en": "Belgian Pro League",
+   "cn": "标准列日",
+   "en": "Standard Liège"
+  },
+  {
+   "lg_cn": "比甲",
+   "lg_en": "Belgian Pro League",
+   "cn": "安特卫普",
+   "en": "Royal Antwerp"
+  },
+  {
+   "lg_cn": "比甲",
+   "lg_en": "Belgian Pro League",
+   "cn": "亨克",
+   "en": "Genk"
+  },
+  {
+   "lg_cn": "比甲",
+   "lg_en": "Belgian Pro League",
+   "cn": "色格拉布鲁日",
+   "en": "Cercle Brugge"
+  },
+  {
+   "lg_cn": "比甲",
+   "lg_en": "Belgian Pro League",
+   "cn": "圣吉罗斯联合",
+   "en": "Union Saint-Gilloise"
+  },
+  {
+   "lg_cn": "比甲",
+   "lg_en": "Belgian Pro League",
+   "cn": "皇家沙勒罗瓦",
+   "en": "Charleroi"
+  },
+  {
+   "lg_cn": "比甲",
+   "lg_en": "Belgian Pro League",
+   "cn": "梅赫伦",
+   "en": "KV Mechelen"
+  },
+  {
+   "lg_cn": "比甲",
+   "lg_en": "Belgian Pro League",
+   "cn": "韦斯特洛",
+   "en": "KVC Westerlo"
+  },
+  {
+   "lg_cn": "比甲",
+   "lg_en": "Belgian Pro League",
+   "cn": "奥斯坦德",
+   "en": "KV Oostende"
+  },
+  {
+   "lg_cn": "比甲",
+   "lg_en": "Belgian Pro League",
+   "cn": "欧本",
+   "en": "KAS Eupen"
+  },
+  {
+   "lg_cn": "比甲",
+   "lg_en": "Belgian Pro League",
+   "cn": "圣特赖登",
+   "en": "Sint-Truiden"
+  },
+  {
+   "lg_cn": "比甲",
+   "lg_en": "Belgian Pro League",
+   "cn": "科特赖克",
+   "en": "KV Kortrijk"
+  },
+  {
+   "lg_cn": "比甲",
+   "lg_en": "Belgian Pro League",
+   "cn": "摩伦贝克",
+   "en": "RWDM"
+  },
+  {
+   "lg_cn": "苏超",
+   "lg_en": "Scottish Premiership",
+   "cn": "凯尔特人",
+   "en": "Celtic"
+  },
+  {
+   "lg_cn": "苏超",
+   "lg_en": "Scottish Premiership",
+   "cn": "流浪者",
+   "en": "Rangers"
+  },
+  {
+   "lg_cn": "苏超",
+   "lg_en": "Scottish Premiership",
+   "cn": "阿伯丁",
+   "en": "Aberdeen"
+  },
+  {
+   "lg_cn": "苏超",
+   "lg_en": "Scottish Premiership",
+   "cn": "哈茨",
+   "en": "Heart of Midlothian"
+  },
+  {
+   "lg_cn": "苏超",
+   "lg_en": "Scottish Premiership",
+   "cn": "希伯尼安",
+   "en": "Hibernian"
+  },
+  {
+   "lg_cn": "苏超",
+   "lg_en": "Scottish Premiership",
+   "cn": "圣米伦",
+   "en": "St Mirren"
+  },
+  {
+   "lg_cn": "苏超",
+   "lg_en": "Scottish Premiership",
+   "cn": "马瑟韦尔",
+   "en": "Motherwell"
+  },
+  {
+   "lg_cn": "苏超",
+   "lg_en": "Scottish Premiership",
+   "cn": "基尔马诺克",
+   "en": "Kilmarnock"
+  },
+  {
+   "lg_cn": "苏超",
+   "lg_en": "Scottish Premiership",
+   "cn": "邓迪联",
+   "en": "Dundee United"
+  },
+  {
+   "lg_cn": "苏超",
+   "lg_en": "Scottish Premiership",
+   "cn": "邓迪",
+   "en": "Dundee"
+  },
+  {
+   "lg_cn": "苏超",
+   "lg_en": "Scottish Premiership",
+   "cn": "利文斯顿",
+   "en": "Livingston"
+  },
+  {
+   "lg_cn": "苏超",
+   "lg_en": "Scottish Premiership",
+   "cn": "圣约翰斯通",
+   "en": "St Johnstone"
+  },
+  {
+   "lg_cn": "俄超",
+   "lg_en": "Russian Premier League",
+   "cn": "泽尼特",
+   "en": "Zenit Saint Petersburg"
+  },
+  {
+   "lg_cn": "俄超",
+   "lg_en": "Russian Premier League",
+   "cn": "莫斯科斯巴达克",
+   "en": "Spartak Moscow"
+  },
+  {
+   "lg_cn": "俄超",
+   "lg_en": "Russian Premier League",
+   "cn": "莫斯科中央陆军",
+   "en": "CSKA Moscow"
+  },
+  {
+   "lg_cn": "俄超",
+   "lg_en": "Russian Premier League",
+   "cn": "莫斯科迪纳摩",
+   "en": "Dynamo Moscow"
+  },
+  {
+   "lg_cn": "俄超",
+   "lg_en": "Russian Premier League",
+   "cn": "莫斯科火车头",
+   "en": "Lokomotiv Moscow"
+  },
+  {
+   "lg_cn": "俄超",
+   "lg_en": "Russian Premier League",
+   "cn": "克拉斯诺达尔",
+   "en": "Krasnodar"
+  },
+  {
+   "lg_cn": "俄超",
+   "lg_en": "Russian Premier League",
+   "cn": "罗斯托夫",
+   "en": "Rostov"
+  },
+  {
+   "lg_cn": "俄超",
+   "lg_en": "Russian Premier League",
+   "cn": "索契",
+   "en": "FC Sochi"
+  },
+  {
+   "lg_cn": "俄超",
+   "lg_en": "Russian Premier League",
+   "cn": "喀山红宝石",
+   "en": "Rubin Kazan"
+  },
+  {
+   "lg_cn": "俄超",
+   "lg_en": "Russian Premier League",
+   "cn": "乌拉尔",
+   "en": "Ural Yekaterinburg"
+  },
+  {
+   "lg_cn": "俄超",
+   "lg_en": "Russian Premier League",
+   "cn": "阿赫马特",
+   "en": "Akhmat Grozny"
+  },
+  {
+   "lg_cn": "俄超",
+   "lg_en": "Russian Premier League",
+   "cn": "奥伦堡",
+   "en": "Orenburg"
+  },
+  {
+   "lg_cn": "俄超",
+   "lg_en": "Russian Premier League",
+   "cn": "图拉兵工厂",
+   "en": "Arsenal Tula"
+  },
+  {
+   "lg_cn": "俄超",
+   "lg_en": "Russian Premier League",
+   "cn": "诺夫哥罗德",
+   "en": "Nizhny Novgorod"
+  },
+  {
+   "lg_cn": "俄超",
+   "lg_en": "Russian Premier League",
+   "cn": "萨马拉苏维埃之翼",
+   "en": "Krylia Sovetov Samara"
+  },
+  {
+   "lg_cn": "俄超",
+   "lg_en": "Russian Premier League",
+   "cn": "巴勒卡",
+   "en": "Baltika"
+  },
+  {
+   "lg_cn": "土超",
+   "lg_en": "Süper Lig",
+   "cn": "加拉塔萨雷",
+   "en": "Galatasaray"
+  },
+  {
+   "lg_cn": "土超",
+   "lg_en": "Süper Lig",
+   "cn": "费内巴切",
+   "en": "Fenerbahçe"
+  },
+  {
+   "lg_cn": "土超",
+   "lg_en": "Süper Lig",
+   "cn": "贝西克塔斯",
+   "en": "Beşiktaş"
+  },
+  {
+   "lg_cn": "土超",
+   "lg_en": "Süper Lig",
+   "cn": "特拉布宗体育",
+   "en": "Trabzonspor"
+  },
+  {
+   "lg_cn": "土超",
+   "lg_en": "Süper Lig",
+   "cn": "巴沙克赛尔",
+   "en": "İstanbul Başakşehir"
+  },
+  {
+   "lg_cn": "土超",
+   "lg_en": "Süper Lig",
+   "cn": "科尼亚体育",
+   "en": "Konyaspor"
+  },
+  {
+   "lg_cn": "土超",
+   "lg_en": "Süper Lig",
+   "cn": "开塞利体育",
+   "en": "Kayserispor"
+  },
+  {
+   "lg_cn": "土超",
+   "lg_en": "Süper Lig",
+   "cn": "锡瓦斯体育",
+   "en": "Sivasspor"
+  },
+  {
+   "lg_cn": "土超",
+   "lg_en": "Süper Lig",
+   "cn": "阿兰亚斯堡",
+   "en": "Alanyaspor"
+  },
+  {
+   "lg_cn": "土超",
+   "lg_en": "Süper Lig",
+   "cn": "哈塔伊体育",
+   "en": "Hatayspor"
+  },
+  {
+   "lg_cn": "土超",
+   "lg_en": "Süper Lig",
+   "cn": "加济安泰普",
+   "en": "Gaziantep FK"
+  },
+  {
+   "lg_cn": "土超",
+   "lg_en": "Süper Lig",
+   "cn": "安塔利亚体育",
+   "en": "Antalyaspor"
+  },
+  {
+   "lg_cn": "土超",
+   "lg_en": "Süper Lig",
+   "cn": "代米尔体育",
+   "en": "Adana Demirspor"
+  },
+  {
+   "lg_cn": "土超",
+   "lg_en": "Süper Lig",
+   "cn": "卡拉古姆鲁克",
+   "en": "Fatih Karagümrük"
+  },
+  {
+   "lg_cn": "土超",
+   "lg_en": "Süper Lig",
+   "cn": "里泽体育",
+   "en": "Çaykur Rizespor"
+  },
+  {
+   "lg_cn": "土超",
+   "lg_en": "Süper Lig",
+   "cn": "卡森帕萨",
+   "en": "Kasımpaşa"
+  },
+  {
+   "lg_cn": "土超",
+   "lg_en": "Süper Lig",
+   "cn": "安卡拉古库",
+   "en": "MKE Ankaragücü"
+  },
+  {
+   "lg_cn": "土超",
+   "lg_en": "Süper Lig",
+   "cn": "伊斯坦布尔体育",
+   "en": "İstanbulspor"
+  },
+  {
+   "lg_cn": "土超",
+   "lg_en": "Süper Lig",
+   "cn": "佩迪卡体育",
+   "en": "Pendikspor"
+  },
+  {
+   "lg_cn": "中超",
+   "lg_en": "Chinese Super League",
+   "cn": "上海海港",
+   "en": "Shanghai Port"
+  },
+  {
+   "lg_cn": "中超",
+   "lg_en": "Chinese Super League",
+   "cn": "北京国安",
+   "en": "Beijing Guoan"
+  },
+  {
+   "lg_cn": "中超",
+   "lg_en": "Chinese Super League",
+   "cn": "山东泰山",
+   "en": "Shandong Taishan"
+  },
+  {
+   "lg_cn": "中超",
+   "lg_en": "Chinese Super League",
+   "cn": "上海申花",
+   "en": "Shanghai Shenhua"
+  },
+  {
+   "lg_cn": "中超",
+   "lg_en": "Chinese Super League",
+   "cn": "成都蓉城",
+   "en": "Chengdu Rongcheng"
+  },
+  {
+   "lg_cn": "中超",
+   "lg_en": "Chinese Super League",
+   "cn": "浙江队",
+   "en": "Zhejiang FC"
+  },
+  {
+   "lg_cn": "中超",
+   "lg_en": "Chinese Super League",
+   "cn": "武汉三镇",
+   "en": "Wuhan Three Towns"
+  },
+  {
+   "lg_cn": "中超",
+   "lg_en": "Chinese Super League",
+   "cn": "天津津门虎",
+   "en": "Tianjin Jinmen Tiger"
+  },
+  {
+   "lg_cn": "中超",
+   "lg_en": "Chinese Super League",
+   "cn": "长春亚泰",
+   "en": "Changchun Yatai"
+  },
+  {
+   "lg_cn": "中超",
+   "lg_en": "Chinese Super League",
+   "cn": "河南队",
+   "en": "Henan FC"
+  },
+  {
+   "lg_cn": "中超",
+   "lg_en": "Chinese Super League",
+   "cn": "深圳新鹏城",
+   "en": "Shenzhen Xinpengcheng"
+  },
+  {
+   "lg_cn": "中超",
+   "lg_en": "Chinese Super League",
+   "cn": "青岛海牛",
+   "en": "Qingdao Hainiu"
+  },
+  {
+   "lg_cn": "中超",
+   "lg_en": "Chinese Super League",
+   "cn": "青岛西海岸",
+   "en": "Qingdao West Coast"
+  },
+  {
+   "lg_cn": "中超",
+   "lg_en": "Chinese Super League",
+   "cn": "梅州客家",
+   "en": "Meizhou Hakka"
+  },
+  {
+   "lg_cn": "中超",
+   "lg_en": "Chinese Super League",
+   "cn": "大连英博",
+   "en": "Dalian Yingbo"
+  },
+  {
+   "lg_cn": "中超",
+   "lg_en": "Chinese Super League",
+   "cn": "云南玉昆",
+   "en": "Yunnan Yukun"
+  },
+  {
+   "lg_cn": "日职联",
+   "lg_en": "J1 League",
+   "cn": "神户胜利船",
+   "en": "Vissel Kobe"
+  },
+  {
+   "lg_cn": "日职联",
+   "lg_en": "J1 League",
+   "cn": "广岛三箭",
+   "en": "Sanfrecce Hiroshima"
+  },
+  {
+   "lg_cn": "日职联",
+   "lg_en": "J1 League",
+   "cn": "横滨水手",
+   "en": "Yokohama F. Marinos"
+  },
+  {
+   "lg_cn": "日职联",
+   "lg_en": "J1 League",
+   "cn": "川崎前锋",
+   "en": "Kawasaki Frontale"
+  },
+  {
+   "lg_cn": "日职联",
+   "lg_en": "J1 League",
+   "cn": "鹿岛鹿角",
+   "en": "Kashima Antlers"
+  },
+  {
+   "lg_cn": "日职联",
+   "lg_en": "J1 League",
+   "cn": "浦和红钻",
+   "en": "Urawa Red Diamonds"
+  },
+  {
+   "lg_cn": "日职联",
+   "lg_en": "J1 League",
+   "cn": "大阪钢巴",
+   "en": "Gamba Osaka"
+  },
+  {
+   "lg_cn": "日职联",
+   "lg_en": "J1 League",
+   "cn": "大阪樱花",
+   "en": "Cerezo Osaka"
+  },
+  {
+   "lg_cn": "日职联",
+   "lg_en": "J1 League",
+   "cn": "名古屋鲸八",
+   "en": "Nagoya Grampus"
+  },
+  {
+   "lg_cn": "日职联",
+   "lg_en": "J1 League",
+   "cn": "FC东京",
+   "en": "FC Tokyo"
+  },
+  {
+   "lg_cn": "日职联",
+   "lg_en": "J1 League",
+   "cn": "东京绿茵",
+   "en": "Tokyo Verdy"
+  },
+  {
+   "lg_cn": "日职联",
+   "lg_en": "J1 League",
+   "cn": "町田泽维亚",
+   "en": "FC Machida Zelvia"
+  },
+  {
+   "lg_cn": "日职联",
+   "lg_en": "J1 League",
+   "cn": "福冈黄蜂",
+   "en": "Avispa Fukuoka"
+  },
+  {
+   "lg_cn": "日职联",
+   "lg_en": "J1 League",
+   "cn": "柏太阳神",
+   "en": "Kashiwa Reysol"
+  },
+  {
+   "lg_cn": "日职联",
+   "lg_en": "J1 League",
+   "cn": "京都不死鸟",
+   "en": "Kyoto Sanga"
+  },
+  {
+   "lg_cn": "日职联",
+   "lg_en": "J1 League",
+   "cn": "鸟栖砂岩",
+   "en": "Sagan Tosu"
+  },
+  {
+   "lg_cn": "日职联",
+   "lg_en": "J1 League",
+   "cn": "札幌冈萨多",
+   "en": "Consadole Sapporo"
+  },
+  {
+   "lg_cn": "日职联",
+   "lg_en": "J1 League",
+   "cn": "新潟天鹅",
+   "en": "Albirex Niigata"
+  },
+  {
+   "lg_cn": "日职联",
+   "lg_en": "J1 League",
+   "cn": "湘南比马",
+   "en": "Shonan Bellmare"
+  },
+  {
+   "lg_cn": "日职联",
+   "lg_en": "J1 League",
+   "cn": "磐田喜悦",
+   "en": "Júbilo Iwata"
+  },
+  {
+   "lg_cn": "韩K1联赛",
+   "lg_en": "K League 1",
+   "cn": "蔚山现代",
+   "en": "Ulsan HD"
+  },
+  {
+   "lg_cn": "韩K1联赛",
+   "lg_en": "K League 1",
+   "cn": "全北现代",
+   "en": "Jeonbuk Hyundai Motors"
+  },
+  {
+   "lg_cn": "韩K1联赛",
+   "lg_en": "K League 1",
+   "cn": "浦项制铁",
+   "en": "Pohang Steelers"
+  },
+  {
+   "lg_cn": "韩K1联赛",
+   "lg_en": "K League 1",
+   "cn": "首尔FC",
+   "en": "FC Seoul"
+  },
+  {
+   "lg_cn": "韩K1联赛",
+   "lg_en": "K League 1",
+   "cn": "水原三星",
+   "en": "Suwon Samsung Bluewings"
+  },
+  {
+   "lg_cn": "韩K1联赛",
+   "lg_en": "K League 1",
+   "cn": "大邱FC",
+   "en": "Daegu FC"
+  },
+  {
+   "lg_cn": "韩K1联赛",
+   "lg_en": "K League 1",
+   "cn": "济州联",
+   "en": "Jeju United"
+  },
+  {
+   "lg_cn": "韩K1联赛",
+   "lg_en": "K League 1",
+   "cn": "仁川联",
+   "en": "Incheon United"
+  },
+  {
+   "lg_cn": "韩K1联赛",
+   "lg_en": "K League 1",
+   "cn": "光州FC",
+   "en": "Gwangju FC"
+  },
+  {
+   "lg_cn": "韩K1联赛",
+   "lg_en": "K League 1",
+   "cn": "大田韩亚市民",
+   "en": "Daejeon Hana Citizen"
+  },
+  {
+   "lg_cn": "韩K1联赛",
+   "lg_en": "K League 1",
+   "cn": "金泉尚武",
+   "en": "Gimcheon Sangmu"
+  },
+  {
+   "lg_cn": "韩K1联赛",
+   "lg_en": "K League 1",
+   "cn": "江原FC",
+   "en": "Gangwon FC"
+  },
+  {
+   "lg_cn": "澳超",
+   "lg_en": "A-League Men",
+   "cn": "墨尔本胜利",
+   "en": "Melbourne Victory"
+  },
+  {
+   "lg_cn": "澳超",
+   "lg_en": "A-League Men",
+   "cn": "墨尔本城",
+   "en": "Melbourne City"
+  },
+  {
+   "lg_cn": "澳超",
+   "lg_en": "A-League Men",
+   "cn": "悉尼FC",
+   "en": "Sydney FC"
+  },
+  {
+   "lg_cn": "澳超",
+   "lg_en": "A-League Men",
+   "cn": "西悉尼流浪者",
+   "en": "Western Sydney Wanderers"
+  },
+  {
+   "lg_cn": "澳超",
+   "lg_en": "A-League Men",
+   "cn": "布里斯班狮吼",
+   "en": "Brisbane Roar"
+  },
+  {
+   "lg_cn": "澳超",
+   "lg_en": "A-League Men",
+   "cn": "阿德莱德联",
+   "en": "Adelaide United"
+  },
+  {
+   "lg_cn": "澳超",
+   "lg_en": "A-League Men",
+   "cn": "珀斯光荣",
+   "en": "Perth Glory"
+  },
+  {
+   "lg_cn": "澳超",
+   "lg_en": "A-League Men",
+   "cn": "纽卡斯尔喷气机",
+   "en": "Newcastle Jets"
+  },
+  {
+   "lg_cn": "澳超",
+   "lg_en": "A-League Men",
+   "cn": "中央海岸水手",
+   "en": "Central Coast Mariners"
+  },
+  {
+   "lg_cn": "澳超",
+   "lg_en": "A-League Men",
+   "cn": "惠灵顿凤凰",
+   "en": "Wellington Phoenix"
+  },
+  {
+   "lg_cn": "澳超",
+   "lg_en": "A-League Men",
+   "cn": "麦克阿瑟",
+   "en": "Macarthur FC"
+  },
+  {
+   "lg_cn": "澳超",
+   "lg_en": "A-League Men",
+   "cn": "西部联",
+   "en": "Western United"
+  },
+  {
+   "lg_cn": "澳超",
+   "lg_en": "A-League Men",
+   "cn": "奥克兰FC",
+   "en": "Auckland FC"
+  },
+  {
+   "lg_cn": "沙特职业足球联赛",
+   "lg_en": "Saudi Pro League",
+   "cn": "利雅得新月",
+   "en": "Al-Hilal"
+  },
+  {
+   "lg_cn": "沙特职业足球联赛",
+   "lg_en": "Saudi Pro League",
+   "cn": "利雅得胜利",
+   "en": "Al-Nassr"
+  },
+  {
+   "lg_cn": "沙特职业足球联赛",
+   "lg_en": "Saudi Pro League",
+   "cn": "吉达联合",
+   "en": "Al-Ittihad"
+  },
+  {
+   "lg_cn": "沙特职业足球联赛",
+   "lg_en": "Saudi Pro League",
+   "cn": "吉达国民",
+   "en": "Al-Ahli"
+  },
+  {
+   "lg_cn": "沙特职业足球联赛",
+   "lg_en": "Saudi Pro League",
+   "cn": "达曼协作",
+   "en": "Al-Ettifaq"
+  },
+  {
+   "lg_cn": "沙特职业足球联赛",
+   "lg_en": "Saudi Pro League",
+   "cn": "布赖代合作",
+   "en": "Al-Taawoun"
+  },
+  {
+   "lg_cn": "沙特职业足球联赛",
+   "lg_en": "Saudi Pro League",
+   "cn": "费哈",
+   "en": "Al-Fateh"
+  },
+  {
+   "lg_cn": "沙特职业足球联赛",
+   "lg_en": "Saudi Pro League",
+   "cn": "塔伊",
+   "en": "Al-Tai"
+  },
+  {
+   "lg_cn": "沙特职业足球联赛",
+   "lg_en": "Saudi Pro League",
+   "cn": "哈萨征服",
+   "en": "Al-Fateh"
+  },
+  {
+   "lg_cn": "沙特职业足球联赛",
+   "lg_en": "Saudi Pro League",
+   "cn": "利雅得青年",
+   "en": "Al-Shabab"
+  },
+  {
+   "lg_cn": "沙特职业足球联赛",
+   "lg_en": "Saudi Pro League",
+   "cn": "达曼黎明",
+   "en": "Al-Qadsiah"
+  },
+  {
+   "lg_cn": "沙特职业足球联赛",
+   "lg_en": "Saudi Pro League",
+   "cn": "哈斯姆",
+   "en": "Al-Hazem"
+  },
+  {
+   "lg_cn": "沙特职业足球联赛",
+   "lg_en": "Saudi Pro League",
+   "cn": "阿布哈",
+   "en": "Abha"
+  },
+  {
+   "lg_cn": "沙特职业足球联赛",
+   "lg_en": "Saudi Pro League",
+   "cn": "拉耶德",
+   "en": "Al-Raed"
+  },
+  {
+   "lg_cn": "沙特职业足球联赛",
+   "lg_en": "Saudi Pro League",
+   "cn": "达马克",
+   "en": "Damac"
+  },
+  {
+   "lg_cn": "沙特职业足球联赛",
+   "lg_en": "Saudi Pro League",
+   "cn": "布赖代先锋",
+   "en": "Al-Riyadh"
+  },
+  {
+   "lg_cn": "沙特职业足球联赛",
+   "lg_en": "Saudi Pro League",
+   "cn": "科哈达",
+   "en": "Al-Khaleej"
+  },
+  {
+   "lg_cn": "沙特职业足球联赛",
+   "lg_en": "Saudi Pro League",
+   "cn": "维达",
+   "en": "Al-Wehda"
+  },
+  {
+   "lg_cn": "伊朗职业足球联赛",
+   "lg_en": "Persian Gulf Pro League",
+   "cn": "波斯波利斯",
+   "en": "Persepolis"
+  },
+  {
+   "lg_cn": "伊朗职业足球联赛",
+   "lg_en": "Persian Gulf Pro League",
+   "cn": "埃斯特格拉尔",
+   "en": "Esteghlal"
+  },
+  {
+   "lg_cn": "伊朗职业足球联赛",
+   "lg_en": "Persian Gulf Pro League",
+   "cn": "塞帕罕",
+   "en": "Sepahan"
+  },
+  {
+   "lg_cn": "伊朗职业足球联赛",
+   "lg_en": "Persian Gulf Pro League",
+   "cn": "拖拉机",
+   "en": "Tractor"
+  },
+  {
+   "lg_cn": "伊朗职业足球联赛",
+   "lg_en": "Persian Gulf Pro League",
+   "cn": "戈尔戈哈",
+   "en": "Gol Gohar"
+  },
+  {
+   "lg_cn": "伊朗职业足球联赛",
+   "lg_en": "Persian Gulf Pro League",
+   "cn": "佐巴汉",
+   "en": "Zob Ahan"
+  },
+  {
+   "lg_cn": "伊朗职业足球联赛",
+   "lg_en": "Persian Gulf Pro League",
+   "cn": "马赞德兰",
+   "en": "Foolad"
+  },
+  {
+   "lg_cn": "伊朗职业足球联赛",
+   "lg_en": "Persian Gulf Pro League",
+   "cn": "哈瓦达尔",
+   "en": "Havadar"
+  },
+  {
+   "lg_cn": "伊朗职业足球联赛",
+   "lg_en": "Persian Gulf Pro League",
+   "cn": "纳萨吉马赞德兰",
+   "en": "Nassaji Mazandaran"
+  },
+  {
+   "lg_cn": "伊朗职业足球联赛",
+   "lg_en": "Persian Gulf Pro League",
+   "cn": "阿拉克铝业",
+   "en": "Aluminium Arak"
+  },
+  {
+   "lg_cn": "伊朗职业足球联赛",
+   "lg_en": "Persian Gulf Pro League",
+   "cn": "梅斯克尔曼",
+   "en": "Mes Kerman"
+  },
+  {
+   "lg_cn": "伊朗职业足球联赛",
+   "lg_en": "Persian Gulf Pro League",
+   "cn": "培坎",
+   "en": "Paykan"
+  },
+  {
+   "lg_cn": "伊朗职业足球联赛",
+   "lg_en": "Persian Gulf Pro League",
+   "cn": "沙姆塞赫",
+   "en": "Shams Azar"
+  },
+  {
+   "lg_cn": "伊朗职业足球联赛",
+   "lg_en": "Persian Gulf Pro League",
+   "cn": "纳夫特",
+   "en": "Naft Masjed Soleyman"
+  },
+  {
+   "lg_cn": "伊朗职业足球联赛",
+   "lg_en": "Persian Gulf Pro League",
+   "cn": "埃斯泰格赫拉德",
+   "en": "Kheybar Khorramabad"
+  },
+  {
+   "lg_cn": "伊朗职业足球联赛",
+   "lg_en": "Persian Gulf Pro League",
+   "cn": "查德马卢",
+   "en": "Chadormalu"
+  },
+  {
+   "lg_cn": "卡塔尔星级联赛",
+   "lg_en": "Qatar Stars League",
+   "cn": "萨德",
+   "en": "Al-Sadd"
+  },
+  {
+   "lg_cn": "卡塔尔星级联赛",
+   "lg_en": "Qatar Stars League",
+   "cn": "杜哈伊尔",
+   "en": "Al-Duhail"
+  },
+  {
+   "lg_cn": "卡塔尔星级联赛",
+   "lg_en": "Qatar Stars League",
+   "cn": "赖扬",
+   "en": "Al-Rayyan"
+  },
+  {
+   "lg_cn": "卡塔尔星级联赛",
+   "lg_en": "Qatar Stars League",
+   "cn": "加拉法",
+   "en": "Al-Gharafa"
+  },
+  {
+   "lg_cn": "卡塔尔星级联赛",
+   "lg_en": "Qatar Stars League",
+   "cn": "乌姆萨拉尔",
+   "en": "Umm Salal"
+  },
+  {
+   "lg_cn": "卡塔尔星级联赛",
+   "lg_en": "Qatar Stars League",
+   "cn": "沃克拉",
+   "en": "Al-Wakrah"
+  },
+  {
+   "lg_cn": "卡塔尔星级联赛",
+   "lg_en": "Qatar Stars League",
+   "cn": "阿拉比",
+   "en": "Al-Arabi"
+  },
+  {
+   "lg_cn": "卡塔尔星级联赛",
+   "lg_en": "Qatar Stars League",
+   "cn": "沙哈尼亚",
+   "en": "Al-Shahaniya"
+  },
+  {
+   "lg_cn": "卡塔尔星级联赛",
+   "lg_en": "Qatar Stars League",
+   "cn": "卡塔尔SC",
+   "en": "Qatar SC"
+  },
+  {
+   "lg_cn": "卡塔尔星级联赛",
+   "lg_en": "Qatar Stars League",
+   "cn": "穆艾塔",
+   "en": "Muaither"
+  },
+  {
+   "lg_cn": "卡塔尔星级联赛",
+   "lg_en": "Qatar Stars League",
+   "cn": "阿尔科尔",
+   "en": "Al-Khor"
+  },
+  {
+   "lg_cn": "卡塔尔星级联赛",
+   "lg_en": "Qatar Stars League",
+   "cn": "多哈陆军",
+   "en": "Al-Ahli Doha"
+  },
+  {
+   "lg_cn": "阿联酋职业足球联赛",
+   "lg_en": "UAE Pro League",
+   "cn": "迪拜祈祷",
+   "en": "Shabab Al-Ahli"
+  },
+  {
+   "lg_cn": "阿联酋职业足球联赛",
+   "lg_en": "UAE Pro League",
+   "cn": "阿布扎比统一",
+   "en": "Al-Wahda"
+  },
+  {
+   "lg_cn": "阿联酋职业足球联赛",
+   "lg_en": "UAE Pro League",
+   "cn": "迪拜国民",
+   "en": "Al-Nasr"
+  },
+  {
+   "lg_cn": "阿联酋职业足球联赛",
+   "lg_en": "UAE Pro League",
+   "cn": "沙迦",
+   "en": "Sharjah FC"
+  },
+  {
+   "lg_cn": "阿联酋职业足球联赛",
+   "lg_en": "UAE Pro League",
+   "cn": "阿治曼",
+   "en": "Ajman Club"
+  },
+  {
+   "lg_cn": "阿联酋职业足球联赛",
+   "lg_en": "UAE Pro League",
+   "cn": "艾因",
+   "en": "Al-Ain"
+  },
+  {
+   "lg_cn": "阿联酋职业足球联赛",
+   "lg_en": "UAE Pro League",
+   "cn": "巴尼亚斯",
+   "en": "Baniyas"
+  },
+  {
+   "lg_cn": "阿联酋职业足球联赛",
+   "lg_en": "UAE Pro League",
+   "cn": "伊蒂哈德卡尔巴",
+   "en": "Kalba"
+  },
+  {
+   "lg_cn": "阿联酋职业足球联赛",
+   "lg_en": "UAE Pro League",
+   "cn": "迪拜青年",
+   "en": "Shabab Al-Ahli Dubai"
+  },
+  {
+   "lg_cn": "阿联酋职业足球联赛",
+   "lg_en": "UAE Pro League",
+   "cn": "豪尔费坎",
+   "en": "Khor Fakkan"
+  },
+  {
+   "lg_cn": "阿联酋职业足球联赛",
+   "lg_en": "UAE Pro League",
+   "cn": "迪拜SC",
+   "en": "Dubai SC"
+  },
+  {
+   "lg_cn": "阿联酋职业足球联赛",
+   "lg_en": "UAE Pro League",
+   "cn": "阿尔祖瓦",
+   "en": "Al-Zawraa"
+  },
+  {
+   "lg_cn": "阿联酋职业足球联赛",
+   "lg_en": "UAE Pro League",
+   "cn": "迪拜港",
+   "en": "Al Wasl"
+  },
+  {
+   "lg_cn": "阿联酋职业足球联赛",
+   "lg_en": "UAE Pro League",
+   "cn": "奥卢拜德",
+   "en": "Dibba Al-Hisn"
+  },
+  {
+   "lg_cn": "泰国足球甲级联赛",
+   "lg_en": "Thai League 1",
+   "cn": "武里南联",
+   "en": "Buriram United"
+  },
+  {
+   "lg_cn": "泰国足球甲级联赛",
+   "lg_en": "Thai League 1",
+   "cn": "曼谷联",
+   "en": "Bangkok United"
+  },
+  {
+   "lg_cn": "泰国足球甲级联赛",
+   "lg_en": "Thai League 1",
+   "cn": "蒙通联",
+   "en": "Muangthong United"
+  },
+  {
+   "lg_cn": "泰国足球甲级联赛",
+   "lg_en": "Thai League 1",
+   "cn": "巴吞联",
+   "en": "BG Pathum United"
+  },
+  {
+   "lg_cn": "泰国足球甲级联赛",
+   "lg_en": "Thai League 1",
+   "cn": "狮子港",
+   "en": "Port FC"
+  },
+  {
+   "lg_cn": "泰国足球甲级联赛",
+   "lg_en": "Thai League 1",
+   "cn": "清莱联",
+   "en": "Chiangrai United"
+  },
+  {
+   "lg_cn": "泰国足球甲级联赛",
+   "lg_en": "Thai League 1",
+   "cn": "那空拉查斯玛",
+   "en": "Nakhon Ratchasima"
+  },
+  {
+   "lg_cn": "泰国足球甲级联赛",
+   "lg_en": "Thai League 1",
+   "cn": "素攀武里",
+   "en": "Suphanburi"
+  },
+  {
+   "lg_cn": "泰国足球甲级联赛",
+   "lg_en": "Thai League 1",
+   "cn": "拉差武里",
+   "en": "Ratchaburi"
+  },
+  {
+   "lg_cn": "泰国足球甲级联赛",
+   "lg_en": "Thai League 1",
+   "cn": "春武里",
+   "en": "Chonburi"
+  },
+  {
+   "lg_cn": "泰国足球甲级联赛",
+   "lg_en": "Thai League 1",
+   "cn": "巴蜀",
+   "en": "Prachuap FC"
+  },
+  {
+   "lg_cn": "泰国足球甲级联赛",
+   "lg_en": "Thai League 1",
+   "cn": "那空那育",
+   "en": "Nakhon Pathom United"
+  },
+  {
+   "lg_cn": "泰国足球甲级联赛",
+   "lg_en": "Thai League 1",
+   "cn": "乌隆他尼",
+   "en": "Udon Thani"
+  },
+  {
+   "lg_cn": "泰国足球甲级联赛",
+   "lg_en": "Thai League 1",
+   "cn": "南邦",
+   "en": "Lampang"
+  },
+  {
+   "lg_cn": "泰国足球甲级联赛",
+   "lg_en": "Thai League 1",
+   "cn": "皇家陆军",
+   "en": "Army United"
+  },
+  {
+   "lg_cn": "越南足球甲级联赛",
+   "lg_en": "V.League 1",
+   "cn": "河内FC",
+   "en": "Hanoi FC"
+  },
+  {
+   "lg_cn": "越南足球甲级联赛",
+   "lg_en": "V.League 1",
+   "cn": "河内公安",
+   "en": "Cong An Ha Noi"
+  },
+  {
+   "lg_cn": "越南足球甲级联赛",
+   "lg_en": "V.League 1",
+   "cn": "河内维特尔",
+   "en": "Viettel"
+  },
+  {
+   "lg_cn": "越南足球甲级联赛",
+   "lg_en": "V.League 1",
+   "cn": "南定",
+   "en": "Nam Dinh"
+  },
+  {
+   "lg_cn": "越南足球甲级联赛",
+   "lg_en": "V.League 1",
+   "cn": "清化",
+   "en": "Thanh Hoa"
+  },
+  {
+   "lg_cn": "越南足球甲级联赛",
+   "lg_en": "V.League 1",
+   "cn": "平阳",
+   "en": "Binh Duong"
+  },
+  {
+   "lg_cn": "越南足球甲级联赛",
+   "lg_en": "V.League 1",
+   "cn": "胡志明市",
+   "en": "TP Ho Chi Minh City"
+  },
+  {
+   "lg_cn": "越南足球甲级联赛",
+   "lg_en": "V.League 1",
+   "cn": "海防",
+   "en": "Hai Phong"
+  },
+  {
+   "lg_cn": "越南足球甲级联赛",
+   "lg_en": "V.League 1",
+   "cn": "广南",
+   "en": "Quang Nam"
+  },
+  {
+   "lg_cn": "越南足球甲级联赛",
+   "lg_en": "V.League 1",
+   "cn": "河静",
+   "en": "Hong Linh Ha Tinh"
+  },
+  {
+   "lg_cn": "越南足球甲级联赛",
+   "lg_en": "V.League 1",
+   "cn": "岘港",
+   "en": "Da Nang"
+  },
+  {
+   "lg_cn": "越南足球甲级联赛",
+   "lg_en": "V.League 1",
+   "cn": "平定",
+   "en": "Quy Nhon Binh Dinh"
+  },
+  {
+   "lg_cn": "越南足球甲级联赛",
+   "lg_en": "V.League 1",
+   "cn": "沙木",
+   "en": "Song Lam Nghe An"
+  },
+  {
+   "lg_cn": "越南足球甲级联赛",
+   "lg_en": "V.League 1",
+   "cn": "陶氏清化",
+   "en": "The Cong Viettel"
+  },
+  {
+   "lg_cn": "印尼足球甲级联赛",
+   "lg_en": "Liga 1",
+   "cn": "佩西加雅加达",
+   "en": "Persija Jakarta"
+  },
+  {
+   "lg_cn": "印尼足球甲级联赛",
+   "lg_en": "Liga 1",
+   "cn": "佩西布万隆",
+   "en": "Persib Bandung"
+  },
+  {
+   "lg_cn": "印尼足球甲级联赛",
+   "lg_en": "Liga 1",
+   "cn": "巴厘联",
+   "en": "Bali United"
+  },
+  {
+   "lg_cn": "印尼足球甲级联赛",
+   "lg_en": "Liga 1",
+   "cn": "马都拉联",
+   "en": "Madura United"
+  },
+  {
+   "lg_cn": "印尼足球甲级联赛",
+   "lg_en": "Liga 1",
+   "cn": "婆罗洲",
+   "en": "Borneo FC"
+  },
+  {
+   "lg_cn": "印尼足球甲级联赛",
+   "lg_en": "Liga 1",
+   "cn": "佩西塔",
+   "en": "Persita Tangerang"
+  },
+  {
+   "lg_cn": "印尼足球甲级联赛",
+   "lg_en": "Liga 1",
+   "cn": "帕西普拉",
+   "en": "Persipura Jayapura"
+  },
+  {
+   "lg_cn": "印尼足球甲级联赛",
+   "lg_en": "Liga 1",
+   "cn": "普萨马尼亚",
+   "en": "Persikabo 1973"
+  },
+  {
+   "lg_cn": "印尼足球甲级联赛",
+   "lg_en": "Liga 1",
+   "cn": "PSIS三宝垄",
+   "en": "PSIS Semarang"
+  },
+  {
+   "lg_cn": "印尼足球甲级联赛",
+   "lg_en": "Liga 1",
+   "cn": "阿雷马",
+   "en": "Arema FC"
+  },
+  {
+   "lg_cn": "印尼足球甲级联赛",
+   "lg_en": "Liga 1",
+   "cn": "巴扬卡拉",
+   "en": "Bhayangkara FC"
+  },
+  {
+   "lg_cn": "印尼足球甲级联赛",
+   "lg_en": "Liga 1",
+   "cn": "迪瓦联",
+   "en": "Dewa United"
+  },
+  {
+   "lg_cn": "印尼足球甲级联赛",
+   "lg_en": "Liga 1",
+   "cn": "佩西卡",
+   "en": "Persik Kediri"
+  },
+  {
+   "lg_cn": "印尼足球甲级联赛",
+   "lg_en": "Liga 1",
+   "cn": "PSS斯莱曼",
+   "en": "PSS Sleman"
+  },
+  {
+   "lg_cn": "印尼足球甲级联赛",
+   "lg_en": "Liga 1",
+   "cn": "巴里托",
+   "en": "Barito Putera"
+  },
+  {
+   "lg_cn": "印尼足球甲级联赛",
+   "lg_en": "Liga 1",
+   "cn": "马鲁特联",
+   "en": "Malut United"
+  },
+  {
+   "lg_cn": "印尼足球甲级联赛",
+   "lg_en": "Liga 1",
+   "cn": "三马林达",
+   "en": "Borneo"
+  },
+  {
+   "lg_cn": "印尼足球甲级联赛",
+   "lg_en": "Liga 1",
+   "cn": "兰斯",
+   "en": "Rans Nusantara"
+  },
+  {
+   "lg_cn": "印度超级联赛",
+   "lg_en": "Indian Super League",
+   "cn": "孟买城",
+   "en": "Mumbai City FC"
+  },
+  {
+   "lg_cn": "印度超级联赛",
+   "lg_en": "Indian Super League",
+   "cn": "莫亨巴甘",
+   "en": "Mohun Bagan Super Giant"
+  },
+  {
+   "lg_cn": "印度超级联赛",
+   "lg_en": "Indian Super League",
+   "cn": "果阿FC",
+   "en": "FC Goa"
+  },
+  {
+   "lg_cn": "印度超级联赛",
+   "lg_en": "Indian Super League",
+   "cn": "喀拉拉爆破",
+   "en": "Kerala Blasters"
+  },
+  {
+   "lg_cn": "印度超级联赛",
+   "lg_en": "Indian Super League",
+   "cn": "詹谢普尔",
+   "en": "Jamshedpur FC"
+  },
+  {
+   "lg_cn": "印度超级联赛",
+   "lg_en": "Indian Super League",
+   "cn": "奥里萨邦",
+   "en": "Odisha FC"
+  },
+  {
+   "lg_cn": "印度超级联赛",
+   "lg_en": "Indian Super League",
+   "cn": "本加卢鲁",
+   "en": "Bengaluru FC"
+  },
+  {
+   "lg_cn": "印度超级联赛",
+   "lg_en": "Indian Super League",
+   "cn": "东北联",
+   "en": "NorthEast United"
+  },
+  {
+   "lg_cn": "印度超级联赛",
+   "lg_en": "Indian Super League",
+   "cn": "东孟加拉",
+   "en": "East Bengal"
+  },
+  {
+   "lg_cn": "印度超级联赛",
+   "lg_en": "Indian Super League",
+   "cn": "海德拉巴",
+   "en": "Hyderabad FC"
+  },
+  {
+   "lg_cn": "印度超级联赛",
+   "lg_en": "Indian Super League",
+   "cn": "金奈因",
+   "en": "Chennaiyin FC"
+  },
+  {
+   "lg_cn": "印度超级联赛",
+   "lg_en": "Indian Super League",
+   "cn": "旁遮普",
+   "en": "Punjab FC"
+  },
+  {
+   "lg_cn": "印度超级联赛",
+   "lg_en": "Indian Super League",
+   "cn": "钦奈FC",
+   "en": "Chennaiyin"
+  },
+  {
+   "lg_cn": "印度超级联赛",
+   "lg_en": "Indian Super League",
+   "cn": "莫哈末",
+   "en": "Mohammedan SC"
+  },
+  {
+   "lg_cn": "乌兹别克斯坦足球超级联赛",
+   "lg_en": "Uzbekistan Super League",
+   "cn": "纳萨夫",
+   "en": "Nasaf Qarshi"
+  },
+  {
+   "lg_cn": "乌兹别克斯坦足球超级联赛",
+   "lg_en": "Uzbekistan Super League",
+   "cn": "帕赫塔科尔",
+   "en": "Pakhtakor Tashkent"
+  },
+  {
+   "lg_cn": "乌兹别克斯坦足球超级联赛",
+   "lg_en": "Uzbekistan Super League",
+   "cn": "陆军俱乐部",
+   "en": "FC AGMK"
+  },
+  {
+   "lg_cn": "乌兹别克斯坦足球超级联赛",
+   "lg_en": "Uzbekistan Super League",
+   "cn": "索赫迪约",
+   "en": "Sogdiana Jizzakh"
+  },
+  {
+   "lg_cn": "乌兹别克斯坦足球超级联赛",
+   "lg_en": "Uzbekistan Super League",
+   "cn": "纳曼干迪纳摩",
+   "en": "Neftchi Fergana"
+  },
+  {
+   "lg_cn": "乌兹别克斯坦足球超级联赛",
+   "lg_en": "Uzbekistan Super League",
+   "cn": "纳曼干火车头",
+   "en": "Lokomotiv Tashkent"
+  },
+  {
+   "lg_cn": "乌兹别克斯坦足球超级联赛",
+   "lg_en": "Uzbekistan Super League",
+   "cn": "布哈拉",
+   "en": "Buxoro"
+  },
+  {
+   "lg_cn": "乌兹别克斯坦足球超级联赛",
+   "lg_en": "Uzbekistan Super League",
+   "cn": "安集延",
+   "en": "Andijan"
+  },
+  {
+   "lg_cn": "乌兹别克斯坦足球超级联赛",
+   "lg_en": "Uzbekistan Super League",
+   "cn": "库尔干",
+   "en": "Qizilqum Zarafshon"
+  },
+  {
+   "lg_cn": "乌兹别克斯坦足球超级联赛",
+   "lg_en": "Uzbekistan Super League",
+   "cn": "费尔干纳",
+   "en": "Navbahor Namangan"
+  },
+  {
+   "lg_cn": "乌兹别克斯坦足球超级联赛",
+   "lg_en": "Uzbekistan Super League",
+   "cn": "奥林匹克塔什干",
+   "en": "Olympic Tashkent"
+  },
+  {
+   "lg_cn": "乌兹别克斯坦足球超级联赛",
+   "lg_en": "Uzbekistan Super League",
+   "cn": "苏尔汉",
+   "en": "Surkhon Termez"
+  },
+  {
+   "lg_cn": "乌兹别克斯坦足球超级联赛",
+   "lg_en": "Uzbekistan Super League",
+   "cn": "迪纳摩",
+   "en": "Dinamo Samarqand"
+  },
+  {
+   "lg_cn": "乌兹别克斯坦足球超级联赛",
+   "lg_en": "Uzbekistan Super League",
+   "cn": "吉尔吉斯",
+   "en": "Kokand 1912"
+  },
+  {
+   "lg_cn": "马来西亚足球超级联赛",
+   "lg_en": "Malaysia Super League",
+   "cn": "柔佛DT",
+   "en": "Johor Darul Ta'zim"
+  },
+  {
+   "lg_cn": "马来西亚足球超级联赛",
+   "lg_en": "Malaysia Super League",
+   "cn": "雪兰莪",
+   "en": "Selangor"
+  },
+  {
+   "lg_cn": "马来西亚足球超级联赛",
+   "lg_en": "Malaysia Super League",
+   "cn": "登嘉楼",
+   "en": "Terengganu"
+  },
+  {
+   "lg_cn": "马来西亚足球超级联赛",
+   "lg_en": "Malaysia Super League",
+   "cn": "吉打",
+   "en": "Kedah Darul Aman"
+  },
+  {
+   "lg_cn": "马来西亚足球超级联赛",
+   "lg_en": "Malaysia Super League",
+   "cn": "槟城",
+   "en": "Penang"
+  },
+  {
+   "lg_cn": "马来西亚足球超级联赛",
+   "lg_en": "Malaysia Super League",
+   "cn": "沙巴",
+   "en": "Sabah"
+  },
+  {
+   "lg_cn": "马来西亚足球超级联赛",
+   "lg_en": "Malaysia Super League",
+   "cn": "吉隆坡城",
+   "en": "Kuala Lumpur City"
+  },
+  {
+   "lg_cn": "马来西亚足球超级联赛",
+   "lg_en": "Malaysia Super League",
+   "cn": "霹雳",
+   "en": "Perak"
+  },
+  {
+   "lg_cn": "马来西亚足球超级联赛",
+   "lg_en": "Malaysia Super League",
+   "cn": "森美兰",
+   "en": "Negeri Sembilan"
+  },
+  {
+   "lg_cn": "马来西亚足球超级联赛",
+   "lg_en": "Malaysia Super League",
+   "cn": "沙捞越",
+   "en": "Sarawak"
+  },
+  {
+   "lg_cn": "马来西亚足球超级联赛",
+   "lg_en": "Malaysia Super League",
+   "cn": "吉兰丹",
+   "en": "Kelantan"
+  },
+  {
+   "lg_cn": "马来西亚足球超级联赛",
+   "lg_en": "Malaysia Super League",
+   "cn": "彭亨",
+   "en": "Sri Pahang"
+  },
+  {
+   "lg_cn": "马来西亚足球超级联赛",
+   "lg_en": "Malaysia Super League",
+   "cn": "皇家警察",
+   "en": "PDRM"
+  },
+  {
+   "lg_cn": "马来西亚足球超级联赛",
+   "lg_en": "Malaysia Super League",
+   "cn": "马六甲",
+   "en": "Melaka"
+  },
+  {
+   "lg_cn": "新加坡足球超级联赛",
+   "lg_en": "Singapore Premier League",
+   "cn": "狮城水手",
+   "en": "Lion City Sailors"
+  },
+  {
+   "lg_cn": "新加坡足球超级联赛",
+   "lg_en": "Singapore Premier League",
+   "cn": "淡滨尼流浪者",
+   "en": "Tampines Rovers"
+  },
+  {
+   "lg_cn": "新加坡足球超级联赛",
+   "lg_en": "Singapore Premier League",
+   "cn": "幼狮队",
+   "en": "Young Lions"
+  },
+  {
+   "lg_cn": "新加坡足球超级联赛",
+   "lg_en": "Singapore Premier League",
+   "cn": "内政联",
+   "en": "Home United"
+  },
+  {
+   "lg_cn": "新加坡足球超级联赛",
+   "lg_en": "Singapore Premier League",
+   "cn": "芽笼国际",
+   "en": "Geylang International"
+  },
+  {
+   "lg_cn": "新加坡足球超级联赛",
+   "lg_en": "Singapore Premier League",
+   "cn": "卡波曼",
+   "en": "Hougang United"
+  },
+  {
+   "lg_cn": "新加坡足球超级联赛",
+   "lg_en": "Singapore Premier League",
+   "cn": "马里士他",
+   "en": "Balestier Khalsa"
+  },
+  {
+   "lg_cn": "新加坡足球超级联赛",
+   "lg_en": "Singapore Premier League",
+   "cn": "丹戎巴葛",
+   "en": "Tanjong Pagar United"
+  },
+  {
+   "lg_cn": "新加坡足球超级联赛",
+   "lg_en": "Singapore Premier League",
+   "cn": "文莱DPMM",
+   "en": "DPMM FC"
+  },
+  {
+   "lg_cn": "奥甲",
+   "lg_en": "Austrian Bundesliga",
+   "cn": "萨尔茨堡红牛",
+   "en": "Red Bull Salzburg"
+  },
+  {
+   "lg_cn": "奥甲",
+   "lg_en": "Austrian Bundesliga",
+   "cn": "格拉茨风暴",
+   "en": "SK Sturm Graz"
+  },
+  {
+   "lg_cn": "奥甲",
+   "lg_en": "Austrian Bundesliga",
+   "cn": "维也纳快速",
+   "en": "SK Rapid Wien"
+  },
+  {
+   "lg_cn": "奥甲",
+   "lg_en": "Austrian Bundesliga",
+   "cn": "奥地利维也纳",
+   "en": "Austria Wien"
+  },
+  {
+   "lg_cn": "奥甲",
+   "lg_en": "Austrian Bundesliga",
+   "cn": "林茨",
+   "en": "LASK Linz"
+  },
+  {
+   "lg_cn": "奥甲",
+   "lg_en": "Austrian Bundesliga",
+   "cn": "沃尔夫斯贝格",
+   "en": "Wolfsberger AC"
+  },
+  {
+   "lg_cn": "奥甲",
+   "lg_en": "Austrian Bundesliga",
+   "cn": "奥地利克拉根福",
+   "en": "Austria Klagenfurt"
+  },
+  {
+   "lg_cn": "奥甲",
+   "lg_en": "Austrian Bundesliga",
+   "cn": "蒂罗尔",
+   "en": "WSG Tirol"
+  },
+  {
+   "lg_cn": "奥甲",
+   "lg_en": "Austrian Bundesliga",
+   "cn": "哈特贝格",
+   "en": "TSV Hartberg"
+  },
+  {
+   "lg_cn": "奥甲",
+   "lg_en": "Austrian Bundesliga",
+   "cn": "阿尔塔奇",
+   "en": "SCR Altach"
+  },
+  {
+   "lg_cn": "奥甲",
+   "lg_en": "Austrian Bundesliga",
+   "cn": "格拉茨AK",
+   "en": "Grazer AK"
+  },
+  {
+   "lg_cn": "奥甲",
+   "lg_en": "Austrian Bundesliga",
+   "cn": "奥地利卢斯特瑙",
+   "en": "Austria Lustenau"
+  },
+  {
+   "lg_cn": "瑞士足球超级联赛",
+   "lg_en": "Swiss Super League",
+   "cn": "年轻人",
+   "en": "BSC Young Boys"
+  },
+  {
+   "lg_cn": "瑞士足球超级联赛",
+   "lg_en": "Swiss Super League",
+   "cn": "巴塞尔",
+   "en": "FC Basel"
+  },
+  {
+   "lg_cn": "瑞士足球超级联赛",
+   "lg_en": "Swiss Super League",
+   "cn": "塞尔维特",
+   "en": "Servette FC"
+  },
+  {
+   "lg_cn": "瑞士足球超级联赛",
+   "lg_en": "Swiss Super League",
+   "cn": "卢加诺",
+   "en": "FC Lugano"
+  },
+  {
+   "lg_cn": "瑞士足球超级联赛",
+   "lg_en": "Swiss Super League",
+   "cn": "圣加仑",
+   "en": "FC St. Gallen"
+  },
+  {
+   "lg_cn": "瑞士足球超级联赛",
+   "lg_en": "Swiss Super League",
+   "cn": "苏黎世",
+   "en": "FC Zürich"
+  },
+  {
+   "lg_cn": "瑞士足球超级联赛",
+   "lg_en": "Swiss Super League",
+   "cn": "草蜢",
+   "en": "Grasshopper Club"
+  },
+  {
+   "lg_cn": "瑞士足球超级联赛",
+   "lg_en": "Swiss Super League",
+   "cn": "洛桑体育",
+   "en": "FC Lausanne-Sport"
+  },
+  {
+   "lg_cn": "瑞士足球超级联赛",
+   "lg_en": "Swiss Super League",
+   "cn": "温特图尔",
+   "en": "FC Winterthur"
+  },
+  {
+   "lg_cn": "瑞士足球超级联赛",
+   "lg_en": "Swiss Super League",
+   "cn": "卢塞恩",
+   "en": "FC Luzern"
+  },
+  {
+   "lg_cn": "瑞士足球超级联赛",
+   "lg_en": "Swiss Super League",
+   "cn": "锡昂",
+   "en": "FC Sion"
+  },
+  {
+   "lg_cn": "瑞士足球超级联赛",
+   "lg_en": "Swiss Super League",
+   "cn": "伊韦尔东",
+   "en": "Yverdon-Sport"
+  },
+  {
+   "lg_cn": "希腊足球超级联赛",
+   "lg_en": "Super League Greece 1",
+   "cn": "奥林匹亚科斯",
+   "en": "Olympiacos"
+  },
+  {
+   "lg_cn": "希腊足球超级联赛",
+   "lg_en": "Super League Greece 1",
+   "cn": "帕纳辛奈科斯",
+   "en": "Panathinaikos"
+  },
+  {
+   "lg_cn": "希腊足球超级联赛",
+   "lg_en": "Super League Greece 1",
+   "cn": "塞萨洛尼基",
+   "en": "PAOK"
+  },
+  {
+   "lg_cn": "希腊足球超级联赛",
+   "lg_en": "Super League Greece 1",
+   "cn": "雅典AEK",
+   "en": "AEK Athens"
+  },
+  {
+   "lg_cn": "希腊足球超级联赛",
+   "lg_en": "Super League Greece 1",
+   "cn": "阿里斯",
+   "en": "Aris Thessaloniki"
+  },
+  {
+   "lg_cn": "希腊足球超级联赛",
+   "lg_en": "Super League Greece 1",
+   "cn": "帕纳托利科斯",
+   "en": "Panetolikos"
+  },
+  {
+   "lg_cn": "希腊足球超级联赛",
+   "lg_en": "Super League Greece 1",
+   "cn": "阿特罗米托斯",
+   "en": "Atromitos"
+  },
+  {
+   "lg_cn": "希腊足球超级联赛",
+   "lg_en": "Super League Greece 1",
+   "cn": "阿斯特拉斯",
+   "en": "Asteras Tripolis"
+  },
+  {
+   "lg_cn": "希腊足球超级联赛",
+   "lg_en": "Super League Greece 1",
+   "cn": "沃洛斯",
+   "en": "Volos"
+  },
+  {
+   "lg_cn": "希腊足球超级联赛",
+   "lg_en": "Super League Greece 1",
+   "cn": "拉米亚",
+   "en": "Lamia"
+  },
+  {
+   "lg_cn": "希腊足球超级联赛",
+   "lg_en": "Super League Greece 1",
+   "cn": "奥费",
+   "en": "OFI Crete"
+  },
+  {
+   "lg_cn": "希腊足球超级联赛",
+   "lg_en": "Super League Greece 1",
+   "cn": "帕纳丘",
+   "en": "Panachaiki"
+  },
+  {
+   "lg_cn": "希腊足球超级联赛",
+   "lg_en": "Super League Greece 1",
+   "cn": "阿格罗蒂科斯",
+   "en": "Agrotikos Asteras"
+  },
+  {
+   "lg_cn": "希腊足球超级联赛",
+   "lg_en": "Super League Greece 1",
+   "cn": "卡利地亚",
+   "en": "Kallithea"
+  },
+  {
+   "lg_cn": "波兰足球甲级联赛",
+   "lg_en": "Ekstraklasa",
+   "cn": "华沙莱吉亚",
+   "en": "Legia Warsaw"
+  },
+  {
+   "lg_cn": "波兰足球甲级联赛",
+   "lg_en": "Ekstraklasa",
+   "cn": "波兹南莱赫",
+   "en": "Lech Poznań"
+  },
+  {
+   "lg_cn": "波兰足球甲级联赛",
+   "lg_en": "Ekstraklasa",
+   "cn": "克拉科夫",
+   "en": "Wisła Kraków"
+  },
+  {
+   "lg_cn": "波兰足球甲级联赛",
+   "lg_en": "Ekstraklasa",
+   "cn": "什切青波贡",
+   "en": "Pogoń Szczecin"
+  },
+  {
+   "lg_cn": "波兰足球甲级联赛",
+   "lg_en": "Ekstraklasa",
+   "cn": "格但斯克莱吉亚",
+   "en": "Lechia Gdańsk"
+  },
+  {
+   "lg_cn": "波兰足球甲级联赛",
+   "lg_en": "Ekstraklasa",
+   "cn": "拉科夫",
+   "en": "Raków Częstochowa"
+  },
+  {
+   "lg_cn": "波兰足球甲级联赛",
+   "lg_en": "Ekstraklasa",
+   "cn": "弗罗茨瓦夫",
+   "en": "Śląsk Wrocław"
+  },
+  {
+   "lg_cn": "波兰足球甲级联赛",
+   "lg_en": "Ekstraklasa",
+   "cn": "卢宾",
+   "en": "Zagłębie Lubin"
+  },
+  {
+   "lg_cn": "波兰足球甲级联赛",
+   "lg_en": "Ekstraklasa",
+   "cn": "凯尔采",
+   "en": "Korona Kielce"
+  },
+  {
+   "lg_cn": "波兰足球甲级联赛",
+   "lg_en": "Ekstraklasa",
+   "cn": "皮亚斯特",
+   "en": "Piast Gliwice"
+  },
+  {
+   "lg_cn": "波兰足球甲级联赛",
+   "lg_en": "Ekstraklasa",
+   "cn": "雅盖隆",
+   "en": "Jagiellonia Białystok"
+  },
+  {
+   "lg_cn": "波兰足球甲级联赛",
+   "lg_en": "Ekstraklasa",
+   "cn": "梅莱茨",
+   "en": "Stal Mielec"
+  },
+  {
+   "lg_cn": "波兰足球甲级联赛",
+   "lg_en": "Ekstraklasa",
+   "cn": "文奇",
+   "en": "Górnik Zabrze"
+  },
+  {
+   "lg_cn": "波兰足球甲级联赛",
+   "lg_en": "Ekstraklasa",
+   "cn": "卡托维兹",
+   "en": "GKS Katowice"
+  },
+  {
+   "lg_cn": "波兰足球甲级联赛",
+   "lg_en": "Ekstraklasa",
+   "cn": "涅波沃米采",
+   "en": "Puszcza Niepołomice"
+  },
+  {
+   "lg_cn": "波兰足球甲级联赛",
+   "lg_en": "Ekstraklasa",
+   "cn": "卢布林",
+   "en": "Motor Lublin"
+  },
+  {
+   "lg_cn": "波兰足球甲级联赛",
+   "lg_en": "Ekstraklasa",
+   "cn": "切斯特鲁夫",
+   "en": "Radomiak Radom"
+  },
+  {
+   "lg_cn": "波兰足球甲级联赛",
+   "lg_en": "Ekstraklasa",
+   "cn": "卡塔尔",
+   "en": "Widzew Łódź"
+  },
+  {
+   "lg_cn": "捷克足球甲级联赛",
+   "lg_en": "Czech First League",
+   "cn": "布拉格斯巴达",
+   "en": "Sparta Prague"
+  },
+  {
+   "lg_cn": "捷克足球甲级联赛",
+   "lg_en": "Czech First League",
+   "cn": "布拉格斯拉维亚",
+   "en": "Slavia Prague"
+  },
+  {
+   "lg_cn": "捷克足球甲级联赛",
+   "lg_en": "Czech First League",
+   "cn": "比尔森胜利",
+   "en": "Viktoria Plzeň"
+  },
+  {
+   "lg_cn": "捷克足球甲级联赛",
+   "lg_en": "Czech First League",
+   "cn": "波希米亚人",
+   "en": "Bohemians 1905"
+  },
+  {
+   "lg_cn": "捷克足球甲级联赛",
+   "lg_en": "Czech First League",
+   "cn": "亚布洛内茨",
+   "en": "FK Jablonec"
+  },
+  {
+   "lg_cn": "捷克足球甲级联赛",
+   "lg_en": "Czech First League",
+   "cn": "奥洛穆茨",
+   "en": "Sigma Olomouc"
+  },
+  {
+   "lg_cn": "捷克足球甲级联赛",
+   "lg_en": "Czech First League",
+   "cn": "利贝雷茨",
+   "en": "Slovan Liberec"
+  },
+  {
+   "lg_cn": "捷克足球甲级联赛",
+   "lg_en": "Czech First League",
+   "cn": "姆拉达博莱斯拉夫",
+   "en": "Mladá Boleslav"
+  },
+  {
+   "lg_cn": "捷克足球甲级联赛",
+   "lg_en": "Czech First League",
+   "cn": "奥斯特拉瓦",
+   "en": "Baník Ostrava"
+  },
+  {
+   "lg_cn": "捷克足球甲级联赛",
+   "lg_en": "Czech First League",
+   "cn": "特普利采",
+   "en": "FK Teplice"
+  },
+  {
+   "lg_cn": "捷克足球甲级联赛",
+   "lg_en": "Czech First League",
+   "cn": "赫拉德茨",
+   "en": "Hradec Králové"
+  },
+  {
+   "lg_cn": "捷克足球甲级联赛",
+   "lg_en": "Czech First League",
+   "cn": "卡尔维纳",
+   "en": "Karviná"
+  },
+  {
+   "lg_cn": "捷克足球甲级联赛",
+   "lg_en": "Czech First League",
+   "cn": "布德约维采",
+   "en": "České Budějovice"
+  },
+  {
+   "lg_cn": "捷克足球甲级联赛",
+   "lg_en": "Czech First League",
+   "cn": "帕尔杜比采",
+   "en": "FK Pardubice"
+  },
+  {
+   "lg_cn": "捷克足球甲级联赛",
+   "lg_en": "Czech First League",
+   "cn": "兹林",
+   "en": "FC Zlín"
+  },
+  {
+   "lg_cn": "捷克足球甲级联赛",
+   "lg_en": "Czech First League",
+   "cn": "杜克拉",
+   "en": "Dukla Prague"
+  },
+  {
+   "lg_cn": "丹麦足球超级联赛",
+   "lg_en": "Danish Superliga",
+   "cn": "哥本哈根",
+   "en": "FC Copenhagen"
+  },
+  {
+   "lg_cn": "丹麦足球超级联赛",
+   "lg_en": "Danish Superliga",
+   "cn": "中日德兰",
+   "en": "FC Midtjylland"
+  },
+  {
+   "lg_cn": "丹麦足球超级联赛",
+   "lg_en": "Danish Superliga",
+   "cn": "布隆德比",
+   "en": "Brøndby IF"
+  },
+  {
+   "lg_cn": "丹麦足球超级联赛",
+   "lg_en": "Danish Superliga",
+   "cn": "北西兰",
+   "en": "FC Nordsjælland"
+  },
+  {
+   "lg_cn": "丹麦足球超级联赛",
+   "lg_en": "Danish Superliga",
+   "cn": "奥尔堡",
+   "en": "AaB Aalborg"
+  },
+  {
+   "lg_cn": "丹麦足球超级联赛",
+   "lg_en": "Danish Superliga",
+   "cn": "兰德斯",
+   "en": "Randers FC"
+  },
+  {
+   "lg_cn": "丹麦足球超级联赛",
+   "lg_en": "Danish Superliga",
+   "cn": "锡尔克堡",
+   "en": "Silkeborg IF"
+  },
+  {
+   "lg_cn": "丹麦足球超级联赛",
+   "lg_en": "Danish Superliga",
+   "cn": "欧登塞",
+   "en": "OB Odense"
+  },
+  {
+   "lg_cn": "丹麦足球超级联赛",
+   "lg_en": "Danish Superliga",
+   "cn": "维堡",
+   "en": "Viborg FF"
+  },
+  {
+   "lg_cn": "丹麦足球超级联赛",
+   "lg_en": "Danish Superliga",
+   "cn": "利勒斯特伦",
+   "en": "Lyngby BK"
+  },
+  {
+   "lg_cn": "丹麦足球超级联赛",
+   "lg_en": "Danish Superliga",
+   "cn": "瓦埃勒",
+   "en": "Vejle BK"
+  },
+  {
+   "lg_cn": "丹麦足球超级联赛",
+   "lg_en": "Danish Superliga",
+   "cn": "桑德杰斯",
+   "en": "SønderjyskE"
+  },
+  {
+   "lg_cn": "挪威足球超级联赛",
+   "lg_en": "Eliteserien",
+   "cn": "博德闪耀",
+   "en": "Bodø/Glimt"
+  },
+  {
+   "lg_cn": "挪威足球超级联赛",
+   "lg_en": "Eliteserien",
+   "cn": "莫尔德",
+   "en": "Molde FK"
+  },
+  {
+   "lg_cn": "挪威足球超级联赛",
+   "lg_en": "Eliteserien",
+   "cn": "罗森博格",
+   "en": "Rosenborg"
+  },
+  {
+   "lg_cn": "挪威足球超级联赛",
+   "lg_en": "Eliteserien",
+   "cn": "布兰",
+   "en": "SK Brann"
+  },
+  {
+   "lg_cn": "挪威足球超级联赛",
+   "lg_en": "Eliteserien",
+   "cn": "维京",
+   "en": "Viking FK"
+  },
+  {
+   "lg_cn": "挪威足球超级联赛",
+   "lg_en": "Eliteserien",
+   "cn": "利勒斯特罗姆",
+   "en": "Lillestrøm SK"
+  },
+  {
+   "lg_cn": "挪威足球超级联赛",
+   "lg_en": "Eliteserien",
+   "cn": "瓦勒伦加",
+   "en": "Vålerenga"
+  },
+  {
+   "lg_cn": "挪威足球超级联赛",
+   "lg_en": "Eliteserien",
+   "cn": "奥德",
+   "en": "Odd BK"
+  },
+  {
+   "lg_cn": "挪威足球超级联赛",
+   "lg_en": "Eliteserien",
+   "cn": "斯托姆加斯特",
+   "en": "Strømsgodset"
+  },
+  {
+   "lg_cn": "挪威足球超级联赛",
+   "lg_en": "Eliteserien",
+   "cn": "特罗姆瑟",
+   "en": "Tromsø IL"
+  },
+  {
+   "lg_cn": "挪威足球超级联赛",
+   "lg_en": "Eliteserien",
+   "cn": "萨普斯堡",
+   "en": "Sarpsborg 08"
+  },
+  {
+   "lg_cn": "挪威足球超级联赛",
+   "lg_en": "Eliteserien",
+   "cn": "海于格松",
+   "en": "FK Haugesund"
+  },
+  {
+   "lg_cn": "挪威足球超级联赛",
+   "lg_en": "Eliteserien",
+   "cn": "桑德菲杰",
+   "en": "Sandefjord"
+  },
+  {
+   "lg_cn": "挪威足球超级联赛",
+   "lg_en": "Eliteserien",
+   "cn": "克里斯蒂安松",
+   "en": "Kristiansund"
+  },
+  {
+   "lg_cn": "挪威足球超级联赛",
+   "lg_en": "Eliteserien",
+   "cn": "腓特烈斯塔",
+   "en": "Fredrikstad"
+  },
+  {
+   "lg_cn": "挪威足球超级联赛",
+   "lg_en": "Eliteserien",
+   "cn": "哈姆",
+   "en": "HamKam"
+  },
+  {
+   "lg_cn": "瑞典足球超级联赛",
+   "lg_en": "Allsvenskan",
+   "cn": "马尔默",
+   "en": "Malmö FF"
+  },
+  {
+   "lg_cn": "瑞典足球超级联赛",
+   "lg_en": "Allsvenskan",
+   "cn": "尤尔加登",
+   "en": "Djurgårdens IF"
+  },
+  {
+   "lg_cn": "瑞典足球超级联赛",
+   "lg_en": "Allsvenskan",
+   "cn": "AIK索尔纳",
+   "en": "AIK"
+  },
+  {
+   "lg_cn": "瑞典足球超级联赛",
+   "lg_en": "Allsvenskan",
+   "cn": "哈马尔比",
+   "en": "Hammarby IF"
+  },
+  {
+   "lg_cn": "瑞典足球超级联赛",
+   "lg_en": "Allsvenskan",
+   "cn": "埃尔夫斯堡",
+   "en": "IF Elfsborg"
+  },
+  {
+   "lg_cn": "瑞典足球超级联赛",
+   "lg_en": "Allsvenskan",
+   "cn": "北雪平",
+   "en": "IFK Norrköping"
+  },
+  {
+   "lg_cn": "瑞典足球超级联赛",
+   "lg_en": "Allsvenskan",
+   "cn": "赫根",
+   "en": "BK Häcken"
+  },
+  {
+   "lg_cn": "瑞典足球超级联赛",
+   "lg_en": "Allsvenskan",
+   "cn": "卡尔马",
+   "en": "Kalmar FF"
+  },
+  {
+   "lg_cn": "瑞典足球超级联赛",
+   "lg_en": "Allsvenskan",
+   "cn": "哥德堡",
+   "en": "IFK Göteborg"
+  },
+  {
+   "lg_cn": "瑞典足球超级联赛",
+   "lg_en": "Allsvenskan",
+   "cn": "米亚尔比",
+   "en": "Mjällby AIF"
+  },
+  {
+   "lg_cn": "瑞典足球超级联赛",
+   "lg_en": "Allsvenskan",
+   "cn": "代格福什",
+   "en": "Degerfors IF"
+  },
+  {
+   "lg_cn": "瑞典足球超级联赛",
+   "lg_en": "Allsvenskan",
+   "cn": "西里安斯卡",
+   "en": "Sirius"
+  },
+  {
+   "lg_cn": "瑞典足球超级联赛",
+   "lg_en": "Allsvenskan",
+   "cn": "布罗姆马",
+   "en": "IF Brommapojkarna"
+  },
+  {
+   "lg_cn": "瑞典足球超级联赛",
+   "lg_en": "Allsvenskan",
+   "cn": "韦纳穆",
+   "en": "IFK Värnamo"
+  },
+  {
+   "lg_cn": "瑞典足球超级联赛",
+   "lg_en": "Allsvenskan",
+   "cn": "哈尔姆斯塔德",
+   "en": "Halmstads BK"
+  },
+  {
+   "lg_cn": "乌克兰足球超级联赛",
+   "lg_en": "Ukrainian Premier League",
+   "cn": "顿涅茨克矿工",
+   "en": "Shakhtar Donetsk"
+  },
+  {
+   "lg_cn": "乌克兰足球超级联赛",
+   "lg_en": "Ukrainian Premier League",
+   "cn": "基辅迪纳摩",
+   "en": "Dynamo Kyiv"
+  },
+  {
+   "lg_cn": "乌克兰足球超级联赛",
+   "lg_en": "Ukrainian Premier League",
+   "cn": "克里夫巴斯",
+   "en": "Kryvbas Kryvyi Rih"
+  },
+  {
+   "lg_cn": "乌克兰足球超级联赛",
+   "lg_en": "Ukrainian Premier League",
+   "cn": "第聂伯罗",
+   "en": "Dnipro-1"
+  },
+  {
+   "lg_cn": "乌克兰足球超级联赛",
+   "lg_en": "Ukrainian Premier League",
+   "cn": "波尔塔瓦",
+   "en": "Vorskla Poltava"
+  },
+  {
+   "lg_cn": "乌克兰足球超级联赛",
+   "lg_en": "Ukrainian Premier League",
+   "cn": "利沃夫卡帕蒂",
+   "en": "Karpaty Lviv"
+  },
+  {
+   "lg_cn": "乌克兰足球超级联赛",
+   "lg_en": "Ukrainian Premier League",
+   "cn": "奥博隆",
+   "en": "Obolon Kyiv"
+  },
+  {
+   "lg_cn": "乌克兰足球超级联赛",
+   "lg_en": "Ukrainian Premier League",
+   "cn": "波利西亚",
+   "en": "Polissya Zhytomyr"
+  },
+  {
+   "lg_cn": "乌克兰足球超级联赛",
+   "lg_en": "Ukrainian Premier League",
+   "cn": "卢甘斯克",
+   "en": "Zorya Luhansk"
+  },
+  {
+   "lg_cn": "乌克兰足球超级联赛",
+   "lg_en": "Ukrainian Premier League",
+   "cn": "亚历山德里亚",
+   "en": "Oleksandriya"
+  },
+  {
+   "lg_cn": "乌克兰足球超级联赛",
+   "lg_en": "Ukrainian Premier League",
+   "cn": "科瓦利夫卡",
+   "en": "Kolos Kovalivka"
+  },
+  {
+   "lg_cn": "乌克兰足球超级联赛",
+   "lg_en": "Ukrainian Premier League",
+   "cn": "英胡莱茨",
+   "en": "Inhulets Petrove"
+  },
+  {
+   "lg_cn": "乌克兰足球超级联赛",
+   "lg_en": "Ukrainian Premier League",
+   "cn": "利维沃",
+   "en": "Lviv"
+  },
+  {
+   "lg_cn": "乌克兰足球超级联赛",
+   "lg_en": "Ukrainian Premier League",
+   "cn": "切尔诺莫雷茨",
+   "en": "Chornomorets Odesa"
+  },
+  {
+   "lg_cn": "乌克兰足球超级联赛",
+   "lg_en": "Ukrainian Premier League",
+   "cn": "维雷斯",
+   "en": "Veres Rivne"
+  },
+  {
+   "lg_cn": "乌克兰足球超级联赛",
+   "lg_en": "Ukrainian Premier League",
+   "cn": "米奈",
+   "en": "Mynai"
+  },
+  {
+   "lg_cn": "克罗地亚足球甲级联赛",
+   "lg_en": "HNL",
+   "cn": "萨格勒布迪纳摩",
+   "en": "Dinamo Zagreb"
+  },
+  {
+   "lg_cn": "克罗地亚足球甲级联赛",
+   "lg_en": "HNL",
+   "cn": "里耶卡",
+   "en": "HNK Rijeka"
+  },
+  {
+   "lg_cn": "克罗地亚足球甲级联赛",
+   "lg_en": "HNL",
+   "cn": "哈伊杜克",
+   "en": "Hajduk Split"
+  },
+  {
+   "lg_cn": "克罗地亚足球甲级联赛",
+   "lg_en": "HNL",
+   "cn": "奥西耶克",
+   "en": "NK Osijek"
+  },
+  {
+   "lg_cn": "克罗地亚足球甲级联赛",
+   "lg_en": "HNL",
+   "cn": "瓦拉日丁",
+   "en": "NK Varaždin"
+  },
+  {
+   "lg_cn": "克罗地亚足球甲级联赛",
+   "lg_en": "HNL",
+   "cn": "斯拉文贝鲁波",
+   "en": "Slaven Belupo"
+  },
+  {
+   "lg_cn": "克罗地亚足球甲级联赛",
+   "lg_en": "HNL",
+   "cn": "戈里察",
+   "en": "HNK Gorica"
+  },
+  {
+   "lg_cn": "克罗地亚足球甲级联赛",
+   "lg_en": "HNL",
+   "cn": "伊斯特拉",
+   "en": "Istra 1961"
+  },
+  {
+   "lg_cn": "克罗地亚足球甲级联赛",
+   "lg_en": "HNL",
+   "cn": "斯普利特",
+   "en": "RNK Split"
+  },
+  {
+   "lg_cn": "克罗地亚足球甲级联赛",
+   "lg_en": "HNL",
+   "cn": "洛科莫蒂瓦",
+   "en": "NK Lokomotiva"
+  },
+  {
+   "lg_cn": "塞尔维亚足球超级联赛",
+   "lg_en": "Serbian SuperLiga",
+   "cn": "贝尔格莱德红星",
+   "en": "Red Star Belgrade"
+  },
+  {
+   "lg_cn": "塞尔维亚足球超级联赛",
+   "lg_en": "Serbian SuperLiga",
+   "cn": "贝尔格莱德游击",
+   "en": "Partizan Belgrade"
+  },
+  {
+   "lg_cn": "塞尔维亚足球超级联赛",
+   "lg_en": "Serbian SuperLiga",
+   "cn": "托波拉",
+   "en": "TSC Bačka Topola"
+  },
+  {
+   "lg_cn": "塞尔维亚足球超级联赛",
+   "lg_en": "Serbian SuperLiga",
+   "cn": "库卡里基",
+   "en": "FK Čukarički"
+  },
+  {
+   "lg_cn": "塞尔维亚足球超级联赛",
+   "lg_en": "Serbian SuperLiga",
+   "cn": "伏伊伏丁那",
+   "en": "Vojvodina"
+  },
+  {
+   "lg_cn": "塞尔维亚足球超级联赛",
+   "lg_en": "Serbian SuperLiga",
+   "cn": "拉多维奇",
+   "en": "Radnički Niš"
+  },
+  {
+   "lg_cn": "塞尔维亚足球超级联赛",
+   "lg_en": "Serbian SuperLiga",
+   "cn": "诺维帕扎尔",
+   "en": "Novi Pazar"
+  },
+  {
+   "lg_cn": "塞尔维亚足球超级联赛",
+   "lg_en": "Serbian SuperLiga",
+   "cn": "苏博蒂察",
+   "en": "Spartak Subotica"
+  },
+  {
+   "lg_cn": "塞尔维亚足球超级联赛",
+   "lg_en": "Serbian SuperLiga",
+   "cn": "贝尔格莱德",
+   "en": "OFK Beograd"
+  },
+  {
+   "lg_cn": "塞尔维亚足球超级联赛",
+   "lg_en": "Serbian SuperLiga",
+   "cn": "雅戈迪纳",
+   "en": "Jagodina"
+  },
+  {
+   "lg_cn": "塞尔维亚足球超级联赛",
+   "lg_en": "Serbian SuperLiga",
+   "cn": "泽蒙",
+   "en": "Zemun"
+  },
+  {
+   "lg_cn": "塞尔维亚足球超级联赛",
+   "lg_en": "Serbian SuperLiga",
+   "cn": "佩托帕克",
+   "en": "Petrovac"
+  },
+  {
+   "lg_cn": "塞尔维亚足球超级联赛",
+   "lg_en": "Serbian SuperLiga",
+   "cn": "拉布尼察",
+   "en": "Radnički Kragujevac"
+  },
+  {
+   "lg_cn": "塞尔维亚足球超级联赛",
+   "lg_en": "Serbian SuperLiga",
+   "cn": "纳普雷达克",
+   "en": "Napredak Kruševac"
+  },
+  {
+   "lg_cn": "塞尔维亚足球超级联赛",
+   "lg_en": "Serbian SuperLiga",
+   "cn": "科索沃",
+   "en": "FK Vozdovac"
+  },
+  {
+   "lg_cn": "塞尔维亚足球超级联赛",
+   "lg_en": "Serbian SuperLiga",
+   "cn": "伊凡尼察",
+   "en": "IMT Novi Beograd"
+  }
+ ],
+ "leagues": [
+  {
+   "region": "欧洲",
+   "country": "英格兰",
+   "tier": "顶级",
+   "cn": "英超（英格兰足球超级联赛）",
+   "en": "Premier League",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "英格兰",
+   "tier": "二级",
+   "cn": "英冠（英格兰足球冠军联赛）",
+   "en": "EFL Championship",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "西班牙",
+   "tier": "顶级",
+   "cn": "西甲（西班牙足球甲级联赛）",
+   "en": "La Liga",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "西班牙",
+   "tier": "二级",
+   "cn": "西乙（西班牙足球乙级联赛）",
+   "en": "Segunda División / LaLiga 2",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "意大利",
+   "tier": "顶级",
+   "cn": "意甲（意大利足球甲级联赛）",
+   "en": "Serie A",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "意大利",
+   "tier": "二级",
+   "cn": "意乙（意大利足球乙级联赛）",
+   "en": "Serie B",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "德国",
+   "tier": "顶级",
+   "cn": "德甲（德国足球甲级联赛）",
+   "en": "Bundesliga",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "德国",
+   "tier": "二级",
+   "cn": "德乙（德国足球乙级联赛）",
+   "en": "2. Bundesliga",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "法国",
+   "tier": "顶级",
+   "cn": "法甲（法国足球甲级联赛）",
+   "en": "Ligue 1",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "法国",
+   "tier": "二级",
+   "cn": "法乙（法国足球乙级联赛）",
+   "en": "Ligue 2",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "葡萄牙",
+   "tier": "顶级",
+   "cn": "葡超（葡萄牙足球超级联赛）",
+   "en": "Primeira Liga",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "荷兰",
+   "tier": "顶级",
+   "cn": "荷甲（荷兰足球甲级联赛）",
+   "en": "Eredivisie",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "比利时",
+   "tier": "顶级",
+   "cn": "比甲（比利时足球甲级联赛）",
+   "en": "Belgian Pro League",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "苏格兰",
+   "tier": "顶级",
+   "cn": "苏超（苏格兰足球超级联赛）",
+   "en": "Scottish Premiership",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "俄罗斯",
+   "tier": "顶级",
+   "cn": "俄超（俄罗斯足球超级联赛）",
+   "en": "Russian Premier League",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "乌克兰",
+   "tier": "顶级",
+   "cn": "乌超（乌克兰足球超级联赛）",
+   "en": "Ukrainian Premier League",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "土耳其",
+   "tier": "顶级",
+   "cn": "土超（土耳其足球超级联赛）",
+   "en": "Süper Lig",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "奥地利",
+   "tier": "顶级",
+   "cn": "奥甲（奥地利足球甲级联赛）",
+   "en": "Austrian Bundesliga",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "瑞士",
+   "tier": "顶级",
+   "cn": "瑞士足球超级联赛",
+   "en": "Swiss Super League",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "希腊",
+   "tier": "顶级",
+   "cn": "希腊足球超级联赛",
+   "en": "Super League Greece 1",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "波兰",
+   "tier": "顶级",
+   "cn": "波兰足球甲级联赛",
+   "en": "Ekstraklasa",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "捷克",
+   "tier": "顶级",
+   "cn": "捷克足球甲级联赛",
+   "en": "Czech First League",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "克罗地亚",
+   "tier": "顶级",
+   "cn": "克罗地亚足球甲级联赛",
+   "en": "HNL (Hrvatska Nogometna Liga)",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "塞尔维亚",
+   "tier": "顶级",
+   "cn": "塞尔维亚足球超级联赛",
+   "en": "Serbian SuperLiga",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "斯洛伐克",
+   "tier": "顶级",
+   "cn": "斯洛伐克足球超级联赛",
+   "en": "Slovak First Football League",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "斯洛文尼亚",
+   "tier": "顶级",
+   "cn": "斯洛文尼亚足球甲级联赛",
+   "en": "Slovenian PrvaLiga",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "匈牙利",
+   "tier": "顶级",
+   "cn": "匈牙利足球甲级联赛",
+   "en": "Nemzeti Bajnokság I",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "罗马尼亚",
+   "tier": "顶级",
+   "cn": "罗马尼亚足球甲级联赛",
+   "en": "Liga I (SuperLiga)",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "保加利亚",
+   "tier": "顶级",
+   "cn": "保加利亚足球甲级联赛",
+   "en": "Parva Liga",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "丹麦",
+   "tier": "顶级",
+   "cn": "丹麦足球超级联赛",
+   "en": "Danish Superliga",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "挪威",
+   "tier": "顶级",
+   "cn": "挪威足球超级联赛",
+   "en": "Eliteserien",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "瑞典",
+   "tier": "顶级",
+   "cn": "瑞典足球超级联赛",
+   "en": "Allsvenskan",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "芬兰",
+   "tier": "顶级",
+   "cn": "芬兰足球超级联赛",
+   "en": "Veikkausliiga",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "冰岛",
+   "tier": "顶级",
+   "cn": "冰岛足球超级联赛",
+   "en": "Besta deild karla",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "爱尔兰",
+   "tier": "顶级",
+   "cn": "爱尔兰足球超级联赛",
+   "en": "League of Ireland Premier Division",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "北爱尔兰",
+   "tier": "顶级",
+   "cn": "北爱尔兰足球超级联赛",
+   "en": "NIFL Premiership",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "威尔士",
+   "tier": "顶级",
+   "cn": "威尔士足球超级联赛",
+   "en": "Cymru Premier",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "塞浦路斯",
+   "tier": "顶级",
+   "cn": "塞浦路斯足球甲级联赛",
+   "en": "Cypriot First Division",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "以色列",
+   "tier": "顶级",
+   "cn": "以色列足球超级联赛",
+   "en": "Israeli Premier League",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "哈萨克斯坦",
+   "tier": "顶级",
+   "cn": "哈萨克斯坦足球超级联赛",
+   "en": "Kazakhstan Premier League",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "阿尔巴尼亚",
+   "tier": "顶级",
+   "cn": "阿尔巴尼亚足球超级联赛",
+   "en": "Kategoria Superiore",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "波黑",
+   "tier": "顶级",
+   "cn": "波黑足球超级联赛",
+   "en": "Premier League of Bosnia and Herzegovina",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "北马其顿",
+   "tier": "顶级",
+   "cn": "北马其顿足球甲级联赛",
+   "en": "Prva Liga (Macedonian First Football League)",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "黑山",
+   "tier": "顶级",
+   "cn": "黑山足球甲级联赛",
+   "en": "Montenegrin First League",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "科索沃",
+   "tier": "顶级",
+   "cn": "科索沃足球超级联赛",
+   "en": "Football Superleague of Kosovo",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "亚美尼亚",
+   "tier": "顶级",
+   "cn": "亚美尼亚足球超级联赛",
+   "en": "Armenian Premier League",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "阿塞拜疆",
+   "tier": "顶级",
+   "cn": "阿塞拜疆足球超级联赛",
+   "en": "Azerbaijan Premier League",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "格鲁吉亚",
+   "tier": "顶级",
+   "cn": "格鲁吉亚足球甲级联赛",
+   "en": "Erovnuli Liga",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "白俄罗斯",
+   "tier": "顶级",
+   "cn": "白俄罗斯足球超级联赛",
+   "en": "Belarusian Premier League",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "摩尔多瓦",
+   "tier": "顶级",
+   "cn": "摩尔多瓦足球超级联赛",
+   "en": "Moldovan Super Liga",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "拉脱维亚",
+   "tier": "顶级",
+   "cn": "拉脱维亚足球超级联赛",
+   "en": "Latvian Higher League (Virslīga)",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "立陶宛",
+   "tier": "顶级",
+   "cn": "立陶宛足球甲级联赛",
+   "en": "A Lyga",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "爱沙尼亚",
+   "tier": "顶级",
+   "cn": "爱沙尼亚足球甲级联赛",
+   "en": "Meistriliiga",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "卢森堡",
+   "tier": "顶级",
+   "cn": "卢森堡足球甲级联赛",
+   "en": "Luxembourg National Division",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "马耳他",
+   "tier": "顶级",
+   "cn": "马耳他足球超级联赛",
+   "en": "Maltese Premier League",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "安道尔",
+   "tier": "顶级",
+   "cn": "安道尔足球甲级联赛",
+   "en": "Primera Divisió",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "直布罗陀",
+   "tier": "顶级",
+   "cn": "直布罗陀足球联赛",
+   "en": "Gibraltar Football League",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "法罗群岛",
+   "tier": "顶级",
+   "cn": "法罗群岛足球超级联赛",
+   "en": "Faroe Islands Premier League",
+   "slug": ""
+  },
+  {
+   "region": "欧洲",
+   "country": "圣马力诺",
+   "tier": "顶级",
+   "cn": "圣马力诺足球联赛",
+   "en": "Campionato Sammarinese di Calcio",
+   "slug": ""
+  },
+  {
+   "region": "南美洲",
+   "country": "巴西",
+   "tier": "顶级",
+   "cn": "巴甲（巴西足球甲级联赛）",
+   "en": "Campeonato Brasileiro Série A (Brasileirão)",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "中国",
+   "tier": "顶级",
+   "cn": "中超（中国足球超级联赛）",
+   "en": "Chinese Super League (CSL)",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "日本",
+   "tier": "顶级",
+   "cn": "日职联（日本职业足球甲级联赛）",
+   "en": "J1 League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "韩国",
+   "tier": "顶级",
+   "cn": "韩K1联赛（韩国职业足球联赛）",
+   "en": "K League 1",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "澳大利亚",
+   "tier": "顶级",
+   "cn": "澳超（澳大利亚足球超级联赛）",
+   "en": "A-League Men",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "沙特阿拉伯",
+   "tier": "顶级",
+   "cn": "沙特职业足球联赛",
+   "en": "Saudi Pro League (SPL)",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "伊朗",
+   "tier": "顶级",
+   "cn": "伊朗职业足球联赛",
+   "en": "Persian Gulf Pro League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "卡塔尔",
+   "tier": "顶级",
+   "cn": "卡塔尔星级联赛",
+   "en": "Qatar Stars League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "阿联酋",
+   "tier": "顶级",
+   "cn": "阿联酋职业足球联赛",
+   "en": "UAE Pro League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "伊拉克",
+   "tier": "顶级",
+   "cn": "伊拉克星级联赛",
+   "en": "Iraq Stars League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "乌兹别克斯坦",
+   "tier": "顶级",
+   "cn": "乌兹别克斯坦足球超级联赛",
+   "en": "Uzbekistan Super League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "泰国",
+   "tier": "顶级",
+   "cn": "泰国足球甲级联赛（泰超）",
+   "en": "Thai League 1",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "越南",
+   "tier": "顶级",
+   "cn": "越南足球甲级联赛",
+   "en": "V.League 1",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "印度尼西亚",
+   "tier": "顶级",
+   "cn": "印尼足球甲级联赛",
+   "en": "Liga 1",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "马来西亚",
+   "tier": "顶级",
+   "cn": "马来西亚足球超级联赛",
+   "en": "Malaysia Super League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "新加坡",
+   "tier": "顶级",
+   "cn": "新加坡足球超级联赛",
+   "en": "Singapore Premier League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "菲律宾",
+   "tier": "顶级",
+   "cn": "菲律宾足球联赛",
+   "en": "Philippines Football League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "缅甸",
+   "tier": "顶级",
+   "cn": "缅甸国家足球联赛",
+   "en": "Myanmar National League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "柬埔寨",
+   "tier": "顶级",
+   "cn": "柬埔寨足球超级联赛",
+   "en": "Cambodian Premier League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "老挝",
+   "tier": "顶级",
+   "cn": "老挝足球甲级联赛",
+   "en": "Lao League 1",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "文莱",
+   "tier": "顶级",
+   "cn": "文莱足球超级联赛",
+   "en": "Brunei Super League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "东帝汶",
+   "tier": "顶级",
+   "cn": "东帝汶足球甲级联赛",
+   "en": "Liga Futebol Amadora Primeira Divisão",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "印度",
+   "tier": "顶级",
+   "cn": "印度超级联赛",
+   "en": "Indian Super League (ISL)",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "孟加拉国",
+   "tier": "顶级",
+   "cn": "孟加拉国足球超级联赛",
+   "en": "Bangladesh Premier League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "斯里兰卡",
+   "tier": "顶级",
+   "cn": "斯里兰卡足球超级联赛",
+   "en": "Sri Lanka Super League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "尼泊尔",
+   "tier": "顶级",
+   "cn": "尼泊尔烈士纪念A级联赛",
+   "en": "Martyr's Memorial A-Division League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "不丹",
+   "tier": "顶级",
+   "cn": "不丹足球超级联赛",
+   "en": "Bhutan Premier League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "马尔代夫",
+   "tier": "顶级",
+   "cn": "马尔代夫迪维希超级联赛",
+   "en": "Dhivehi Premier League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "巴基斯坦",
+   "tier": "顶级",
+   "cn": "巴基斯坦足球超级联赛",
+   "en": "Pakistan Premier League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "吉尔吉斯斯坦",
+   "tier": "顶级",
+   "cn": "吉尔吉斯斯坦足球超级联赛",
+   "en": "Kyrgyz Premier League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "塔吉克斯坦",
+   "tier": "顶级",
+   "cn": "塔吉克斯坦足球超级联赛",
+   "en": "Tajikistan Higher League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "土库曼斯坦",
+   "tier": "顶级",
+   "cn": "土库曼斯坦足球超级联赛",
+   "en": "Turkmenistan Higher League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "阿富汗",
+   "tier": "顶级",
+   "cn": "阿富汗冠军联赛",
+   "en": "Afghanistan Champions League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "约旦",
+   "tier": "顶级",
+   "cn": "约旦职业足球联赛",
+   "en": "Jordan Pro League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "科威特",
+   "tier": "顶级",
+   "cn": "科威特足球超级联赛",
+   "en": "Kuwait Premier League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "黎巴嫩",
+   "tier": "顶级",
+   "cn": "黎巴嫩足球超级联赛",
+   "en": "Lebanese Premier League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "阿曼",
+   "tier": "顶级",
+   "cn": "阿曼职业足球联赛",
+   "en": "Oman Professional League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "巴林",
+   "tier": "顶级",
+   "cn": "巴林足球超级联赛",
+   "en": "Bahraini Premier League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "叙利亚",
+   "tier": "顶级",
+   "cn": "叙利亚足球超级联赛",
+   "en": "Syrian Premier League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "也门",
+   "tier": "顶级",
+   "cn": "也门足球联赛",
+   "en": "Yemeni League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "巴勒斯坦",
+   "tier": "顶级",
+   "cn": "巴勒斯坦（加沙地带/西岸）超级联赛",
+   "en": "Gaza Strip / West Bank Premier League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "朝鲜",
+   "tier": "顶级",
+   "cn": "朝鲜足球超级联赛",
+   "en": "DPR Korea Premier Football League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "中国香港",
+   "tier": "顶级",
+   "cn": "香港超级联赛",
+   "en": "Hong Kong Premier League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "中国澳门",
+   "tier": "顶级",
+   "cn": "澳门足球甲级联赛（精英组）",
+   "en": "Liga de Elite",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "中国台湾",
+   "tier": "顶级",
+   "cn": "台湾企业足球甲级联赛",
+   "en": "Taiwan Football Premier League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "蒙古",
+   "tier": "顶级",
+   "cn": "蒙古足球超级联赛",
+   "en": "Mongolian Premier League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "关岛",
+   "tier": "顶级",
+   "cn": "关岛足球联赛",
+   "en": "Guam Soccer League",
+   "slug": ""
+  },
+  {
+   "region": "亚洲",
+   "country": "北马里亚纳群岛",
+   "tier": "顶级",
+   "cn": "马里亚纳足球联赛1级",
+   "en": "Marianas Soccer League 1",
+   "slug": ""
+  }
+ ]
+}

@@ -1,10 +1,20 @@
 """疲劳+战意量化（2026-08-29评审固化·P1-3·Step3.5情境因子新增·L3级）
 用法: python fatigue_intent.py --home_games_7d 2 --away_games_7d 1 --home_games_14d 4 --away_games_14d 3 --travel_km 1200 --home_rank 3 --away_rank 15
 输出: fatigue_score(主/客) + intent_score(主/客) + 调整建议(置信度档/λ)
-数据来源: api-football standings(排名)+fixtures(赛程密度)+欧战旅行距离
+数据来源: 积分榜(排名)+赛程密度+欧战旅行距离（原 api-football·已停用 2026-10-06→⚪无替代·三态）
 """
 import argparse, io, sys
-sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+
+# 🔴2026-10-31 修复（Step 全流程审计批次1 实抓）:
+#   原模块级 `sys.stdout = io.TextIOWrapper(sys.stdout.buffer, ...)` 在**被 import** 时
+#   会替换全局 stdout，且旧 wrapper 被 GC 关闭 → 调用方后续所有 print 抛
+#   `ValueError: I/O operation on closed file`（calc_all 接入即崩）。
+#   → 重定向只应在 CLI 直跑时执行。这也是本模块长期「零调用」的隐藏原因。
+if __name__ == '__main__':
+    try:
+        sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    except Exception:
+        pass
 
 def fatigue(games_7d, games_14d, travel_km):
     f = 0

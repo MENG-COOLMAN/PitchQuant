@@ -1,8 +1,8 @@
-# fetch_all.py — 外部数据源聚合拉取器（步骤遗失根除·支柱B）
+# fetch_all.py — 外部数据源聚合拉取器（2026-09-02·步骤遗失根除·支柱B）
 # 用法: python fetch_all.py --league 英超 --home 主队 --away 客队 [--event 欧盘eventId]
-# 原理: 一次尝试拉齐全部外部数据源(ELO/xG/api-football/footballcharts)·拉不到自动标"无数据(原因)"
-# ——数据缺不缺由脚本定·不由LLM记不记得(防"没拉标缺失"·防"忘了拉")
-# 现实降级: 新闻伤停(SL-news-crawl)需VPN手动·api/footballcharts需MCP·本脚本聚合可用源+三态标注
+# 原理: 一次尝试拉齐全部外部数据源(clubelo ELO/understat xG/the-odds-api 赔率/Bing News 伤停)·拉不到自动标"无数据(原因)"
+#       ——数据缺不缺由脚本定·不由LLM记不记得(防"没拉标缺失"·防"忘了拉")
+# 现实降级: 新闻伤停(SL-news-crawl)需VPN·footballcharts 源已废弃·api-football 已停用(2026-10-06)·本脚本聚合可用源+三态标注
 
 import io, sys, os, subprocess, json
 sys.stdout.reconfigure(encoding='utf-8')
@@ -39,10 +39,10 @@ def main():
         print('[B4 understat xG] %s (历史2025防泄露·本场xG禁赛前用)' % ('OK已抓' if ok else 'WARN无数据(网络/缓存)'))
     else:
         print('[B4 understat xG] 不触发(非五大·xG仅txt场Step7用)')
-    if event:
-        print('[B3 api-football] 需调SL-api-football-chain(fixtures?date定位→predictions/odds/injuries) event=%s' % event)
-    else:
-        print('[B3 api-football] 需--event eventId或按日期fixtures定位')
+    # 🔴2026-10-06 用户决策: api-football 已停用（原 B3 整段移除）→ 替代源
+    print('[B3 api-football] ⛔已停用(2026-10-06 用户决策)·替代: 赔率→the-odds-api(源B7·the_odds_api_fetch books) · '
+          '伤停→Bing News(SL-news-crawl·唯一源) · 赛事定位→Odds-API get_events(eventId)%s'
+          % ((' — 本场 event=%s' % event) if event else ''))
     if league in xg_map:
         print('[B5 footballcharts] ⛔源已废弃(2026-09-15·域名失效)·改用 understat_xg.py + SK-xg-depth + 联赛校准(标"无数据(源已废弃)")')
     else:

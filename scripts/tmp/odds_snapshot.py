@@ -14,7 +14,7 @@
   python data/tmp/odds_snapshot.py detect --case 202        # → 供 fundflow_analyzer --snapshots
 
 books.json 格式: [{"bookmaker":"Pinnacle","h":1.85,"d":3.6,"a":4.2}, ...]
-（来源: api-football odds?fixture=ID → 13 家·或 Odds-API get_odds 全市场）
+（来源: the-odds-api books → 21-32 家·或 Odds-API get_odds 全市场）
 """
 import argparse
 import json

@@ -1,11 +1,11 @@
 ---
 name: SK-host-lock
 description: >-
- 执行宿主（host）「read-evidence 锁」解法（四方案实测固化）。🔴触发条件（遇到即读本 skill，禁反复试探）：
- bash 报错 —— `bash cannot declare which files it changes while a read-evidence requirement is outstanding (<paths>)`，
- 或 `edit_file/write_file cannot declare which files it changes while a read-evidence requirement is outstanding`。
- 内容：锁的本质（不是"读不够"，是**写入证据义务未结清**）+ **四方案优先级决策树**（方案0 轮次拆分=首选 / 方案1 合并单次 edit / 方案2 文件工具替代 bash / 方案3 全程只读）+ 操作模板 + 实测证据 + 反模式。
- 🔴与 AGENTS「host 工具链 read-evidence 锁解法」节 / 迁移文档同源；本 skill 是**主动查询入口**（脚本 `data/tmp/lock_dirs.py --decide` 亦可直接打印决策树）。
+  执行宿主（host）「read-evidence 锁」解法（2026-09-27 四方案实测固化）。🔴触发条件（遇到即读本 skill，禁反复试探）：
+  bash 报错 —— `bash cannot declare which files it changes while a read-evidence requirement is outstanding (<paths>)`，
+  或 `edit_file/write_file cannot declare which files it changes while a read-evidence requirement is outstanding`。
+  内容：锁的本质（不是"读不够"，是**写入证据义务未结清**）+ **四方案优先级决策树**（方案0 轮次拆分=首选 / 方案1 合并单次 edit / 方案2 文件工具替代 bash / 方案3 全程只读）+ 操作模板 + 实测证据 + 反模式。
+  🔴与 AGENTS「host 工具链 read-evidence 锁解法」节 / 迁移文档同源；本 skill 是**主动查询入口**（脚本 `data/tmp/lock_dirs.py --decide` 亦可直接打印决策树）。
 ---
 
 # SK-host-lock — host 执行宿主「read-evidence 锁」解法
@@ -95,10 +95,10 @@ python data/tmp/lock_dirs.py --decide   # → 四方案决策树（本 skill 的
 | 方案 | 实测结论 | 证据来源 |
 |:--|:--|:--|
 | 方案 0（跨 turn 重置） | ✅ 成立：新 turn 内 bash 立即恢复 | 2026-09-24 实测（纪律④④）+ **2026-09-27 本会话连续两次实证** |
-| 方案 1（合并单次 edit） | ✅ 成立且必要：同文件分批 edit 会累积 outstanding → 锁死后续写入通道 | 2026-09-24 实测固化（纪律④）；本会话把 calc_all 5 处改动合并为 1 次 edit |
-| 方案 2（文件工具不受拦） | ✅ 成立：`edit_file` 在 outstanding 存在时仍可成功调用（唯一"同 turn 可用"的写通道） |bash 被拦的同轮/次轮仍成功执行 edit_file |
+| 方案 1（合并单次 edit） | ✅ 成立且必要：同文件分批 edit 会累积 outstanding → 锁死后续写入通道 | 2026-09-24 实测固化（纪律④）；2026-09-27 本会话把 calc_all 5 处改动合并为 1 次 edit |
+| 方案 2（文件工具不受拦） | ✅ 成立：`edit_file` 在 outstanding 存在时仍可成功调用（唯一"同 turn 可用"的写通道） | 2026-09-27 本会话：bash 被拦的同轮/次轮仍成功执行 edit_file |
 | 方案 3（全程只读） | ✅ 成立：探查轮仅 read/ls → bash 全部一次通过 | 2026-09-20 固化 + 2026-09-27 本会话多次探查轮 |
-| 声明有效性边界 | 🔴 **有 outstanding 时 additional_write_dirs 无效**（声明只在账本干净时被采纳） |带全量声明仍被同一路径拦 |
+| 声明有效性边界 | 🔴 **有 outstanding 时 additional_write_dirs 无效**（声明只在账本干净时被采纳） | 2026-09-27 本会话：带全量声明仍被同一路径拦 |
 
 ---
 
@@ -115,7 +115,7 @@ python data/tmp/lock_dirs.py --decide   # → 四方案决策树（本 skill 的
 ## 七、与既有规则的关系（避免重复）
 
 - **AGENTS.md**「host 工具链 read-evidence 锁解法」节 = 规则源头（三处同步：AGENTS / 主技能 / txt / 迁移文档）
-- **纪律④**= 本 skill 的**方案 1** 的具体化（合并编辑 + 轮末编辑）
+- **纪律④**（2026-09-24）= 本 skill 的**方案 1** 的具体化（合并编辑 + 轮末编辑）
 - **本 skill** = **主动查询入口 + 完整决策树**（四方案 + 优先级 + 反模式 + 证据），遇到锁报错时**直接读本 skill 即可，禁再试探**
 
 ---

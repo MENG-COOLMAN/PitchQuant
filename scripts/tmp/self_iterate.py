@@ -8,18 +8,18 @@ self_iterate.py —— 赛后自我迭代学习引擎（V3.5.74·2026-09-10 固�
 
 用法:
   # 1) 单场学习录入（复盘后必跑）
-  python scripts/tmp/self_iterate.py learn --case 158 --real 1:1 --pred "客胜+平(并列)" \
+  python data/tmp/self_iterate.py learn --case 158 --real 1:1 --pred "客胜+平(并列)" \
       --anchor "1:1|1:2" --center 2.5 --handi -1 --o25 3.09
 
   # 2) 观察池汇总 + 门槛判定（每批复盘后跑）
-  python scripts/tmp/self_iterate.py status
+  python data/tmp/self_iterate.py status
 
   # 3) 归因类型汇总（哪些偏差模式在累积）
-  python scripts/tmp/self_iterate.py patterns
+  python data/tmp/self_iterate.py patterns
 """
 import sys, os, csv, io, re
 
-# GBK 控制台防护
+# 🔴GBK 控制台防护(2026-09-15·复盘时实测崩溃: ✅/❌ emoji 无法编码·漏补 reconfigure)
 try:
     if hasattr(sys.stdout, 'reconfigure'):
         sys.stdout.reconfigure(encoding='utf-8')
@@ -32,9 +32,20 @@ HEADER = ['日期', '场次', '真实比分', '预测方向', '方向', '主锚|
           '预测进球中心', '实际总进球', '量级偏差', '净胜偏差档', '归因类型', '归因说明', '状态']
 
 # 归因类型 → 门槛（达到即建议批量回测验证）
+def _load_retested():
+    """已回测标记(learned_rules.retested)·防重复提示"""
+    try:
+        import json as _j
+        d=_j.load(open(os.path.join(BASE,'..','tmp','learned_rules.json'),encoding='utf-8'))
+        return {k:v for k,v in d.items() if isinstance(v,dict) and v.get('retested')}
+    except Exception:
+        return {}
+_RETESTED = _load_retested()
+
 THRESHOLD = {
     '超深屠杀锚量级': 20, '均势对攻量级': 20, '净胜穿透': 20, '大球低估': 20,
     '方向误判': 10, '平局漏判': 10, '诱盘方向': 10,
+    '锚未覆盖': 20, '净胜穿透': 20,
 }
 
 
@@ -53,7 +64,7 @@ def _save(rows):
         w.writerows(rows)
 
 
-def _attr(real_goals, center, net_real, net_anchors, dir_ok, draw_real):
+def _attr(real_goals, center, net_real, net_anchors, dir_ok, draw_real, hit=True):
     """归因规则(经验映射·可扩展): 返回 [(类型,说明)]·多项可并存"""
     tags = []
     if not dir_ok and draw_real:
@@ -75,7 +86,10 @@ def _attr(real_goals, center, net_real, net_anchors, dir_ok, draw_real):
         if '锚净低估' not in [t for t, _ in tags] and '超深屠杀锚量级' not in [t for t, _ in tags]:
             tags.append(('净胜穿透', '真实净%d 穿透锚净%d·超2档' % (net_real, max(net_anchors))))
     if not tags:
-        tags.append(('命中', '方向+量级+锚净均合理'))
+        if hit:
+            tags.append(('命中', '方向+量级+锚净合理且主锚/次锚命中'))
+        else:
+            tags.append(('锚未覆盖', '方向/量级/锚净合理但真实比分未落在主锚/次锚(净胜档对·比分错)'))
     return tags
 
 
@@ -93,23 +107,39 @@ def cmd_learn(args):
     hit = real in anchors
     neth = [int(x.split(':')[0]) - int(x.split(':')[1]) for x in anchors if ':' in x]
     # 方向判定(宽松 any: 预测含真实结果)
-    real_dir = '主胜' if h > a else ('客胜' if a > h else '平')
-    dir_ok = real_dir in pred or (real_dir == '平' and '平' in pred)
+    # 🔴2026-09-29 修复(与 case_write.py 同源缺陷): 预测方向串常用简写排序
+    #   （如「覆盖(主胜降档>平>客)」·三向口径已废），原实现只认全称 → case216 客胜被误判。
+    #   改为全称优先 + 单字兜底；real_dir 统一用「平局」。
+    real_dir = '主胜' if h > a else ('客胜' if a > h else '平局')
+    _SHORT = {'主胜': '主', '平局': '平', '客胜': '客'}
+    # 🔴2026-10-17 修复（与 case_write 同源·复发第2次）: 改调**单一实现** dir_hit
+    #   原各自实现简写兜底 → 「客胜(主)」的 (主) 被误当主胜声明 → case250 方向误判✅
+    try:
+        _here = os.path.dirname(os.path.abspath(__file__))
+        if _here not in sys.path:
+            sys.path.insert(0, _here)
+        from case_write import dir_hit
+    except Exception:                              # 极简兜底（仅全称·不含括号孤字）
+        def dir_hit(p, r):
+            return bool(p) and (r in p)
+    dir_ok = dir_hit(pred, real_dir)
     dev = round(rg - center, 1)
     net_dev = ('真实净%d vs 锚净%s' % (net_real, neth)) if neth else ''
-    tags = _attr(rg, center, net_real, neth, dir_ok, real_dir == '平')
+    tags = _attr(rg, center, net_real, neth, dir_ok, real_dir == '平局', hit)
     rows = _load()
-    # 去重 + 真实日期（修复）: 原实现无去重且日期硬编码 '' →
-    # 重复调用(learn.py 内部调 + 手动调)致台账虚增(实测 46 行→去重后仅 26 场·重复6次)
-    # → 门槛判定被污染(方向误判 count 11 虚高·实际仅 8·未达门槛10)
+    # 🔴去重 + 真实日期（2026-09-15 修复）: 原实现无去重且日期硬编码 '2026-09-10' →
+    #    重复调用(learn.py 内部调 + 手动调)致台账虚增(实测 46 行→去重后仅 26 场·case179 重复6次)
+    #    → 门槛判定被污染(方向误判 count 11 虚高·实际仅 8·未达门槛10)
     import datetime as _dt
     _today = _dt.date.today().isoformat()
+    # 🔴2026-10-07 修复(与 case_write.cmd_add 的 upsert 同型·用户确认·备份 V3.5.76_self_iterate幂等):
+    #   原去重键 = (场次, 归因类型) → 归因变化时(重跑后 如 方向误判→锚未覆盖)旧行残留
+    #   → 台账同场多行虚增(污染门槛判定·实测 case225/226 各 2 行·"陈旧行不消失"同类复发)。
+    #   改为按「场次」upsert: 先删本场全部旧行, 再写入本次全部归因行(同次多归因仍并行保留)。
+    rows = [r for r in rows if not (len(r) > 11 and r[1].strip() == str(cid))]
     for t, why in tags:
-        _new = [_today, cid, real, pred, '✅' if dir_ok else '❌', anchor,
-                '✅' if hit else '❌', center, rg, dev, net_dev, t, why, '观察']
-        rows = [r for r in rows
-                if not (len(r) > 11 and r[1].strip() == str(cid) and r[11].strip() == t)]
-        rows.append(_new)
+        rows.append([_today, cid, real, pred, '✅' if dir_ok else '❌', anchor,
+                     '✅' if hit else '❌', center, rg, dev, net_dev, t, why, '观察'])
     _save(rows)
     rules = _bump(rows)
     print('=== case%s 学习录入 ===' % cid)
@@ -137,7 +167,14 @@ def cmd_status(args):
     print('%-16s %5s %5s %s' % ('归因类型', '累积', '门槛', '状态'))
     for t, n in cnt.most_common():
         th = THRESHOLD.get(t, 20)
-        st = '🔴达标·建议批量回测验证' if n >= th and t != '命中' else '观察中'
+        # 🔴2026-09-28: 已回测的类型不再重复提示（读 learned_rules 的 retested 标记·防"提示疲劳"）
+        _rt = _RETESTED.get(t)
+        if _rt:
+            st = '✅已回测(%s)·%s' % (_rt.get('retested') or _rt.get('date', ''), (_rt.get('retest_result') or '继续观察')[:32])
+        elif n >= th and t != '命中':
+            st = '🔴达标·建议批量回测验证'
+        else:
+            st = '观察中'
         print('%-16s %5d %5d  %s' % (t, n, th, st))
     print('→ 达标类型方可进入批量回测（时间分割·p<0.05）→ 验证通过才固化进规则')
     rules = _load_rules()

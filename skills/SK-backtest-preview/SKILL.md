@@ -1,9 +1,9 @@
 ---
-name: SK-backtest-preview
+name: <REDACTED_SK>
 description: 回测skill：用GitHub 10万+场历史数据验证基础信号准确率，填补精算师评级的B+缺口
 ---
 
-# SK-backtest-preview：历史回测（轻量版）
+# <REDACTED_SK>：历史回测（轻量版）
 
 用GitHub Matches.csv（43MB，10万+场）验证基础信号准确率。
 
@@ -26,5 +26,5 @@ description: 回测skill：用GitHub 10万+场历史数据验证基础信号准�
 - F1抽水比与准确率的相关性验证
 
 ## 使用
-`/SK-backtest-preview` → 读取Matches.csv → 计算→报告
+`/<REDACTED_SK>` → 读取Matches.csv → 计算→报告
 首次运行约30秒。

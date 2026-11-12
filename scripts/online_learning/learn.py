@@ -4,12 +4,12 @@
 
 用法:
   # 单场（推荐 --txt 自动接入 8 源特征）
-  python scripts/online_learning/learn.py --case 158 --real 1:1 --txt data/tmp/fen158.txt \
+  python data/online_learning/learn.py --case 158 --real 1:1 --txt data/tmp/fen158.txt \
       --league 欧冠 --pred "客胜+平" --pred-dir 2 --anchor "1:1|1:2" --center 2.5
   # 仅日志回溯（calc_all 分析时已存特征）
-  python scripts/online_learning/learn.py --case 158 --real 1:1 --from-log fen158
+  python data/online_learning/learn.py --case 158 --real 1:1 --from-log fen158
   # 汇总 / 状态
-  python scripts/online_learning/learn.py --status
+  python data/online_learning/learn.py --status
 """
 import os, sys, io, subprocess, argparse, json
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -106,7 +106,7 @@ def main():
         for k in ('home_odds', 'draw_odds', 'away_odds'):
             if not feat.get(k):
                 print('⚠️ 特征字段缺失(%s) → 在线学习层跳过' % k); feat = None; break
-    # 融合监测记录（须在【学习前】·防训练污染）
+    # 🔴融合监测记录（2026-09-11·须在【学习前】·防训练污染）
     try:
         if feat:
             import river_models as _RM
@@ -136,9 +136,9 @@ def main():
         print('⚠️ 融合监测记录失败:', str(_ge)[:60])
 
     if feat:
-        # 修复: 直接调用 learning_loop 传**完整特征 dict**
-        # 原实现走 subprocess+--oh/--od/--oa 命令行传参 → make_features 只造 A 类 11 特征
-        # → B/C/D/E 类 24 个特征全部丢失（case_library 24 个 null 的根因）
+        # 🔴2026-09-12 修复: 直接调用 learning_loop 传**完整特征 dict**
+        #   原实现走 subprocess+--oh/--od/--oa 命令行传参 → make_features 只造 A 类 11 特征
+        #   → B/C/D/E 类 24 个特征全部丢失（case_library 24 个 null 的根因）
         try:
             import learning_loop as _LL
             _pred = {'direction': a.pred_dir, 'total': a.center,

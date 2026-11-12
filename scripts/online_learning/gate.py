@@ -8,9 +8,9 @@
   4) 输出裁剪: 超合理范围丢弃、缺失填 0 不计入、无数据三态标注
 
 用法:
-  python scripts/online_learning/gate.py --status           # 当前门禁状态
-  python scripts/online_learning/gate.py --log --case 158 --pred-fused 1 --actual 0   # 记录融合预测 vs 实际
-  python scripts/online_learning/gate.py --rollback-check   # 滚动偏差检查（超阈值自动降级）
+  python data/online_learning/gate.py --status           # 当前门禁状态
+  python data/online_learning/gate.py --log --case 158 --pred-fused 1 --actual 0   # 记录融合预测 vs 实际
+  python data/online_learning/gate.py --rollback-check   # 滚动偏差检查（超阈值自动降级）
 """
 import os, sys, io, json, argparse, time
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -39,10 +39,17 @@ def _save(p, o):
 
 
 def default_gate():
+    # 🔴2026-09-30 泄露裁决（默认值必须与 state/gate.json 一致·防 gate.json 重建时复活错误状态）:
+    #   原默认 = L1 'active'/enabled=True/weight=0.10 → 一旦 gate.json 被删或重建，已否决的 L1 会复活
+    #   并再次以权重 0.10 混入融合（融合≡市场 → 弱共识场被硬推）→ 故默认即 rejected_leak
     return {
-        'L1_online_ml': {'enabled': True, 'weight': 0.10, 'status': 'active',
-                         'evidence': '时间分割30000场+融合6000场: 融合49.43% vs 基准48.75% (+0.68pp·z=2.12 p<0.05)',
-                         'since': '2026-09-11'},
+        'L1_online_ml': {'enabled': False, 'weight': 0.0, 'status': 'rejected_leak',
+                         'evidence': '🔴数据泄露裁决(2026-09-30): 原依据 +0.68pp 证实为泄露(validate_fusion 26特征含17个赛后统计)·赛前可得特征仅 +0.01pp·旁证 n=48 融合21=基准21 / 历史30000场 -14.2pp',
+                         'since': '2026-09-11', 'rejected_since': '2026-09-30',
+                         'restore_condition': '需在「仅赛前可得特征」下时间分割增益≥热门基准且 p<0.05'},
+        'L1_fusion_in_decision': {'enabled': False, 'status': 'rejected_leak',
+                                  'since': '2026-09-16',
+                                  'evidence': 'L1 已 rejected_leak → 融合权重 0 → 融合≡市场 → 数学上无增益(n=48 融合21=基准21)'},
         'L2_incremental': {'enabled': False, 'weight': 0.0, 'status': 'rejected',
                            'evidence': '60000场公平A/B: Top2 24.70% vs 24.94% (z=1.59 p>0.05 不显著)'},
         'L3_error_rules': {'enabled': True, 'weight': None, 'status': 'gated',

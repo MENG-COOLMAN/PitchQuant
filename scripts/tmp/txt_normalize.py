@@ -26,7 +26,7 @@
   【比分固定奖金】<ts> / 胜方比分：1:0=7.50，… / 平局比分：… / 负方比分：…
 
 用法:
-  python scripts/tmp/txt_normalize.py <原始.txt> [--out X.txt] [--check-only]
+  python data/tmp/txt_normalize.py <原始.txt> [--out X.txt] [--check-only]
 """
 import os
 import re
@@ -39,8 +39,12 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 
 # 节标题 → 标准节名（🔴顺序敏感: 让球胜平负 → 半全场 → 胜平负·长词优先，否则「XX胜平负」被误归入胜平负节）
 SECTION_RULES = [
+    # 🔴2026-10-10 补真实变体（case228 实证·竞彩新版标题）: 原只认「让球胜平负/胜平负」，
+    #   而真实 txt 为「让球胜负固定奖金，让球+1」「胜负固定奖金」→ 双双未识别 → ❌ 归一化失败
+    ('让球胜负', '让球'),
     ('让球胜平负', '让球'),
     ('半全场', '半全场'),
+    ('胜负', '胜平负'),
     ('胜平负', '胜平负'),
     ('总进球', '总进球'),
     ('进球数', '总进球'),
@@ -115,8 +119,45 @@ def parse(text):
             for l in lines:
                 if l.startswith('赛事'):
                     rep['赛事'] = l
-                elif l.startswith('比赛时间'):
-                    rep['时间'] = l
+                elif l.startswith(('比赛时间', '开赛时间')):
+                    # 🔴P13.1 修复：新格式用「开赛时间」（原只认「比赛时间」→ 误报缺时间）；统一标签
+                    rep['时间'] = l.replace('开赛时间', '比赛时间', 1)
+                elif (not rep.get('赛事')) and re.search(r'[Vv][Ss]', l) and ('(主)' in l or '（主）' in l):
+                    # 🔴2026-10-10 扩展（真实 txt 实证）: 存在「<期号> <联赛> 主(主) VS 客(客)」**裸行**格式 —
+                    #   无「赛事：」前缀、且**行内无逗号**（如「周六007 意甲 热那亚(主) VS 佛罗伦萨(客)」）
+                    #   → 原条件要求含逗号 → 不匹配 → ❌ 缺【赛事】行 → 归一化失败（阻断下游全部）
+                    _m3 = re.search(r'(.+?)[（(]主[)）]\s*[Vv][Ss]\s*(.+?)[（(]客[)）]', l)
+                    if _m3:
+                        _lg = ''
+                        for _k in ('意甲', '英超', '西甲', '德甲', '法甲', '欧冠', '欧联', '欧协联', '欧国联',
+                                   '英冠', '荷甲', '葡超', '苏超', '日职', '韩K', '挪超', '瑞超', '巴甲', '美职'):
+                            if _k in l:
+                                _lg = _k
+                                break
+                        _home = _m3.group(1).strip()
+                        _away = _m3.group(2).strip()
+                        if _lg and _lg in _home:                      # 去「期号 联赛」前缀
+                            _home = _home.split(_lg, 1)[1].strip()
+                        _home = re.sub(r'^[\u5468周][一二三四五六日]\d{3}\s*', '', _home).strip() or _home
+                        rep['赛事'] = '【赛事】%s %s(主) VS %s(客)' % (_lg or '未知', _home, _away)
+                elif (not rep.get('赛事')) and re.search(r'\s+[Vv][Ss]\s+', l) and (',' in l or '，' in l):
+                    # 🔴2026-10-10 新增（case228 实证）: 竞彩**合并首行**
+                    #   「主队 VS 客队，联赛 期号，YYYY-MM-DD HH:MM，赛季」——原实现只认 startswith('赛事')
+                    #   → 真实 txt 首行未解析 → ❌ 缺【赛事】行 → 归一化失败（阻断下游全部）
+                    _p = [x.strip() for x in l.replace('，', ',').split(',')]
+                    _vs = re.split(r'\s+[Vv][Ss]\s+', _p[0])
+                    _lg, _tm = '', ''
+                    if len(_p) > 1:
+                        _lg = (_p[1].split() or [''])[0]
+                    for _x in _p:
+                        _m2 = re.search(r'(\d{4}-\d{2}-\d{2})\s+(\d{1,2}:\d{2})', _x)
+                        if _m2:
+                            _tm = '%s %s' % (_m2.group(1), _m2.group(2))
+                            break
+                    if len(_vs) == 2 and _vs[0].strip() and _vs[1].strip():
+                        rep['赛事'] = '【赛事】%s %s(主) VS %s(客)' % (_lg, _vs[0].strip(), _vs[1].strip())
+                    if _tm and not rep.get('时间'):
+                        rep['时间'] = '【比赛时间】%s' % _tm
     return out, rep
 
 
@@ -157,37 +198,124 @@ def norm_zjq(lines):
     return (['发布时间,0球,1球,2球,3球,4球,5球,6球,7+球'] + rows) if rows else []
 
 
+CS_WIN_LABELS = ['1:0', '2:0', '2:1', '3:0', '3:1', '3:2', '4:0', '4:1', '4:2', '5:0', '5:1', '5:2', '胜其它']
+CS_DRAW_LABELS = ['0:0', '1:1', '2:2', '3:3', '平其它']
+CS_LOSE_LABELS = ['0:1', '0:2', '1:2', '0:3', '1:3', '2:3', '0:4', '1:4', '2:4', '0:5', '1:5', '2:5', '负其它']
+
+
+def _cs_kind(labels):
+    if any(x in ('胜其它', '胜其他') for x in labels):
+        return '胜方比分'
+    if any(x in ('平其它', '平其他') for x in labels):
+        return '平局比分'
+    if any(x in ('负其它', '负其他') for x in labels):
+        return '负方比分'
+    if any(x in ('0:0', '1:1', '2:2', '3:3') for x in labels):
+        return '平局比分'
+    if any(x in ('0:1', '0:2', '1:2') for x in labels):
+        return '负方比分'
+    return '胜方比分'
+
+
+def _cs_tokens(line):
+    """抽取行内原始数值 token（保留 7.00 原文形式·供标准输出）"""
+    t = line.translate(FULL2HALF)
+    t = ARROW_RE.sub('', t)
+    return re.findall(r'\d+\.\d+|\d+', t)
+
+
 def norm_cs(lines):
-    """比分: 时间戳行 + 胜方/平局/负方 三行 → 标准三行（= 号格式·其它→其它）"""
-    out, ts = [], None
-    for l in lines:
-        t = l.translate(FULL2HALF).replace('：', ':').replace(' ＝', '=')
-        m = TS_RE.match(t)
-        if m and ':' not in t[m.end():m.end() + 2] and '比分' not in t:
-            ts = m.group(1).strip()
+    """比分: ①显式标签格式(胜方比分：1:0=7.50，…) ②表格三段式(表头/时间戳数据行/标签行/数值行 交错)
+    🔴2026-09-19 修复(udi189): 原实现只认①·对竞彩网页复制的②三段式表格【静默丢失全部比分赔率】(仅留时间戳)。"""
+    out, ts, seg, pending = [], None, [], None
+
+    def flush_seg():
+        nonlocal seg, ts
+        if ts and seg:
             out.append(ts)
+            for kind, kv in seg:
+                out.append('%s：%s' % (kind, '，'.join('%s=%s' % (k, v) for k, v in kv)))
+        seg, ts = [], None
+
+    for l in lines:
+        t = l.translate(FULL2HALF).replace('：', ':').replace(' ＝', '=').strip().strip(',').strip()
+        if not t:
             continue
-        if not ts:
-            continue
+        # ① 显式标签格式
         kind = None
-        if '胜方比分' in t or ('胜比分' in t):
+        if '胜方比分' in t or '胜比分' in t:
             kind = '胜方比分'
         elif '平局比分' in t or '平比分' in t:
             kind = '平局比分'
         elif '负方比分' in t or '负比分' in t:
             kind = '负方比分'
-        if not kind:
-            # 无标签但有 1:0= 形式 → 依 1:0 位置推断（保守: 略）
+        if kind:
+            pairs = re.findall(r'(\d+:\d+|\S*?其它?\S*?)\s*[=:]\s*(\d+\.?\d*)', t)
+            kv = []
+            for k, v in pairs:
+                kk = k.strip()
+                if not (re.match(r'^\d+:\d+$', kk) or '其它' in kk or '其他' in kk):
+                    continue
+                if '其它' in kk or '其他' in kk:
+                    kk = {'胜': '胜其它', '平': '平其它', '负': '负其它'}.get(kk[0], kk)
+                kv.append((kk, v))
+            if kv:
+                if ts is None:
+                    flush_seg()
+                    ts = '(未标时间)'
+                seg.append((kind, kv))
             continue
-        pairs = re.findall(r'(\d+:\d+|\S*?其它?\S*?)\s*[=:]\s*(\d+\.?\d*)', t)
-        kv = []
-        for k, v in pairs:
-            kk = k.strip()
-            if '其它' in kk or '其他' in kk:
-                kk = {'胜': '胜其它', '平': '平其它', '负': '负其它'}.get(kk[0], kk)
-            kv.append('%s=%s' % (kk, v))
-        if kv:
-            out.append('%s：%s' % (kind, '，'.join(kv)))
+        # ② 时间戳行（可能自带数值·三段式首段）
+        m = TS_RE.match(t)
+        if m:
+            flush_seg()
+            ts = m.group(1).strip()
+            rest = t[m.end():]
+            # 🔴2026-09-24 审计修复(P0·CS段静默缺失): 竞彩原始比分盘为「三段以 | 分隔」(胜|平|负)，
+            #   原实现 _cs_tokens 不拆 | 且表头只取一段 → 平局/负方赔率全部丢失 → CS 盈亏无法计算。
+            segs = [x for x in rest.split('|')]
+            if len(segs) == 3:
+                for _k, _lb, _sx in zip(('胜方比分', '平局比分', '负方比分'),
+                                       (CS_WIN_LABELS, CS_DRAW_LABELS, CS_LOSE_LABELS), segs):
+                    _tk = _cs_tokens(_sx)
+                    if _tk:
+                        seg.append((_k, list(zip(_lb, _tk))))
+            else:
+                toks = _cs_tokens(rest)
+                if toks:
+                    if pending:
+                        k, labels = pending
+                        seg.append((k, list(zip(labels, toks))))
+                        pending = None
+                    elif len(toks) >= 13:
+                        # 🔴2026-09-30 重大修复（CS 段丢失）: 原实现 `zip(CS_WIN_LABELS, toks)` ——
+                        #   CS_WIN_LABELS 仅 13 项而 toks 有 31 个 → **zip 截断 → 后 18 档
+                        #   （平局5 + 负方13）全部丢失** → std 文件丢段 → `_extract_cs_bqc` 等号
+                        #   全库匹配时缺失档取到**初盘值** → CS 源混合污染（live 引擎 cs_vig 异常 /
+                        #   单档虚高）。实测: 场2 std 首个数据行 31 档、后 3 个时点仅 13 档；
+                        #   0:1 取初盘 23.00 而非末盘 32.00。
+                        #   修复: ≥31 档时按 13/5/13 三段完整分配（与 `|` 三分支口径一致）
+                        if len(toks) >= 31:
+                            seg.append(('胜方比分', list(zip(CS_WIN_LABELS, toks[:13]))))
+                            seg.append(('平局比分', list(zip(CS_DRAW_LABELS, toks[13:18]))))
+                            seg.append(('负方比分', list(zip(CS_LOSE_LABELS, toks[18:31]))))
+                        else:
+                            seg.append(('胜方比分', list(zip(CS_WIN_LABELS, toks))))
+            continue
+        # ③ 纯数值行（配对上一行标签）
+        if pending and re.fullmatch(r'[\d\s,\.]+', t):
+            k, labels = pending
+            toks = _cs_tokens(t)
+            if toks:
+                seg.append((k, list(zip(labels, toks))))
+                pending = None
+            continue
+        # ④ 标签行（1:0…胜其它 / 0:0…平其它 / 0:1…负其它）
+        labels = re.findall(r'\d+:\d+|胜其它|平其它|负其它|胜其他|平其他|负其他', t)
+        if len(labels) >= 3:
+            pending = (_cs_kind(labels), labels)
+            continue
+    flush_seg()
     return out if len(out) > 1 else []
 
 
@@ -202,7 +330,7 @@ def validate(sections, rep):
     if rep['时间']:
         ok.append('比赛时间: %s' % rep['时间'][:40])
     else:
-        warn.append('缺【比赛时间】行（api-football 日期换算依赖·将尝试从 txt 其它处推断）')
+        warn.append('缺【比赛时间】行（日期换算依赖·将尝试从 txt 其它处推断）')
     need = {'胜平负': 1, '让球': 1, '半全场': 1, '总进球': 1, '比分': 1}
     for sec, minrows in need.items():
         rows = [s for s in sections if s[0] == sec]
@@ -239,8 +367,20 @@ def build_std(sections, rep):
     for sec, title, body in sections:
         if sec == '前言':
             continue
+    # 🔴2026-10-10 修复（case228 实证·原实现仅当 sections 含独立【赛事】节才写 rep → 合并首行时永不写入）:
+    #   ① rep（首行解析结果）**优先**写入 ② 剔除"前言"里那条已被解析的原始合并行
+    _merged = None
     for l in (head_sec[0][2] if head_sec else []):
+        if (not _merged) and re.search(r'\s+[Vv][Ss]\s+', l) and (',' in l or '，' in l) and not l.startswith('【'):
+            _merged = l
+            continue
         lines.append(l)
+    if rep.get('赛事') and rep['赛事'] not in lines:
+        lines.insert(0, rep['赛事'])
+    if rep.get('时间') and rep['时间'] not in lines:
+        lines.insert(1, rep['时间'])
+    if rep.get('赛事'):
+        lines.insert(2, '')
     for key in order:
         for sec, title, body in sections:
             if sec != key:

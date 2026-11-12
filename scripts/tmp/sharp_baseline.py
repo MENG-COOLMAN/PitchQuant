@@ -5,7 +5,7 @@
       软庄（面向散户）被迫跟随其定价 → **sharp 与 soft 的方向背离 = RLM 候选**。
 
 🔴 数据可得性（三态标注·诚实边界）：
-  - api-football `odds?fixture=ID` 返回 13 家 → 若含 Pinnacle/betfair/matchbook → 通道 ok
+  - the-odds-api `books` 返回 21-32 家 → 若含 Pinnacle/betfair/matchbook → 通道 ok
   - Odds-API 免费 tier 常仅 1xbet（+B365 ML）→ status='no_pinnacle'
   - 无 sharp 数据时 → **降级用 spread 指标替代**（P0-1 不依赖单机构）
 🔴 回测状态：**pending_backtest**（需 ≥1000 场同时含 sharp 与 soft 的比赛）

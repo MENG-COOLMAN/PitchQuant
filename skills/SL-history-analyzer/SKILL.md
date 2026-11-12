@@ -18,7 +18,7 @@ python data/SL-history-analyzer.py "主队名" "客队名"
 - 客队近10场战绩
 
 ## 数据源
-`C:\Users\<user>\Desktop\football-api.sql` → 缓存 `data/fixture_cache.json` (5.6MB)
+`<HOME>\Desktop\football-api.sql` → 缓存 `data/fixture_cache.json` (5.6MB)
 63,023场完场比赛，51个联赛，覆盖2022-2026赛季
 
 ## 依赖

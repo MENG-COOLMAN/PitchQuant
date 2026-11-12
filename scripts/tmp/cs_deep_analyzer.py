@@ -13,14 +13,20 @@ def parse_cs_odds(cs_str):
     """解析CS比分盘赔率字符串
     cs_str: "1:0=7.5,2:1=8.0,1:1=6.5,0:0=10.0,胜其他=15.0,..."
     返回: dict {(h,a): odds} 和 dict {other_type: odds}
+
+    🔴2026-10-20 修(P0 格式·三场 CS 盈亏矩阵全失效): 原正则只认 `1:0` 冒号 →
+      `snapshot_save._cs_full` 输出 `0-1`(连字符) 时 **exact=0** → analyze_cs_deep
+      报「CS比分盘数据不足(<5)」→ Step7 盈亏矩阵静默失效（258/259/260 三场实证）。
+      → 分隔符兼容 `:` / `-` / `/`（同一类「键格式」坑：与 P9 bridge bf 键归一 同源）。
     """
-    if not cs_str: return {}, {}
+    if not cs_str:
+        return {}, {}
     exact = {}
     other = {}
-    for m in re.finditer(r'(\d+:\d+)=([\d.]+)', cs_str):
-        h, a = map(int, m.group(1).split(':'))
+    for m in re.finditer(r'(\d+)\s*[:\-/]\s*(\d+)\s*=\s*([\d.]+)', cs_str):
+        h, a = int(m.group(1)), int(m.group(2))
         if h < 7 and a < 7:
-            exact[(h,a)] = float(m.group(2))
+            exact[(h, a)] = float(m.group(3))
     for m in re.finditer(r'(胜其他|平其他|负其他|胜其它|平其它|负其它)=([\d.]+)', cs_str):
         other[m.group(1)] = float(m.group(2))
     return exact, other
@@ -28,10 +34,13 @@ def parse_cs_odds(cs_str):
 def dejuice(exact_odds, other_odds=None):
     """去抽水，返回各比分概率"""
     if not exact_odds: return {}
-    inv = {k: 1/v for k, v in exact_odds.items() if v > 1}
+    # 🔴2026-10-12 加固: 1xbet 的 CS 固定返回 120 档，其中约 100 档赔率「恰好 100」= 占位/未提供标记
+    #   （如 0-10=100 / 9-9=100）→ 若计入去水，Σ(1/odds) 虚高至 2.3（抽水 130%）·概率全错
+    #   → 上限护栏（排除 ≥100）·与 data/tmp/cs_snapshot.py 同口径（--cap 100）
+    inv = {k: 1/v for k, v in exact_odds.items() if 1 < v < 100}
     if other_odds:
         for k, v in other_odds.items():
-            if v > 1: inv[k] = 1/v
+            if 1 < v < 100: inv[k] = 1/v
     total = sum(inv.values())
     vig = total - 1
     probs = {k: v/total for k, v in inv.items()}
@@ -125,7 +134,11 @@ def analyze_cs_deep(cs_str, poisson_probs=None):
     else:
         result['cs_weight_factor'] = 1.0
     # 输出完整概率分布（Top10）
-    top10 = sorted(deep_probs.items(), key=lambda x: -x[1])[:10]
+    # 🔴 2026-10-16 审计修复(P0-1): '其它'档键为字符串非 (h,a) 元组 → 赔率<100 时概率进前10
+    #    → L132 `for (h,a), p in top10` 解包崩溃(ValueError)。实例: case244 德甲 胜其它=75.00
+    #    修复: 按元组键过滤后再排序取 Top10（与 dejuice/cs_vig_analysis 的键语义对齐）
+    top10 = sorted([(k, v) for k, v in deep_probs.items()
+                    if isinstance(k, tuple) and len(k) == 2], key=lambda x: -x[1])[:10]
     result['top10'] = [{'score': f'{h}:{a}', 'prob': round(p*100,1)} for (h,a), p in top10]
     return result
 

@@ -1,4 +1,9105 @@
 {
+ "generated": "2026-10-21",
+ "version": "V3.5.80-N27",
+ "source": {
+  "league": "data/Matches.csv 五大 43,708 场",
+  "europe": "data/europe/欧冠_历史.csv 264 场"
+ },
+ "calibration": {
+  "conv_sot_to_goal": 0.2873,
+  "conv_note": "五大 37,989 场标定（总进球/总射正）",
+  "sot_goal_r": 0.456,
+  "sot_goal_r2": 0.208
+ },
+ "verification": {
+  "mae_goal_only": 0.996,
+  "mae_xg_only": 0.989,
+  "mae_xg_dual": 0.9836,
+  "mae_goal_dual": 0.9732,
+  "note": "滚动验证 37,195 场·双向进球率最优（−2.29%）→ 主口径；xG 代理仅作可选列"
+ },
+ "dual_formula": {
+  "home_expect": "(主队 home_gf + 客队 away_ga) / 2",
+  "away_expect": "(客队 away_gf + 主队 home_ga) / 2",
+  "total_expect": "home_expect + away_expect"
+ },
+ "teams": {
+  "Marseille": {
+   "cn": "马赛",
+   "leagues": [
+    "F1",
+    "欧冠"
+   ],
+   "lg": {
+    "n": 890,
+    "gf": 1.5,
+    "ga": 1.1,
+    "home_n": 446,
+    "home_gf": 1.72,
+    "home_ga": 0.97,
+    "away_n": 444,
+    "away_gf": 1.29,
+    "away_ga": 1.23,
+    "r50_n": 50,
+    "r50_gf": 2.0,
+    "r50_ga": 1.38,
+    "sot": 4.85,
+    "xg": 1.39,
+    "xg_cov": 83.4,
+    "over25": 48.2,
+    "sample": "ok"
+   },
+   "ucl": {
+    "n": 3,
+    "gf": 2.33,
+    "ga": 1.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": {
+    "att": 1.73,
+    "def": 1.07,
+    "w_lg": 0.727,
+    "w_ucl": 0.273,
+    "note": "联赛+欧冠贝叶斯收缩（w_ucl=n/(n+5)）"
+   }
+  },
+  "Troyes": {
+   "cn": "特鲁瓦",
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 352,
+    "gf": 1.01,
+    "ga": 1.54,
+    "home_n": 176,
+    "home_gf": 1.11,
+    "home_ga": 1.19,
+    "away_n": 176,
+    "away_gf": 0.91,
+    "away_ga": 1.89,
+    "r50_n": 50,
+    "r50_gf": 1.18,
+    "r50_ga": 1.86,
+    "sot": 3.77,
+    "xg": 1.08,
+    "xg_cov": 75.6,
+    "over25": 45.7,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.01,
+    "def": 1.54,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Paris SG": {
+   "cn": "巴黎圣日耳曼",
+   "leagues": [
+    "F1",
+    "欧冠"
+   ],
+   "lg": {
+    "n": 887,
+    "gf": 1.9,
+    "ga": 0.91,
+    "home_n": 446,
+    "home_gf": 2.2,
+    "home_ga": 0.82,
+    "away_n": 441,
+    "away_gf": 1.59,
+    "away_ga": 1.01,
+    "r50_n": 50,
+    "r50_gf": 2.54,
+    "r50_ga": 1.04,
+    "sot": 5.68,
+    "xg": 1.63,
+    "xg_cov": 83.4,
+    "over25": 53.7,
+    "sample": "ok"
+   },
+   "ucl": {
+    "n": 3,
+    "gf": 3.0,
+    "ga": 1.33,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": {
+    "att": 2.2,
+    "def": 1.02,
+    "w_lg": 0.727,
+    "w_ucl": 0.273,
+    "note": "联赛+欧冠贝叶斯收缩（w_ucl=n/(n+5)）"
+   }
+  },
+  "Strasbourg": {
+   "cn": "斯特拉斯堡",
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 474,
+    "gf": 1.2,
+    "ga": 1.42,
+    "home_n": 236,
+    "home_gf": 1.39,
+    "home_ga": 1.3,
+    "away_n": 238,
+    "away_gf": 1.02,
+    "away_ga": 1.55,
+    "r50_n": 50,
+    "r50_gf": 1.5,
+    "r50_ga": 1.42,
+    "sot": 4.0,
+    "xg": 1.15,
+    "xg_cov": 76.2,
+    "over25": 50.2,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.2,
+    "def": 1.42,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Auxerre": {
+   "cn": "欧塞尔",
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 485,
+    "gf": 1.15,
+    "ga": 1.17,
+    "home_n": 241,
+    "home_gf": 1.34,
+    "home_ga": 0.93,
+    "away_n": 244,
+    "away_gf": 0.96,
+    "away_ga": 1.41,
+    "r50_n": 50,
+    "r50_gf": 1.3,
+    "r50_ga": 1.36,
+    "sot": 4.02,
+    "xg": 1.15,
+    "xg_cov": 69.7,
+    "over25": 39.8,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.15,
+    "def": 1.17,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Sedan": {
+   "cn": null,
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 126,
+    "gf": 1.17,
+    "ga": 1.38,
+    "home_n": 63,
+    "home_gf": 1.38,
+    "home_ga": 0.98,
+    "away_n": 63,
+    "away_gf": 0.97,
+    "away_ga": 1.78,
+    "r50_n": 50,
+    "r50_gf": 1.14,
+    "r50_ga": 1.68,
+    "sot": 4.37,
+    "xg": 1.26,
+    "xg_cov": 30.2,
+    "over25": 46.0,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.17,
+    "def": 1.38,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Bordeaux": {
+   "cn": null,
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 782,
+    "gf": 1.27,
+    "ga": 1.15,
+    "home_n": 388,
+    "home_gf": 1.42,
+    "home_ga": 0.96,
+    "away_n": 394,
+    "away_gf": 1.12,
+    "away_ga": 1.34,
+    "r50_n": 50,
+    "r50_gf": 1.34,
+    "r50_ga": 2.32,
+    "sot": 4.21,
+    "xg": 1.21,
+    "xg_cov": 81.2,
+    "over25": 43.1,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.27,
+    "def": 1.15,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Metz": {
+   "cn": "梅斯",
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 458,
+    "gf": 0.93,
+    "ga": 1.53,
+    "home_n": 228,
+    "home_gf": 1.12,
+    "home_ga": 1.43,
+    "away_n": 230,
+    "away_gf": 0.74,
+    "away_ga": 1.63,
+    "r50_n": 50,
+    "r50_gf": 0.92,
+    "r50_ga": 1.68,
+    "sot": 3.56,
+    "xg": 1.02,
+    "xg_cov": 71.6,
+    "over25": 43.7,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.93,
+    "def": 1.53,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Guingamp": {
+   "cn": null,
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 337,
+    "gf": 1.07,
+    "ga": 1.47,
+    "home_n": 169,
+    "home_gf": 1.26,
+    "home_ga": 1.21,
+    "away_n": 168,
+    "away_gf": 0.89,
+    "away_ga": 1.74,
+    "r50_n": 50,
+    "r50_gf": 1.0,
+    "r50_ga": 1.88,
+    "sot": 3.75,
+    "xg": 1.08,
+    "xg_cov": 67.7,
+    "over25": 45.1,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.07,
+    "def": 1.47,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "St Etienne": {
+   "cn": null,
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 742,
+    "gf": 1.2,
+    "ga": 1.25,
+    "home_n": 371,
+    "home_gf": 1.42,
+    "home_ga": 1.03,
+    "away_n": 371,
+    "away_gf": 0.98,
+    "away_ga": 1.46,
+    "r50_n": 50,
+    "r50_gf": 1.24,
+    "r50_ga": 2.22,
+    "sot": 4.15,
+    "xg": 1.19,
+    "xg_cov": 90.3,
+    "over25": 43.8,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.2,
+    "def": 1.25,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Lille": {
+   "cn": "里尔",
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 887,
+    "gf": 1.38,
+    "ga": 0.99,
+    "home_n": 446,
+    "home_gf": 1.63,
+    "home_ga": 0.85,
+    "away_n": 441,
+    "away_gf": 1.13,
+    "away_ga": 1.13,
+    "r50_n": 50,
+    "r50_gf": 1.6,
+    "r50_ga": 1.12,
+    "sot": 4.78,
+    "xg": 1.37,
+    "xg_cov": 83.7,
+    "over25": 43.0,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.38,
+    "def": 0.99,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Monaco": {
+   "cn": "摩纳哥",
+   "leagues": [
+    "F1",
+    "欧冠"
+   ],
+   "lg": {
+    "n": 814,
+    "gf": 1.51,
+    "ga": 1.12,
+    "home_n": 407,
+    "home_gf": 1.71,
+    "home_ga": 1.01,
+    "away_n": 407,
+    "away_gf": 1.31,
+    "away_ga": 1.24,
+    "r50_n": 50,
+    "r50_gf": 1.92,
+    "r50_ga": 1.14,
+    "sot": 4.65,
+    "xg": 1.34,
+    "xg_cov": 81.7,
+    "over25": 49.9,
+    "sample": "ok"
+   },
+   "ucl": {
+    "n": 11,
+    "gf": 1.36,
+    "ga": 2.0,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": {
+    "att": 1.45,
+    "def": 1.48,
+    "w_lg": 0.593,
+    "w_ucl": 0.407,
+    "note": "联赛+欧冠贝叶斯收缩（w_ucl=n/(n+5)）"
+   }
+  },
+  "Lyon": {
+   "cn": "里昂",
+   "leagues": [
+    "F1",
+    "欧冠"
+   ],
+   "lg": {
+    "n": 885,
+    "gf": 1.75,
+    "ga": 1.05,
+    "home_n": 442,
+    "home_gf": 1.98,
+    "home_ga": 0.93,
+    "away_n": 443,
+    "away_gf": 1.53,
+    "away_ga": 1.18,
+    "r50_n": 50,
+    "r50_gf": 1.94,
+    "r50_ga": 1.42,
+    "sot": 5.42,
+    "xg": 1.56,
+    "xg_cov": 83.7,
+    "over25": 53.7,
+    "sample": "ok"
+   },
+   "ucl": {
+    "n": 3,
+    "gf": 1.67,
+    "ga": 1.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": {
+    "att": 1.73,
+    "def": 1.04,
+    "w_lg": 0.727,
+    "w_ucl": 0.273,
+    "note": "联赛+欧冠贝叶斯收缩（w_ucl=n/(n+5)）"
+   }
+  },
+  "Rennes": {
+   "cn": "雷恩",
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 888,
+    "gf": 1.31,
+    "ga": 1.17,
+    "home_n": 443,
+    "home_gf": 1.52,
+    "home_ga": 1.02,
+    "away_n": 445,
+    "away_gf": 1.1,
+    "away_ga": 1.33,
+    "r50_n": 50,
+    "r50_gf": 1.58,
+    "r50_ga": 1.48,
+    "sot": 4.39,
+    "xg": 1.26,
+    "xg_cov": 83.6,
+    "over25": 44.0,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.31,
+    "def": 1.17,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Nantes": {
+   "cn": "南特",
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 695,
+    "gf": 1.05,
+    "ga": 1.24,
+    "home_n": 348,
+    "home_gf": 1.17,
+    "home_ga": 1.11,
+    "away_n": 347,
+    "away_gf": 0.94,
+    "away_ga": 1.38,
+    "r50_n": 50,
+    "r50_gf": 0.98,
+    "r50_ga": 1.54,
+    "sot": 3.74,
+    "xg": 1.07,
+    "xg_cov": 79.3,
+    "over25": 39.4,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.05,
+    "def": 1.24,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Lens": {
+   "cn": "朗斯",
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 558,
+    "gf": 1.25,
+    "ga": 1.17,
+    "home_n": 281,
+    "home_gf": 1.47,
+    "home_ga": 0.99,
+    "away_n": 277,
+    "away_gf": 1.02,
+    "away_ga": 1.35,
+    "r50_n": 50,
+    "r50_gf": 1.32,
+    "r50_ga": 1.14,
+    "sot": 4.3,
+    "xg": 1.24,
+    "xg_cov": 73.5,
+    "over25": 42.5,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.25,
+    "def": 1.17,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Toulouse": {
+   "cn": "图卢兹",
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 759,
+    "gf": 1.08,
+    "ga": 1.26,
+    "home_n": 378,
+    "home_gf": 1.21,
+    "home_ga": 1.07,
+    "away_n": 381,
+    "away_gf": 0.94,
+    "away_ga": 1.45,
+    "r50_n": 50,
+    "r50_gf": 1.4,
+    "r50_ga": 1.32,
+    "sot": 3.92,
+    "xg": 1.13,
+    "xg_cov": 87.7,
+    "over25": 41.1,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.08,
+    "def": 1.26,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Bastia": {
+   "cn": null,
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 339,
+    "gf": 1.05,
+    "ga": 1.33,
+    "home_n": 169,
+    "home_gf": 1.35,
+    "home_ga": 0.94,
+    "away_n": 170,
+    "away_gf": 0.75,
+    "away_ga": 1.72,
+    "r50_n": 50,
+    "r50_gf": 0.8,
+    "r50_ga": 1.4,
+    "sot": 3.29,
+    "xg": 0.95,
+    "xg_cov": 55.8,
+    "over25": 43.1,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.05,
+    "def": 1.33,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Dortmund": {
+   "cn": "多特蒙德",
+   "leagues": [
+    "D1",
+    "欧冠"
+   ],
+   "lg": {
+    "n": 835,
+    "gf": 1.95,
+    "ga": 1.21,
+    "home_n": 417,
+    "home_gf": 2.2,
+    "home_ga": 1.01,
+    "away_n": 418,
+    "away_gf": 1.7,
+    "away_ga": 1.4,
+    "r50_n": 50,
+    "r50_gf": 2.04,
+    "r50_ga": 1.38,
+    "sot": 6.0,
+    "xg": 1.72,
+    "xg_cov": 85.5,
+    "over25": 59.3,
+    "sample": "ok"
+   },
+   "ucl": {
+    "n": 4,
+    "gf": 2.25,
+    "ga": 2.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": {
+    "att": 2.04,
+    "def": 1.45,
+    "w_lg": 0.692,
+    "w_ucl": 0.308,
+    "note": "联赛+欧冠贝叶斯收缩（w_ucl=n/(n+5)）"
+   }
+  },
+  "Hansa Rostock": {
+   "cn": null,
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 192,
+    "gf": 1.02,
+    "ga": 1.56,
+    "home_n": 95,
+    "home_gf": 1.18,
+    "home_ga": 1.27,
+    "away_n": 97,
+    "away_gf": 0.87,
+    "away_ga": 1.85,
+    "r50_n": 50,
+    "r50_gf": 0.96,
+    "r50_ga": 1.62,
+    "sot": 4.27,
+    "xg": 1.23,
+    "xg_cov": 53.1,
+    "over25": 49.5,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.02,
+    "def": 1.56,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Bayern Munich": {
+   "cn": "拜仁慕尼黑",
+   "leagues": [
+    "D1",
+    "欧冠"
+   ],
+   "lg": {
+    "n": 834,
+    "gf": 2.4,
+    "ga": 0.91,
+    "home_n": 415,
+    "home_gf": 2.8,
+    "home_ga": 0.8,
+    "away_n": 419,
+    "away_gf": 2.01,
+    "away_ga": 1.01,
+    "r50_n": 50,
+    "r50_gf": 2.8,
+    "r50_ga": 1.22,
+    "sot": 7.14,
+    "xg": 2.05,
+    "xg_cov": 85.6,
+    "over25": 64.1,
+    "sample": "ok"
+   },
+   "ucl": {
+    "n": 4,
+    "gf": 4.25,
+    "ga": 0.75,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": {
+    "att": 2.97,
+    "def": 0.86,
+    "w_lg": 0.692,
+    "w_ucl": 0.308,
+    "note": "联赛+欧冠贝叶斯收缩（w_ucl=n/(n+5)）"
+   }
+  },
+  "Hertha": {
+   "cn": null,
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 698,
+    "gf": 1.33,
+    "ga": 1.5,
+    "home_n": 350,
+    "home_gf": 1.5,
+    "home_ga": 1.33,
+    "away_n": 348,
+    "away_gf": 1.16,
+    "away_ga": 1.68,
+    "r50_n": 50,
+    "r50_gf": 1.16,
+    "r50_ga": 2.04,
+    "sot": 4.46,
+    "xg": 1.28,
+    "xg_cov": 82.8,
+    "over25": 55.7,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.33,
+    "def": 1.5,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Freiburg": {
+   "cn": "弗赖堡",
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 635,
+    "gf": 1.28,
+    "ga": 1.61,
+    "home_n": 318,
+    "home_gf": 1.51,
+    "home_ga": 1.37,
+    "away_n": 317,
+    "away_gf": 1.06,
+    "away_ga": 1.85,
+    "r50_n": 50,
+    "r50_gf": 1.4,
+    "r50_ga": 1.66,
+    "sot": 4.35,
+    "xg": 1.25,
+    "xg_cov": 91.0,
+    "over25": 57.3,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.28,
+    "def": 1.61,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Stuttgart": {
+   "cn": "斯图加特",
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 768,
+    "gf": 1.5,
+    "ga": 1.47,
+    "home_n": 384,
+    "home_gf": 1.68,
+    "home_ga": 1.24,
+    "away_n": 384,
+    "away_gf": 1.32,
+    "away_ga": 1.7,
+    "r50_n": 50,
+    "r50_gf": 2.08,
+    "r50_ga": 1.38,
+    "sot": 5.15,
+    "xg": 1.48,
+    "xg_cov": 84.1,
+    "over25": 57.2,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.5,
+    "def": 1.47,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Hamburg": {
+   "cn": "汉堡",
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 597,
+    "gf": 1.32,
+    "ga": 1.45,
+    "home_n": 299,
+    "home_gf": 1.47,
+    "home_ga": 1.19,
+    "away_n": 298,
+    "away_gf": 1.17,
+    "away_ga": 1.71,
+    "r50_n": 50,
+    "r50_gf": 0.94,
+    "r50_ga": 1.58,
+    "sot": 4.95,
+    "xg": 1.42,
+    "xg_cov": 79.7,
+    "over25": 52.3,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.32,
+    "def": 1.45,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Munich 1860": {
+   "cn": null,
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 123,
+    "gf": 1.35,
+    "ga": 1.59,
+    "home_n": 61,
+    "home_gf": 1.43,
+    "home_ga": 1.54,
+    "away_n": 62,
+    "away_gf": 1.27,
+    "away_ga": 1.63,
+    "r50_n": 50,
+    "r50_gf": 1.1,
+    "r50_ga": 1.46,
+    "sot": 5.28,
+    "xg": 1.52,
+    "xg_cov": 55.3,
+    "over25": 60.2,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.35,
+    "def": 1.59,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Kaiserslautern": {
+   "cn": null,
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 258,
+    "gf": 1.3,
+    "ga": 1.61,
+    "home_n": 128,
+    "home_gf": 1.41,
+    "home_ga": 1.27,
+    "away_n": 130,
+    "away_gf": 1.19,
+    "away_ga": 1.95,
+    "r50_n": 50,
+    "r50_gf": 0.88,
+    "r50_ga": 1.54,
+    "sot": 5.07,
+    "xg": 1.46,
+    "xg_cov": 52.7,
+    "over25": 54.7,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.3,
+    "def": 1.61,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Bochum": {
+   "cn": "波鸿",
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 394,
+    "gf": 1.24,
+    "ga": 1.78,
+    "home_n": 197,
+    "home_gf": 1.42,
+    "home_ga": 1.61,
+    "away_n": 197,
+    "away_gf": 1.05,
+    "away_ga": 1.95,
+    "r50_n": 50,
+    "r50_gf": 1.08,
+    "r50_ga": 2.16,
+    "sot": 4.63,
+    "xg": 1.33,
+    "xg_cov": 77.7,
+    "over25": 56.9,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.24,
+    "def": 1.78,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Leverkusen": {
+   "cn": "勒沃库森",
+   "leagues": [
+    "D1",
+    "欧冠"
+   ],
+   "lg": {
+    "n": 834,
+    "gf": 1.84,
+    "ga": 1.27,
+    "home_n": 418,
+    "home_gf": 2.02,
+    "home_ga": 1.18,
+    "away_n": 416,
+    "away_gf": 1.66,
+    "away_ga": 1.37,
+    "r50_n": 50,
+    "r50_gf": 2.22,
+    "r50_ga": 1.06,
+    "sot": 5.77,
+    "xg": 1.66,
+    "xg_cov": 85.6,
+    "over25": 61.0,
+    "sample": "ok"
+   },
+   "ucl": {
+    "n": 5,
+    "gf": 1.0,
+    "ga": 0.8,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": {
+    "att": 1.56,
+    "def": 1.11,
+    "w_lg": 0.667,
+    "w_ucl": 0.333,
+    "note": "联赛+欧冠贝叶斯收缩（w_ucl=n/(n+5)）"
+   }
+  },
+  "Wolfsburg": {
+   "cn": "沃尔夫斯堡",
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 834,
+    "gf": 1.52,
+    "ga": 1.45,
+    "home_n": 418,
+    "home_gf": 1.74,
+    "home_ga": 1.29,
+    "away_n": 416,
+    "away_gf": 1.29,
+    "away_ga": 1.61,
+    "r50_n": 50,
+    "r50_gf": 1.5,
+    "r50_ga": 1.62,
+    "sot": 5.07,
+    "xg": 1.46,
+    "xg_cov": 85.6,
+    "over25": 58.2,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.52,
+    "def": 1.45,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Werder Bremen": {
+   "cn": "云达不莱梅",
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 800,
+    "gf": 1.64,
+    "ga": 1.55,
+    "home_n": 400,
+    "home_gf": 1.75,
+    "home_ga": 1.39,
+    "away_n": 400,
+    "away_gf": 1.53,
+    "away_ga": 1.72,
+    "r50_n": 50,
+    "r50_gf": 1.54,
+    "r50_ga": 1.6,
+    "sot": 5.23,
+    "xg": 1.5,
+    "xg_cov": 85.0,
+    "over25": 61.1,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.64,
+    "def": 1.55,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Cottbus": {
+   "cn": null,
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 203,
+    "gf": 1.02,
+    "ga": 1.67,
+    "home_n": 101,
+    "home_gf": 1.32,
+    "home_ga": 1.39,
+    "away_n": 102,
+    "away_gf": 0.74,
+    "away_ga": 1.94,
+    "r50_n": 50,
+    "r50_gf": 0.92,
+    "r50_ga": 1.66,
+    "sot": 4.45,
+    "xg": 1.28,
+    "xg_cov": 83.7,
+    "over25": 50.7,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.02,
+    "def": 1.67,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Ein Frankfurt": {
+   "cn": null,
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 701,
+    "gf": 1.4,
+    "ga": 1.55,
+    "home_n": 352,
+    "home_gf": 1.62,
+    "home_ga": 1.36,
+    "away_n": 349,
+    "away_gf": 1.18,
+    "away_ga": 1.74,
+    "r50_n": 50,
+    "r50_gf": 1.8,
+    "r50_ga": 1.48,
+    "sot": 4.57,
+    "xg": 1.31,
+    "xg_cov": 92.2,
+    "over25": 57.2,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.4,
+    "def": 1.55,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Unterhaching": {
+   "cn": null,
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 34,
+    "gf": 1.03,
+    "ga": 1.74,
+    "home_n": 17,
+    "home_gf": 1.24,
+    "home_ga": 1.18,
+    "away_n": 17,
+    "away_gf": 0.82,
+    "away_ga": 2.29,
+    "r50_n": 34,
+    "r50_gf": 1.03,
+    "r50_ga": 1.74,
+    "sot": 4.5,
+    "xg": 1.29,
+    "xg_cov": 100.0,
+    "over25": 52.9,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.03,
+    "def": 1.74,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Schalke 04": {
+   "cn": null,
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 737,
+    "gf": 1.45,
+    "ga": 1.31,
+    "home_n": 367,
+    "home_gf": 1.69,
+    "home_ga": 1.13,
+    "away_n": 370,
+    "away_gf": 1.21,
+    "away_ga": 1.49,
+    "r50_n": 50,
+    "r50_gf": 0.92,
+    "r50_ga": 2.18,
+    "sot": 4.8,
+    "xg": 1.38,
+    "xg_cov": 83.0,
+    "over25": 53.6,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.45,
+    "def": 1.31,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "FC Koln": {
+   "cn": null,
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 567,
+    "gf": 1.2,
+    "ga": 1.65,
+    "home_n": 285,
+    "home_gf": 1.31,
+    "home_ga": 1.41,
+    "away_n": 282,
+    "away_gf": 1.1,
+    "away_ga": 1.9,
+    "r50_n": 50,
+    "r50_gf": 0.96,
+    "r50_ga": 1.66,
+    "sot": 4.12,
+    "xg": 1.18,
+    "xg_cov": 89.9,
+    "over25": 53.1,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.2,
+    "def": 1.65,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Charlton": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 258,
+    "gf": 1.14,
+    "ga": 1.45,
+    "home_n": 128,
+    "home_gf": 1.35,
+    "home_ga": 1.32,
+    "away_n": 130,
+    "away_gf": 0.93,
+    "away_ga": 1.58,
+    "r50_n": 50,
+    "r50_gf": 0.86,
+    "r50_ga": 1.56,
+    "sot": 5.0,
+    "xg": 1.44,
+    "xg_cov": 100.0,
+    "over25": 48.4,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.14,
+    "def": 1.45,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Man City": {
+   "cn": "曼彻斯特城",
+   "leagues": [
+    "E0",
+    "欧冠"
+   ],
+   "lg": {
+    "n": 903,
+    "gf": 1.91,
+    "ga": 1.05,
+    "home_n": 451,
+    "home_gf": 2.19,
+    "home_ga": 0.91,
+    "away_n": 452,
+    "away_gf": 1.63,
+    "away_ga": 1.18,
+    "r50_n": 50,
+    "r50_gf": 2.18,
+    "r50_ga": 1.04,
+    "sot": 6.53,
+    "xg": 1.87,
+    "xg_cov": 100.0,
+    "over25": 56.6,
+    "sample": "ok"
+   },
+   "ucl": {
+    "n": 2,
+    "gf": 1.5,
+    "ga": 2.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": {
+    "att": 1.82,
+    "def": 1.37,
+    "w_lg": 0.778,
+    "w_ucl": 0.222,
+    "note": "联赛+欧冠贝叶斯收缩（w_ucl=n/(n+5)）"
+   }
+  },
+  "Chelsea": {
+   "cn": "切尔西",
+   "leagues": [
+    "E0",
+    "欧冠"
+   ],
+   "lg": {
+    "n": 940,
+    "gf": 1.81,
+    "ga": 0.96,
+    "home_n": 470,
+    "home_gf": 2.06,
+    "home_ga": 0.85,
+    "away_n": 470,
+    "away_gf": 1.57,
+    "away_ga": 1.07,
+    "r50_n": 50,
+    "r50_gf": 1.94,
+    "r50_ga": 1.26,
+    "sot": 6.64,
+    "xg": 1.91,
+    "xg_cov": 100.0,
+    "over25": 52.9,
+    "sample": "ok"
+   },
+   "ucl": {
+    "n": 5,
+    "gf": 2.0,
+    "ga": 1.0,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": {
+    "att": 1.87,
+    "def": 0.97,
+    "w_lg": 0.667,
+    "w_ucl": 0.333,
+    "note": "联赛+欧冠贝叶斯收缩（w_ucl=n/(n+5)）"
+   }
+  },
+  "West Ham": {
+   "cn": "西汉姆联",
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 836,
+    "gf": 1.26,
+    "ga": 1.5,
+    "home_n": 418,
+    "home_gf": 1.44,
+    "home_ga": 1.33,
+    "away_n": 418,
+    "away_gf": 1.09,
+    "away_ga": 1.66,
+    "r50_n": 50,
+    "r50_gf": 1.32,
+    "r50_ga": 1.8,
+    "sot": 4.81,
+    "xg": 1.38,
+    "xg_cov": 100.0,
+    "over25": 52.5,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.26,
+    "def": 1.5,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Coventry": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 38,
+    "gf": 0.95,
+    "ga": 1.66,
+    "home_n": 19,
+    "home_gf": 0.74,
+    "home_ga": 1.21,
+    "away_n": 19,
+    "away_gf": 1.16,
+    "away_ga": 2.11,
+    "r50_n": 38,
+    "r50_gf": 0.95,
+    "r50_ga": 1.66,
+    "sot": 4.66,
+    "xg": 1.34,
+    "xg_cov": 100.0,
+    "over25": 50.0,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.95,
+    "def": 1.66,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Middlesbrough": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 372,
+    "gf": 1.08,
+    "ga": 1.33,
+    "home_n": 187,
+    "home_gf": 1.3,
+    "home_ga": 1.24,
+    "away_n": 185,
+    "away_gf": 0.86,
+    "away_ga": 1.43,
+    "r50_n": 50,
+    "r50_gf": 0.74,
+    "r50_ga": 1.48,
+    "sot": 5.12,
+    "xg": 1.47,
+    "xg_cov": 100.0,
+    "over25": 43.5,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.08,
+    "def": 1.33,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Derby": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 114,
+    "gf": 0.79,
+    "ga": 1.85,
+    "home_n": 57,
+    "home_gf": 0.96,
+    "home_ga": 1.63,
+    "away_n": 57,
+    "away_gf": 0.61,
+    "away_ga": 2.07,
+    "r50_n": 50,
+    "r50_gf": 0.7,
+    "r50_ga": 2.18,
+    "sot": 4.05,
+    "xg": 1.16,
+    "xg_cov": 100.0,
+    "over25": 47.4,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.79,
+    "def": 1.85,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Southampton": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 637,
+    "gf": 1.16,
+    "ga": 1.48,
+    "home_n": 320,
+    "home_gf": 1.32,
+    "home_ga": 1.33,
+    "away_n": 317,
+    "away_gf": 1.0,
+    "away_ga": 1.62,
+    "r50_n": 50,
+    "r50_gf": 0.84,
+    "r50_ga": 2.36,
+    "sot": 4.69,
+    "xg": 1.35,
+    "xg_cov": 100.0,
+    "over25": 48.4,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.16,
+    "def": 1.48,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Leeds": {
+   "cn": "利兹联",
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 261,
+    "gf": 1.38,
+    "ga": 1.6,
+    "home_n": 131,
+    "home_gf": 1.42,
+    "home_ga": 1.47,
+    "away_n": 130,
+    "away_gf": 1.35,
+    "away_ga": 1.73,
+    "r50_n": 50,
+    "r50_gf": 1.22,
+    "r50_ga": 1.94,
+    "sot": 5.1,
+    "xg": 1.46,
+    "xg_cov": 100.0,
+    "over25": 57.9,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.38,
+    "def": 1.6,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Everton": {
+   "cn": "埃弗顿",
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 941,
+    "gf": 1.28,
+    "ga": 1.27,
+    "home_n": 472,
+    "home_gf": 1.51,
+    "home_ga": 1.11,
+    "away_n": 469,
+    "away_gf": 1.05,
+    "away_ga": 1.42,
+    "r50_n": 50,
+    "r50_gf": 1.08,
+    "r50_ga": 1.22,
+    "sot": 5.26,
+    "xg": 1.51,
+    "xg_cov": 100.0,
+    "over25": 46.0,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.28,
+    "def": 1.27,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Leicester": {
+   "cn": "莱斯特城",
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 489,
+    "gf": 1.36,
+    "ga": 1.49,
+    "home_n": 246,
+    "home_gf": 1.41,
+    "home_ga": 1.3,
+    "away_n": 243,
+    "away_gf": 1.31,
+    "away_ga": 1.69,
+    "r50_n": 50,
+    "r50_gf": 0.94,
+    "r50_ga": 2.04,
+    "sot": 4.31,
+    "xg": 1.24,
+    "xg_cov": 100.0,
+    "over25": 55.6,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.36,
+    "def": 1.49,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Aston Villa": {
+   "cn": "阿斯顿维拉",
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 828,
+    "gf": 1.26,
+    "ga": 1.39,
+    "home_n": 413,
+    "home_gf": 1.37,
+    "home_ga": 1.18,
+    "away_n": 415,
+    "away_gf": 1.14,
+    "away_ga": 1.6,
+    "r50_n": 50,
+    "r50_gf": 1.56,
+    "r50_ga": 1.54,
+    "sot": 4.98,
+    "xg": 1.43,
+    "xg_cov": 100.0,
+    "over25": 50.7,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.26,
+    "def": 1.39,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Liverpool": {
+   "cn": "利物浦",
+   "leagues": [
+    "E0",
+    "欧冠"
+   ],
+   "lg": {
+    "n": 941,
+    "gf": 1.86,
+    "ga": 0.98,
+    "home_n": 469,
+    "home_gf": 2.08,
+    "home_ga": 0.78,
+    "away_n": 472,
+    "away_gf": 1.65,
+    "away_ga": 1.19,
+    "r50_n": 50,
+    "r50_gf": 2.18,
+    "r50_ga": 1.14,
+    "sot": 6.86,
+    "xg": 1.97,
+    "xg_cov": 100.0,
+    "over25": 55.3,
+    "sample": "ok"
+   },
+   "ucl": {
+    "n": 1,
+    "gf": 6.0,
+    "ga": 0.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": {
+    "att": 2.45,
+    "def": 0.84,
+    "w_lg": 0.857,
+    "w_ucl": 0.143,
+    "note": "联赛+欧冠贝叶斯收缩（w_ucl=n/(n+5)）"
+   }
+  },
+  "Bradford": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 38,
+    "gf": 0.79,
+    "ga": 1.84,
+    "home_n": 19,
+    "home_gf": 1.05,
+    "home_ga": 1.53,
+    "away_n": 19,
+    "away_gf": 0.53,
+    "away_ga": 2.16,
+    "r50_n": 38,
+    "r50_gf": 0.79,
+    "r50_ga": 1.84,
+    "sot": 4.58,
+    "xg": 1.32,
+    "xg_cov": 100.0,
+    "over25": 44.7,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.79,
+    "def": 1.84,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Sunderland": {
+   "cn": "桑德兰",
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 532,
+    "gf": 0.98,
+    "ga": 1.49,
+    "home_n": 266,
+    "home_gf": 1.08,
+    "home_ga": 1.26,
+    "away_n": 266,
+    "away_gf": 0.87,
+    "away_ga": 1.73,
+    "r50_n": 50,
+    "r50_gf": 0.9,
+    "r50_ga": 1.62,
+    "sot": 4.92,
+    "xg": 1.41,
+    "xg_cov": 100.0,
+    "over25": 45.1,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.98,
+    "def": 1.49,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Arsenal": {
+   "cn": "阿森纳",
+   "leagues": [
+    "E0",
+    "欧冠"
+   ],
+   "lg": {
+    "n": 940,
+    "gf": 1.9,
+    "ga": 1.04,
+    "home_n": 469,
+    "home_gf": 2.14,
+    "home_ga": 0.9,
+    "away_n": 471,
+    "away_gf": 1.65,
+    "away_ga": 1.18,
+    "r50_n": 50,
+    "r50_gf": 1.96,
+    "r50_ga": 0.8,
+    "sot": 6.63,
+    "xg": 1.9,
+    "xg_cov": 100.0,
+    "over25": 56.4,
+    "sample": "ok"
+   },
+   "ucl": {
+    "n": 2,
+    "gf": 2.5,
+    "ga": 1.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": {
+    "att": 2.03,
+    "def": 1.03,
+    "w_lg": 0.778,
+    "w_ucl": 0.222,
+    "note": "联赛+欧冠贝叶斯收缩（w_ucl=n/(n+5)）"
+   }
+  },
+  "Tottenham": {
+   "cn": "托特纳姆热刺",
+   "leagues": [
+    "E0",
+    "欧冠"
+   ],
+   "lg": {
+    "n": 941,
+    "gf": 1.62,
+    "ga": 1.26,
+    "home_n": 471,
+    "home_gf": 1.83,
+    "home_ga": 1.08,
+    "away_n": 470,
+    "away_gf": 1.4,
+    "away_ga": 1.45,
+    "r50_n": 50,
+    "r50_gf": 1.66,
+    "r50_ga": 1.74,
+    "sot": 6.23,
+    "xg": 1.79,
+    "xg_cov": 100.0,
+    "over25": 55.4,
+    "sample": "ok"
+   },
+   "ucl": {
+    "n": 3,
+    "gf": 2.0,
+    "ga": 0.67,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": {
+    "att": 1.72,
+    "def": 1.1,
+    "w_lg": 0.727,
+    "w_ucl": 0.273,
+    "note": "联赛+欧冠贝叶斯收缩（w_ucl=n/(n+5)）"
+   }
+  },
+  "Ipswich": {
+   "cn": "伊普斯维奇",
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 114,
+    "gf": 1.18,
+    "ga": 1.65,
+    "home_n": 57,
+    "home_gf": 1.14,
+    "home_ga": 1.46,
+    "away_n": 57,
+    "away_gf": 1.21,
+    "away_ga": 1.84,
+    "r50_n": 50,
+    "r50_gf": 0.86,
+    "r50_ga": 2.12,
+    "sot": 4.75,
+    "xg": 1.37,
+    "xg_cov": 100.0,
+    "over25": 55.3,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.18,
+    "def": 1.65,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Man United": {
+   "cn": "曼彻斯特联",
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 941,
+    "gf": 1.81,
+    "ga": 0.99,
+    "home_n": 471,
+    "home_gf": 2.04,
+    "home_ga": 0.83,
+    "away_n": 470,
+    "away_gf": 1.59,
+    "away_ga": 1.15,
+    "r50_n": 50,
+    "r50_gf": 1.3,
+    "r50_ga": 1.52,
+    "sot": 6.75,
+    "xg": 1.94,
+    "xg_cov": 100.0,
+    "over25": 53.1,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.81,
+    "def": 0.99,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Newcastle": {
+   "cn": "纽卡斯尔联",
+   "leagues": [
+    "E0",
+    "欧冠"
+   ],
+   "lg": {
+    "n": 864,
+    "gf": 1.34,
+    "ga": 1.42,
+    "home_n": 432,
+    "home_gf": 1.56,
+    "home_ga": 1.2,
+    "away_n": 432,
+    "away_gf": 1.11,
+    "away_ga": 1.65,
+    "r50_n": 50,
+    "r50_gf": 1.98,
+    "r50_ga": 1.28,
+    "sot": 5.24,
+    "xg": 1.51,
+    "xg_cov": 100.0,
+    "over25": 53.1,
+    "sample": "ok"
+   },
+   "ucl": {
+    "n": 4,
+    "gf": 4.0,
+    "ga": 0.75,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": {
+    "att": 2.16,
+    "def": 1.21,
+    "w_lg": 0.692,
+    "w_ucl": 0.308,
+    "note": "联赛+欧冠贝叶斯收缩（w_ucl=n/(n+5)）"
+   }
+  },
+  "Barcelona": {
+   "cn": "巴塞罗那",
+   "leagues": [
+    "SP1",
+    "欧冠"
+   ],
+   "lg": {
+    "n": 901,
+    "gf": 2.36,
+    "ga": 0.92,
+    "home_n": 450,
+    "home_gf": 2.71,
+    "home_ga": 0.8,
+    "away_n": 451,
+    "away_gf": 2.0,
+    "away_ga": 1.03,
+    "r50_n": 50,
+    "r50_gf": 2.5,
+    "r50_ga": 0.98,
+    "sot": 6.57,
+    "xg": 1.89,
+    "xg_cov": 80.1,
+    "over25": 62.7,
+    "sample": "ok"
+   },
+   "ucl": {
+    "n": 2,
+    "gf": 5.0,
+    "ga": 1.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": {
+    "att": 2.95,
+    "def": 0.94,
+    "w_lg": 0.778,
+    "w_ucl": 0.222,
+    "note": "联赛+欧冠贝叶斯收缩（w_ucl=n/(n+5)）"
+   }
+  },
+  "Malaga": {
+   "cn": "马拉加",
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 595,
+    "gf": 1.2,
+    "ga": 1.4,
+    "home_n": 297,
+    "home_gf": 1.41,
+    "home_ga": 1.18,
+    "away_n": 298,
+    "away_gf": 0.99,
+    "away_ga": 1.61,
+    "r50_n": 50,
+    "r50_gf": 0.82,
+    "r50_ga": 1.46,
+    "sot": 4.24,
+    "xg": 1.22,
+    "xg_cov": 70.3,
+    "over25": 48.4,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.2,
+    "def": 1.4,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "La Coruna": {
+   "cn": null,
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 560,
+    "gf": 1.28,
+    "ga": 1.38,
+    "home_n": 280,
+    "home_gf": 1.49,
+    "home_ga": 1.19,
+    "away_n": 280,
+    "away_gf": 1.07,
+    "away_ga": 1.56,
+    "r50_n": 50,
+    "r50_gf": 1.04,
+    "r50_ga": 1.92,
+    "sot": 3.87,
+    "xg": 1.11,
+    "xg_cov": 67.9,
+    "over25": 47.7,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.28,
+    "def": 1.38,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Ath Bilbao": {
+   "cn": "毕尔巴鄂",
+   "leagues": [
+    "SP1",
+    "欧冠"
+   ],
+   "lg": {
+    "n": 900,
+    "gf": 1.3,
+    "ga": 1.26,
+    "home_n": 451,
+    "home_gf": 1.53,
+    "home_ga": 1.04,
+    "away_n": 449,
+    "away_gf": 1.07,
+    "away_ga": 1.48,
+    "r50_n": 50,
+    "r50_gf": 1.38,
+    "r50_ga": 0.8,
+    "sot": 4.22,
+    "xg": 1.21,
+    "xg_cov": 80.2,
+    "over25": 46.9,
+    "sample": "ok"
+   },
+   "ucl": {
+    "n": 2,
+    "gf": 3.0,
+    "ga": 1.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": {
+    "att": 1.68,
+    "def": 1.31,
+    "w_lg": 0.778,
+    "w_ucl": 0.222,
+    "note": "联赛+欧冠贝叶斯收缩（w_ucl=n/(n+5)）"
+   }
+  },
+  "Real Madrid": {
+   "cn": "皇家马德里",
+   "leagues": [
+    "SP1",
+    "欧冠"
+   ],
+   "lg": {
+    "n": 902,
+    "gf": 2.3,
+    "ga": 0.99,
+    "home_n": 452,
+    "home_gf": 2.68,
+    "home_ga": 0.9,
+    "away_n": 450,
+    "away_gf": 1.92,
+    "away_ga": 1.09,
+    "r50_n": 50,
+    "r50_gf": 2.22,
+    "r50_ga": 0.96,
+    "sot": 6.84,
+    "xg": 1.97,
+    "xg_cov": 80.0,
+    "over25": 63.1,
+    "sample": "ok"
+   },
+   "ucl": {
+    "n": 6,
+    "gf": 3.33,
+    "ga": 1.5,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": {
+    "att": 2.66,
+    "def": 1.17,
+    "w_lg": 0.647,
+    "w_ucl": 0.353,
+    "note": "联赛+欧冠贝叶斯收缩（w_ucl=n/(n+5)）"
+   }
+  },
+  "Valencia": {
+   "cn": "瓦伦西亚",
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 900,
+    "gf": 1.45,
+    "ga": 1.17,
+    "home_n": 450,
+    "home_gf": 1.69,
+    "home_ga": 0.98,
+    "away_n": 450,
+    "away_gf": 1.2,
+    "away_ga": 1.35,
+    "r50_n": 50,
+    "r50_gf": 1.06,
+    "r50_ga": 1.36,
+    "sot": 4.32,
+    "xg": 1.24,
+    "xg_cov": 80.2,
+    "over25": 49.8,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.45,
+    "def": 1.17,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Sociedad": {
+   "cn": "皇家社会",
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 785,
+    "gf": 1.37,
+    "ga": 1.33,
+    "home_n": 391,
+    "home_gf": 1.55,
+    "home_ga": 1.1,
+    "away_n": 394,
+    "away_gf": 1.19,
+    "away_ga": 1.55,
+    "r50_n": 50,
+    "r50_gf": 1.02,
+    "r50_ga": 1.18,
+    "sot": 4.18,
+    "xg": 1.2,
+    "xg_cov": 77.5,
+    "over25": 51.8,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.37,
+    "def": 1.33,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Santander": {
+   "cn": "桑坦德竞技",
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 368,
+    "gf": 1.14,
+    "ga": 1.48,
+    "home_n": 183,
+    "home_gf": 1.23,
+    "home_ga": 1.26,
+    "away_n": 185,
+    "away_gf": 1.05,
+    "away_ga": 1.69,
+    "r50_n": 50,
+    "r50_gf": 0.9,
+    "r50_ga": 1.66,
+    "sot": 3.75,
+    "xg": 1.08,
+    "xg_cov": 62.0,
+    "over25": 48.1,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.14,
+    "def": 1.48,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Zaragoza": {
+   "cn": null,
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 367,
+    "gf": 1.17,
+    "ga": 1.53,
+    "home_n": 183,
+    "home_gf": 1.47,
+    "home_ga": 1.28,
+    "away_n": 184,
+    "away_gf": 0.86,
+    "away_ga": 1.78,
+    "r50_n": 50,
+    "r50_gf": 1.04,
+    "r50_ga": 1.48,
+    "sot": 4.29,
+    "xg": 1.23,
+    "xg_cov": 62.1,
+    "over25": 51.0,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.17,
+    "def": 1.53,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Espanol": {
+   "cn": "西班牙人",
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 825,
+    "gf": 1.13,
+    "ga": 1.41,
+    "home_n": 413,
+    "home_gf": 1.35,
+    "home_ga": 1.19,
+    "away_n": 412,
+    "away_gf": 0.92,
+    "away_ga": 1.63,
+    "r50_n": 50,
+    "r50_gf": 1.2,
+    "r50_ga": 1.56,
+    "sot": 3.78,
+    "xg": 1.09,
+    "xg_cov": 78.3,
+    "over25": 48.0,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.13,
+    "def": 1.41,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Las Palmas": {
+   "cn": "拉斯帕尔马斯",
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 266,
+    "gf": 1.04,
+    "ga": 1.58,
+    "home_n": 133,
+    "home_gf": 1.18,
+    "home_ga": 1.26,
+    "away_n": 133,
+    "away_gf": 0.9,
+    "away_ga": 1.91,
+    "r50_n": 50,
+    "r50_gf": 0.94,
+    "r50_ga": 1.64,
+    "sot": 3.89,
+    "xg": 1.12,
+    "xg_cov": 71.4,
+    "over25": 46.2,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.04,
+    "def": 1.58,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Alaves": {
+   "cn": "阿拉维斯",
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 456,
+    "gf": 1.02,
+    "ga": 1.41,
+    "home_n": 228,
+    "home_gf": 1.09,
+    "home_ga": 1.11,
+    "away_n": 228,
+    "away_gf": 0.96,
+    "away_ga": 1.71,
+    "r50_n": 50,
+    "r50_gf": 0.98,
+    "r50_ga": 1.24,
+    "sot": 3.37,
+    "xg": 0.97,
+    "xg_cov": 75.0,
+    "over25": 44.5,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.02,
+    "def": 1.41,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Mallorca": {
+   "cn": "马略卡",
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 635,
+    "gf": 1.2,
+    "ga": 1.43,
+    "home_n": 318,
+    "home_gf": 1.4,
+    "home_ga": 1.18,
+    "away_n": 317,
+    "away_gf": 1.0,
+    "away_ga": 1.68,
+    "r50_n": 50,
+    "r50_gf": 0.9,
+    "r50_ga": 1.08,
+    "sot": 4.06,
+    "xg": 1.17,
+    "xg_cov": 71.8,
+    "over25": 48.2,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.2,
+    "def": 1.43,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Valladolid": {
+   "cn": "巴拉多利德",
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 532,
+    "gf": 1.01,
+    "ga": 1.51,
+    "home_n": 266,
+    "home_gf": 1.11,
+    "home_ga": 1.18,
+    "away_n": 266,
+    "away_gf": 0.92,
+    "away_ga": 1.84,
+    "r50_n": 50,
+    "r50_gf": 0.78,
+    "r50_ga": 2.3,
+    "sot": 3.63,
+    "xg": 1.04,
+    "xg_cov": 71.4,
+    "over25": 46.4,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.01,
+    "def": 1.51,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Numancia": {
+   "cn": null,
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 103,
+    "gf": 0.96,
+    "ga": 1.74,
+    "home_n": 52,
+    "home_gf": 1.15,
+    "home_ga": 1.27,
+    "away_n": 51,
+    "away_gf": 0.76,
+    "away_ga": 2.22,
+    "r50_n": 50,
+    "r50_gf": 1.02,
+    "r50_ga": 1.82,
+    "sot": 3.5,
+    "xg": 1.01,
+    "xg_cov": 36.9,
+    "over25": 47.6,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.96,
+    "def": 1.74,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Oviedo": {
+   "cn": null,
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 38,
+    "gf": 1.34,
+    "ga": 1.76,
+    "home_n": 19,
+    "home_gf": 2.21,
+    "home_ga": 1.42,
+    "away_n": 19,
+    "away_gf": 0.47,
+    "away_ga": 2.11,
+    "r50_n": 38,
+    "r50_gf": 1.34,
+    "r50_ga": 1.76,
+    "sot": null,
+    "xg": null,
+    "xg_cov": 0.0,
+    "over25": 57.9,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.34,
+    "def": 1.76,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Osasuna": {
+   "cn": "奥萨苏纳",
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 750,
+    "gf": 1.07,
+    "ga": 1.38,
+    "home_n": 376,
+    "home_gf": 1.25,
+    "home_ga": 1.2,
+    "away_n": 374,
+    "away_gf": 0.9,
+    "away_ga": 1.56,
+    "r50_n": 50,
+    "r50_gf": 1.26,
+    "r50_ga": 1.42,
+    "sot": 3.78,
+    "xg": 1.09,
+    "xg_cov": 76.0,
+    "over25": 42.3,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.07,
+    "def": 1.38,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Celta": {
+   "cn": "塞尔塔维戈",
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 684,
+    "gf": 1.29,
+    "ga": 1.39,
+    "home_n": 342,
+    "home_gf": 1.44,
+    "home_ga": 1.21,
+    "away_n": 342,
+    "away_gf": 1.14,
+    "away_ga": 1.56,
+    "r50_n": 50,
+    "r50_gf": 1.52,
+    "r50_ga": 1.5,
+    "sot": 4.14,
+    "xg": 1.19,
+    "xg_cov": 77.8,
+    "over25": 48.4,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.29,
+    "def": 1.39,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Villarreal": {
+   "cn": "比利亚雷亚尔",
+   "leagues": [
+    "SP1",
+    "欧冠"
+   ],
+   "lg": {
+    "n": 862,
+    "gf": 1.47,
+    "ga": 1.23,
+    "home_n": 431,
+    "home_gf": 1.73,
+    "home_ga": 1.07,
+    "away_n": 431,
+    "away_gf": 1.21,
+    "away_ga": 1.39,
+    "r50_n": 50,
+    "r50_gf": 1.96,
+    "r50_ga": 1.36,
+    "sot": 4.67,
+    "xg": 1.34,
+    "xg_cov": 79.4,
+    "over25": 50.8,
+    "sample": "ok"
+   },
+   "ucl": {
+    "n": 3,
+    "gf": 1.0,
+    "ga": 2.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": {
+    "att": 1.34,
+    "def": 1.44,
+    "w_lg": 0.727,
+    "w_ucl": 0.273,
+    "note": "联赛+欧冠贝叶斯收缩（w_ucl=n/(n+5)）"
+   }
+  },
+  "Vallecano": {
+   "cn": "巴列卡诺",
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 494,
+    "gf": 1.16,
+    "ga": 1.64,
+    "home_n": 247,
+    "home_gf": 1.35,
+    "home_ga": 1.38,
+    "away_n": 247,
+    "away_gf": 0.98,
+    "away_ga": 1.89,
+    "r50_n": 50,
+    "r50_gf": 0.96,
+    "r50_ga": 1.14,
+    "sot": 4.42,
+    "xg": 1.27,
+    "xg_cov": 76.9,
+    "over25": 54.7,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.16,
+    "def": 1.64,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Bari": {
+   "cn": null,
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 110,
+    "gf": 0.97,
+    "ga": 1.57,
+    "home_n": 55,
+    "home_gf": 1.16,
+    "home_ga": 1.35,
+    "away_n": 55,
+    "away_gf": 0.78,
+    "away_ga": 1.8,
+    "r50_n": 50,
+    "r50_gf": 0.9,
+    "r50_ga": 1.42,
+    "sot": 3.67,
+    "xg": 1.05,
+    "xg_cov": 69.1,
+    "over25": 46.4,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.97,
+    "def": 1.57,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Verona": {
+   "cn": "维罗纳",
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 448,
+    "gf": 1.15,
+    "ga": 1.61,
+    "home_n": 224,
+    "home_gf": 1.28,
+    "home_ga": 1.49,
+    "away_n": 224,
+    "away_gf": 1.01,
+    "away_ga": 1.73,
+    "r50_n": 50,
+    "r50_gf": 0.98,
+    "r50_ga": 1.62,
+    "sot": 3.86,
+    "xg": 1.11,
+    "xg_cov": 84.8,
+    "over25": 53.1,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.15,
+    "def": 1.61,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Napoli": {
+   "cn": "那不勒斯",
+   "leagues": [
+    "I1",
+    "欧冠"
+   ],
+   "lg": {
+    "n": 718,
+    "gf": 1.75,
+    "ga": 1.07,
+    "home_n": 359,
+    "home_gf": 1.94,
+    "home_ga": 0.97,
+    "away_n": 359,
+    "away_gf": 1.57,
+    "away_ga": 1.17,
+    "r50_n": 50,
+    "r50_gf": 1.48,
+    "r50_ga": 0.9,
+    "sot": 5.79,
+    "xg": 1.66,
+    "xg_cov": 95.3,
+    "over25": 54.3,
+    "sample": "ok"
+   },
+   "ucl": {
+    "n": 3,
+    "gf": 1.0,
+    "ga": 1.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": {
+    "att": 1.55,
+    "def": 1.05,
+    "w_lg": 0.727,
+    "w_ucl": 0.273,
+    "note": "联赛+欧冠贝叶斯收缩（w_ucl=n/(n+5)）"
+   }
+  },
+  "Juventus": {
+   "cn": "尤文图斯",
+   "leagues": [
+    "I1",
+    "欧冠"
+   ],
+   "lg": {
+    "n": 879,
+    "gf": 1.82,
+    "ga": 0.84,
+    "home_n": 440,
+    "home_gf": 2.02,
+    "home_ga": 0.75,
+    "away_n": 439,
+    "away_gf": 1.62,
+    "away_ga": 0.94,
+    "r50_n": 50,
+    "r50_gf": 1.42,
+    "r50_ga": 0.94,
+    "sot": 5.57,
+    "xg": 1.6,
+    "xg_cov": 81.9,
+    "over25": 50.1,
+    "sample": "ok"
+   },
+   "ucl": {
+    "n": 4,
+    "gf": 1.75,
+    "ga": 0.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": {
+    "att": 1.8,
+    "def": 0.74,
+    "w_lg": 0.692,
+    "w_ucl": 0.308,
+    "note": "联赛+欧冠贝叶斯收缩（w_ucl=n/(n+5)）"
+   }
+  },
+  "Atalanta": {
+   "cn": "亚特兰大",
+   "leagues": [
+    "I1",
+    "欧冠"
+   ],
+   "lg": {
+    "n": 814,
+    "gf": 1.46,
+    "ga": 1.26,
+    "home_n": 408,
+    "home_gf": 1.61,
+    "home_ga": 1.16,
+    "away_n": 406,
+    "away_gf": 1.32,
+    "away_ga": 1.35,
+    "r50_n": 50,
+    "r50_gf": 2.04,
+    "r50_ga": 1.02,
+    "sot": 4.95,
+    "xg": 1.42,
+    "xg_cov": 84.0,
+    "over25": 50.9,
+    "sample": "ok"
+   },
+   "ucl": {
+    "n": 12,
+    "gf": 1.33,
+    "ga": 1.92,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": {
+    "att": 1.41,
+    "def": 1.53,
+    "w_lg": 0.586,
+    "w_ucl": 0.414,
+    "note": "联赛+欧冠贝叶斯收缩（w_ucl=n/(n+5)）"
+   }
+  },
+  "Lazio": {
+   "cn": "拉齐奥",
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 915,
+    "gf": 1.57,
+    "ga": 1.2,
+    "home_n": 456,
+    "home_gf": 1.77,
+    "home_ga": 1.04,
+    "away_n": 459,
+    "away_gf": 1.38,
+    "away_ga": 1.36,
+    "r50_n": 50,
+    "r50_gf": 1.56,
+    "r50_ga": 1.2,
+    "sot": 5.11,
+    "xg": 1.47,
+    "xg_cov": 82.7,
+    "over25": 51.4,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.57,
+    "def": 1.2,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Milan": {
+   "cn": "AC米兰",
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 912,
+    "gf": 1.68,
+    "ga": 1.03,
+    "home_n": 456,
+    "home_gf": 1.8,
+    "home_ga": 0.89,
+    "away_n": 456,
+    "away_gf": 1.56,
+    "away_ga": 1.18,
+    "r50_n": 50,
+    "r50_gf": 1.74,
+    "r50_ga": 1.2,
+    "sot": 5.54,
+    "xg": 1.59,
+    "xg_cov": 83.3,
+    "over25": 52.2,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.68,
+    "def": 1.03,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Vicenza": {
+   "cn": null,
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 34,
+    "gf": 1.09,
+    "ga": 1.5,
+    "home_n": 17,
+    "home_gf": 1.12,
+    "home_ga": 1.24,
+    "away_n": 17,
+    "away_gf": 1.06,
+    "away_ga": 1.76,
+    "r50_n": 34,
+    "r50_gf": 1.09,
+    "r50_ga": 1.5,
+    "sot": null,
+    "xg": null,
+    "xg_cov": 0.0,
+    "over25": 47.1,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.09,
+    "def": 1.5,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Parma": {
+   "cn": "帕尔马",
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 646,
+    "gf": 1.25,
+    "ga": 1.47,
+    "home_n": 324,
+    "home_gf": 1.39,
+    "home_ga": 1.18,
+    "away_n": 322,
+    "away_gf": 1.11,
+    "away_ga": 1.77,
+    "r50_n": 50,
+    "r50_gf": 1.2,
+    "r50_ga": 1.78,
+    "sot": 4.11,
+    "xg": 1.18,
+    "xg_cov": 76.3,
+    "over25": 51.4,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.25,
+    "def": 1.47,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Fiorentina": {
+   "cn": "佛罗伦萨",
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 859,
+    "gf": 1.44,
+    "ga": 1.22,
+    "home_n": 429,
+    "home_gf": 1.65,
+    "home_ga": 1.07,
+    "away_n": 430,
+    "away_gf": 1.23,
+    "away_ga": 1.37,
+    "r50_n": 50,
+    "r50_gf": 1.64,
+    "r50_ga": 1.14,
+    "sot": 5.07,
+    "xg": 1.46,
+    "xg_cov": 88.2,
+    "over25": 50.8,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.44,
+    "def": 1.22,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Perugia": {
+   "cn": null,
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 124,
+    "gf": 1.2,
+    "ga": 1.44,
+    "home_n": 61,
+    "home_gf": 1.36,
+    "home_ga": 1.0,
+    "away_n": 63,
+    "away_gf": 1.05,
+    "away_ga": 1.86,
+    "r50_n": 50,
+    "r50_gf": 1.1,
+    "r50_ga": 1.36,
+    "sot": null,
+    "xg": null,
+    "xg_cov": 0.0,
+    "over25": 50.8,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.2,
+    "def": 1.44,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Lecce": {
+   "cn": "莱切",
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 424,
+    "gf": 1.08,
+    "ga": 1.65,
+    "home_n": 214,
+    "home_gf": 1.2,
+    "home_ga": 1.55,
+    "away_n": 210,
+    "away_gf": 0.95,
+    "away_ga": 1.76,
+    "r50_n": 50,
+    "r50_gf": 0.7,
+    "r50_ga": 1.38,
+    "sot": 4.02,
+    "xg": 1.15,
+    "xg_cov": 71.2,
+    "over25": 51.4,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.08,
+    "def": 1.65,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Reggina": {
+   "cn": null,
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 273,
+    "gf": 1.01,
+    "ga": 1.47,
+    "home_n": 135,
+    "home_gf": 1.24,
+    "home_ga": 1.19,
+    "away_n": 138,
+    "away_gf": 0.79,
+    "away_ga": 1.75,
+    "r50_n": 50,
+    "r50_gf": 0.92,
+    "r50_ga": 1.58,
+    "sot": 3.99,
+    "xg": 1.15,
+    "xg_cov": 55.3,
+    "over25": 44.0,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.01,
+    "def": 1.47,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Inter": {
+   "cn": "国际米兰",
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 915,
+    "gf": 1.82,
+    "ga": 1.01,
+    "home_n": 458,
+    "home_gf": 2.02,
+    "home_ga": 0.93,
+    "away_n": 457,
+    "away_gf": 1.63,
+    "away_ga": 1.09,
+    "r50_n": 50,
+    "r50_gf": 2.02,
+    "r50_ga": 0.9,
+    "sot": 5.64,
+    "xg": 1.62,
+    "xg_cov": 83.1,
+    "over25": 54.1,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.82,
+    "def": 1.01,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Roma": {
+   "cn": "罗马",
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 911,
+    "gf": 1.75,
+    "ga": 1.12,
+    "home_n": 455,
+    "home_gf": 1.98,
+    "home_ga": 0.97,
+    "away_n": 456,
+    "away_gf": 1.52,
+    "away_ga": 1.27,
+    "r50_n": 50,
+    "r50_gf": 1.46,
+    "r50_ga": 0.98,
+    "sot": 5.69,
+    "xg": 1.63,
+    "xg_cov": 83.2,
+    "over25": 55.3,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.75,
+    "def": 1.12,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Bologna": {
+   "cn": "博洛尼亚",
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 760,
+    "gf": 1.18,
+    "ga": 1.38,
+    "home_n": 379,
+    "home_gf": 1.38,
+    "home_ga": 1.21,
+    "away_n": 381,
+    "away_gf": 0.98,
+    "away_ga": 1.55,
+    "r50_n": 50,
+    "r50_gf": 1.44,
+    "r50_ga": 1.12,
+    "sot": 4.11,
+    "xg": 1.18,
+    "xg_cov": 80.0,
+    "over25": 47.8,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.18,
+    "def": 1.38,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Udinese": {
+   "cn": "乌迪内斯",
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 910,
+    "gf": 1.26,
+    "ga": 1.38,
+    "home_n": 455,
+    "home_gf": 1.38,
+    "home_ga": 1.22,
+    "away_n": 455,
+    "away_gf": 1.14,
+    "away_ga": 1.55,
+    "r50_n": 50,
+    "r50_gf": 1.06,
+    "r50_ga": 1.38,
+    "sot": 4.37,
+    "xg": 1.26,
+    "xg_cov": 83.4,
+    "over25": 49.5,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.26,
+    "def": 1.38,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Brescia": {
+   "cn": null,
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 231,
+    "gf": 1.14,
+    "ga": 1.53,
+    "home_n": 115,
+    "home_gf": 1.29,
+    "home_ga": 1.33,
+    "away_n": 116,
+    "away_gf": 0.99,
+    "away_ga": 1.72,
+    "r50_n": 50,
+    "r50_gf": 0.98,
+    "r50_ga": 1.96,
+    "sot": 4.13,
+    "xg": 1.19,
+    "xg_cov": 32.9,
+    "over25": 52.8,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.14,
+    "def": 1.53,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Lorient": {
+   "cn": "洛里昂",
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 600,
+    "gf": 1.18,
+    "ga": 1.44,
+    "home_n": 300,
+    "home_gf": 1.33,
+    "home_ga": 1.11,
+    "away_n": 300,
+    "away_gf": 1.03,
+    "away_ga": 1.77,
+    "r50_n": 50,
+    "r50_gf": 1.2,
+    "r50_ga": 1.7,
+    "sot": 4.04,
+    "xg": 1.16,
+    "xg_cov": 94.3,
+    "over25": 46.8,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.18,
+    "def": 1.44,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Sochaux": {
+   "cn": null,
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 455,
+    "gf": 1.08,
+    "ga": 1.27,
+    "home_n": 227,
+    "home_gf": 1.24,
+    "home_ga": 1.02,
+    "away_n": 228,
+    "away_gf": 0.93,
+    "away_ga": 1.52,
+    "r50_n": 50,
+    "r50_gf": 1.02,
+    "r50_ga": 1.6,
+    "sot": 4.04,
+    "xg": 1.16,
+    "xg_cov": 75.2,
+    "over25": 42.9,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.08,
+    "def": 1.27,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Montpellier": {
+   "cn": "蒙彼利埃",
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 667,
+    "gf": 1.23,
+    "ga": 1.33,
+    "home_n": 335,
+    "home_gf": 1.39,
+    "home_ga": 1.14,
+    "away_n": 332,
+    "away_gf": 1.08,
+    "away_ga": 1.53,
+    "r50_n": 50,
+    "r50_gf": 0.94,
+    "r50_ga": 2.08,
+    "sot": 4.32,
+    "xg": 1.24,
+    "xg_cov": 88.5,
+    "over25": 46.3,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.23,
+    "def": 1.33,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Nurnberg": {
+   "cn": null,
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 406,
+    "gf": 1.15,
+    "ga": 1.6,
+    "home_n": 203,
+    "home_gf": 1.3,
+    "home_ga": 1.31,
+    "away_n": 203,
+    "away_gf": 1.0,
+    "away_ga": 1.89,
+    "r50_n": 50,
+    "r50_gf": 0.84,
+    "r50_ga": 2.1,
+    "sot": 4.52,
+    "xg": 1.3,
+    "xg_cov": 75.4,
+    "over25": 52.0,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.15,
+    "def": 1.6,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "MGladbach": {
+   "cn": null,
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 749,
+    "gf": 1.43,
+    "ga": 1.46,
+    "home_n": 375,
+    "home_gf": 1.71,
+    "home_ga": 1.16,
+    "away_n": 374,
+    "away_gf": 1.15,
+    "away_ga": 1.75,
+    "r50_n": 50,
+    "r50_gf": 1.66,
+    "r50_ga": 1.74,
+    "sot": 5.03,
+    "xg": 1.45,
+    "xg_cov": 83.7,
+    "over25": 55.1,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.43,
+    "def": 1.46,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "St Pauli": {
+   "cn": null,
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 102,
+    "gf": 0.98,
+    "ga": 1.75,
+    "home_n": 51,
+    "home_gf": 0.98,
+    "home_ga": 1.61,
+    "away_n": 51,
+    "away_gf": 0.98,
+    "away_ga": 1.9,
+    "r50_n": 50,
+    "r50_gf": 0.9,
+    "r50_ga": 1.54,
+    "sot": 3.89,
+    "xg": 1.12,
+    "xg_cov": 100.0,
+    "over25": 52.0,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.98,
+    "def": 1.75,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Blackburn": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 408,
+    "gf": 1.25,
+    "ga": 1.41,
+    "home_n": 204,
+    "home_gf": 1.4,
+    "home_ga": 1.14,
+    "away_n": 204,
+    "away_gf": 1.09,
+    "away_ga": 1.68,
+    "r50_n": 50,
+    "r50_gf": 1.2,
+    "r50_ga": 1.9,
+    "sot": 5.73,
+    "xg": 1.65,
+    "xg_cov": 100.0,
+    "over25": 50.2,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.25,
+    "def": 1.41,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Bolton": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 410,
+    "gf": 1.18,
+    "ga": 1.47,
+    "home_n": 204,
+    "home_gf": 1.33,
+    "home_ga": 1.24,
+    "away_n": 206,
+    "away_gf": 1.03,
+    "away_ga": 1.7,
+    "r50_n": 50,
+    "r50_gf": 1.24,
+    "r50_ga": 1.92,
+    "sot": 6.1,
+    "xg": 1.75,
+    "xg_cov": 100.0,
+    "over25": 48.8,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.18,
+    "def": 1.47,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Fulham": {
+   "cn": "富勒姆",
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 674,
+    "gf": 1.15,
+    "ga": 1.46,
+    "home_n": 337,
+    "home_gf": 1.36,
+    "home_ga": 1.3,
+    "away_n": 337,
+    "away_gf": 0.94,
+    "away_ga": 1.63,
+    "r50_n": 50,
+    "r50_gf": 1.46,
+    "r50_ga": 1.46,
+    "sot": 5.08,
+    "xg": 1.46,
+    "xg_cov": 100.0,
+    "over25": 50.4,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.15,
+    "def": 1.46,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Chievo": {
+   "cn": null,
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 614,
+    "gf": 1.05,
+    "ga": 1.32,
+    "home_n": 307,
+    "home_gf": 1.14,
+    "home_ga": 1.11,
+    "away_n": 307,
+    "away_gf": 0.96,
+    "away_ga": 1.54,
+    "r50_n": 50,
+    "r50_gf": 0.76,
+    "r50_ga": 1.82,
+    "sot": 3.73,
+    "xg": 1.07,
+    "xg_cov": 80.1,
+    "over25": 44.0,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.05,
+    "def": 1.32,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Venezia": {
+   "cn": "威尼斯",
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 110,
+    "gf": 0.87,
+    "ga": 1.69,
+    "home_n": 55,
+    "home_gf": 1.0,
+    "home_ga": 1.56,
+    "away_n": 55,
+    "away_gf": 0.75,
+    "away_ga": 1.82,
+    "r50_n": 50,
+    "r50_gf": 0.84,
+    "r50_ga": 1.56,
+    "sot": 3.29,
+    "xg": 0.95,
+    "xg_cov": 69.1,
+    "over25": 46.4,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.87,
+    "def": 1.69,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Piacenza": {
+   "cn": null,
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 68,
+    "gf": 1.37,
+    "ga": 1.54,
+    "home_n": 34,
+    "home_gf": 1.74,
+    "home_ga": 1.38,
+    "away_n": 34,
+    "away_gf": 1.0,
+    "away_ga": 1.71,
+    "r50_n": 50,
+    "r50_gf": 1.38,
+    "r50_ga": 1.6,
+    "sot": null,
+    "xg": null,
+    "xg_cov": 0.0,
+    "over25": 55.9,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.37,
+    "def": 1.54,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Torino": {
+   "cn": "都灵",
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 676,
+    "gf": 1.18,
+    "ga": 1.34,
+    "home_n": 338,
+    "home_gf": 1.25,
+    "home_ga": 1.17,
+    "away_n": 338,
+    "away_gf": 1.12,
+    "away_ga": 1.51,
+    "r50_n": 50,
+    "r50_gf": 1.0,
+    "r50_ga": 1.12,
+    "sot": 4.26,
+    "xg": 1.22,
+    "xg_cov": 89.9,
+    "over25": 45.0,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.18,
+    "def": 1.34,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Betis": {
+   "cn": "皇家贝蒂斯",
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 749,
+    "gf": 1.26,
+    "ga": 1.37,
+    "home_n": 374,
+    "home_gf": 1.41,
+    "home_ga": 1.19,
+    "away_n": 375,
+    "away_gf": 1.11,
+    "away_ga": 1.56,
+    "r50_n": 50,
+    "r50_gf": 1.48,
+    "r50_ga": 1.38,
+    "sot": 4.27,
+    "xg": 1.23,
+    "xg_cov": 81.2,
+    "over25": 47.3,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.26,
+    "def": 1.37,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Sevilla": {
+   "cn": "塞维利亚",
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 863,
+    "gf": 1.46,
+    "ga": 1.22,
+    "home_n": 431,
+    "home_gf": 1.68,
+    "home_ga": 1.03,
+    "away_n": 432,
+    "away_gf": 1.24,
+    "away_ga": 1.41,
+    "r50_n": 50,
+    "r50_gf": 1.2,
+    "r50_ga": 1.42,
+    "sot": 4.7,
+    "xg": 1.35,
+    "xg_cov": 83.7,
+    "over25": 48.3,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.46,
+    "def": 1.22,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Tenerife": {
+   "cn": null,
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 76,
+    "gf": 0.95,
+    "ga": 1.74,
+    "home_n": 38,
+    "home_gf": 1.24,
+    "home_ga": 1.55,
+    "away_n": 38,
+    "away_gf": 0.66,
+    "away_ga": 1.92,
+    "r50_n": 50,
+    "r50_gf": 1.08,
+    "r50_ga": 1.9,
+    "sot": 4.47,
+    "xg": 1.29,
+    "xg_cov": 50.0,
+    "over25": 48.7,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.95,
+    "def": 1.74,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Nice": {
+   "cn": "尼斯",
+   "leagues": [
+    "F1",
+    "欧冠"
+   ],
+   "lg": {
+    "n": 826,
+    "gf": 1.18,
+    "ga": 1.11,
+    "home_n": 414,
+    "home_gf": 1.37,
+    "home_ga": 0.94,
+    "away_n": 412,
+    "away_gf": 1.0,
+    "away_ga": 1.28,
+    "r50_n": 50,
+    "r50_gf": 1.74,
+    "r50_ga": 1.18,
+    "sot": 4.14,
+    "xg": 1.19,
+    "xg_cov": 89.8,
+    "over25": 41.2,
+    "sample": "ok"
+   },
+   "ucl": {
+    "n": 2,
+    "gf": 0.0,
+    "ga": 2.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": {
+    "att": 0.92,
+    "def": 1.31,
+    "w_lg": 0.778,
+    "w_ucl": 0.222,
+    "note": "联赛+欧冠贝叶斯收缩（w_ucl=n/(n+5)）"
+   }
+  },
+  "Le Havre": {
+   "cn": "勒阿弗尔",
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 128,
+    "gf": 0.95,
+    "ga": 1.66,
+    "home_n": 64,
+    "home_gf": 0.92,
+    "home_ga": 1.66,
+    "away_n": 64,
+    "away_gf": 0.98,
+    "away_ga": 1.66,
+    "r50_n": 50,
+    "r50_gf": 1.1,
+    "r50_ga": 1.92,
+    "sot": 3.54,
+    "xg": 1.02,
+    "xg_cov": 82.8,
+    "over25": 52.3,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.95,
+    "def": 1.66,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Ajaccio": {
+   "cn": null,
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 272,
+    "gf": 0.85,
+    "ga": 1.48,
+    "home_n": 134,
+    "home_gf": 0.92,
+    "home_ga": 1.17,
+    "away_n": 138,
+    "away_gf": 0.78,
+    "away_ga": 1.78,
+    "r50_n": 50,
+    "r50_gf": 0.8,
+    "r50_ga": 2.0,
+    "sot": 3.25,
+    "xg": 0.93,
+    "xg_cov": 69.9,
+    "over25": 40.1,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.85,
+    "def": 1.48,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Bielefeld": {
+   "cn": null,
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 270,
+    "gf": 0.99,
+    "ga": 1.51,
+    "home_n": 135,
+    "home_gf": 1.15,
+    "home_ga": 1.22,
+    "away_n": 135,
+    "away_gf": 0.83,
+    "away_ga": 1.81,
+    "r50_n": 50,
+    "r50_gf": 0.78,
+    "r50_ga": 1.52,
+    "sot": 4.05,
+    "xg": 1.16,
+    "xg_cov": 63.0,
+    "over25": 44.1,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.99,
+    "def": 1.51,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Hannover": {
+   "cn": null,
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 530,
+    "gf": 1.29,
+    "ga": 1.63,
+    "home_n": 265,
+    "home_gf": 1.53,
+    "home_ga": 1.46,
+    "away_n": 265,
+    "away_gf": 1.04,
+    "away_ga": 1.8,
+    "r50_n": 50,
+    "r50_gf": 0.96,
+    "r50_ga": 1.94,
+    "sot": 4.35,
+    "xg": 1.25,
+    "xg_cov": 77.0,
+    "over25": 57.7,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.29,
+    "def": 1.63,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "West Brom": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 489,
+    "gf": 1.03,
+    "ga": 1.56,
+    "home_n": 244,
+    "home_gf": 1.2,
+    "home_ga": 1.47,
+    "away_n": 245,
+    "away_gf": 0.87,
+    "away_ga": 1.66,
+    "r50_n": 50,
+    "r50_gf": 0.9,
+    "r50_ga": 1.9,
+    "sot": 4.71,
+    "xg": 1.35,
+    "xg_cov": 100.0,
+    "over25": 50.3,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.03,
+    "def": 1.56,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Birmingham": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 258,
+    "gf": 1.02,
+    "ga": 1.35,
+    "home_n": 130,
+    "home_gf": 1.21,
+    "home_ga": 1.05,
+    "away_n": 128,
+    "away_gf": 0.84,
+    "away_ga": 1.66,
+    "r50_n": 50,
+    "r50_gf": 1.0,
+    "r50_ga": 1.54,
+    "sot": 4.71,
+    "xg": 1.35,
+    "xg_cov": 100.0,
+    "over25": 42.6,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.02,
+    "def": 1.35,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Ath Madrid": {
+   "cn": "马竞",
+   "leagues": [
+    "SP1",
+    "欧冠"
+   ],
+   "lg": {
+    "n": 825,
+    "gf": 1.62,
+    "ga": 1.0,
+    "home_n": 413,
+    "home_gf": 1.92,
+    "home_ga": 0.84,
+    "away_n": 412,
+    "away_gf": 1.32,
+    "away_ga": 1.16,
+    "r50_n": 50,
+    "r50_gf": 1.72,
+    "r50_ga": 0.9,
+    "sot": 4.94,
+    "xg": 1.42,
+    "xg_cov": 87.5,
+    "over25": 47.6,
+    "sample": "ok"
+   },
+   "ucl": {
+    "n": 2,
+    "gf": 2.0,
+    "ga": 1.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": {
+    "att": 1.7,
+    "def": 1.11,
+    "w_lg": 0.778,
+    "w_ucl": 0.222,
+    "note": "联赛+欧冠贝叶斯收缩（w_ucl=n/(n+5)）"
+   }
+  },
+  "Recreativo": {
+   "cn": null,
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 114,
+    "gf": 0.96,
+    "ga": 1.56,
+    "home_n": 57,
+    "home_gf": 1.14,
+    "home_ga": 1.37,
+    "away_n": 57,
+    "away_gf": 0.77,
+    "away_ga": 1.75,
+    "r50_n": 50,
+    "r50_gf": 0.96,
+    "r50_ga": 1.6,
+    "sot": 3.67,
+    "xg": 1.05,
+    "xg_cov": 66.7,
+    "over25": 41.2,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.96,
+    "def": 1.56,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Como": {
+   "cn": "科莫",
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 72,
+    "gf": 1.08,
+    "ga": 1.51,
+    "home_n": 36,
+    "home_gf": 1.33,
+    "home_ga": 1.44,
+    "away_n": 36,
+    "away_gf": 0.83,
+    "away_ga": 1.58,
+    "r50_n": 50,
+    "r50_gf": 1.26,
+    "r50_ga": 1.46,
+    "sot": 4.76,
+    "xg": 1.37,
+    "xg_cov": 52.8,
+    "over25": 41.7,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.08,
+    "def": 1.51,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Empoli": {
+   "cn": "恩波利",
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 473,
+    "gf": 1.03,
+    "ga": 1.49,
+    "home_n": 237,
+    "home_gf": 1.18,
+    "home_ga": 1.33,
+    "away_n": 236,
+    "away_gf": 0.88,
+    "away_ga": 1.65,
+    "r50_n": 50,
+    "r50_gf": 0.8,
+    "r50_ga": 1.46,
+    "sot": 3.84,
+    "xg": 1.1,
+    "xg_cov": 87.9,
+    "over25": 45.9,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.03,
+    "def": 1.49,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Modena": {
+   "cn": null,
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 56,
+    "gf": 0.88,
+    "ga": 1.41,
+    "home_n": 29,
+    "home_gf": 0.9,
+    "home_ga": 1.14,
+    "away_n": 27,
+    "away_gf": 0.85,
+    "away_ga": 1.7,
+    "r50_n": 50,
+    "r50_gf": 0.86,
+    "r50_ga": 1.38,
+    "sot": null,
+    "xg": null,
+    "xg_cov": 0.0,
+    "over25": 39.3,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.88,
+    "def": 1.41,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Le Mans": {
+   "cn": "勒芒",
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 212,
+    "gf": 1.02,
+    "ga": 1.3,
+    "home_n": 106,
+    "home_gf": 1.1,
+    "home_ga": 0.92,
+    "away_n": 106,
+    "away_gf": 0.94,
+    "away_ga": 1.69,
+    "r50_n": 50,
+    "r50_gf": 1.0,
+    "r50_ga": 1.56,
+    "sot": 4.31,
+    "xg": 1.24,
+    "xg_cov": 89.6,
+    "over25": 40.1,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.02,
+    "def": 1.3,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Wolves": {
+   "cn": "伍尔弗汉普顿流浪者",
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 413,
+    "gf": 1.11,
+    "ga": 1.55,
+    "home_n": 206,
+    "home_gf": 1.22,
+    "home_ga": 1.43,
+    "away_n": 207,
+    "away_gf": 1.0,
+    "away_ga": 1.68,
+    "r50_n": 50,
+    "r50_gf": 1.28,
+    "r50_ga": 1.88,
+    "sot": 4.43,
+    "xg": 1.27,
+    "xg_cov": 100.0,
+    "over25": 49.2,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.11,
+    "def": 1.55,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Portsmouth": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 258,
+    "gf": 1.07,
+    "ga": 1.44,
+    "home_n": 128,
+    "home_gf": 1.33,
+    "home_ga": 1.21,
+    "away_n": 130,
+    "away_gf": 0.82,
+    "away_ga": 1.66,
+    "r50_n": 50,
+    "r50_gf": 0.86,
+    "r50_ga": 1.6,
+    "sot": 6.09,
+    "xg": 1.75,
+    "xg_cov": 100.0,
+    "over25": 46.9,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.07,
+    "def": 1.44,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Albacete": {
+   "cn": null,
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 66,
+    "gf": 0.94,
+    "ga": 1.27,
+    "home_n": 33,
+    "home_gf": 1.09,
+    "home_ga": 1.06,
+    "away_n": 33,
+    "away_gf": 0.79,
+    "away_ga": 1.48,
+    "r50_n": 50,
+    "r50_gf": 0.84,
+    "r50_ga": 1.26,
+    "sot": null,
+    "xg": null,
+    "xg_cov": 0.0,
+    "over25": 33.3,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.94,
+    "def": 1.27,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Sampdoria": {
+   "cn": "桑普多利亚",
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 698,
+    "gf": 1.23,
+    "ga": 1.39,
+    "home_n": 348,
+    "home_gf": 1.46,
+    "home_ga": 1.17,
+    "away_n": 350,
+    "away_gf": 1.01,
+    "away_ga": 1.61,
+    "r50_n": 50,
+    "r50_gf": 0.7,
+    "r50_ga": 1.84,
+    "sot": 4.3,
+    "xg": 1.23,
+    "xg_cov": 92.4,
+    "over25": 47.9,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.23,
+    "def": 1.39,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Siena": {
+   "cn": null,
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 318,
+    "gf": 1.06,
+    "ga": 1.38,
+    "home_n": 159,
+    "home_gf": 1.11,
+    "home_ga": 1.15,
+    "away_n": 159,
+    "away_gf": 1.0,
+    "away_ga": 1.62,
+    "r50_n": 50,
+    "r50_gf": 1.02,
+    "r50_ga": 1.48,
+    "sot": 4.09,
+    "xg": 1.17,
+    "xg_cov": 83.0,
+    "over25": 45.0,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.06,
+    "def": 1.38,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Murcia": {
+   "cn": null,
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 76,
+    "gf": 0.86,
+    "ga": 1.61,
+    "home_n": 38,
+    "home_gf": 1.11,
+    "home_ga": 1.34,
+    "away_n": 38,
+    "away_gf": 0.61,
+    "away_ga": 1.87,
+    "r50_n": 50,
+    "r50_gf": 0.86,
+    "r50_ga": 1.6,
+    "sot": 3.5,
+    "xg": 1.01,
+    "xg_cov": 50.0,
+    "over25": 43.4,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.86,
+    "def": 1.61,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Ancona": {
+   "cn": null,
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 22,
+    "gf": 0.77,
+    "ga": 2.27,
+    "home_n": 12,
+    "home_gf": 0.75,
+    "home_ga": 1.5,
+    "away_n": 10,
+    "away_gf": 0.8,
+    "away_ga": 3.2,
+    "r50_n": 22,
+    "r50_gf": 0.77,
+    "r50_ga": 2.27,
+    "sot": null,
+    "xg": null,
+    "xg_cov": 0.0,
+    "over25": 54.5,
+    "sample": "tiny"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.77,
+    "def": 2.27,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Caen": {
+   "cn": null,
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 380,
+    "gf": 1.04,
+    "ga": 1.45,
+    "home_n": 190,
+    "home_gf": 1.1,
+    "home_ga": 1.24,
+    "away_n": 190,
+    "away_gf": 0.98,
+    "away_ga": 1.66,
+    "r50_n": 50,
+    "r50_gf": 0.72,
+    "r50_ga": 1.52,
+    "sot": 3.68,
+    "xg": 1.06,
+    "xg_cov": 90.0,
+    "over25": 44.5,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.04,
+    "def": 1.45,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Istres": {
+   "cn": null,
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 38,
+    "gf": 0.66,
+    "ga": 1.34,
+    "home_n": 19,
+    "home_gf": 0.58,
+    "home_ga": 1.0,
+    "away_n": 19,
+    "away_gf": 0.74,
+    "away_ga": 1.68,
+    "r50_n": 38,
+    "r50_gf": 0.66,
+    "r50_ga": 1.34,
+    "sot": null,
+    "xg": null,
+    "xg_cov": 0.0,
+    "over25": 23.7,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.66,
+    "def": 1.34,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Mainz": {
+   "cn": "美因茨",
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 646,
+    "gf": 1.33,
+    "ga": 1.48,
+    "home_n": 323,
+    "home_gf": 1.48,
+    "home_ga": 1.23,
+    "away_n": 323,
+    "away_gf": 1.18,
+    "away_ga": 1.73,
+    "r50_n": 50,
+    "r50_gf": 1.6,
+    "r50_ga": 1.28,
+    "sot": 4.47,
+    "xg": 1.29,
+    "xg_cov": 89.5,
+    "over25": 53.6,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.33,
+    "def": 1.48,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Norwich": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 262,
+    "gf": 0.94,
+    "ga": 1.83,
+    "home_n": 131,
+    "home_gf": 1.18,
+    "home_ga": 1.6,
+    "away_n": 131,
+    "away_gf": 0.7,
+    "away_ga": 2.05,
+    "r50_n": 50,
+    "r50_gf": 0.5,
+    "r50_ga": 2.22,
+    "sot": 4.33,
+    "xg": 1.24,
+    "xg_cov": 100.0,
+    "over25": 52.3,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.94,
+    "def": 1.83,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Crystal Palace": {
+   "cn": "水晶宫",
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 490,
+    "gf": 1.17,
+    "ga": 1.43,
+    "home_n": 245,
+    "home_gf": 1.19,
+    "home_ga": 1.26,
+    "away_n": 245,
+    "away_gf": 1.14,
+    "away_ga": 1.59,
+    "r50_n": 50,
+    "r50_gf": 1.54,
+    "r50_ga": 1.3,
+    "sot": 3.92,
+    "xg": 1.13,
+    "xg_cov": 100.0,
+    "over25": 46.3,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.17,
+    "def": 1.43,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Levante": {
+   "cn": "莱万特",
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 485,
+    "gf": 1.15,
+    "ga": 1.59,
+    "home_n": 242,
+    "home_gf": 1.35,
+    "home_ga": 1.34,
+    "away_n": 243,
+    "away_gf": 0.95,
+    "away_ga": 1.83,
+    "r50_n": 50,
+    "r50_gf": 1.24,
+    "r50_ga": 1.96,
+    "sot": 3.57,
+    "xg": 1.03,
+    "xg_cov": 94.0,
+    "over25": 52.2,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.15,
+    "def": 1.59,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Getafe": {
+   "cn": "赫塔费",
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 711,
+    "gf": 1.09,
+    "ga": 1.29,
+    "home_n": 356,
+    "home_gf": 1.26,
+    "home_ga": 1.04,
+    "away_n": 355,
+    "away_gf": 0.92,
+    "away_ga": 1.53,
+    "r50_n": 50,
+    "r50_gf": 0.86,
+    "r50_ga": 1.1,
+    "sot": 3.92,
+    "xg": 1.13,
+    "xg_cov": 96.2,
+    "over25": 42.8,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.09,
+    "def": 1.29,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Livorno": {
+   "cn": null,
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 221,
+    "gf": 1.0,
+    "ga": 1.57,
+    "home_n": 111,
+    "home_gf": 1.16,
+    "home_ga": 1.28,
+    "away_n": 110,
+    "away_gf": 0.85,
+    "away_ga": 1.87,
+    "r50_n": 50,
+    "r50_gf": 0.98,
+    "r50_ga": 2.04,
+    "sot": 3.83,
+    "xg": 1.1,
+    "xg_cov": 85.5,
+    "over25": 44.8,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.0,
+    "def": 1.57,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Cagliari": {
+   "cn": "卡利亚里",
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 713,
+    "gf": 1.13,
+    "ga": 1.52,
+    "home_n": 356,
+    "home_gf": 1.33,
+    "home_ga": 1.33,
+    "away_n": 357,
+    "away_gf": 0.93,
+    "away_ga": 1.72,
+    "r50_n": 50,
+    "r50_gf": 1.16,
+    "r50_ga": 1.54,
+    "sot": 3.93,
+    "xg": 1.13,
+    "xg_cov": 95.7,
+    "over25": 50.1,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.13,
+    "def": 1.52,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Palermo": {
+   "cn": null,
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 448,
+    "gf": 1.29,
+    "ga": 1.49,
+    "home_n": 224,
+    "home_gf": 1.58,
+    "home_ga": 1.34,
+    "away_n": 224,
+    "away_gf": 1.0,
+    "away_ga": 1.65,
+    "r50_n": 50,
+    "r50_gf": 0.88,
+    "r50_ga": 1.9,
+    "sot": 4.51,
+    "xg": 1.3,
+    "xg_cov": 93.1,
+    "over25": 51.6,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.29,
+    "def": 1.49,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Messina": {
+   "cn": null,
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 106,
+    "gf": 1.02,
+    "ga": 1.61,
+    "home_n": 53,
+    "home_gf": 1.19,
+    "home_ga": 1.3,
+    "away_n": 53,
+    "away_gf": 0.85,
+    "away_ga": 1.92,
+    "r50_n": 50,
+    "r50_gf": 0.92,
+    "r50_ga": 1.8,
+    "sot": 4.32,
+    "xg": 1.24,
+    "xg_cov": 69.8,
+    "over25": 48.1,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.02,
+    "def": 1.61,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Nancy": {
+   "cn": null,
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 342,
+    "gf": 1.02,
+    "ga": 1.22,
+    "home_n": 171,
+    "home_gf": 1.17,
+    "home_ga": 1.09,
+    "away_n": 171,
+    "away_gf": 0.87,
+    "away_ga": 1.35,
+    "r50_n": 50,
+    "r50_gf": 0.9,
+    "r50_ga": 1.32,
+    "sot": 3.86,
+    "xg": 1.11,
+    "xg_cov": 100.0,
+    "over25": 41.5,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.02,
+    "def": 1.22,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Duisburg": {
+   "cn": null,
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 68,
+    "gf": 1.03,
+    "ga": 1.74,
+    "home_n": 34,
+    "home_gf": 1.06,
+    "home_ga": 1.53,
+    "away_n": 34,
+    "away_gf": 1.0,
+    "away_ga": 1.94,
+    "r50_n": 50,
+    "r50_gf": 1.08,
+    "r50_ga": 1.74,
+    "sot": 4.12,
+    "xg": 1.18,
+    "xg_cov": 50.0,
+    "over25": 44.1,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.03,
+    "def": 1.74,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Wigan": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 304,
+    "gf": 1.04,
+    "ga": 1.59,
+    "home_n": 152,
+    "home_gf": 1.11,
+    "home_ga": 1.41,
+    "away_n": 152,
+    "away_gf": 0.97,
+    "away_ga": 1.76,
+    "r50_n": 50,
+    "r50_gf": 1.32,
+    "r50_ga": 1.7,
+    "sot": 6.13,
+    "xg": 1.76,
+    "xg_cov": 100.0,
+    "over25": 49.0,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.04,
+    "def": 1.59,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Cadiz": {
+   "cn": null,
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 190,
+    "gf": 0.86,
+    "ga": 1.42,
+    "home_n": 95,
+    "home_gf": 0.98,
+    "home_ga": 1.27,
+    "away_n": 95,
+    "away_gf": 0.74,
+    "away_ga": 1.56,
+    "r50_n": 50,
+    "r50_gf": 0.7,
+    "r50_ga": 1.4,
+    "sot": 3.14,
+    "xg": 0.9,
+    "xg_cov": 100.0,
+    "over25": 34.2,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.86,
+    "def": 1.42,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Ascoli": {
+   "cn": null,
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 76,
+    "gf": 1.04,
+    "ga": 1.58,
+    "home_n": 38,
+    "home_gf": 1.34,
+    "home_ga": 1.5,
+    "away_n": 38,
+    "away_gf": 0.74,
+    "away_ga": 1.66,
+    "r50_n": 50,
+    "r50_gf": 1.06,
+    "r50_ga": 1.78,
+    "sot": 4.41,
+    "xg": 1.27,
+    "xg_cov": 100.0,
+    "over25": 47.4,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.04,
+    "def": 1.58,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Treviso": {
+   "cn": null,
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 38,
+    "gf": 0.63,
+    "ga": 1.47,
+    "home_n": 19,
+    "home_gf": 0.63,
+    "home_ga": 1.37,
+    "away_n": 19,
+    "away_gf": 0.63,
+    "away_ga": 1.58,
+    "r50_n": 38,
+    "r50_gf": 0.63,
+    "r50_ga": 1.47,
+    "sot": 3.86,
+    "xg": 1.11,
+    "xg_cov": 92.1,
+    "over25": 39.5,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.63,
+    "def": 1.47,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Valenciennes": {
+   "cn": null,
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 304,
+    "gf": 1.1,
+    "ga": 1.28,
+    "home_n": 152,
+    "home_gf": 1.4,
+    "home_ga": 1.01,
+    "away_n": 152,
+    "away_gf": 0.8,
+    "away_ga": 1.55,
+    "r50_n": 50,
+    "r50_gf": 1.04,
+    "r50_ga": 1.64,
+    "sot": 3.88,
+    "xg": 1.12,
+    "xg_cov": 100.0,
+    "over25": 44.7,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.1,
+    "def": 1.28,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Aachen": {
+   "cn": null,
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 34,
+    "gf": 1.35,
+    "ga": 2.06,
+    "home_n": 17,
+    "home_gf": 1.65,
+    "home_ga": 2.18,
+    "away_n": 17,
+    "away_gf": 1.06,
+    "away_ga": 1.94,
+    "r50_n": 34,
+    "r50_gf": 1.35,
+    "r50_ga": 2.06,
+    "sot": 7.09,
+    "xg": 2.04,
+    "xg_cov": 100.0,
+    "over25": 76.5,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.35,
+    "def": 2.06,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Watford": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 266,
+    "gf": 1.03,
+    "ga": 1.66,
+    "home_n": 133,
+    "home_gf": 1.17,
+    "home_ga": 1.54,
+    "away_n": 133,
+    "away_gf": 0.89,
+    "away_ga": 1.77,
+    "r50_n": 50,
+    "r50_gf": 0.92,
+    "r50_ga": 2.02,
+    "sot": 3.69,
+    "xg": 1.06,
+    "xg_cov": 100.0,
+    "over25": 52.6,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.03,
+    "def": 1.66,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Reading": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 114,
+    "gf": 1.19,
+    "ga": 1.63,
+    "home_n": 57,
+    "home_gf": 1.25,
+    "home_ga": 1.37,
+    "away_n": 57,
+    "away_gf": 1.14,
+    "away_ga": 1.89,
+    "r50_n": 50,
+    "r50_gf": 1.08,
+    "r50_ga": 1.72,
+    "sot": 4.74,
+    "xg": 1.36,
+    "xg_cov": 100.0,
+    "over25": 53.5,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.19,
+    "def": 1.63,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Sheffield United": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 152,
+    "gf": 0.83,
+    "ga": 1.72,
+    "home_n": 76,
+    "home_gf": 1.04,
+    "home_ga": 1.58,
+    "away_n": 76,
+    "away_gf": 0.62,
+    "away_ga": 1.86,
+    "r50_n": 50,
+    "r50_gf": 0.8,
+    "r50_ga": 2.48,
+    "sot": 3.59,
+    "xg": 1.03,
+    "xg_cov": 100.0,
+    "over25": 46.7,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.83,
+    "def": 1.72,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Catania": {
+   "cn": null,
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 304,
+    "gf": 1.1,
+    "ga": 1.4,
+    "home_n": 152,
+    "home_gf": 1.36,
+    "home_ga": 1.01,
+    "away_n": 152,
+    "away_gf": 0.85,
+    "away_ga": 1.78,
+    "r50_n": 50,
+    "r50_gf": 1.0,
+    "r50_ga": 1.62,
+    "sot": 3.95,
+    "xg": 1.13,
+    "xg_cov": 100.0,
+    "over25": 44.7,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.1,
+    "def": 1.4,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Karlsruhe": {
+   "cn": null,
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 68,
+    "gf": 1.0,
+    "ga": 1.57,
+    "home_n": 34,
+    "home_gf": 1.21,
+    "home_ga": 1.29,
+    "away_n": 34,
+    "away_gf": 0.79,
+    "away_ga": 1.85,
+    "r50_n": 50,
+    "r50_gf": 0.94,
+    "r50_ga": 1.72,
+    "sot": 4.22,
+    "xg": 1.21,
+    "xg_cov": 100.0,
+    "over25": 48.5,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.0,
+    "def": 1.57,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Genoa": {
+   "cn": "热那亚",
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 646,
+    "gf": 1.16,
+    "ga": 1.41,
+    "home_n": 323,
+    "home_gf": 1.41,
+    "home_ga": 1.28,
+    "away_n": 323,
+    "away_gf": 0.92,
+    "away_ga": 1.55,
+    "r50_n": 50,
+    "r50_gf": 1.08,
+    "r50_ga": 1.26,
+    "sot": 4.01,
+    "xg": 1.15,
+    "xg_cov": 100.0,
+    "over25": 45.5,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.16,
+    "def": 1.41,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Almeria": {
+   "cn": null,
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 304,
+    "gf": 1.11,
+    "ga": 1.66,
+    "home_n": 152,
+    "home_gf": 1.25,
+    "home_ga": 1.38,
+    "away_n": 152,
+    "away_gf": 0.96,
+    "away_ga": 1.95,
+    "r50_n": 50,
+    "r50_gf": 1.24,
+    "r50_ga": 1.9,
+    "sot": 3.87,
+    "xg": 1.11,
+    "xg_cov": 100.0,
+    "over25": 52.0,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.11,
+    "def": 1.66,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Grenoble": {
+   "cn": null,
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 76,
+    "gf": 0.72,
+    "ga": 1.29,
+    "home_n": 38,
+    "home_gf": 0.87,
+    "home_ga": 1.08,
+    "away_n": 38,
+    "away_gf": 0.58,
+    "away_ga": 1.5,
+    "r50_n": 50,
+    "r50_gf": 0.8,
+    "r50_ga": 1.5,
+    "sot": 3.39,
+    "xg": 0.98,
+    "xg_cov": 100.0,
+    "over25": 31.6,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.72,
+    "def": 1.29,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Hoffenheim": {
+   "cn": "霍芬海姆",
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 578,
+    "gf": 1.6,
+    "ga": 1.61,
+    "home_n": 289,
+    "home_gf": 1.73,
+    "home_ga": 1.45,
+    "away_n": 289,
+    "away_gf": 1.47,
+    "away_ga": 1.76,
+    "r50_n": 50,
+    "r50_gf": 1.56,
+    "r50_ga": 1.96,
+    "sot": 4.96,
+    "xg": 1.42,
+    "xg_cov": 100.0,
+    "over25": 61.9,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.6,
+    "def": 1.61,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Stoke": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 380,
+    "gf": 1.05,
+    "ga": 1.38,
+    "home_n": 190,
+    "home_gf": 1.31,
+    "home_ga": 1.12,
+    "away_n": 190,
+    "away_gf": 0.79,
+    "away_ga": 1.64,
+    "r50_n": 50,
+    "r50_gf": 0.92,
+    "r50_ga": 1.68,
+    "sot": 3.95,
+    "xg": 1.13,
+    "xg_cov": 100.0,
+    "over25": 44.7,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.05,
+    "def": 1.38,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Hull": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 190,
+    "gf": 0.95,
+    "ga": 1.7,
+    "home_n": 95,
+    "home_gf": 1.13,
+    "home_ga": 1.53,
+    "away_n": 95,
+    "away_gf": 0.78,
+    "away_ga": 1.87,
+    "r50_n": 50,
+    "r50_gf": 0.9,
+    "r50_ga": 1.92,
+    "sot": 4.11,
+    "xg": 1.18,
+    "xg_cov": 100.0,
+    "over25": 47.4,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.95,
+    "def": 1.7,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Sp Gijon": {
+   "cn": null,
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 228,
+    "gf": 1.06,
+    "ga": 1.64,
+    "home_n": 114,
+    "home_gf": 1.27,
+    "home_ga": 1.43,
+    "away_n": 114,
+    "away_gf": 0.85,
+    "away_ga": 1.86,
+    "r50_n": 50,
+    "r50_gf": 1.04,
+    "r50_ga": 1.76,
+    "sot": 3.86,
+    "xg": 1.11,
+    "xg_cov": 100.0,
+    "over25": 53.1,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.06,
+    "def": 1.64,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Boulogne": {
+   "cn": null,
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 38,
+    "gf": 0.82,
+    "ga": 1.63,
+    "home_n": 19,
+    "home_gf": 1.0,
+    "home_ga": 1.63,
+    "away_n": 19,
+    "away_gf": 0.63,
+    "away_ga": 1.63,
+    "r50_n": 38,
+    "r50_gf": 0.82,
+    "r50_ga": 1.63,
+    "sot": 3.05,
+    "xg": 0.88,
+    "xg_cov": 100.0,
+    "over25": 44.7,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.82,
+    "def": 1.63,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Burnley": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 342,
+    "gf": 1.0,
+    "ga": 1.56,
+    "home_n": 171,
+    "home_gf": 1.05,
+    "home_ga": 1.39,
+    "away_n": 171,
+    "away_gf": 0.94,
+    "away_ga": 1.73,
+    "r50_n": 50,
+    "r50_gf": 1.06,
+    "r50_ga": 1.9,
+    "sot": 3.64,
+    "xg": 1.05,
+    "xg_cov": 100.0,
+    "over25": 47.7,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.0,
+    "def": 1.56,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Xerez": {
+   "cn": null,
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 38,
+    "gf": 1.0,
+    "ga": 1.74,
+    "home_n": 19,
+    "home_gf": 1.05,
+    "home_ga": 1.53,
+    "away_n": 19,
+    "away_gf": 0.95,
+    "away_ga": 1.95,
+    "r50_n": 38,
+    "r50_gf": 1.0,
+    "r50_ga": 1.74,
+    "sot": 3.26,
+    "xg": 0.94,
+    "xg_cov": 100.0,
+    "over25": 55.3,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.0,
+    "def": 1.74,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Arles": {
+   "cn": null,
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 38,
+    "gf": 0.55,
+    "ga": 1.84,
+    "home_n": 19,
+    "home_gf": 0.74,
+    "home_ga": 1.63,
+    "away_n": 19,
+    "away_gf": 0.37,
+    "away_ga": 2.05,
+    "r50_n": 38,
+    "r50_gf": 0.55,
+    "r50_ga": 1.84,
+    "sot": 2.68,
+    "xg": 0.77,
+    "xg_cov": 100.0,
+    "over25": 42.1,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.55,
+    "def": 1.84,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Brest": {
+   "cn": "布雷斯特",
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 324,
+    "gf": 1.18,
+    "ga": 1.39,
+    "home_n": 162,
+    "home_gf": 1.36,
+    "home_ga": 1.2,
+    "away_n": 162,
+    "away_gf": 0.99,
+    "away_ga": 1.58,
+    "r50_n": 50,
+    "r50_gf": 1.56,
+    "r50_ga": 1.56,
+    "sot": 3.96,
+    "xg": 1.14,
+    "xg_cov": 100.0,
+    "over25": 46.3,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.18,
+    "def": 1.39,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Blackpool": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 38,
+    "gf": 1.45,
+    "ga": 2.05,
+    "home_n": 19,
+    "home_gf": 1.58,
+    "home_ga": 1.95,
+    "away_n": 19,
+    "away_gf": 1.32,
+    "away_ga": 2.16,
+    "r50_n": 38,
+    "r50_gf": 1.45,
+    "r50_ga": 2.05,
+    "sot": 6.18,
+    "xg": 1.78,
+    "xg_cov": 100.0,
+    "over25": 73.7,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.45,
+    "def": 2.05,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Hercules": {
+   "cn": null,
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 38,
+    "gf": 0.95,
+    "ga": 1.58,
+    "home_n": 19,
+    "home_gf": 1.42,
+    "home_ga": 1.42,
+    "away_n": 19,
+    "away_gf": 0.47,
+    "away_ga": 1.74,
+    "r50_n": 38,
+    "r50_gf": 0.95,
+    "r50_ga": 1.58,
+    "sot": 4.05,
+    "xg": 1.16,
+    "xg_cov": 100.0,
+    "over25": 57.9,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.95,
+    "def": 1.58,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Cesena": {
+   "cn": null,
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 114,
+    "gf": 0.86,
+    "ga": 1.61,
+    "home_n": 57,
+    "home_gf": 0.89,
+    "home_ga": 1.33,
+    "away_n": 57,
+    "away_gf": 0.82,
+    "away_ga": 1.88,
+    "r50_n": 50,
+    "r50_gf": 0.88,
+    "r50_ga": 1.86,
+    "sot": 3.32,
+    "xg": 0.95,
+    "xg_cov": 100.0,
+    "over25": 43.0,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.86,
+    "def": 1.61,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Augsburg": {
+   "cn": "奥格斯堡",
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 476,
+    "gf": 1.21,
+    "ga": 1.59,
+    "home_n": 238,
+    "home_gf": 1.37,
+    "home_ga": 1.44,
+    "away_n": 238,
+    "away_gf": 1.05,
+    "away_ga": 1.74,
+    "r50_n": 50,
+    "r50_gf": 1.18,
+    "r50_ga": 1.56,
+    "sot": 4.1,
+    "xg": 1.18,
+    "xg_cov": 100.0,
+    "over25": 54.4,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.21,
+    "def": 1.59,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Evian Thonon Gaillard": {
+   "cn": null,
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 152,
+    "gf": 1.18,
+    "ga": 1.45,
+    "home_n": 76,
+    "home_gf": 1.38,
+    "home_ga": 1.36,
+    "away_n": 76,
+    "away_gf": 0.99,
+    "away_ga": 1.55,
+    "r50_n": 50,
+    "r50_gf": 1.1,
+    "r50_ga": 1.4,
+    "sot": 3.61,
+    "xg": 1.04,
+    "xg_cov": 100.0,
+    "over25": 50.0,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.18,
+    "def": 1.45,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Dijon": {
+   "cn": null,
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 218,
+    "gf": 1.02,
+    "ga": 1.67,
+    "home_n": 109,
+    "home_gf": 1.2,
+    "home_ga": 1.38,
+    "away_n": 109,
+    "away_gf": 0.83,
+    "away_ga": 1.96,
+    "r50_n": 50,
+    "r50_gf": 0.82,
+    "r50_ga": 1.84,
+    "sot": 3.6,
+    "xg": 1.03,
+    "xg_cov": 100.0,
+    "over25": 51.8,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.02,
+    "def": 1.67,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "QPR": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 114,
+    "gf": 1.01,
+    "ga": 1.75,
+    "home_n": 57,
+    "home_gf": 1.05,
+    "home_ga": 1.35,
+    "away_n": 57,
+    "away_gf": 0.96,
+    "away_ga": 2.14,
+    "r50_n": 50,
+    "r50_gf": 1.06,
+    "r50_ga": 1.84,
+    "sot": 5.79,
+    "xg": 1.66,
+    "xg_cov": 100.0,
+    "over25": 53.5,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.01,
+    "def": 1.75,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Swansea": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 266,
+    "gf": 1.15,
+    "ga": 1.44,
+    "home_n": 133,
+    "home_gf": 1.35,
+    "home_ga": 1.28,
+    "away_n": 133,
+    "away_gf": 0.95,
+    "away_ga": 1.6,
+    "r50_n": 50,
+    "r50_gf": 0.82,
+    "r50_ga": 1.38,
+    "sot": 4.51,
+    "xg": 1.3,
+    "xg_cov": 100.0,
+    "over25": 48.5,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.15,
+    "def": 1.44,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Granada": {
+   "cn": null,
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 380,
+    "gf": 1.03,
+    "ga": 1.66,
+    "home_n": 190,
+    "home_gf": 1.13,
+    "home_ga": 1.29,
+    "away_n": 190,
+    "away_gf": 0.93,
+    "away_ga": 2.03,
+    "r50_n": 50,
+    "r50_gf": 1.1,
+    "r50_ga": 2.0,
+    "sot": 3.54,
+    "xg": 1.02,
+    "xg_cov": 100.0,
+    "over25": 50.8,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.03,
+    "def": 1.66,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Novara": {
+   "cn": null,
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 38,
+    "gf": 0.92,
+    "ga": 1.71,
+    "home_n": 19,
+    "home_gf": 1.05,
+    "home_ga": 1.42,
+    "away_n": 19,
+    "away_gf": 0.79,
+    "away_ga": 2.0,
+    "r50_n": 38,
+    "r50_gf": 0.92,
+    "r50_ga": 1.71,
+    "sot": 3.74,
+    "xg": 1.07,
+    "xg_cov": 100.0,
+    "over25": 52.6,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.92,
+    "def": 1.71,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Reims": {
+   "cn": "兰斯",
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 400,
+    "gf": 1.09,
+    "ga": 1.28,
+    "home_n": 200,
+    "home_gf": 1.18,
+    "home_ga": 1.13,
+    "away_n": 200,
+    "away_gf": 1.01,
+    "away_ga": 1.44,
+    "r50_n": 50,
+    "r50_gf": 1.0,
+    "r50_ga": 1.4,
+    "sot": 3.71,
+    "xg": 1.07,
+    "xg_cov": 100.0,
+    "over25": 43.2,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.09,
+    "def": 1.28,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Fortuna Dusseldorf": {
+   "cn": null,
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 102,
+    "gf": 1.22,
+    "ga": 1.85,
+    "home_n": 51,
+    "home_gf": 1.35,
+    "home_ga": 1.65,
+    "away_n": 51,
+    "away_gf": 1.08,
+    "away_ga": 2.06,
+    "r50_n": 50,
+    "r50_gf": 1.28,
+    "r50_ga": 1.96,
+    "sot": 3.84,
+    "xg": 1.1,
+    "xg_cov": 100.0,
+    "over25": 64.7,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.22,
+    "def": 1.85,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Greuther Furth": {
+   "cn": null,
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 68,
+    "gf": 0.79,
+    "ga": 2.09,
+    "home_n": 34,
+    "home_gf": 0.74,
+    "home_ga": 2.03,
+    "away_n": 34,
+    "away_gf": 0.85,
+    "away_ga": 2.15,
+    "r50_n": 50,
+    "r50_gf": 0.86,
+    "r50_ga": 2.24,
+    "sot": 3.35,
+    "xg": 0.96,
+    "xg_cov": 100.0,
+    "over25": 51.5,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.79,
+    "def": 2.09,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Pescara": {
+   "cn": null,
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 76,
+    "gf": 0.84,
+    "ga": 2.17,
+    "home_n": 38,
+    "home_gf": 0.89,
+    "home_ga": 2.11,
+    "away_n": 38,
+    "away_gf": 0.79,
+    "away_ga": 2.24,
+    "r50_n": 50,
+    "r50_gf": 0.88,
+    "r50_ga": 2.24,
+    "sot": 3.49,
+    "xg": 1.0,
+    "xg_cov": 100.0,
+    "over25": 55.3,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.84,
+    "def": 2.17,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Braunschweig": {
+   "cn": null,
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 34,
+    "gf": 0.85,
+    "ga": 1.76,
+    "home_n": 17,
+    "home_gf": 1.06,
+    "home_ga": 1.41,
+    "away_n": 17,
+    "away_gf": 0.65,
+    "away_ga": 2.12,
+    "r50_n": 34,
+    "r50_gf": 0.85,
+    "r50_ga": 1.76,
+    "sot": 3.5,
+    "xg": 1.01,
+    "xg_cov": 100.0,
+    "over25": 44.1,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.85,
+    "def": 1.76,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Cardiff": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 76,
+    "gf": 0.87,
+    "ga": 1.88,
+    "home_n": 38,
+    "home_gf": 1.08,
+    "home_ga": 1.92,
+    "away_n": 38,
+    "away_gf": 0.66,
+    "away_ga": 1.84,
+    "r50_n": 50,
+    "r50_gf": 0.94,
+    "r50_ga": 1.98,
+    "sot": 3.32,
+    "xg": 0.95,
+    "xg_cov": 100.0,
+    "over25": 52.6,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.87,
+    "def": 1.88,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Elche": {
+   "cn": "埃尔切",
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 190,
+    "gf": 0.89,
+    "ga": 1.51,
+    "home_n": 95,
+    "home_gf": 0.97,
+    "home_ga": 1.22,
+    "away_n": 95,
+    "away_gf": 0.81,
+    "away_ga": 1.79,
+    "r50_n": 50,
+    "r50_gf": 0.84,
+    "r50_ga": 1.64,
+    "sot": 3.06,
+    "xg": 0.88,
+    "xg_cov": 100.0,
+    "over25": 45.8,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.89,
+    "def": 1.51,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Sassuolo": {
+   "cn": "萨索洛",
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 418,
+    "gf": 1.36,
+    "ga": 1.61,
+    "home_n": 209,
+    "home_gf": 1.4,
+    "home_ga": 1.49,
+    "away_n": 209,
+    "away_gf": 1.32,
+    "away_ga": 1.73,
+    "r50_n": 50,
+    "r50_gf": 1.12,
+    "r50_ga": 1.92,
+    "sot": 4.66,
+    "xg": 1.34,
+    "xg_cov": 100.0,
+    "over25": 57.7,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.36,
+    "def": 1.61,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Eibar": {
+   "cn": null,
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 266,
+    "gf": 1.12,
+    "ga": 1.41,
+    "home_n": 133,
+    "home_gf": 1.27,
+    "home_ga": 1.19,
+    "away_n": 133,
+    "away_gf": 0.96,
+    "away_ga": 1.63,
+    "r50_n": 50,
+    "r50_gf": 0.84,
+    "r50_ga": 1.38,
+    "sot": 3.88,
+    "xg": 1.11,
+    "xg_cov": 100.0,
+    "over25": 46.2,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.12,
+    "def": 1.41,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Paderborn": {
+   "cn": "帕德博恩",
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 68,
+    "gf": 1.0,
+    "ga": 2.04,
+    "home_n": 34,
+    "home_gf": 1.24,
+    "home_ga": 2.26,
+    "away_n": 34,
+    "away_gf": 0.76,
+    "away_ga": 1.82,
+    "r50_n": 50,
+    "r50_gf": 0.94,
+    "r50_ga": 2.16,
+    "sot": 4.0,
+    "xg": 1.15,
+    "xg_cov": 100.0,
+    "over25": 63.2,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.0,
+    "def": 2.04,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Cordoba": {
+   "cn": null,
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 38,
+    "gf": 0.58,
+    "ga": 1.79,
+    "home_n": 19,
+    "home_gf": 0.63,
+    "home_ga": 1.74,
+    "away_n": 19,
+    "away_gf": 0.53,
+    "away_ga": 1.84,
+    "r50_n": 38,
+    "r50_gf": 0.58,
+    "r50_ga": 1.79,
+    "sot": 3.21,
+    "xg": 0.92,
+    "xg_cov": 100.0,
+    "over25": 39.5,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.58,
+    "def": 1.79,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Angers": {
+   "cn": "昂热",
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 328,
+    "gf": 1.05,
+    "ga": 1.43,
+    "home_n": 165,
+    "home_gf": 1.16,
+    "home_ga": 1.3,
+    "away_n": 163,
+    "away_gf": 0.93,
+    "away_ga": 1.56,
+    "r50_n": 50,
+    "r50_gf": 0.94,
+    "r50_ga": 1.74,
+    "sot": 3.77,
+    "xg": 1.08,
+    "xg_cov": 100.0,
+    "over25": 45.1,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.05,
+    "def": 1.43,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Ajaccio GFCO": {
+   "cn": null,
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 38,
+    "gf": 0.97,
+    "ga": 1.53,
+    "home_n": 19,
+    "home_gf": 1.21,
+    "home_ga": 1.68,
+    "away_n": 19,
+    "away_gf": 0.74,
+    "away_ga": 1.37,
+    "r50_n": 38,
+    "r50_gf": 0.97,
+    "r50_ga": 1.53,
+    "sot": 3.26,
+    "xg": 0.94,
+    "xg_cov": 100.0,
+    "over25": 42.1,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.97,
+    "def": 1.53,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Bournemouth": {
+   "cn": "伯恩茅斯",
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 304,
+    "gf": 1.28,
+    "ga": 1.69,
+    "home_n": 152,
+    "home_gf": 1.36,
+    "home_ga": 1.45,
+    "away_n": 152,
+    "away_gf": 1.21,
+    "away_ga": 1.93,
+    "r50_n": 50,
+    "r50_gf": 1.54,
+    "r50_ga": 1.32,
+    "sot": 4.16,
+    "xg": 1.2,
+    "xg_cov": 100.0,
+    "over25": 60.2,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.28,
+    "def": 1.69,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Darmstadt": {
+   "cn": "达姆施塔特",
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 102,
+    "gf": 0.94,
+    "ga": 1.98,
+    "home_n": 51,
+    "home_gf": 0.94,
+    "home_ga": 1.92,
+    "away_n": 51,
+    "away_gf": 0.94,
+    "away_ga": 2.04,
+    "r50_n": 50,
+    "r50_gf": 0.92,
+    "r50_ga": 2.26,
+    "sot": 3.2,
+    "xg": 0.92,
+    "xg_cov": 100.0,
+    "over25": 53.9,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.94,
+    "def": 1.98,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Ingolstadt": {
+   "cn": null,
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 68,
+    "gf": 1.01,
+    "ga": 1.46,
+    "home_n": 34,
+    "home_gf": 1.26,
+    "home_ga": 1.41,
+    "away_n": 34,
+    "away_gf": 0.76,
+    "away_ga": 1.5,
+    "r50_n": 50,
+    "r50_gf": 1.14,
+    "r50_ga": 1.62,
+    "sot": 4.26,
+    "xg": 1.23,
+    "xg_cov": 100.0,
+    "over25": 38.2,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.01,
+    "def": 1.46,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Frosinone": {
+   "cn": "弗罗西诺内",
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 114,
+    "gf": 0.95,
+    "ga": 1.88,
+    "home_n": 57,
+    "home_gf": 1.05,
+    "home_ga": 1.68,
+    "away_n": 57,
+    "away_gf": 0.84,
+    "away_ga": 2.07,
+    "r50_n": 50,
+    "r50_gf": 1.08,
+    "r50_ga": 1.78,
+    "sot": 3.75,
+    "xg": 1.08,
+    "xg_cov": 100.0,
+    "over25": 53.5,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.95,
+    "def": 1.88,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Carpi": {
+   "cn": null,
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 38,
+    "gf": 0.97,
+    "ga": 1.5,
+    "home_n": 19,
+    "home_gf": 1.21,
+    "home_ga": 1.37,
+    "away_n": 19,
+    "away_gf": 0.74,
+    "away_ga": 1.63,
+    "r50_n": 38,
+    "r50_gf": 0.97,
+    "r50_ga": 1.5,
+    "sot": 3.47,
+    "xg": 1.0,
+    "xg_cov": 100.0,
+    "over25": 57.9,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.97,
+    "def": 1.5,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Crotone": {
+   "cn": null,
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 114,
+    "gf": 1.04,
+    "ga": 1.89,
+    "home_n": 57,
+    "home_gf": 1.18,
+    "home_ga": 1.49,
+    "away_n": 57,
+    "away_gf": 0.91,
+    "away_ga": 2.3,
+    "r50_n": 50,
+    "r50_gf": 1.24,
+    "r50_ga": 2.22,
+    "sot": 3.6,
+    "xg": 1.03,
+    "xg_cov": 100.0,
+    "over25": 57.9,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.04,
+    "def": 1.89,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Leganes": {
+   "cn": "莱加内斯",
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 190,
+    "gf": 0.93,
+    "ga": 1.35,
+    "home_n": 95,
+    "home_gf": 1.05,
+    "home_ga": 1.17,
+    "away_n": 95,
+    "away_gf": 0.8,
+    "away_ga": 1.53,
+    "r50_n": 50,
+    "r50_gf": 1.0,
+    "r50_ga": 1.38,
+    "sot": 3.52,
+    "xg": 1.01,
+    "xg_cov": 100.0,
+    "over25": 41.1,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.93,
+    "def": 1.35,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "RB Leipzig": {
+   "cn": "莱比锡红牛",
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 306,
+    "gf": 1.94,
+    "ga": 1.16,
+    "home_n": 153,
+    "home_gf": 2.12,
+    "home_ga": 1.01,
+    "away_n": 153,
+    "away_gf": 1.76,
+    "away_ga": 1.31,
+    "r50_n": 50,
+    "r50_gf": 1.8,
+    "r50_ga": 1.32,
+    "sot": 5.62,
+    "xg": 1.61,
+    "xg_cov": 100.0,
+    "over25": 61.1,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.94,
+    "def": 1.16,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Amiens": {
+   "cn": null,
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 104,
+    "gf": 0.95,
+    "ga": 1.38,
+    "home_n": 52,
+    "home_gf": 1.21,
+    "home_ga": 1.23,
+    "away_n": 52,
+    "away_gf": 0.69,
+    "away_ga": 1.54,
+    "r50_n": 50,
+    "r50_gf": 0.96,
+    "r50_ga": 1.46,
+    "sot": 2.91,
+    "xg": 0.84,
+    "xg_cov": 100.0,
+    "over25": 44.2,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.95,
+    "def": 1.38,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Brighton": {
+   "cn": "布莱顿",
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 304,
+    "gf": 1.26,
+    "ga": 1.42,
+    "home_n": 152,
+    "home_gf": 1.32,
+    "home_ga": 1.31,
+    "away_n": 152,
+    "away_gf": 1.2,
+    "away_ga": 1.53,
+    "r50_n": 50,
+    "r50_gf": 1.44,
+    "r50_ga": 1.6,
+    "sot": 4.25,
+    "xg": 1.22,
+    "xg_cov": 100.0,
+    "over25": 50.3,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.26,
+    "def": 1.42,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Huddersfield": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 76,
+    "gf": 0.66,
+    "ga": 1.76,
+    "home_n": 38,
+    "home_gf": 0.68,
+    "home_ga": 1.47,
+    "away_n": 38,
+    "away_gf": 0.63,
+    "away_ga": 2.05,
+    "r50_n": 50,
+    "r50_gf": 0.62,
+    "r50_ga": 1.76,
+    "sot": 3.01,
+    "xg": 0.87,
+    "xg_cov": 100.0,
+    "over25": 40.8,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.66,
+    "def": 1.76,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Girona": {
+   "cn": "赫罗纳",
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 190,
+    "gf": 1.44,
+    "ga": 1.44,
+    "home_n": 95,
+    "home_gf": 1.66,
+    "home_ga": 1.33,
+    "away_n": 95,
+    "away_gf": 1.22,
+    "away_ga": 1.55,
+    "r50_n": 50,
+    "r50_gf": 1.44,
+    "r50_ga": 1.48,
+    "sot": 4.27,
+    "xg": 1.23,
+    "xg_cov": 100.0,
+    "over25": 53.7,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.44,
+    "def": 1.44,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Spal": {
+   "cn": null,
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 114,
+    "gf": 0.96,
+    "ga": 1.68,
+    "home_n": 57,
+    "home_gf": 1.02,
+    "home_ga": 1.67,
+    "away_n": 57,
+    "away_gf": 0.91,
+    "away_ga": 1.7,
+    "r50_n": 50,
+    "r50_gf": 0.96,
+    "r50_ga": 1.88,
+    "sot": 3.65,
+    "xg": 1.05,
+    "xg_cov": 100.0,
+    "over25": 50.9,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.96,
+    "def": 1.68,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Benevento": {
+   "cn": null,
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 76,
+    "gf": 0.96,
+    "ga": 2.09,
+    "home_n": 38,
+    "home_gf": 1.11,
+    "home_ga": 2.08,
+    "away_n": 38,
+    "away_gf": 0.82,
+    "away_ga": 2.11,
+    "r50_n": 50,
+    "r50_gf": 1.1,
+    "r50_ga": 1.98,
+    "sot": 4.08,
+    "xg": 1.17,
+    "xg_cov": 100.0,
+    "over25": 53.9,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.96,
+    "def": 2.09,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Nimes": {
+   "cn": null,
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 104,
+    "gf": 1.21,
+    "ga": 1.66,
+    "home_n": 52,
+    "home_gf": 1.33,
+    "home_ga": 1.42,
+    "away_n": 52,
+    "away_gf": 1.1,
+    "away_ga": 1.9,
+    "r50_n": 50,
+    "r50_gf": 1.14,
+    "r50_ga": 1.74,
+    "sot": 4.12,
+    "xg": 1.19,
+    "xg_cov": 100.0,
+    "over25": 55.8,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.21,
+    "def": 1.66,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Huesca": {
+   "cn": null,
+   "leagues": [
+    "SP1"
+   ],
+   "lg": {
+    "n": 76,
+    "gf": 1.01,
+    "ga": 1.55,
+    "home_n": 38,
+    "home_gf": 1.08,
+    "home_ga": 1.34,
+    "away_n": 38,
+    "away_gf": 0.95,
+    "away_ga": 1.76,
+    "r50_n": 50,
+    "r50_gf": 1.02,
+    "r50_ga": 1.52,
+    "sot": 3.76,
+    "xg": 1.08,
+    "xg_cov": 100.0,
+    "over25": 43.4,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.01,
+    "def": 1.55,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Union Berlin": {
+   "cn": "柏林联合",
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 204,
+    "gf": 1.28,
+    "ga": 1.43,
+    "home_n": 102,
+    "home_gf": 1.49,
+    "home_ga": 1.16,
+    "away_n": 102,
+    "away_gf": 1.07,
+    "away_ga": 1.7,
+    "r50_n": 50,
+    "r50_gf": 1.02,
+    "r50_ga": 1.52,
+    "sot": 4.12,
+    "xg": 1.18,
+    "xg_cov": 100.0,
+    "over25": 51.0,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.28,
+    "def": 1.43,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Spezia": {
+   "cn": null,
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 114,
+    "gf": 1.09,
+    "ga": 1.8,
+    "home_n": 57,
+    "home_gf": 1.18,
+    "home_ga": 1.63,
+    "away_n": 57,
+    "away_gf": 1.0,
+    "away_ga": 1.96,
+    "r50_n": 50,
+    "r50_gf": 0.88,
+    "r50_ga": 1.7,
+    "sot": 3.77,
+    "xg": 1.08,
+    "xg_cov": 100.0,
+    "over25": 60.5,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.09,
+    "def": 1.8,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Clermont": {
+   "cn": "克莱蒙",
+   "leagues": [
+    "F1"
+   ],
+   "lg": {
+    "n": 110,
+    "gf": 0.99,
+    "ga": 1.62,
+    "home_n": 55,
+    "home_gf": 1.02,
+    "home_ga": 1.6,
+    "away_n": 55,
+    "away_gf": 0.96,
+    "away_ga": 1.64,
+    "r50_n": 50,
+    "r50_gf": 0.94,
+    "r50_ga": 1.6,
+    "sot": 3.8,
+    "xg": 1.09,
+    "xg_cov": 100.0,
+    "over25": 49.1,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.99,
+    "def": 1.62,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Brentford": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 152,
+    "gf": 1.5,
+    "ga": 1.47,
+    "home_n": 76,
+    "home_gf": 1.66,
+    "home_ga": 1.42,
+    "away_n": 76,
+    "away_gf": 1.34,
+    "away_ga": 1.53,
+    "r50_n": 50,
+    "r50_gf": 1.7,
+    "r50_ga": 1.48,
+    "sot": 4.42,
+    "xg": 1.27,
+    "xg_cov": 100.0,
+    "over25": 57.2,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.5,
+    "def": 1.47,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Salernitana": {
+   "cn": "萨勒尼塔纳",
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 114,
+    "gf": 0.99,
+    "ga": 1.94,
+    "home_n": 57,
+    "home_gf": 1.12,
+    "home_ga": 1.81,
+    "away_n": 57,
+    "away_gf": 0.86,
+    "away_ga": 2.07,
+    "r50_n": 50,
+    "r50_gf": 1.02,
+    "r50_ga": 1.96,
+    "sot": 3.31,
+    "xg": 0.95,
+    "xg_cov": 100.0,
+    "over25": 59.6,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.99,
+    "def": 1.94,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Nottm Forest": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 93,
+    "gf": 1.18,
+    "ga": 1.66,
+    "home_n": 46,
+    "home_gf": 1.39,
+    "home_ga": 1.33,
+    "away_n": 47,
+    "away_gf": 0.98,
+    "away_ga": 1.98,
+    "r50_n": 50,
+    "r50_gf": 1.3,
+    "r50_ga": 1.58,
+    "sot": 3.72,
+    "xg": 1.07,
+    "xg_cov": 100.0,
+    "over25": 49.5,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.18,
+    "def": 1.66,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Monza": {
+   "cn": "蒙扎",
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 114,
+    "gf": 1.01,
+    "ga": 1.51,
+    "home_n": 57,
+    "home_gf": 1.07,
+    "home_ga": 1.39,
+    "away_n": 57,
+    "away_gf": 0.95,
+    "away_ga": 1.63,
+    "r50_n": 50,
+    "r50_gf": 0.8,
+    "r50_ga": 1.8,
+    "sot": 3.31,
+    "xg": 0.95,
+    "xg_cov": 100.0,
+    "over25": 44.7,
+    "sample": "ok"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.01,
+    "def": 1.51,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Cremonese": {
+   "cn": "克雷莫纳",
+   "leagues": [
+    "I1"
+   ],
+   "lg": {
+    "n": 38,
+    "gf": 0.95,
+    "ga": 1.82,
+    "home_n": 19,
+    "home_gf": 0.79,
+    "home_ga": 1.63,
+    "away_n": 19,
+    "away_gf": 1.11,
+    "away_ga": 2.0,
+    "r50_n": 38,
+    "r50_gf": 0.95,
+    "r50_ga": 1.82,
+    "sot": 3.45,
+    "xg": 0.99,
+    "xg_cov": 100.0,
+    "over25": 47.4,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 0.95,
+    "def": 1.82,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Luton": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 38,
+    "gf": 1.37,
+    "ga": 2.24,
+    "home_n": 19,
+    "home_gf": 1.47,
+    "home_ga": 1.95,
+    "away_n": 19,
+    "away_gf": 1.26,
+    "away_ga": 2.53,
+    "r50_n": 38,
+    "r50_gf": 1.37,
+    "r50_ga": 2.24,
+    "sot": 3.71,
+    "xg": 1.07,
+    "xg_cov": 100.0,
+    "over25": 71.1,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.37,
+    "def": 2.24,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Heidenheim": {
+   "cn": "海登海姆",
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 68,
+    "gf": 1.28,
+    "ga": 1.75,
+    "home_n": 34,
+    "home_gf": 1.26,
+    "home_ga": 1.74,
+    "away_n": 34,
+    "away_gf": 1.29,
+    "away_ga": 1.76,
+    "r50_n": 50,
+    "r50_gf": 1.2,
+    "r50_ga": 1.7,
+    "sot": 3.72,
+    "xg": 1.07,
+    "xg_cov": 100.0,
+    "over25": 54.4,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.28,
+    "def": 1.75,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Holstein Kiel": {
+   "cn": null,
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 34,
+    "gf": 1.44,
+    "ga": 2.35,
+    "home_n": 17,
+    "home_gf": 1.41,
+    "home_ga": 2.41,
+    "away_n": 17,
+    "away_gf": 1.47,
+    "away_ga": 2.29,
+    "r50_n": 34,
+    "r50_gf": 1.44,
+    "r50_ga": 2.35,
+    "sot": 4.15,
+    "xg": 1.19,
+    "xg_cov": 100.0,
+    "over25": 76.5,
+    "sample": "small"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.44,
+    "def": 2.35,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Nott'm Forest": {
+   "cn": null,
+   "leagues": [
+    "E0"
+   ],
+   "lg": {
+    "n": 21,
+    "gf": 1.67,
+    "ga": 1.29,
+    "home_n": 11,
+    "home_gf": 1.45,
+    "home_ga": 0.82,
+    "away_n": 10,
+    "away_gf": 1.9,
+    "away_ga": 1.8,
+    "r50_n": 21,
+    "r50_gf": 1.67,
+    "r50_ga": 1.29,
+    "sot": 4.1,
+    "xg": 1.18,
+    "xg_cov": 100.0,
+    "over25": 52.4,
+    "sample": "tiny"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.67,
+    "def": 1.29,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "M'gladbach": {
+   "cn": null,
+   "leagues": [
+    "D1"
+   ],
+   "lg": {
+    "n": 19,
+    "gf": 1.58,
+    "ga": 1.95,
+    "home_n": 9,
+    "home_gf": 1.22,
+    "home_ga": 1.67,
+    "away_n": 10,
+    "away_gf": 1.9,
+    "away_ga": 2.2,
+    "r50_n": 19,
+    "r50_gf": 1.58,
+    "r50_ga": 1.95,
+    "sot": 4.37,
+    "xg": 1.26,
+    "xg_cov": 100.0,
+    "over25": 68.4,
+    "sample": "tiny"
+   },
+   "ucl": null,
+   "dual_ref": null,
+   "blend": {
+    "att": 1.58,
+    "def": 1.95,
+    "w_lg": 1.0,
+    "w_ucl": 0.0,
+    "note": "仅联赛"
+   }
+  },
+  "Shkendija": {
+   "cn": "斯肯迪亚",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 6,
+    "gf": 0.83,
+    "ga": 1.33,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "The New Saints": {
+   "cn": "新圣徒",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 4,
+    "gf": 0.5,
+    "ga": 1.25,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Drita": {
+   "cn": "德利塔",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 6,
+    "gf": 1.17,
+    "ga": 1.5,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Copenhagen": {
+   "cn": "哥本哈根",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 14,
+    "gf": 1.64,
+    "ga": 1.57,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Differdange": {
+   "cn": "迪弗当日",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 1.0,
+    "ga": 2.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Crvena Zvezda": {
+   "cn": "贝尔格莱德红星",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 10,
+    "gf": 2.1,
+    "ga": 0.9,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Lincoln Red Imps": {
+   "cn": "林肯红魔",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 8,
+    "gf": 1.12,
+    "ga": 1.62,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Vikingur Gota": {
+   "cn": "戈塔维京人",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 1.0,
+    "ga": 2.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Iskra Danilovgrad": {
+   "cn": "伊斯卡尔",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 4,
+    "gf": 1.25,
+    "ga": 2.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "FCSB": {
+   "cn": "布加勒斯特星",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 4,
+    "gf": 1.25,
+    "ga": 1.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Kairat Almaty": {
+   "cn": "海拉提阿拉木图",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 22,
+    "gf": 0.86,
+    "ga": 1.36,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "KuPS": {
+   "cn": "库普斯",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 8,
+    "gf": 0.62,
+    "ga": 1.0,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Milsami": {
+   "cn": "米尔萨米",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 0.0,
+    "ga": 0.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Club Brugge": {
+   "cn": "布鲁日",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 7,
+    "gf": 3.14,
+    "ga": 1.0,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Olympiacos": {
+   "cn": "奥林匹亚科斯",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 12,
+    "gf": 0.92,
+    "ga": 1.42,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Internazionale": {
+   "cn": "国际米兰",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 5,
+    "gf": 2.0,
+    "ga": 1.2,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Pafos": {
+   "cn": "帕福斯",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 14,
+    "gf": 1.14,
+    "ga": 1.0,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Sp Lisbon": {
+   "cn": "里斯本",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 3,
+    "gf": 2.33,
+    "ga": 1.33,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Celtic": {
+   "cn": "凯尔特人",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 0.0,
+    "ga": 0.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Slovan": {
+   "cn": "布拉迪斯",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 8,
+    "gf": 1.75,
+    "ga": 0.62,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Olimpija Ljubljana": {
+   "cn": "奥林",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 0.5,
+    "ga": 1.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Malmö FF": {
+   "cn": "马尔默",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 6,
+    "gf": 1.83,
+    "ga": 1.33,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Iberia 1999": {
+   "cn": "伊比利亚",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 6,
+    "gf": 1.33,
+    "ga": 2.17,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Sabah Baku": {
+   "cn": "沙巴巴库",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 6,
+    "gf": 2.0,
+    "ga": 0.5,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Vardar": {
+   "cn": "瓦尔达尔",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 1.0,
+    "ga": 1.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Flora Tallinn": {
+   "cn": "弗罗拉",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 2.0,
+    "ga": 2.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Zrinjski": {
+   "cn": "日林斯基",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 4,
+    "gf": 1.5,
+    "ga": 1.75,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Riga FC": {
+   "cn": "里加FC",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 1.5,
+    "ga": 2.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Ararat-Armenia": {
+   "cn": "亚拉腊",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 6,
+    "gf": 1.5,
+    "ga": 1.33,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Shamrock Rovers": {
+   "cn": "沙姆洛克",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 4,
+    "gf": 1.75,
+    "ga": 1.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Floriana": {
+   "cn": "佛罗里亚",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 1.5,
+    "ga": 2.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Lech": {
+   "cn": "波兹莱赫",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 6,
+    "gf": 2.33,
+    "ga": 1.5,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Breidablik": {
+   "cn": "贝雷达比",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 4,
+    "gf": 1.5,
+    "ga": 2.25,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Benfica": {
+   "cn": "本菲卡",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 15,
+    "gf": 1.27,
+    "ga": 1.2,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Fenerbahçe": {
+   "cn": "费内巴切",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 9,
+    "gf": 1.33,
+    "ga": 0.78,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Feyenoord": {
+   "cn": "费耶诺德",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 2.0,
+    "ga": 3.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Sturm Graz": {
+   "cn": "格拉茨风暴",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 6,
+    "gf": 1.33,
+    "ga": 1.5,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Bodø/Glimt": {
+   "cn": "博德闪耀",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 16,
+    "gf": 2.06,
+    "ga": 1.69,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Atert Bissen": {
+   "cn": "阿特比森",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 1.0,
+    "ga": 2.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "KI Klaksvik": {
+   "cn": "克拉克斯",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 4,
+    "gf": 1.0,
+    "ga": 0.75,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Kauno Zalgiris": {
+   "cn": "萨基列斯",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 6,
+    "gf": 1.0,
+    "ga": 1.67,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Larne": {
+   "cn": "拉恩",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 4,
+    "gf": 0.75,
+    "ga": 2.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Tre Fiori": {
+   "cn": "特费奥里",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 0.5,
+    "ga": 1.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "ETO Gyor": {
+   "cn": "吉奧利",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 1.0,
+    "ga": 1.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Vikingur Reykjavik": {
+   "cn": "维京古尔",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 4,
+    "gf": 1.25,
+    "ga": 1.25,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Sutjeska Niksic": {
+   "cn": "尼卡斯克",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 0.5,
+    "ga": 2.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Levski Sofia": {
+   "cn": "索列夫",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 7,
+    "gf": 1.43,
+    "ga": 0.43,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Borac Banja Luka": {
+   "cn": "巴战士",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 0.5,
+    "ga": 2.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Universitatea Craiova": {
+   "cn": "克约大学",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 4,
+    "gf": 1.75,
+    "ga": 1.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Vitebsk": {
+   "cn": "维捷布斯克",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 0.5,
+    "ga": 2.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Egnatia": {
+   "cn": "埃格纳蒂",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 6,
+    "gf": 2.0,
+    "ga": 1.83,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Petrocub": {
+   "cn": "佩特罗古",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 1.0,
+    "ga": 3.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Mjallby": {
+   "cn": "米亚尔比",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 4,
+    "gf": 1.0,
+    "ga": 1.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Thun": {
+   "cn": "图恩",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 1.5,
+    "ga": 1.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Dinamo Zagreb": {
+   "cn": "萨格勒布迪纳摩",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 5,
+    "gf": 2.4,
+    "ga": 1.2,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Celje": {
+   "cn": "采列",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 4,
+    "gf": 1.75,
+    "ga": 1.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Hearts": {
+   "cn": "哈茨",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 0.0,
+    "ga": 3.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Omonia": {
+   "cn": "奥莫尼亚",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 0.5,
+    "ga": 0.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Aarhus": {
+   "cn": "奥胡斯",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 4,
+    "gf": 1.5,
+    "ga": 2.25,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Hapoel Beer Sheva": {
+   "cn": "贝夏普尔",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 4,
+    "gf": 1.5,
+    "ga": 0.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Shakhtar Donetsk": {
+   "cn": "顿涅茨克矿工",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 0.5,
+    "ga": 1.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Ajax": {
+   "cn": "阿贾克斯",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 8,
+    "gf": 1.0,
+    "ga": 2.62,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "PSV": {
+   "cn": "埃因霍温",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 1.0,
+    "ga": 2.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Union St.Gilloise": {
+   "cn": "圣吉联合",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 10,
+    "gf": 1.3,
+    "ga": 2.2,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Galatasaray": {
+   "cn": "加拉塔萨雷",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 4,
+    "gf": 1.5,
+    "ga": 0.75,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Slavia Prague": {
+   "cn": "布拉格斯拉维亚",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 3,
+    "gf": 1.0,
+    "ga": 2.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "NEC Nijmegen": {
+   "cn": "奈梅亨",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 0.5,
+    "ga": 0.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Sparta Prague": {
+   "cn": "布拉格斯巴达",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 1.0,
+    "ga": 2.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "AEK Athens": {
+   "cn": "雅典AEK",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 1,
+    "gf": 0.0,
+    "ga": 0.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Viking": {
+   "cn": "维京",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 1,
+    "gf": 2.0,
+    "ga": 2.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Qarabağ": {
+   "cn": "卡拉巴赫",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 16,
+    "gf": 1.94,
+    "ga": 2.19,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Frankfurt": {
+   "cn": "法兰克福",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 1.0,
+    "ga": 3.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Ferencvaros": {
+   "cn": "费伦茨瓦罗斯",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 6,
+    "gf": 2.17,
+    "ga": 1.5,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Shelbourne": {
+   "cn": "谢尔伯恩",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 4,
+    "gf": 0.5,
+    "ga": 1.25,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Dynamo Kyiv": {
+   "cn": "基迪纳摩",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 4,
+    "gf": 1.5,
+    "ga": 0.75,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Hamrun Spartans": {
+   "cn": "哈姆伦",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 4,
+    "gf": 0.5,
+    "ga": 2.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Ludogorets": {
+   "cn": "卢多戈雷茨",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 6,
+    "gf": 0.5,
+    "ga": 1.0,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Noah": {
+   "cn": "诺亚FC",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 4,
+    "gf": 1.75,
+    "ga": 2.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Maccabi Tel-Aviv": {
+   "cn": "特马卡比",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 0.5,
+    "ga": 1.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Rangers": {
+   "cn": "格拉斯哥流浪者",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 6,
+    "gf": 1.33,
+    "ga": 2.0,
+    "sample": "ok",
+    "note": null
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Viktoria Plzen": {
+   "cn": "比尔森胜利",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 4,
+    "gf": 1.25,
+    "ga": 1.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Panathinaikos": {
+   "cn": "帕纳辛奈科斯",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 0.5,
+    "ga": 1.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Salzburg": {
+   "cn": "萨尔茨堡红牛",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 4,
+    "gf": 1.75,
+    "ga": 1.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Brann": {
+   "cn": "布兰",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 1.0,
+    "ga": 2.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Servette": {
+   "cn": "塞尔维特",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 1.0,
+    "ga": 1.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Virtus": {
+   "cn": "维图斯",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 0.5,
+    "ga": 2.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Linfield": {
+   "cn": "林菲尔德",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 0.5,
+    "ga": 1.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Dinamo Minsk": {
+   "cn": "明斯克",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 1.0,
+    "ga": 1.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "RFS": {
+   "cn": "里加学院",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 4,
+    "gf": 0.75,
+    "ga": 1.25,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Levadia Tallinn": {
+   "cn": "雷瓦迪亚",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 0.0,
+    "ga": 1.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Zalgiris Vilnius": {
+   "cn": "扎尔吉斯",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 1.0,
+    "ga": 1.0,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Buducnost": {
+   "cn": "布度洛斯",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 1.0,
+    "ga": 1.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Basel": {
+   "cn": "巴塞尔",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 0.5,
+    "ga": 1.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  },
+  "Rijeka": {
+   "cn": "里耶卡",
+   "leagues": [
+    "欧冠"
+   ],
+   "lg": null,
+   "ucl": {
+    "n": 2,
+    "gf": 0.5,
+    "ga": 0.5,
+    "sample": "reference_only",
+    "note": "样本<5场·仅定性参考·禁作定量依据"
+   },
+   "dual_ref": null,
+   "blend": null
+  }
+ },
+ "unmapped_ucl": {},
+ "_compat": {
+  "flat_teams": 1186,
+  "note": "平铺层 {队名:{gf,ga,n}} 供 calc_v3572.adjust_by_team_half(D5) 消费·含全部 Division（不限五大）·n>=10 · 与 2026-10-21 重构前旧表同口径"
+ },
  "Marseille": {
   "gf": 1.5,
   "ga": 1.1,
@@ -260,9 +9361,9 @@
   "n": 561
  },
  "Kaiserslautern": {
-  "gf": 1.38,
+  "gf": 1.4,
   "ga": 1.38,
-  "n": 700
+  "n": 667
  },
  "Bochum": {
   "gf": 1.35,
@@ -832,7 +9933,7 @@
  "Graafschap": {
   "gf": 1.04,
   "ga": 1.95,
-  "n": 310
+  "n": 309
  },
  "PSV Eindhoven": {
   "gf": 2.44,
@@ -841,8 +9942,8 @@
  },
  "Feyenoord": {
   "gf": 2.07,
-  "ga": 1.14,
-  "n": 810
+  "ga": 1.15,
+  "n": 809
  },
  "AZ Alkmaar": {
   "gf": 1.86,
@@ -952,12 +10053,12 @@
  "Groningen": {
   "gf": 1.31,
   "ga": 1.52,
-  "n": 776
+  "n": 775
  },
  "Willem II": {
   "gf": 1.24,
-  "ga": 1.78,
-  "n": 675
+  "ga": 1.77,
+  "n": 674
  },
  "Roosendaal": {
   "gf": 1.0,
@@ -972,7 +10073,7 @@
  "Utrecht": {
   "gf": 1.54,
   "ga": 1.41,
-  "n": 807
+  "n": 806
  },
  "Heerenveen": {
   "gf": 1.64,
@@ -980,9 +10081,9 @@
   "n": 810
  },
  "Vitesse": {
-  "gf": 1.49,
+  "gf": 1.5,
   "ga": 1.45,
-  "n": 775
+  "n": 774
  },
  "Twente": {
   "gf": 1.65,
@@ -1062,7 +10163,7 @@
  "Ajax": {
   "gf": 2.46,
   "ga": 0.96,
-  "n": 806
+  "n": 805
  },
  "For Sittard": {
   "gf": 1.13,
@@ -1217,7 +10318,7 @@
  "Piacenza": {
   "gf": 1.21,
   "ga": 1.21,
-  "n": 395
+  "n": 394
  },
  "Cosenza": {
   "gf": 1.02,
@@ -2271,8 +11372,8 @@
  },
  "Heracles": {
   "gf": 1.36,
-  "ga": 1.74,
-  "n": 634
+  "ga": 1.75,
+  "n": 633
  },
  "Naval": {
   "gf": 0.86,
@@ -2534,6 +11635,11 @@
   "ga": 1.08,
   "n": 461
  },
+ "Kaiserslautern ": {
+  "gf": 1.0,
+  "ga": 1.48,
+  "n": 33
+ },
  "Veria": {
   "gf": 0.9,
   "ga": 1.45,
@@ -2692,7 +11798,7 @@
  "Roda": {
   "gf": 1.33,
   "ga": 1.82,
-  "n": 238
+  "n": 237
  },
  "Stevenage": {
   "gf": 1.17,

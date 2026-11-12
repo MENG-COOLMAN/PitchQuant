@@ -1,3 +1,4 @@
+import os
 # -*- coding: utf-8 -*-
 """P2 案例库 strict 口径校准（2026-09-20·含 strict 完美口径）
 
@@ -9,7 +10,9 @@ import csv, re, sys, os
 from collections import defaultdict
 sys.stdout.reconfigure(encoding='utf-8')
 
-BASE = '<workspace>/data'
+# 🔴2026-10-20 审计修：原写死绝对路径（换机/换用户名即挂）→ 由 __file__ 推导
+#   __file__ = <ws>/data/tmp/conf_calib.py → dirname×2 = <ws>/data
+BASE = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 RES2CN = {'H': '主胜', 'D': '平局', 'A': '客胜'}
 
 

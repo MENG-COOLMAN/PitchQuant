@@ -101,18 +101,50 @@ def parse_args():
     return ap.parse_args()
 args = parse_args()
 
+def _aliases(name):
+    """🔴2026-10-11 回归检验修复(P1·治「存在≠活跃」): 中文队名 → 英文候选（逐个试）
+
+    原实现直接拿传入名查 `homeaway_table.json`（键来自 Matches.csv 的**英文**队名）
+    → 传中文**恒不命中** → 而模型工作流（AGENTS/SKILL「`--ha 主队,客队`」）传的就是中文
+    → 该模块对日常分析实际不可用（静默降级）。复用 snapshot_save.cn2en_list
+    （三级: 补充表 cn2en_extra → 俱乐部表 data_bridge.TEAM_ALIASES → 国家队表）。
+    """
+    import os as _os
+    try:
+        _d = _os.path.dirname(_os.path.abspath(__file__))
+        if _d not in sys.path:
+            sys.path.insert(0, _d)
+        from snapshot_save import cn2en_list
+        _c = cn2en_list(name)
+        if _c:
+            return list(_c)
+    except Exception:
+        pass
+    return [name]
+
+
+def _lookup(name):
+    """按候选逐个查表 → (命中表项, 命中所用英文名)"""
+    for _n in _aliases(name):
+        if out['_teams'].get(_n):
+            return out['_teams'][_n], _n
+    return {}, name
+
+
 if args.team:
-    t = out['_teams'].get(args.team)
+    t, _tn = _lookup(args.team)
     if t:
         for lg, v in t.items():
-            print(f'\n{args.team} [{lg}] 主场龙系数={v["主场龙系数"]}pp 风险={v["样本风险"]}')
+            print(f'\n{args.team}（解析={_tn}）[{lg}] 主场龙系数={v["主场龙系数"]}pp 风险={v["样本风险"]}')
             print('  主场:', json.dumps(v['主场'], ensure_ascii=False))
             print('  客场:', json.dumps(v['客场'], ensure_ascii=False))
-    else: print('未找到:', args.team)
+    else:
+        print('未找到:', args.team, '（候选:', _aliases(args.team), '）')
 
 if args.ha:
     hname, aname = [x.strip() for x in args.ha.split(',')]
-    hlg = out['_teams'].get(hname, {}); alg = out['_teams'].get(aname, {})
+    hlg, _hn = _lookup(hname); alg, _an = _lookup(aname)
+    print(f'🔎 队名解析: {hname}→{_hn} ｜ {aname}→{_an}')
     for lg in LEAGUE_BASE:
         hv = hlg.get(lg, {}).get('主场'); av = alg.get(lg, {}).get('客场')
         if hv and av:
@@ -144,7 +176,7 @@ if args.ha:
                 print(f'  胜平负: 主{ph*100:.1f}% / 平{pd_*100:.1f}% / 客{pa*100:.1f}%')
                 print(f'  大小球: O2.5={p_over*100:.1f}% / O3.5={p_over35*100:.1f}%')
                 print(f'  亚盘主让0.5上盘率≈{ph*100:.1f}%（主胜即赢盘·平/客输盘）')
-                print(f'  🔴主客场偏移: 主场增益+{hv["胜率增益pp"]}pp(基准{base["主场胜率"]}%)·客场衰减{av["胜率增益pp"]}pp(基准{base["客场胜率"]}%)·整体场地分离{base["主场胜率"]-base["客场胜率"]:+.1f}pp')
+                print(f'  🔴主客场偏移: 主场增益{hv["胜率增益pp"]:+.1f}pp(基准{base["主场胜率"]}%)·客场衰减{av["胜率增益pp"]:+.1f}pp(基准{base["客场胜率"]}%)·整体场地分离{base["主场胜率"]-base["客场胜率"]:+.1f}pp')
             except ImportError as e:
                 print('泊松输出跳过:', e)
             break

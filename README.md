@@ -2,10 +2,10 @@
 
 # ⚽ PitchQuant
 
-### 足球赔率分析模型 · Public Release v1.2 ｜ Core Model V3.5.76
+### 足球赔率分析模型 · Public Release v1.3 ｜ Core Model V3.5.94
 
-> ### 🎯 A football-odds pipeline where the LLM **executes** a 414-check auditable workflow — and every weight is **earned from 227k-match backtests**.
-> ### 🎯 一条由 **414 道校验**锁定的 LLM 分析流水线 —— 每一个权重都来自 **22.7 万场回测**。
+> ### 🎯 A football-odds pipeline where the LLM **executes** a 1,160-check auditable workflow — and every weight is **earned from 227k-match backtests**.
+> ### 🎯 一条由 **1,160 道校验**锁定的 LLM 分析流水线 —— 每一个权重都来自 **22.7 万场回测**。
 
 **Pitch**（绿茵场）× **Quant**（量化）—— 用量化研究的方式对待足球数据，但始终记得：**足球是混沌的，市场是高效的**。
 
@@ -13,10 +13,11 @@
 **把 LLM 当运行时 · 把回测当纪律**
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
-![Skills](https://img.shields.io/badge/Skills-36-green)
-![Scripts](https://img.shields.io/badge/Scripts-143-yellow)
-![Auto--Checks](https://img.shields.io/badge/Auto--Checks-414-orange)
+![Skills](https://img.shields.io/badge/Skills-37-green)
+![Scripts](https://img.shields.io/badge/Scripts-203-yellow)
+![Auto--Checks](https://img.shields.io/badge/Auto--Checks-1160-orange)
 ![Backtest](https://img.shields.io/badge/Backtest-227k%20matches-purple)
+![Cases](https://img.shields.io/badge/Replayed%20cases-346-teal)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
 > ## ⚠️ 重要声明 · IMPORTANT NOTICE
@@ -43,238 +44,200 @@ Most "AI prediction" projects treat the LLM as an **oracle**: feed it data, ask 
 
 ```
 Traditional:   Data ──▶ LLM ──▶ "Prediction"        (black box · unreproducible)
-PitchQuant:    Data ──▶ Scripts (math) ──▶ Checklist ──▶ LLM (judgement) ──▶ Gates (414 checks) ──▶ Archive
+PitchQuant:    Data ──▶ Scripts (math) ──▶ Checklist ──▶ LLM (judgement) ──▶ 7 Gates (1,160 checks) ──▶ Archive
                         ▲ deterministic                 ▲ constrained            ▲ enforced
 ```
 
-The result is not a better crystal ball. It is an **auditable analysis system that is allowed to reject itself** — when our own online-learning layer failed its backtest (−14.2 pp vs baseline), we disabled it and demoted it to "logging only". Most projects only ship their successes; a system that can *falsify its own components* is the actual engineering claim here.
+The result is not a better crystal ball. It is an **auditable analysis system that is allowed to reject itself**:
+
+- our **online-ML layer** was **formally rejected** (`rejected_leak`) once we discovered its +0.68pp gain came from **label leakage** (17 of 26 features were post-match statistics) — with pre-match features only, the gain was **+0.01pp**;
+- a "five-source λ fusion" was **abandoned** when pairwise correlations turned out to be **r = 0.97–0.99** (it was averaging the same number five times);
+- an equal-weight probability ranking of scorelines was **replaced** once we proved it structurally anchors on low scores.
+
+A system that can *falsify its own components* is the actual engineering claim here.
 
 ### 📟 What the output actually looks like
 
 ```
-$ python scripts/tmp/calc_poisson.py --home 2.50 --draw 3.40 --away 2.80 --o25 1.90 --u25 1.85 --top 5
+$ python scripts/tmp/calc_all.py examples/sample-odds.txt 意甲 \
+    --eu 2.10,3.40,3.60 --o25 1.91 --u25 1.95 --handi -1 --net
 
-λh=1.34  λa=1.31      |  Direction: Home 37.6% / Draw 26.1% / Away 36.2%
-Convergence: converged  (multi-init deviation 0.00 · Dixon-Coles ρ=-0.12)
-Net-margin probs:  Home+1 19.1% · Home+2 11.0% · Home+3 6.0% · Draw 29.1% · Away+1 18.7% ...
-Over 2.5: 49.3%       |  Expected total goals: 2.65
-Score Top-5:  1:1 13.9% (main) │ 0:0 8.6% (secondary) │ 2:1 8.3% │ 1:2 8.1% │ 1:0 8.0%
+🔴 分析时间: 2026-11-15 14:32:07 (北京) ｜ 本场状态: 距开赛 743 分钟
+去水(欧盘) 主 42.3% / 平 26.1% / 客 31.6%   ｜ skew 162% → 高共识·禁单押
+🔴P52 超大球分级: L3（均衡线 3.14 · 宽池必含 1/2/3/4/5/7 球）
+量级分布(矩阵+查表尾部): 众数 3 球 ｜ P(≥4球) 37.2% ｜ 尾部档 0/1/2/3/4/5/6
+市场三源矩阵(P10): OU 22 档 · AH 16 档 · CS 24 档 → E[T]=3.19 · E[M]=-0.42
+让球水位(P1): 上盘覆盖 53.2%（中）→ 净胜档上移 → 支持穿盘
+比分池(信号支持度): 1) 1:2 0.87   2) 1:3 0.81   3) 0:2 0.74   4) 2:2 0.68 …
+🔴锚-市场/期望复校验(N07b/N18b): ✅ 通过（可落盘）
 ```
 
-*Real output — not a mock-up. The core is deterministic: same input ⇒ same numbers.*
+*Real output (trimmed) — the deterministic core means same input ⇒ same numbers.*
 
 ## The Core Idea: LLM as Runtime, Not Oracle
 
 | Dimension | LLM-as-Oracle (common) | **PitchQuant (LLM-as-Runtime)** |
 |:--|:--|:--|
-| Who computes | The LLM (probabilities, arithmetic) | **Scripts** — de-vig, Poisson, Kelly, lookup tables |
-| Who judges | The LLM, freely | The LLM, **constrained** by a generated checklist + rule hierarchy |
+| Who computes | The LLM (probabilities, arithmetic) | **Scripts** — de-vig, Poisson, lookup tables, market matrix |
+| Who judges | The LLM, freely | The LLM, **constrained** by generated checklists + a 4-level priority hierarchy |
 | Reproducibility | Non-deterministic | **Deterministic core** — same input ⇒ same numbers |
-| Auditability | None | **Every analysis archived** with 8 sections + evidence trail |
-| Failure mode | Silent hallucination | **Compile-time failure** (414 automated checks) |
+| Auditability | None | **Every analysis archived** (8 sections) + 4-layer audit trail |
+| Failure mode | Silent hallucination | **Gate failure** (1,160 assertions · 7 delivery gates) |
 | Self-correction | Rare | **Built-in falsification gates** (backtest + significance + rollback) |
 
 ### 🧰 Tech Stack & Keywords
 
 | Area | Technologies / terms |
 |:--|:--|
-| **Statistics** | **Poisson distribution** modelling · **Dixon-Coles** low-score correction (ρ=−0.12) · **de-vigging** (proportional + calibration-table) · **Kelly criterion** · **time-split backtesting** · probability calibration curves |
-| **Markets** | **Asian handicap** (spread + water level) · Over/Under totals · correct-score (CS) matrices · BTTS · half-time/full-time · **odds-movement morphology** (drift classification) · **cross-bookmaker divergence** (inter-book price spread as a sharp-money proxy) |
-| **Engineering** | deterministic Python core · **LLM orchestration** (runtime, not oracle) · script-generated checklists · **414 automated consistency checks** · anti-overfitting gates · tri-state evidence tagging · reproducible archives |
-| **Data sources** | odds-api (European markets) · api-football (official predictions / injuries) · ClubElo (ELO) · Understat (xG) · Chinese Sports Lottery official public odds · **multi-bookmaker price feed** (the-odds-api, **21 books** · cross-book divergence) · **international / Nations League** historical fixtures |
+| **Statistics** | **Poisson** modelling · **Dixon-Coles** low-score correction (ρ=−0.12) · **de-vigging** (proportional + calibration) · **Kelly criterion** · **time-split backtesting** · calibration curves · **quantile-adaptive magnitude bands** |
+| **Markets** | **Asian handicap** (full ladder + water level) · Over/Under **full ladder** · **correct-score (CS)** matrices · BTTS · Team Total · half-time/full-time · **odds-movement morphology** · **cross-bookmaker divergence** (21–40 books) · **IPF market matrix** (OU × AH × CS) |
+| **Engineering** | deterministic Python core · **LLM orchestration** · script-generated checklists · **1,160 consistency assertions** · anti-overfitting gates · tri-state evidence tagging · reproducible archives · **sub-model scope isolation** (`ScopeViolation`) |
+| **Data sources** | odds-api (European markets) · **the-odds-api** (21–40 books · cross-book divergence) · **Bzzoiro** (structured injuries / squads / form) · ClubElo (ELO) · Understat (xG) · Chinese Sports Lottery public odds · **Zhipu GLM** (screenshot → odds text) |
+
+> ⚠️ `api-football` was **deprecated in Oct 2026** and removed from the data chain (replacements: the-odds-api for prices, Bzzoiro for injuries, Odds-API for event lookup).
 
 ## What Makes It Different
 
-1. **📉 Market-first by evidence, not by taste** — a 227k-match backtest shows the de-vigged market is the best-calibrated signal (±5pp, with a systematic *favourite undervaluation* of +2–4pp). So the market gets the **largest weight (0.30)** in the live fusion engine — and our own Poisson model was *downgraded* to 0.07 to make room. Architecture follows data, not intuition.
-2. **🎲 Weak-consensus rule** — when market skew <150%, the favourite hits only **36–43%** (a coin flip). The system therefore **forces the draw to be listed as a co-primary outcome** instead of confidently picking the favourite.
-3. **⚓ Anchor consistency, machine-enforced** — score anchors (main/secondary) are automatically checked against market net-goal band, O/U direction, and the Asian line. Contradictions raise warnings and produce a *corrected anchor suggestion*; blindly copying the model's Top-1 output is forbidden by rule.
-4. **🛡️ Anti-overfitting gates (four layers)** — any new feature, weight or "learned rule" must pass: **(a)** time-split backtest with **p<0.05**, **(b)** sample-size thresholds, **(c)** rolling 20-match deviation >10pp ⇒ auto-rollback to display-only, **(d)** out-of-range value clipping. No evidence ⇒ no decision authority.
-5. **🧾 Evidence-bound self-check** — "**no number = not done**". Every judgement carries a value; every inapplicable item must be explicitly tri-state-tagged (`triggered(value)` / `not-triggered(reason)` / `no-data(reason)`). Silent skipping is structurally impossible.
-6. **🚦 Three-layer data-chain risk policy** — changes are classified as ① input/parsing (🔴 dangerous) ② data tables (🔴 rename = silent downstream failure) ③ display/audit (🟢 safe). New annotations may **only** go into layer ③. This policy exists because all three of our historical incidents were layer-① bugs (format mismatches that failed *silently*).
-7. **🧠 36 domain skills, not one prompt** — referee rules (`rule51–70`), five league sub-models distilled from 8,700–9,300 matches each, home/away factor tables for 139 teams, European two-leg logic. Knowledge is versioned, auditable files — not vibes inside a prompt.
-8. **📚 Auditable archive** — every analysis is persisted with source odds, computed probabilities, rule traces, learning-loop markers and (later) the actual result, enabling long-run calibration studies on your own history.
-9. **💹 Cross-bookmaker divergence, not water-level folklore** — a 227k-match test killed the "balanced book" myth: totals *vig* carries **no** directional information (47.9 / 52.6 / 49.9% — non-monotonic). What *does* work is **inter-bookmaker convergence**: when the favourite's implied-price spread across books is **<2%**, direction hits **62.6%** (vs **45.0%** when spread >10%), rising to **81.5%** for deep favourites (<1.50). Tracking sharp money = watching books *agree*, not watching the water level drift. Plainly: **only convergence may adjust confidence, and never by more than one tier.**
-10. **🌍 A dedicated sub-model for international football** — national teams are *not* clubs. Across **658 Nations League fixtures (4 editions)**: home advantage is flatter (60.7 vs ~65 for clubs), a systematic **away-favourite draw leak** exists (Elo −200…−50 ⇒ away wins only **35%**, draw **31%**, i.e. *not won 65%* — never a banker), and goals split asymmetrically with *who* is favoured (home-favoured O2.5 **72%** vs away-favoured **37%**). Club-league tables are therefore explicitly flagged **out of domain · reference only** here.
-11. **🔀 Two-channel dynamic verdict** — the **public channel** (Chinese lottery, ~12.8% vig) and the **institutional channel** (Asian/European books, ~6.9% vig) are tracked *separately* and then crossed into a four-quadrant read: **Q1 consensus** (public shortens **and** books follow ⇒ confidence +0.5 tier) · **Q2 trap alert** (public shortens, books *don't* follow ⇒ favourite −1 tier **+ forced co-primary**) · **Q3 upset precursor** (only books move ⇒ flag only) · **Q4 blocking signal** (public drifts while books side with the outcome ⇒ +0.5 tier). A 4-match sample shows lottery price cuts hit direction only **25%** of the time — so this channel may adjust *confidence only*, and only within ±1 tier. Never reverses direction.
-12. **🏛️ One dataset, two strictly separated products** — the same institutional odds feed yields **two distinct artefacts**: **(a)** a **multi-book merged de-vig** (inverse-vig weighted) producing a single p̂(H/D/A) that feeds *direction, Kelly and λ*; and **(b)** a **cross-book dispersion** measure ((Max−Median)/Median) that may **only adjust confidence, within ±1 tier**. Source roles are fixed: the-odds-api (**21 books**) for breadth · api-football (13) for the merge pool · sharp anchors (Pinnacle/1xbet) kept heuristic and **OFF by default**.
-13. **🧪 The auditor is audited too** — every P0 fix ships with a **reproducible fixture** (a real input file) plus a regression run wired into the consistency gate; check routines must be *assertion-based*, so "the keyword exists" can never pass for "the feature works". A documented recipe for the host tool-chain's `read-evidence` lock (four verified workarounds) keeps the pipeline from dead-ending on tooling.
+1. **📉 Market-first by evidence, not by taste** — a 227k-match backtest shows the de-vigged market is the best-calibrated signal (±5pp, with systematic favourite undervaluation of +2–4pp). Market gets the largest weight; when the **five-source λ fusion** was measured, correlation was r=0.97–0.99 — so it now takes **the single most reliable distribution** and uses the rest only as a conflict check.
+2. **🧱 Hard constraints that no weight can override (L0)** — (a) no home-win score anchor on receiving-handicap matches; (b) single-outcome bets require **skew ≥ 200% AND favourite odds < 1.30**, otherwise **two-way coverage is mandatory**; (c) anchor must match market expected goals (|total − E| ≤ 1.0, and at least one anchor inside E±1.0); (d) deep handicap ⇒ main anchor must clear the line; (e) never reverse the L2 hardcore direction.
+3. **🧭 Four-level decision priority (L0 > L1 > L2 > L3)** — hard constraints ▸ this match's full market ladder ▸ domain backtest tables ▸ un-backtested experience weights (tie-break only, ≤2pp). On out-of-domain competitions (cups / minor leagues) L2 is *tri-state tagged* and does **not** participate in ranking.
+4. **🕸️ Context → Sub-models → Aggregate (V3.5.94)** — `MatchContext` is the single context per match; 7 sub-model adapters return a unified `SubModelResult`; `aggregate()` merges with an **L2 lock** (sub-models may downgrade confidence, never reverse direction). Scope violations are **enforced in code** (`ScopeViolation`), not by documentation discipline.
+5. **🎲 No mechanical anchoring** — scorelines are not ranked by probability (that structurally anchors on 1:1). The pool is **never pruned**; candidates are ranked by **market-signal support** (expected-goals match / O-U direction / handicap depth / clean-sheet-BTTS direct pricing / **correct-score market rank**), with **zero probability terms** in the selection chain.
+6. **📊 Magnitude as a distribution, not a point** — mean ± fixed band deleted 36% of the fat tail (4+ goals occur in 44% of matches, yet the main anchor was 2 goals in 98%). Now: full distribution `pT[0..7]` → quantile-adaptive range → **density-ratio weighting** (never excludes, floors at 0.35) → tails with `P(k) ≥ 5%` **must** enter the wide pool.
+7. **🛡️ Anti-overfitting gates (four layers)** — any new feature/weight/"learned rule" must pass **(a)** time-split backtest **p<0.05**, **(b)** sample thresholds, **(c)** rolling 20-match deviation >10pp ⇒ auto-rollback, **(d)** out-of-range clipping. No evidence ⇒ no decision authority.
+8. **🧾 Evidence-bound self-check** — "**no number = not done**". Every item must be tri-state tagged (`triggered(value)` / `not-triggered(reason)` / `no-data(reason)`). Silent skipping is structurally impossible — and the audit layer catches **"computed but not written"** and even **"written but judged wrong"**.
+9. **🧠 37 domain skills** — referee rules (`rule51–70`), five league sub-models distilled from 8,700–9,300 matches each, **Nations League** sub-model (658 matches / 4 editions), European two-leg logic, UCL calibration, team attack-defense profiles (312 teams). Knowledge is versioned and auditable.
+10. **📚 Self-falsifying archive** — 346 replayed matches, 188 magnitude entries, 214 learning entries, all persisted with source odds, computed probabilities, rule traces and actual results.
 
 ## Architecture
 
-### Four layers + four gates
+### Context → Sub-models → Aggregate
 
 ```
-┌──────────────────────────────────────────────────────────────────────┐
-│  RUNTIME      LLM executes AGENTS.md pipeline step-by-step           │
-│               (no ad-hoc steps · checklist-driven · tri-state tags)  │
-├──────────────────────────────────────────────────────────────────────┤
-│  KNOWLEDGE    36 × SKILL.md                                          │
-│               rule hierarchy L1–L5 · 5 league sub-models ·           │
-│               international (Nations League) sub-model ·             │
-│               referee rules · audit & maintenance discipline         │
-├──────────────────────────────────────────────────────────────────────┤
-│  COMPUTE      143 × Python (deterministic)                           │
-│               de-vig · Kelly · Poisson(λ) + Dixon-Coles ·            │
-│               score-depth lookup · live multi-source fusion engine · │
-│               cross-bookmaker divergence · NL Elo-band fair-odds ·   │
-│               two-channel verdict (public vs institutional) · snapshots│
-├──────────────────────────────────────────────────────────────────────┤
-│  DATA         distilled JSON tables (backtest artifacts)             │
-│               league baselines · goal-bins · score-depth ·           │
-│               water-level intent · draw-temperature · HT/FT matrix · │
-│               international ELO-band aggregates (no raw fixtures)    │
-├──────────────────────────────────────────────────────────────────────┤
-│  GATES        ① calc_all   → precompute + generated checklist        │
-│               ② output_checker → 35 required blocks                  │
-│               ③ check_luopan   → archive structure & trace           │
-│               ④ check_sync     → 414 consistency checks              │
-└──────────────────────────────────────────────────────────────────────┘
+                    ┌──────────────────────────────────────────┐
+   ① Context       │  match_context.MatchContext              │
+                    │  the single context of ONE match         │
+                    └───────────────┬──────────────────────────┘
+                                    │  read-only ctx · no global file access
+        ┌───────────────┬───────────┼───────────┬───────────────┐
+        ▼               ▼           ▼           ▼               ▼
+   ② Sub-models    top5_epl    nations     europe      none (tri-state)
+   7 adapters      laliga/bundesliga/seriea/ligue1
+        │
+        │  unified contract — SubModelResult:
+        │  applicable / reason / dir_adj / conf_adj / goals_adj /
+        │  anchor_hints / rules_hit / warnings / scope_blocked
+        ▼
+   ③ Aggregate     aggregate(): L2 hardcore > sub-model > L3 movement layer
+                   + L2 lock (downgrade only, never reverse)
+                   + ScopeViolation (code-enforced table whitelist)
 ```
 
 ### The pipeline (Step 0 → 11)
 
-```
-PreStep ──▶ ① Data acquisition (multi-source · tri-state tagged)
-            ② Hardcore layer (12 items: de-vig → calibration → skew → Kelly)
-            ③ Movement layer (V1–V6: odds drift · trap detection · water levels)
-            ④ Scenario rules (44/45/46 + European rule-set)
-            ⑤ Inferences (26 correction items, each trigger-justified)
-            ⑥ League sub-model (R1–R20, per-league)
-            ⑥′ International sub-model (Nations League: Elo bands + fair-odds)
-            ⑦ Home/Away factor (HAF: venue-specific λ coupling)
-            ⑧ Funding-flow + two-channel verdict (cross-book divergence · sharp ·
-               RLM · public-vs-institutional four-quadrant read)
-            ⑨ Direction verdict (market + draw-signal aggregation + skew rule)
-            ⑩ Goals depth (O2.5 → goal distribution → signal strength tiers)
-            ⑪ Score spectrum (Poisson + lookup fusion + anchor consistency)
-            ⑫ Totals + cross-validation ──▶ Self-check (22+ items) ──▶ Archive
-```
-
-**Design decisions worth noting**
-
-| Decision | Why |
+| Stage | What happens |
 |:--|:--|
-| Compute split from judgement | The LLM never does arithmetic → no precision hallucination |
-| Checklist generated *by script* | The executor cannot forget a step it never chose |
-| Rule hierarchy L1–L5 | 150+ rules cannot conflict unpredictably; lower layers may only adjust confidence, never reverse direction |
-| Live fusion engine (7 sources) | Market .30 / HT .24 / CS .20 / halftime .10 / Poisson .07 / handicap .06 / totals .06 — weights **optimised on 20k matches**, not guessed |
-| Everything archived | Research must be reproducible; post-hoc analysis is the only honest feedback loop |
-| Verdict grounds = model output, not the shortest price | Direction is decided by expected-goals + net-margin + injury/ELO outputs; the lowest odds are **reference only** and may downgrade but never override a computed verdict |
-| Funding-flow signals adjust *confidence only* | Evidence-based: total-goals vig carries **no** direction info (47.9/52.6/49.9%, non-monotonic) — only inter-book *convergence* does, and never by more than ±1 tier |
+| **PreStep** (optional) | Dual-track scoring (direction + scoreline) over a time window → keeps only strong-signal fixtures |
+| **Step 0** | Data acquisition (11 source classes, tri-state tagged) |
+| **Step 1** | [L2] 12 hardcore items, unified European-odds convention |
+| **Step 2** | Movement layer V1–V6: dual-source drift · trap/block 4-step · actuary cross-check · water linkage · cross-market divergence · handicap linkage |
+| **Step 3** | Scenario rules 44/45/46 (European cups trigger `rule51–70` six-item checklist) |
+| **Step 4** | Inference layer: fundamentals ABCDE cross-validation |
+| **Step 4.5 / 4.6 / 4.8** | League sub-models · Home-away factor layer (HAF) · Nations League sub-model |
+| **Step 5** | Direction (computed result → odds cross-check → coverage discipline) |
+| **Step 6 / 6.5** | Over/Under depth · magnitude (P52 six-level) · totals water-level reading (6 sources) |
+| **Step 7 / 7.5** | Score anchoring (market 3-source matrix → signal-support pool) · half-time inference |
+| **Step 8 / 9 / 10** | Total goals · 22-item self-check · archive (8 sections + 15-column CSV) |
+| **Step 11** | Batch compression / betting-plan module (user-triggered) |
+
+### The gates (7 delivery gates)
+
+```
+[1/7] no leftover placeholders      [2/7] output_checker
+[3/7] check_luopan                   [4/7] audit_steps   (data layer · 20 items)
+[5/7] audit_judgment (computed→written)  [6/7] audit_chain (8 chains)
+[7/7] audit_semantic (calc vs claimed) + audit_consumption + audit_matrix (38 steps · 0 blind spots)
+```
 
 ## Backtest Evidence
 
-| Finding | Data | Result |
-|:--|:--|:--|
-| Market calibration | 227k matches | Highest-probability band hits **+0.3 … +4.4 pp above implied** (favourites systematically undervalued) |
-| Weak-consensus breakpoints | 227k matches | skew <110%: **36.4%** · 110–130%: 38.6% · 130–150%: **43.0%** · ≥200%: **64.6%** |
-| Anchor trustworthiness | 157-case library | Actual total ≤3 goals: anchor hit **36.4%** · ≥4 goals: **2.9%** · ≥5 goals: **0%** |
-| Over/Under signal tiers | 148,397 matches (time-split) | Strong(≥58%): **65.0%** · Medium(55–58%): 57.0% · Weak(53–55%): 54.8% ≈ random |
-| Fusion weight search | 20,000 matches | market .7 + poisson .15 optimum: **Top-1 14.37%** vs 12.32% without market source |
-| Cross-bookmaker spread | 227k matches | fav spread <2%: **62.6%** · >10%: 45.0% · deep fav(<1.50)+spread<2%: **81.5%** (vs 75.4% base) |
-| Nations League sub-model | 658 fixtures (4 editions) | time-split fair model: direction **53.8%** vs 40.9% baseline (**+12.9pp**) · ≥0.60 bucket **78.6%** |
-| Single-outcome admission rule | 227,495 matches | Single pick **50.08%** (coin flip) · 2-way coverage **77.68%** (**+27.60pp**) ⇒ single pick requires skew ≥200% **and** min odds <1.30 |
-| Low-odds × ELO divergence | 227,495 matches | Favourite contradicting ELO: **41.7%** vs **54.4%** aligned (**−12.7pp**, below random) ⇒ downgrade + forced 2-way coverage |
+| Finding | Number |
+|:--|:--|
+| Market calibration (favourite) | implied 70%+ ⇒ actual **80.6%** (systematic **+2 to +4.4pp** undervaluation) |
+| Single-outcome bet, all matches | **50.1%** — a coin flip (227,495 matches, time-split) |
+| Two-way coverage (lowest + 2nd-lowest odds) | **77.7%** (+27.6pp, train/test identical) |
+| Weak consensus (skew < 150%) favourite hit rate | **36–43%** ⇒ draw must be listed as co-primary |
+| Deep favourite + tight book spread (<2%) | **80.0% / 81.5%** (train/test) |
+| Over/Under signal strength tiers | strong **65.0%** / medium 57.0% / weak 54.8% (≈random) |
+| Magnitude: 4+ goals frequency | **44.4%** of matches (vs 2.0% in naive main anchors) |
+| UCL main-competition goals | **3.37 / O2.5 64.5%** vs big-5 baseline 2.69 / 50.4% (calibration **+0.67 goals**) |
+| Live case archive (346 replayed) | direction **≈73%** (any-coverage) · scoreline **≈27%** (main **or** secondary anchor) · perfect **≈18%** |
 
-*All figures are methodology-validation only — see [docs/methodology.md](docs/methodology.md).*
+> ⚠️ These are **methodology-validation** numbers, not profit claims. See [DISCLAIMER.md](DISCLAIMER.md).
 
 ## Quick Start
 
-> **⚠️ 运行时说明**：本项目不是独立 CLI 工具，而是一套 **LLM as runtime** 分析流水线。Python 脚本只做确定性计算（去水/泊松/查表），规则判断与逐步推理由 LLM（Claude / GPT / 豆包等）按 `skills/` 下的 SKILL.md 执行。你需要一个支持文件读写的 LLM 环境来驱动它。
-
-**Step 1 — Python 3.10+**
 ```bash
-python --version        # 3.10 or newer
-pip install -r requirements.txt   # optional: river (online-learning module)
-```
-
-**Step 2 — Get the code**
-```bash
-git clone <your-repo-url>
+git clone https://github.com/MENG-COOLMAN/PitchQuant.git
 cd PitchQuant
-```
+pip install -r requirements.txt          # requests · numpy · scipy · pyyaml
 
-**Step 3 — Configure API keys** (free tiers are enough)
-```bash
-cp .env.example .env
-# edit .env: ODDS_API_KEY (odds-api.io) / API_FOOTBALL_KEY (api-football.com)
-```
-> Optional: a local proxy (`HTTPS_PROXY`) helps reach some sources on restricted networks.
-> 📋 Full checklist (what you must provide / which APIs / free tiers / graceful degradation): **[docs/data-and-apis.md](docs/data-and-apis.md)**
+cp .env.example .env                     # then fill YOUR OWN keys
+#   ODDS_API_KEY       → odds-api.io      (European prices · primary source)
+#   THE_ODDS_API_KEY   → the-odds-api.com (21–40 books · cross-book divergence)
+#   BZZOIRO_KEY        → bzzoiro.com      (structured injuries / squads / form)
+#   ZHIPU_API_KEY      → bigmodel.cn      (optional: screenshot → odds text)
 
-**Step 4 — Prepare your input** (or run the bundled sample: `examples/sample-odds.txt`) — a plain-text odds file (Chinese lottery format):
-```
-【胜平负】2.67,3.22,2.25 → 2.75,3.22,2.20 → 2.67,3.22,2.25
-【让球+1】1.47,3.95,5.10 → ... → 1.48,3.95,5.00
-【总进球】... → 15.00,5.90,3.30,3.40,5.45,9.50,20.00,31.00
-【比分】1:1=6.25 1:2=8.00 2:1=9.00 ...
-```
-(`→` separates timestamps — the model reads the whole movement series.)
-
-**Step 5 — Run the pipeline**
-```bash
-python scripts/tmp/calc_all.py <your-odds.txt> 英超 --eu 1.55,4.20,6.00 --handi -1 --o25 1.90
-```
-Outputs: de-vig probabilities → hardcore items → direction engine → live score engine (multi-source fusion) → consistency checks (anchor vs market / magnitude) → a generated checklist you must walk through.
-
-**Step 6 — Verify the environment**
-```bash
-python -m compileall -q scripts/ templates/          # syntax check
+# 1) deterministic core only
 python scripts/tmp/calc_poisson.py --home 2.50 --draw 3.40 --away 2.80 --o25 1.90 --u25 1.85 --top 5
-# Expected: λh/λa values + score Top5 table printed
+#    Expected: λh/λa + direction % + score Top-5 table
+
+# 2) full single-match pipeline
+python scripts/tmp/pipeline.py examples/sample-odds.txt \
+    --teams "Home Team,Away Team" --league seriea --kickoff "2026-11-15 03:45"
+
+# 3) consistency self-check (run after ANY change)
+python scripts/tmp/check_sync.py
 ```
+
+**Input**: Chinese Sports Lottery odds text (1X2 / handicap / total goals / HT-FT / correct score, with per-timestamp series).
+`pipeline.py` also accepts **screenshots** (auto OCR → standard text).
+
+**Two traps that silently corrupt everything**:
+- `--eu` must be the **real European market**, never the Chinese lottery's last price (it would make cross-market divergence identically 0 — a *fake consensus*).
+- `--handi` must be the **European balanced line**, not the lottery's fixed ±1 (otherwise net-margin band, water-level reading and the receiving-handicap anchor ban are all wrong).
 
 ## Project Structure
 
 ```
-PitchQuant/
-├── skills/          36 × SKILL.md   — rules, league sub-models, audit discipline
-├── scripts/
-│   ├── tmp/         core pipeline (calc_all · calc_poisson · live engine · gates
-│   │                · funding-flow signals · two-channel verdict · snapshots
-│   │                · NL sub-model + ELO-band aggregates · audit fixtures
-│   │                · market consensus (merge de-vig) · quadrant tables)
-│   ├── online_learning/   post-match learning loop (5 layers)
-│   └── backtest/    backtest & data-building utilities
-├── tables/          9 distilled JSON tables (league baselines, goal-bins, …)
-│   │                · 早盘快照 / 双通道判定 / 机构共识 / 四象限 / 审计 fixture
-├── templates/       analysis output template + case template
-├── docs/            architecture · methodology · getting-started · data-and-apis
-├── examples/        anonymised real case (including a mis-prediction post-mortem)
-└── DISCLAIMER.md · NOTICE.md · LICENSE
+AGENTS.md / prompts/             workflow specification (analyze · self-check · audit · model health)
+skills/                          37 domain skills (rules, league sub-models, audit, maintenance)
+scripts/tmp/                     129 deterministic scripts (core pipeline + audits + market matrix)
+scripts/online_learning/         21 learning-layer scripts (gated · L1 rejected)
+scripts/backtest/                53 backtest & verification scripts
+tables/                          20 distilled lookup tables (league / goals / score depth / water / draw …)
+data/                            compatibility layer — clone & run, no path rewriting
+templates/                       analysis template · case template
+docs/                            architecture · methodology · getting-started · data-and-apis
+examples/                        real-format odds sample + anonymized case (with a mis-prediction post-mortem)
+.github/workflows/ci.yml         syntax compile · table integrity · secret-leak scan
 ```
 
 ## Data Notice
 
-| Data | Included? | Why |
-|:--|:--|:--|
-| `tables/*.json` (distilled) | ✅ | Our **statistical derivatives** (hit rates / ratios) — free to use |
-| `scripts/tmp/nl_data/*.json` | ✅ | ELO-band hit rates + fair-odds parameters — **aggregates only** |
-| Raw 227k-match CSV / SQL / European DB | ❌ | Size + source terms — see below for full credits |
-| Raw Nations League fixtures (658 matches) | ❌ | Aggregates shipped instead — see below |
-| API keys | ❌ never | Env vars only |
-
-**Backtest data sources** (publicly available, used for research):
-**Football-Data.co.uk** (results / stats / odds) · **ClubElo** (ELO ratings) · integrated dataset **xgabora/Club-Football-Match-Data** (Gábor, A.) · **China Sports Lottery** official public odds.
-Live pricing via **the-odds-api** (21 bookmakers — cross-book divergence) · **odds-api.io** · **api-football** · **ClubElo** · **Understat**.
-
-📄 Full credits, citation and compliance statement: **[NOTICE.md](NOTICE.md)**
+This repository **does not ship** raw datasets: `Matches.csv` (227k matches), European historical databases, case-library raw archives and backups are **excluded** (size + third-party terms).
+All API keys, cookies, snapshots and personal paths have been **removed** — you must supply your own keys in `.env`.
 
 ## Disclaimer
 
-Research/engineering use only. Long-term EV is negative. Comply with local laws and data-source ToS.
+For **academic & educational use only**. Gambling/betting use is **prohibited**. No warranty. Full terms: [DISCLAIMER.md](DISCLAIMER.md).
 
 ## Scope & Limitations
 
-| Item | Detail |
-|:--|:--|
-| **Primary leagues** | Premier League, La Liga, Bundesliga, Serie A, Ligue 1 + Champions League / Europa League |
-| **Other leagues** | Not calibrated — use at your own risk |
-| **International (Nations League)** | Dedicated sub-model — 658 fixtures / 4 editions (Elo bands · fair-odds · away-favourite draw leak); club-league tables are **out of domain** and tagged *reference only* |
-| **Input required** | Manual plain-text odds file (Chinese lottery format) — no auto-scraping |
-| **Backtest size** | 227k league matches + 1,174 European fixtures |
-| **No guarantee** | Historical backtest results are methodology validation only, not future performance promises |
-| **Known issue** | `check_sync.py` requires the full model's AGENTS.md (not included in public release) |
+- **Single-match variance is irreducible**: total-goals σ ≈ 1.6, so even a perfectly calibrated expectation misses by ≥1 goal in ~26% of matches.
+- **Scoreline prediction is a coverage problem, not a point-prediction problem** — a 5.3% event cannot be "predicted", only *covered* by a pool.
+- **Some layers are explicitly un-backtested** (wide-pool bin injection, some weighting coefficients) — they are tagged `⏳ pending backtest` in-code rather than presented as validated.
+- **Out-of-domain competitions** (cups, minor leagues) have **no** domain table; thresholds are tri-state tagged and excluded from ranking.
 
 ---
 
@@ -282,244 +245,216 @@ Research/engineering use only. Long-term EV is negative. Comply with local laws 
 
 ## PitchQuant 是什么？
 
-大多数"AI 预测"项目把大模型当**预言机**：喂数据、要答案、信黑盒。
+大多数 "AI 预测" 项目把 LLM 当 **预言机**：喂数据、要答案、信黑箱。
 
-**PitchQuant 反其道而行。** 它把大模型当**运行时**——一个沿着锁定流水线执行的执行器；所有确定性计算交给**可审计的 Python 脚本**，所有判断都要绑定**机器可查的证据**。
+**PitchQuant 反过来做** —— 它把 LLM 当 **运行时**：一个按锁定流程执行的执行器，所有确定性计算交给可审计的 Python 脚本，所有判断都绑定到可机器校验的证据上。
 
 ```
-传统做法:   数据 ──▶ 大模型 ──▶ "预测结果"        （黑盒 · 不可复现）
-PitchQuant: 数据 ──▶ 脚本(算) ──▶ 必核清单 ──▶ 大模型(判) ──▶ 四道门(414校验) ──▶ 存档
-                     ▲ 确定性              ▲ 受约束          ▲ 强制执行
+传统做法:  数据 ──▶ LLM ──▶ "预测"            （黑箱 · 不可复现）
+PitchQuant: 数据 ──▶ 脚本(数学) ──▶ 清单 ──▶ LLM(判断) ──▶ 七道闸门(1160 校验) ──▶ 存档
+                      ▲ 确定性              ▲ 受约束          ▲ 强制
 ```
 
-它给出的不是更好的水晶球，而是一套**可审计、且允许自我否决的分析系统**——当我们的在线学习层没有通过回测（较基准 −14.2 个百分点）时，**我们把它关掉了**，降级为"仅记录"。多数项目只展示成功；**一个能证伪自己组件的系统**，才是这里真正的工程主张。
+它交付的不是更好的水晶球，而是一套**允许自我否证**的分析系统：
+
+- **在线 ML 层被正式否决**（`rejected_leak`）—— 其 +0.68pp 增益经查是**标签泄露**（26 个特征里 17 个是赛后统计），只用赛前特征时增益仅 **+0.01pp**；
+- **「五源 λ 加权」被废弃** —— 实测五源两两相关 **r = 0.97~0.99**（等于把同一个数平均五次）；
+- **按概率排序比分被替换** —— 已证明它结构性地锚定低比分。
+
+系统能**否证自己的组件**，这才是这里的工程主张。
 
 ### 📟 实际输出长什么样
 
 ```
-$ python scripts/tmp/calc_poisson.py --home 2.50 --draw 3.40 --away 2.80 --o25 1.90 --u25 1.85 --top 5
+$ python scripts/tmp/calc_all.py examples/sample-odds.txt 意甲 \
+    --eu 2.10,3.40,3.60 --o25 1.91 --u25 1.95 --handi -1 --net
 
-λh=1.34  λa=1.31      |  方向: 主 37.6% / 平 26.1% / 客 36.2%
-收敛状态: converged    （多初始值偏差 0.00 · Dixon-Coles ρ=-0.12）
-净胜档概率: 主胜1球 19.1% · 主胜2球 11.0% · 主胜3+球 6.0% · 平局 29.1% · 客胜1球 18.7% …
-大球 O2.5: 49.3%      |  总进球期望: 2.65
-比分 Top5:  1:1 13.9%（主锚）│ 0:0 8.6%（次锚）│ 2:1 8.3% │ 1:2 8.1% │ 1:0 8.0%
+🔴 分析时间: 2026-11-15 14:32:07 (北京) ｜ 本场状态: 距开赛 743 分钟
+去水(欧盘) 主 42.3% / 平 26.1% / 客 31.6%   ｜ skew 162% → 高共识·禁单押
+🔴P52 超大球分级: L3（均衡线 3.14 · 宽池必含 1/2/3/4/5/7 球）
+量级分布(矩阵+查表尾部): 众数 3 球 ｜ P(≥4球) 37.2% ｜ 尾部档 0/1/2/3/4/5/6
+市场三源矩阵(P10): OU 22 档 · AH 16 档 · CS 24 档 → E[T]=3.19 · E[M]=-0.42
+让球水位(P1): 上盘覆盖 53.2%（中）→ 净胜档上移 → 支持穿盘
+比分池(信号支持度): 1) 1:2 0.87   2) 1:3 0.81   3) 0:2 0.74   4) 2:2 0.68 …
+🔴锚-市场/期望复校验(N07b/N18b): ✅ 通过（可落盘）
 ```
 
-*这是真实输出（非示意图）。内核是确定性的：同输入 ⇒ 同数字。*
+*真实输出（已截断）—— 确定性内核意味着同输入必得同数字。*
 
 ## 核心理念：把 LLM 当运行时，而不是预言机
 
-| 维度 | LLM 即预言机（常见） | **PitchQuant（LLM 即运行时）** |
+| 维度 | LLM 当预言机（常见） | **PitchQuant（LLM 当运行时）** |
 |:--|:--|:--|
-| 谁来算 | 大模型（概率、算术） | **脚本** —— 去水 / 泊松 / 凯利 / 查表 |
-| 谁来判 | 大模型，自由发挥 | 大模型，**受生成清单 + 规则层级约束** |
-| 可复现性 | 非确定性 | **确定性内核** —— 同输入 ⇒ 同数字 |
-| 可审计性 | 无 | **每场分析全量存档**（八节 + 证据链） |
-| 失效模式 | 静默幻觉 | **编译期失败**（414 条自动校验） |
-| 自我修正 | 罕见 | **内建证伪门禁**（回测 + 显著性 + 自动回滚） |
+| 谁计算 | LLM 自己（概率、算术） | **脚本** —— 去水 / 泊松 / 查表 / 市场矩阵 |
+| 谁判断 | LLM 自由判断 | LLM **受**生成式清单 + **四级优先级体系**约束 |
+| 可复现性 | 不确定 | **确定性内核** —— 同输入必得同数字 |
+| 可审计性 | 无 | **每场都存档**（八节）+ 四层审计留痕 |
+| 失效方式 | 静默幻觉 | **闸门失败**（1160 条断言 · 七道交付闸门） |
+| 自我纠错 | 罕见 | **内建否证门禁**（回测 + 显著性 + 回滚） |
 
 ### 🧰 技术栈与关键词
 
-| 领域 | 技术 / 术语 |
+| 领域 | 技术 / 关键词 |
 |:--|:--|
-| **统计学** | **泊松分布**建模 · **Dixon-Coles** 低比分修正（ρ=−0.12）· **去水**（等比例 + 校准表）· **凯利公式** · **时间分割回测** · 概率校准曲线 |
-| **盘口市场** | **亚盘让球/水位** · 大小球 · 比分盘矩阵 · BTTS · 半全场 · **赔率变动形态学**（漂移形态分类） |
-| **工程** | 确定性 Python 内核 · **LLM 编排**（运行时而非预言机）· 脚本生成必核清单 · **414 条自动一致性校验** · 防过拟合门禁 · 三态证据标注 · 可复现存档 |
-| **资金流** | **跨机构分歧**（机构间价差 = sharp 资金代理）· sharp 基准 · 反向线移动（RLM）· 抽水（vig）诊断 |
-| **国际赛事** | **欧国联子模型**（658 场/四届）· ELO 档实测分布 · 公平赔率模型 · 客队热门平局泄漏 |
-| **数据源** | odds-api（欧盘）· api-football（官方概率/伤停）· ClubElo（ELO）· Understat（xG）· 中国体育彩票官方公开赔率 · **多机构赔率源**（the-odds-api · **21 家机构** · 跨机构分歧）· **国际赛事 / 欧国联**历史数据 |
+| **统计** | **泊松分布** · **Dixon-Coles** 低比分修正（ρ=−0.12）· **去水**（等比例 + 校准表）· **凯利** · **时间分割回测** · 概率校准曲线 · **分位数自适应量级带** |
+| **盘口** | **亚盘**（全档盘口 + 水位）· 大小球**全档** · **波胆矩阵** · BTTS · 单队进球 · 半全场 · **赔率形态学** · **跨机构分歧**（21–40 家）· **IPF 市场矩阵**（OU × AH × CS） |
+| **工程** | 确定性 Python 内核 · **LLM 编排** · 脚本生成清单 · **1160 条一致性断言** · 防过拟合门禁 · 三态证据标注 · 可复现存档 · **子模型作用域强隔离**（`ScopeViolation`） |
+| **数据源** | odds-api（欧盘）· **the-odds-api**（21–40 家 · 跨机构分歧）· **Bzzoiro**（结构化伤停 / 名单 / 近况）· ClubElo（ELO）· Understat（xG）· 中国竞彩公开赔率 · **智谱 GLM**（截图 → 赔率文本） |
+
+> ⚠️ `api-football` 已于 2026-10 **停用并从数据链中剔除**（替代：the-odds-api 供赔率、Bzzoiro 供伤停、Odds-API 供赛事定位）。
 
 ## 核心优势（为什么值得一读）
 
-1. **📉 市场优先：由证据决定，而非口味** —— 22.7 万场回测证实欧赔去水是**校准最好**的信号（±5pp 内，且系统性**低估热门 2–4pp**）。于是市场在实时融合引擎里拿到**最大权重（0.30）**——而我们自己的泊松模型被**降权到 0.07** 给它让路。**架构跟着数据走，不跟着直觉走。**
-2. **🎲 弱共识铁律** —— 市场分歧度 skew <150% 时，热门方向命中仅 **36–43%**（等同抛硬币）。系统因此**强制把平局列为并列主方向**，而不是自信单押。
-3. **⚓ 锚定一致性：机器强制** —— 比分锚（主锚/次锚）自动与市场净胜档、大小球方向、亚盘方向三项交叉校验；矛盾即告警并生成**修正建议锚**。规则明确禁止照搬模型 Top1 输出。
-4. **🛡️ 四层防过拟合门禁** —— 任何新特征/权重/"学习成果"必须通过：**（a）** 时间分割回测且 **p<0.05**；**（b）** 样本量门槛；**（c）** 滚动 20 场偏差 >10pp ⇒ **自动回滚**为仅展示；**（d）** 超范围值裁剪。**无证据 = 无判定权。**
-5. **🧾 证据绑定自检** —— "**没有数字 = 没有执行**"。每条判定附数值；每个不适用项必须显式三态标注（`触发(数值)` / `不触发(原因)` / `无数据(原因)`）。**静默跳过在结构上不可能发生。**
-6. **🚦 数据链三层风险纪律** —— 改动分三类：①输入/解析（🔴 高危）②数据表（🔴 改键名=下游静默失效）③展示/留痕（🟢 安全区）。**新增标注只允许放第③层**。这条纪律的由来：本项目历史上三起事故**全部**是①层的格式不匹配——而且是**静默**失败。
-7. **🧠 34 个领域技能，而不是一段提示词** —— 裁判规则（rule51–70）、五大联赛子模型（每个蒸馏自 8,700–9,300 场）、139 支球队的主客场因子表、欧战两回合逻辑……知识是**可版本化的文件**，不是提示词里的"感觉"。
-8. **📚 可审计存档** —— 每场分析持久化：原始赔率、计算概率、规则触发痕迹、学习闭环标记，以及（赛后）真实结果——让你能在**自己的历史**上做长期校准研究。
-9. **💹 跨机构分歧，而非水位玄学** —— 22.7 万场检验否决了"庄家靠平衡两边吃水"的迷思：大小球抽水（vig）分档**不携带方向信息**（47.9 / 52.6 / 49.9%，非单调）。真正有效的是**机构间定价收敛**：热门侧隐含价差 **<2%** 时方向命中 **62.6%**（价差 >10% 时仅 **45.0%**），深盘热门（<1.50）更升至 **81.5%**。跟 sharp 资金 = **看机构是否一致**，而非看水位漂移。纪律：**只有"收敛"可以调置信度，且最多 ±1 档。**
-10. **🌍 国际赛事独立子模型** —— 国家队 ≠ 俱乐部。**658 场欧国联（四届）**实测显示：主场优势更平（60.7 vs 俱乐部约 65）、存在**客队热门平局泄漏**（Elo −200…−50 时客胜仅 **35%**、平 **31%**，即**赢不下 65%**—— 绝不可当稳胆）、进球按**谁热门**不对称分流（主热门 O2.5 **72%** vs 客热门 **37%**）。因此五大联赛通用档表在此被显式标注**超域 · 仅参考**。
-11. **🔀 双通道动态判定** —— **公众通道**（竞彩·抽水约 12.8%）与**机构通道**（欧亚盘·抽水约 6.9%）**分开追踪**，再交叉成四象限：**Q1 共识确认**（公众降赔 **且** 机构跟进 ⇒ 置信度 +0.5 档）· **Q2 诱盘警报**（公众降赔但机构**不跟进** ⇒ 热门 −1 档 + **强制并列**）· **Q3 冷门前兆**（仅机构动 ⇒ 只提示）· **Q4 阻盘信号**（公众升赔而机构看好 ⇒ +0.5 档）。4 场样本显示竞彩降赔的方向命中仅 **25%** —— 故本通道**只调置信度**、且最多 ±1 档，**永不反转方向**。
-12. **🏛️ 同一份数据、两个互不混用的产物** —— 同一批机构赔率产出**两个独立产物**：**(a)** **多机构合并去水**（按抽水倒数加权）→ 单一 p̂(主/平/客)，供 **方向 / 凯利 / λ**；**(b)** **跨机构离散度**（(Max−Median)/Median）→ **只调置信度、且最多 ±1 档**。数据源分工固定：the-odds-api（**21 家**）供广度 · api-football（13 家）供合并池 · sharp 锚（Pinnacle/1xbet）为启发式、**默认关闭**。
-13. **🧪 审计器本身也要被审计** —— 每修一个 P0 都**配套一份可复现 fixture**（真实输入文件）+ 回归跑进一致性门禁；检查项必须是**断言型**，绝不让"关键词存在"冒充"功能可用"。另附 host 工具链 `read-evidence` 锁的**四方案实测解**，确保流水线不会因工具问题卡死。
+1. **📉 市场优先有据可依** —— 22.7 万场回测显示去水市场是校准最好的信号（±5pp，且系统性低估热门 +2~+4pp）。市场拿最大权重；**五源 λ 加权**实测两两相关 **r=0.97~0.99** → 改为「取最可靠的一条分布，其余仅作冲突校验」。
+2. **🧱 任何权重都不得覆盖的硬约束（L0）** —— ①受让场禁设主胜比分锚 ②单押须**同时**满足 skew ≥200% 且最低赔 <1.30，否则**强制两向覆盖** ③锚须匹配市场期望进球（|总进球−E| ≤1.0，且至少一锚落在 E±1.0）④深盘须穿盘 ⑤永不反转 L2 硬核方向。
+3. **🧭 四级判定优先级（L0 > L1 > L2 > L3）** —— 硬约束 ▸ 本场市场全档 ▸ 域内回测档表 ▸ 无回测经验权重（仅平手时 tie-break，≤2pp）。**超域赛事**（杯赛 / 小联赛）L2 三态标注、**不参与排序**。
+4. **🕸️ 上下文 → 子模型 → 聚合（V3.5.94）** —— `MatchContext` 是一场唯一上下文；7 个子模型适配器返回统一 `SubModelResult`；`aggregate()` 合并时施加 **L2 锁**（子模型只降档、永不反转方向）。越界读表**在代码层直接抛 `ScopeViolation`**，不靠文档纪律。
+5. **🎲 反机械锚定** —— 比分不按概率排序（那会结构性锚死 1:1）。候选池**不淘汰**，按**市场信号支持度**排序（期望进球匹配 / 大小球方向 / 让球深度 / 零封-BTTS 直盘 / **波胆市场排名**），选择链**零概率项**。
+6. **📊 量级是分布，不是点** —— 「均值 ± 固定带宽」曾削掉 36% 的厚尾（真实 4+ 球占 44%，主锚却 98% 落在 2 球）。现在：完整分布 `pT[0..7]` → 分位数自适应区间 → **密度比权重**（永不排除，下限 0.35）→ `P(k) ≥ 5%` 的尾部档**必进宽池**。
+7. **🛡️ 防过拟合四道门禁** —— 任何新特征/新权重/"学习成果"必须通过 ①时间分割回测 **p<0.05** ②样本量门槛 ③滚动 20 场偏差 >10pp 自动回滚 ④越界裁剪。**无证据即无判定权**。
+8. **🧾 证据绑定的自检** —— 「**没有数值 = 没做**」。每项必须三态标注（`触发(值)` / `不触发(原因)` / `无数据(原因)`）。并且审计层能抓出**「算了没写」**，甚至**「写了但判断错」**。
+9. **🧠 37 个领域知识模块** —— 裁判规则（`rule51–70`）、五大联赛子模型（各 8,700–9,300 场蒸馏）、**欧国联子模型**（658 场 / 四届）、欧战两回合逻辑、欧冠校准、312 队攻防档案。知识是**版本化、可审计的文件**，不是提示词里的感觉。
+10. **📚 可否证的档案** —— 346 场复盘、188 条量级台账、214 条学习台账，全部带原始赔率、计算概率、规则踪迹与真实赛果。
 
 ## 架构详解
 
-### 四层结构 + 四道质量门
+### 上下文 → 子模型 → 聚合
 
 ```
-┌──────────────────────────────────────────────────────────────────────┐
-│  运行层    LLM 按 AGENTS.md 流水线逐步执行                              │
-│            （不自创步骤 · 清单驱动 · 三态标注）                          │
-├──────────────────────────────────────────────────────────────────────┤
-│  知识层    36 × SKILL.md                                              │
-│            规则层级 L1–L5 · 五大联赛子模型 · 国际赛事(欧国联)子模型 ·      │
-│            裁判规则 · 审计与维护纪律                                     │
-├──────────────────────────────────────────────────────────────────────┤
-│  计算层    143 × Python（确定性）                                       │
-│            去水 · 凯利 · 泊松(λ)+Dixon-Coles · 比分深度查表 ·           │
-│            现场多源动态融合引擎 · 跨机构分歧层 · 欧国联公平赔率模型 ·      │
-│            双通道判定(公众/机构) · 早盘快照时间序列                       │
-├──────────────────────────────────────────────────────────────────────┤
-│  数据层    蒸馏表 JSON（回测产物）                                       │
-│            联赛基准 · 进球档 · 比分深度 · 水位意图 ·                     │
-│            平局温度 · 半全场条件矩阵 · 国际赛事 ELO 档聚合(无原始赛果)     │
-├──────────────────────────────────────────────────────────────────────┤
-│  质量门    ① calc_all   → 预计算 + 生成必核清单                         │
-│            ② output_checker → 35 个必填块                               │
-│            ③ check_luopan   → 存档结构与留痕                            │
-│            ④ check_sync     → 414 条一致性校验                          │
-└──────────────────────────────────────────────────────────────────────┘
+                    ┌──────────────────────────────────────────┐
+   ① 上下文        │  match_context.MatchContext              │
+                    │  一场比赛的唯一上下文                     │
+                    └───────────────┬──────────────────────────┘
+                                    │  只读 ctx · 禁读全局文件
+        ┌───────────────┬───────────┼───────────┬───────────────┐
+        ▼               ▼           ▼           ▼               ▼
+   ② 子模型       top5_epl     nations     europe      none(三态)
+   7 个 adapter   laliga/bundesliga/seriea/ligue1
+        │
+        │  统一契约 SubModelResult:
+        │  applicable / reason / dir_adj / conf_adj / goals_adj /
+        │  anchor_hints / rules_hit / warnings / scope_blocked
+        ▼
+   ③ 聚合         aggregate(): L2 硬核 > 子模型 > L3 变动层
+                  + L2 锁（只降档 · 永不反转）
+                  + ScopeViolation（代码级表白名单）
 ```
 
 ### 完整管线（Step 0 → 11）
 
-```
-PreStep ──▶ ① 数据获取（多源 · 三态标注）
-            ② 硬核层（12 项：去水 → 校准 → skew → 凯利）
-            ③ 变动层（V1–V6：赔率漂移 · 诱阻识别 · 水位联动）
-            ④ 场景规则（44/45/46 + 欧战规则集）
-            ⑤ 推论层（26 项修正，逐项给触发理由）
-            ⑥ 联赛子模型（R1–R20 · 每联赛独立）
-            ⑥′ 国际赛事子模型（欧国联：ELO 档实测 + 公平赔率）
-            ⑦ 主客场因子（HAF：按场地子集的 λ 耦合）
-            ⑧ 资金盘信号 + 双通道判定（跨机构分歧 · sharp 基准 · 反向线移动 ·
-               公众 vs 机构 四象限读取）
-            ⑨ 方向判定（市场 + 平局信号聚合 + 弱共识规则）
-            ⑩ 大小球深度（O2.5 → 进球分布 → 信号强度三档）
-            ⑪ 比分谱系（泊松 + 查表融合 + 锚定一致性）
-            ⑫ 总进球 + 交叉验证 ──▶ 自检（22+ 项）──▶ 落盘存档
-```
-
-### 值得注意的设计决策
-
-| 决策 | 为什么 |
+| 阶段 | 内容 |
 |:--|:--|
-| **计算与判断分离** | 大模型永远不做算术 → 根除"精度幻觉" |
-| **清单由脚本生成** | 执行者无法遗漏一个"不是他自己选的"步骤 |
-| **规则层级 L1–L5** | 150+ 条规则不会不可预测地冲突；低层级只能调置信度，**永不反转方向** |
-| **现场融合引擎（7 源）** | 市场 .30 / 半场 .24 / 比分盘 .20 / 半全场 .10 / 泊松 .07 / 亚盘 .06 / 大小球 .06 —— 权重在 **2 万场**上寻优得出，不是拍脑袋 |
-| **一切皆存档** | 研究必须可复现；赛后分析是唯一诚实的反馈回路 |
-| **判定铁依据 = 模型运行结果，而非最低赔率** | 方向由**期望进球 + 净胜档 + 伤停/ELO 等计算结果**决定；最低赔率**仅作参考**，只可降档、不得覆盖计算结论 |
-| **资金盘信号只调置信度** | 有据：大小球 vig **不携带方向信息**（47.9/52.6/49.9%，非单调）——只有机构间**收敛**有效，且最多 ±1 档 |
+| **PreStep**（可选） | 时间窗内双轨打分（方向分 + 比分分）→ 只保留强信号场次 |
+| **Step 0** | 数据获取（11 类源 · 三态标注） |
+| **Step 1** | [L2] 硬核层 12 项（统一欧盘口径） |
+| **Step 2** | 变动层 V1–V6：双源变动 · 诱阻四步 · 精算交叉 · 水位联动 · 跨市场分歧 · 盘口联动 |
+| **Step 3** | 场景规则 44/45/46（欧战触发 `rule51–70` 六项核查表） |
+| **Step 4** | 推论层：基本面 ABCDE 交叉验证 |
+| **Step 4.5 / 4.6 / 4.8** | 联赛子模型 · 主客场因子层（HAF）· 欧国联子模型 |
+| **Step 5** | 方向（计算结果定方向 → 赔率对照 → 覆盖纪律） |
+| **Step 6 / 6.5** | 大球深度 · 量级（P52 六级）· 大小球水位精读（六源） |
+| **Step 7 / 7.5** | 比分锚定（市场三源矩阵 → 信号支持度池）· 半场精细反推 |
+| **Step 8 / 9 / 10** | 总进球 · 22 项自检 · 落盘（八节 + 15 列 CSV） |
+| **Step 11** | 批末压缩 / 投注方案模块（用户触发） |
+
+### 得分锚定：为什么不用「概率 Top1」
+
+足球比分概率**天然低分偏置**（0:0 / 1:0 / 1:1 / 2:0 永远排前面），按概率取 Top 必然锚小球 —— 与「期望 3.0 球 + 大球盘」直接冲突。
+
+现行方案：
+1. **候选池不淘汰**（宽池必含档由 P52 六级决定，如 L4 必含 4/5/6 球）；
+2. **按市场信号支持度排序**，五项：期望进球匹配 / 大小球方向 / 让球深度 / 零封-双方进球（Team Total 直盘）/ 波胆市场排名；
+3. **整条选择链零概率项**（矩阵概率只用于边缘 E[T]、E[M] 校验，不参与排序）；
+4. 输出**比分池 + 逐项依据**，而非只给一个数字。
+
+### 七道交付闸门
+
+```
+[1/7] 无残留待填          [2/7] output_checker
+[3/7] check_luopan         [4/7] audit_steps（数据层 · 20 步）
+[5/7] audit_judgment（算了没写）  [6/7] audit_chain（8 条传导链）
+[7/7] audit_semantic（calc 值 vs raw 声明）+ audit_consumption + audit_matrix（38 步 · 盲区 0）
+```
 
 ## 回测证据
 
-| 发现 | 数据量 | 结果 |
-|:--|:--|:--|
-| 市场校准度 | 22.7 万场 | 最高概率档实际命中 **比隐含高 0.3–4.4pp**（热门被系统性低估） |
-| 弱共识分档断点 | 22.7 万场 | skew <110%：**36.4%** · 110–130%：38.6% · 130–150%：**43.0%** · ≥200%：**64.6%** |
-| 比分锚可信度 | 157 场案例库 | 实际总进球 ≤3 球：锚命中 **36.4%** · ≥4 球：**2.9%** · ≥5 球：**0%** |
-| 大小球信号分层 | 148,397 场（时间分割） | 强(≥58%)：**65.0%** · 中(55–58%)：57.0% · 弱(53–55%)：54.8% ≈ 随机 |
-| 融合权重寻优 | 20,000 场 | 市场 .7 + 泊松 .15 最优：**Top-1 14.37%** vs 无市场源 12.32% |
-| 跨机构分歧度 | 22.7 万场 | 热门价差 <2%：**62.6%** · >10%：45.0% · 深盘热门(<1.50)+价差<2%：**81.5%**（基准 75.4%） |
-| 欧国联子模型 | 658 场（四届） | 时间分割公平模型：方向 **53.8%** vs 基准 40.9%（**+12.9pp**）· ≥0.60 档 **78.6%** |
-| 单押准入纪律 | 227,495 场 | 单押 **50.08%**（等同抛硬币）· 2 向覆盖 **77.68%**（**+27.60pp**）⇒ 单押须同时满足 skew ≥200% **且** 最低赔率 <1.30 |
-| 低赔 × ELO 背离 | 227,495 场 | 热门方向与 ELO 背离：**41.7%** vs 一致 **54.4%**（**−12.7pp**，跌破随机）⇒ 降 1 档 + 强制 2 向覆盖 |
+| 结论 | 数值 |
+|:--|:--|
+| 市场校准（热门） | 隐含 70%+ ⇒ 实际 **80.6%**（系统性低估 +2~+4.4pp） |
+| 单押最低赔率（全样本） | **50.1%** —— 等于抛硬币（227,495 场 · 时间分割） |
+| 两向覆盖（最低 + 次低赔） | **77.7%**（+27.6pp · train/test 完全一致） |
+| 弱共识（skew <150%）热门命中 | **36–43%** ⇒ 平局必须并列 |
+| 深盘 + 机构分歧 <2% | **80.0% / 81.5%**（train/test） |
+| 大小球信号三档 | 强 **65.0%** / 中 57.0% / 弱 54.8%（≈随机） |
+| 量级：真实 4+ 球占比 | **44.4%**（而朴素主锚仅 2.0%） |
+| 欧冠正赛进球 | **3.37 球 / O2.5 64.5%**（五大基线 2.69 / 50.4% → 校准 **+0.67 球**） |
+| 实战案例库（346 场复盘） | 方向 **≈73%**（两向覆盖口径）· 比分 **≈27%**（主锚**或**次锚）· 完美 **≈18%** |
 
-*以上数字仅用于方法论验证 —— 详见 [docs/methodology.md](docs/methodology.md)。*
+> ⚠️ 这些是**方法论验证**数字，不是盈利承诺。详见 [DISCLAIMER.md](DISCLAIMER.md)。
 
 ## 快速开始（每一步）
 
-> **⚠️ 运行时说明**：本项目不是独立命令行工具，而是一套 **LLM as runtime** 分析流水线。Python 脚本只做确定性计算（去水/泊松/查表），规则判断与逐步推理由 LLM（Claude / GPT / 豆包等）按 `skills/` 下的 SKILL.md 执行。你需要一个支持文件读写的 LLM 环境来驱动它。
-
-**第 1 步 · 环境（Python 3.10+）**
 ```bash
-python --version        # 需 3.10 或更新
-pip install -r requirements.txt   # 可选依赖: river（在线学习模块）
-```
-
-**第 2 步 · 获取代码**
-```bash
-git clone <你的仓库地址>
+git clone https://github.com/MENG-COOLMAN/PitchQuant.git
 cd PitchQuant
-```
+pip install -r requirements.txt          # requests · numpy · scipy · pyyaml
 
-**第 3 步 · 配置 API key**（免费额度即可）
-```bash
-cp .env.example .env
-# 编辑 .env: ODDS_API_KEY（odds-api.io）/ API_FOOTBALL_KEY（api-football.com）
-```
-> 可选：本地代理（`HTTPS_PROXY`）——在受限网络环境下访问部分数据源需要。
+cp .env.example .env                     # 然后填入你自己的 key
+#   ODDS_API_KEY       → odds-api.io      （欧盘 · 主数据源）
+#   THE_ODDS_API_KEY   → the-odds-api.com （21–40 家 · 跨机构分歧）
+#   BZZOIRO_KEY        → bzzoiro.com      （结构化伤停 / 名单 / 近况）
+#   ZHIPU_API_KEY      → bigmodel.cn      （可选：截图 → 赔率文本）
 
-> 📋 **完整清单**（你必须自备哪些数据 / 需要哪些 API / 免费额度 / 没有 key 时的降级行为）：**[docs/data-and-apis.md](docs/data-and-apis.md)**
-
-**第 4 步 · 准备输入**（也可直接用自带样例：`examples/sample-odds.txt`）——一个纯文本赔率文件（竞彩格式）：
-```
-【胜平负】2.67,3.22,2.25 → 2.75,3.22,2.20 → 2.67,3.22,2.25
-【让球+1】1.47,3.95,5.10 → ... → 1.48,3.95,5.00
-【总进球】... → 15.00,5.90,3.30,3.40,5.45,9.50,20.00,31.00
-【比分】1:1=6.25 1:2=8.00 2:1=9.00 ...
-```
-（`→` 分隔不同时间点的赔率 —— 模型会读取**整条变动序列**，这正是"形态学"分析的输入。）
-
-**第 5 步 · 跑流水线**
-```bash
-python scripts/tmp/calc_all.py <你的赔率.txt> 英超 --eu 1.55,4.20,6.00 --handi -1 --o25 1.90
-```
-输出包含：去水概率 → 硬核 12 项 → 方向引擎 → **实时比分引擎**（多源动态融合）→ 一致性检查（锚 vs 市场 / 锚 vs 量级）→ 一份**必核清单**（LLM 必须逐项走完）。
-
-**第 6 步 · 验证环境**
-```bash
-python -m compileall -q scripts/ templates/          # 语法检查
+# ① 只跑确定性内核
 python scripts/tmp/calc_poisson.py --home 2.50 --draw 3.40 --away 2.80 --o25 1.90 --u25 1.85 --top 5
-# 预期输出: λh/λa + 比分Top5表
+#    预期输出: λh/λa + 方向概率 + 比分 Top5 表
+
+# ② 单场全流程
+python scripts/tmp/pipeline.py examples/sample-odds.txt \
+    --teams "主队,客队" --league seriea --kickoff "2026-11-15 03:45"
+
+# ③ 一致性自检（改完任何东西都跑）
+python scripts/tmp/check_sync.py
 ```
+
+**输入**：竞彩赔率文本（胜平负 / 让球 / 总进球 / 半全场 / 比分，含逐时点序列）。
+`pipeline.py` 也接受**截图**（自动 OCR → 标准文本）。
+
+**两个会静默污染全部结论的陷阱**：
+- `--eu` 必须是**真实欧盘**，禁用竞彩末盘冒充（会让跨市场分歧恒为 0 —— **假一致**）；
+- `--handi` 必须是**欧盘均衡线**，不是竞彩固定 ±1（否则净胜档 / 让球水位 / 受让禁锚判断全部失真）。
 
 ## 目录结构
 
 ```
-PitchQuant/
-├── skills/          36 × SKILL.md  —— 规则 · 联赛子模型 · 审计纪律
-├── scripts/
-│   ├── tmp/         核心流水线（calc_all · calc_poisson · 现场引擎 · 校验器）
-│   ├── online_learning/  赛后学习闭环（5 层）
-│   └── backtest/    回测与数据构建工具
-├── tables/          9 张蒸馏表（联赛基准 · 进球档 · …）
-├── templates/       分析输出模板 + 案例模板
-├── docs/            架构 · 方法论 · 操作手册 · 数据与API清单
-├── examples/        脱敏真实案例（含一次误判复盘）
-└── DISCLAIMER.md · NOTICE.md · LICENSE
+AGENTS.md / prompts/            流程规范（分析 · 自检 · 审计 · 模型体检）
+skills/                         37 个领域技能（规则 / 联赛子模型 / 审计 / 维护）
+scripts/tmp/                    129 个确定性脚本（核心流水线 + 审计 + 市场矩阵）
+scripts/online_learning/        21 个学习层脚本（受门禁控制 · L1 已否决）
+scripts/backtest/               53 个回测与验证脚本
+tables/                         20 张蒸馏查表（联赛 / 进球档 / 比分深度 / 水位 / 平局 …）
+data/                           兼容层 —— clone 即跑，无需改路径
+templates/                      分析模板 · 案例模板
+docs/                           架构 · 方法论 · 快速开始 · 数据与 API
+examples/                       真实格式赔率样例 + 脱敏案例（含一次误判复盘）
+.github/workflows/ci.yml        语法编译 · 表完整性 · 密钥残留扫描
 ```
 
 ## 数据说明
 
-| 数据 | 是否包含 | 原因 |
-|:--|:--|:--|
-| `tables/*.json`（蒸馏表） | ✅ 已包含 | 本项目**统计衍生结果**（命中率/比率），可自由使用 |
-| `scripts/tmp/nl_data/*.json` | ✅ 已包含 | ELO 档命中率 + 公平赔率参数 —— **仅聚合结果**（无原始赛果） |
-| 22.7 万场原始 CSV / SQL / 欧战库 | ❌ 未包含 | 体积 + 来源条款（**完整致谢见 [NOTICE.md](NOTICE.md) §二**） |
-| 欧国联原始赛果（658 场） | ❌ 未包含 | 改为发布聚合结果 |
-| API keys | ❌ 绝不含 | 一律走环境变量 |
-| **竞彩赔率（输入数据）** | — | 取自 **中国体育彩票官方网站**（<https://www.lottery.gov.cn/jc/index.html>）**每日公开数据**（使用者自行抄录 · 本项目不内置）· 详见 [DISCLAIMER.md](DISCLAIMER.md) §4.5 |
-
-**时序数据**：早盘快照（`snapshot_save`）按需采集全市场，**只增不改**、按 eventId/队名精确匹配本场（禁跨场复用），多次采集即累积成欧亚盘时间序列，供 V1/V2/V6 与 CLV 消费。
-
-**回测数据来源**（均为公开数据 · 用于研究）：
-**Football-Data.co.uk**（赛果/统计/赔率）· **ClubElo**（ELO 评分）· 整合数据集 **xgabora/Club-Football-Match-Data**（Gábor, A.）· **中国体育彩票**官方公开赔率。
-实时赔率：**the-odds-api**（21 家机构 —— 跨机构分歧）· **odds-api.io** · **api-football** · **ClubElo** · **Understat**。
-
-> 本仓库**不含**任何来源的原始数据文件；`tables/` 仅为统计衍生结果（事实性数据）。
-> 完整致谢、引用格式与合规声明：**[NOTICE.md](NOTICE.md) §二**
+本仓库**不含**原始数据集：`Matches.csv`（22.7 万场）、欧战历史库、案例库 raw 存档与备份均**排除**（体积 + 第三方条款）。
+所有 API Key、Cookie、快照与个人路径均已**移除** —— 你需要在 `.env` 里自备密钥。
 
 ## 免责声明
 
-仅供研究与工程学习。长期串关 EV 为负。请遵守当地法律法规与数据源服务条款。
+**仅用于学术交流与技术学习**。**严禁用于博彩/投注**。无任何保证。完整条款见 [DISCLAIMER.md](DISCLAIMER.md)。
 
 ## 适用范围与限制
 
-| 项目 | 说明 |
-|:--|:--|
-| **主打联赛** | 英超、西甲、德甲、意甲、法甲 + 欧冠/欧联 |
-| **其他联赛** | 未校准，自行评估风险 |
-| **国际赛事（欧国联）** | 独立子模型 —— 658 场 / 四届；五大联赛档表属超域，标注*仅参考* |
-| **输入方式** | 手动准备纯文本赔率文件（竞彩格式），不自动抓取 |
-| **回测规模** | 联赛 22.7 万场 + 欧战 1,174 场 |
-| **不保证收益** | 历史回测数字仅验证方法论，不代表未来表现 |
-| **已知问题** | `check_sync.py` 需要完整版模型的 AGENTS.md（公开版不含） |
+- **单场方差不可消除**：总进球 σ≈1.6，即使期望完全校准，也有约 26% 的场次偏离 ≥1 球。
+- **比分预测是覆盖问题，不是点预测问题** —— 5.3% 的事件不可能"预测"，只能被候选池**覆盖**。
+- **部分层明确未回测**（宽池必含档补入、若干权重系数）—— 代码里标 `⏳ 待回测`，不冒充已验证。
+- **超域赛事**（杯赛 / 小联赛）**没有**本域档表；阈值一律三态标注并**排除在排序之外**。
 
 ---
 
@@ -530,7 +465,7 @@ PitchQuant/
 | 🔴 **[`prompts/`](prompts/README.md)** | **Prompt 规范集**——分析执行 / 自查补充 / 独立审计 / 模型体检（四件套闭环）<br>Prompt specification set — analyze · self-check · audit · model health |
 | [`docs/getting-started.md`](docs/getting-started.md) | 操作手册——输入格式 / 参数解读 / 输出解读 / FAQ / 故障排查<br>Hands-on walkthrough — input format, CLI flags, reading the output, FAQ |
 | 🔴 **[`docs/data-and-apis.md`](docs/data-and-apis.md)** | **数据与 API 清单**——你必须自备什么 / 哪些 API / 免费额度 / 降级行为<br>Required data & APIs — what you must provide, free tiers, graceful degradation |
-| [`docs/architecture.md`](docs/architecture.md) | 架构与规则优先级——四层结构 / L1–L5 优先级体系 / 四道质量门<br>Architecture & rule priorities — four layers, priority system, quality gates |
+| [`docs/architecture.md`](docs/architecture.md) | 架构与规则优先级——分层结构 / 子模型隔离 / 判定优先级体系 / 七道质量门<br>Architecture & priorities — layers, sub-model isolation, priority hierarchy, seven gates |
 | [`docs/methodology.md`](docs/methodology.md) | 方法论——关键回测结论 + 数学公式 + 复现步骤<br>Methodology — backtest findings, formulas, reproduction steps |
 | [`examples/`](examples/) | 脱敏完整案例（含一次误判复盘）<br>Anonymized real case, including a mis-prediction post-mortem |
 | **[`DISCLAIMER.md`](DISCLAIMER.md)** | ⚠️ **法律免责声明**——学术用途 / 禁止博彩 / 无保证 / 责任限制<br>Legal disclaimer — academic use only, prohibitions, limitation of liability |

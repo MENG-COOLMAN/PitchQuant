@@ -1,0 +1,392 @@
+{
+  "meta": {
+    "generated": "2026-09-29",
+    "version": "V3.5.76",
+    "purpose": "档位/场景规则登记表（防第 21 次同型复发）——新增规则前必须先查本表是否已有同场景条目；同型条目应【合并修正】而非【追加新规则】。",
+    "root_cause": "用户审计提问「是否系统性结构问题」→ 查实 R 系列已因「全局规则在某档位失效 → 打补丁」累积 19 次；本次「让球盘 × 强小球」为第 20 次同型发作。",
+    "evidence_of_pattern": "check_sync 断言 57 条(8-27) → 383 条(9-29)，一个月 6.7 倍；档位/场景类补丁 R1-R19",
+    "rules": {
+      "usage": "新增前先 grep scenario 字段；命中同场景 → 走『合并修正』流程，不得追加平行规则"
+    }
+  },
+  "naming_conflicts": [
+    {
+      "id": "R-SERIES",
+      "issue": "『R+数字』编号存在三套并行体系，跨文档引用会歧义",
+      "sets": [
+        {
+          "set": "主模型档位规则",
+          "range": "R1-R19",
+          "where": "AGENTS.md §V3.5.72更新执行链"
+        },
+        {
+          "set": "修正53增强层",
+          "range": "R20",
+          "where": "AGENTS.md §R20 平局温度计"
+        },
+        {
+          "set": "NL 子模型",
+          "range": "R1-R10",
+          "where": "SK-league-nations（R9=战意·R10=公平edge，与主模型 R9/R10 含义完全不同）"
+        },
+        {
+          "set": "联赛子模型",
+          "range": "R1-R15",
+          "where": "SK-league-{epl,laliga,...}"
+        }
+      ],
+      "risk": "『R7』可能指 主模型中深盘置信度 / NL 均势 / 联赛子模型某条 —— 三件不同的事",
+      "action": "新规则一律用带前缀编号（主模型 R / NL-R / EPL-R）；引用必须带前缀"
+    }
+  ],
+  "rules_r_series": {
+    "scope": "主模型（全局档位规则）",
+    "items": [
+      {
+        "id": "R1",
+        "scenario": "超深盘(<1.30) × 联赛强度",
+        "evidence": "强联赛 HIGH / 小联赛+杯赛 最高MID+平局升权（平局爆冷 37.5%）",
+        "status": "已固化"
+      },
+      {
+        "id": "R2",
+        "scenario": "主方向升赔 + 同侧伤停",
+        "evidence": "伤停影响分≥4.0 且位置与升赔方向一致 → 豁免 D1 降级",
+        "status": "已固化"
+      },
+      {
+        "id": "R3",
+        "scenario": "超深盘 + 大球强",
+        "evidence": "净胜3+ 44% → 全档开满；主让1主胜 → 净1/净2 双出口",
+        "status": "已固化"
+      },
+      {
+        "id": "R4",
+        "scenario": "意甲 × 客胜 1.5-1.8",
+        "evidence": "62.6%（五大最高）",
+        "status": "已固化"
+      },
+      {
+        "id": "R5",
+        "scenario": "弱旅主场 + 主赔<2.0",
+        "evidence": "主胜仍 ~60%（不降主）",
+        "status": "已固化"
+      },
+      {
+        "id": "R6",
+        "scenario": "欧盘 CS 最低平局比分 <4.5",
+        "evidence": "平局信号 S8 +1",
+        "status": "已固化"
+      },
+      {
+        "id": "R7",
+        "scenario": "主胜赔率 1.50-2.10 档",
+        "evidence": "1.50-1.80→MID(58.3%)；1.80-2.10→强制 MID-LOW(49.1%)",
+        "status": "已固化"
+      },
+      {
+        "id": "R8",
+        "scenario": "平局并列阈值",
+        "evidence": "P_平局≥28%；并列不得覆盖更大样本方向（客胜50.2%>平27%）",
+        "status": "已固化"
+      },
+      {
+        "id": "R9",
+        "scenario": "—（主模型未登记）",
+        "evidence": "🔴 主模型无 R9 定义；NL 子模型 R9=战意分级（MD1-2 禁死球淡化）",
+        "status": "编号冲突·见 naming_conflicts"
+      },
+      {
+        "id": "R10",
+        "scenario": "欧战 × 深盘主胜 1.3-1.8",
+        "evidence": "EC 命中 60.7%（全类最低）→ 最高 MID + 平局升权",
+        "status": "已固化"
+      },
+      {
+        "id": "R11",
+        "scenario": "主胜 1.8-3.0 档",
+        "evidence": "1.8-2.1 平28.4%>客22.5%；2.1-3.0 平31%≈客32% → 主胜降档 + 平/客双次级并列",
+        "status": "已固化"
+      },
+      {
+        "id": "R12",
+        "scenario": "英超 × 中深盘",
+        "evidence": "主1.5-1.8=62.3% · 客1.5-1.8=60.5%（五大最高）",
+        "status": "已固化"
+      },
+      {
+        "id": "R13",
+        "scenario": "法甲 × 主胜",
+        "evidence": "1.3-1.5=68.6% / 1.5-1.8=57.0%（最低）· 小球王",
+        "status": "已固化"
+      },
+      {
+        "id": "R14",
+        "scenario": "德甲 × 中深盘",
+        "evidence": "主1.8-2.1=46.9% / 客1.8-2.1=47.1%（最低·强制 MID-LOW）",
+        "status": "已固化"
+      },
+      {
+        "id": "R15",
+        "scenario": "意甲 × 客胜",
+        "evidence": "1.5-1.8=62.6% · 平局率 27.1%（2.1-2.5 档 34.1% 最高）",
+        "status": "已固化"
+      },
+      {
+        "id": "R16",
+        "scenario": "红牌风险（联赛机制）",
+        "evidence": "西甲23.3% / 意甲22.7% ≫ 英超14.8%",
+        "status": "已固化（观察项级）"
+      },
+      {
+        "id": "R17",
+        "scenario": "零封率（联赛机制）",
+        "evidence": "法甲51%最高 / 德甲44%最低",
+        "status": "已固化（观察项级）"
+      },
+      {
+        "id": "R18",
+        "scenario": "强度机制（联赛）",
+        "evidence": "德甲对攻开放 / 法甲防守密",
+        "status": "已固化（观察项级）"
+      },
+      {
+        "id": "R19",
+        "scenario": "实力差距（隐含差）",
+        "evidence": "悬殊>50pp→大球60.8%；接近<10pp→小球46.3%（n=43214）",
+        "status": "已固化"
+      },
+      {
+        "id": "R20",
+        "scenario": "平局温度计 S9-S12（修正53增强层）",
+        "evidence": "小球盘30.9-32.2% / 浅让27.4-30.2% / 主胜2.1-3.0档29.7% / 客强27.8-30.0%（n≥4000/信号）",
+        "status": "已固化"
+      }
+    ]
+  },
+  "rules_p_series_new": {
+    "scope": "本次结构修订新增（用 P-前缀避免与 R 系列冲突）",
+    "items": [
+      {
+        "id": "P-SCORE-1",
+        "name": "让球盘 × 大小球 → 比分先验表",
+        "scenario": "|handi| ∈ [0.75, 1.25]（让/受让 1 球）× O2.5 三档(big<1.70 / mid 1.70-2.10 / small>2.10)",
+        "supersedes": "anchor_market_check ④ 全局下界「主锚总进球 ≥ 期望−1.0」（该约束在强小球场排除全部 1 球比分 → 系统性把主锚钉在 1:1）",
+        "evidence": {
+          "主让1球+small": {
+            "n": 3687,
+            "top1": "1:0",
+            "top1_pct": 15.8,
+            "vs_1_1": 12.2,
+            "split_ok": true
+          },
+          "主让1球+mid": {
+            "n": 14225,
+            "top1": "1:0",
+            "top1_pct": 12.8,
+            "vs_1_1": 10.9,
+            "split_ok": true
+          },
+          "主让1球+big": {
+            "n": 5199,
+            "top1": "2:1",
+            "split_ok": false
+          },
+          "受让1球+small": {
+            "n": 438,
+            "top1": "0:1",
+            "top1_pct": 13.2,
+            "vs_1_1": 10.7,
+            "split_ok": false
+          },
+          "受让1球+mid": {
+            "n": 3349,
+            "top1": "0:1",
+            "top1_pct": 12.9,
+            "vs_1_1": 10.3,
+            "split_ok": false
+          }
+        },
+        "gate": "🔴 仅 split_ok=True 且 n≥40 的格参与调序；否则不调序（退回纯市场）",
+        "data": "data/tmp/handi_score_table.json（24 格）",
+        "status": "已固化（待后续样本累积复核受让侧）",
+        "related": [
+          "R7",
+          "R11",
+          "R19"
+        ]
+      },
+      {
+        "id": "P-AUTH-1",
+        "name": "口径权威表（单一事实源）",
+        "scenario": "任何量存在 ≥2 个来源时（期望总进球/大小球/方向概率/净胜档/比分先验）",
+        "supersedes": "同一事实多套取值、无仲裁 → 220 用 NL 口径而 217/218/219 用市场口径",
+        "evidence": {
+          "expect_total_sources": 5,
+          "根因": "口径无仲裁"
+        },
+        "data": "data/tmp/canonical_sources.json",
+        "wired": "score_prior.authority_resolve()",
+        "status": "已固化"
+      },
+      {
+        "id": "P-SCOPE-1",
+        "name": "作用域开关（超域代码化）",
+        "scenario": "子模型场次（NL / 欧战 / 五大联赛）",
+        "supersedes": "12 行文字超域清单（靠 LLM 记忆）",
+        "evidence": {
+          "raw_提到超域": 19,
+          "脚本提到超域": 2,
+          "后果": "同批口径执行不一致"
+        },
+        "data": "data/tmp/scope_registry.json",
+        "wired": "score_prior.scope_check()",
+        "status": "已固化"
+      },
+      {
+        "id": "P-EVAL-1",
+        "name": "评估层与前瞻 holdout（评论者三条建议落地）",
+        "scenario": "任何对外宣称准确率 · 任何新增规则/特征发布前",
+        "supersedes": "「方向 55-58%」无基线宣称 · 「回溯留一季」不可行（2000-2025 全历史已参与调参）",
+        "evidence": {
+          "已落实": [
+            "② 去水市场热门基线 → data/tmp/eval_baseline.py（单押 50.07% / 两向覆盖 77.63%·同场对比+Wilson CI+McNemar）",
+            "②' log loss 前置 → 2026-09-30 落实：case_write.HDR + 案例库 CSV 由 18 → 21 列（**末尾追加** pH_模型/pD_模型/pA_模型·220 行补空·7 个消费方中 check_luopan 的索引访问未受影响·check_luopan 回归通过·案例库模板.md 已同步）",
+            "③ 变体台账 → rule_registry.experiments（config_hash=md5(依赖json+版本号) + 4 条记录）"
+          ],
+          "未落实_诚实标注": [
+            "①「25%」全量重跑：历史逐T竞彩仅 20 场 → 数据不存在；Q2「竞彩降赔≠方向」依据降级观察项（代码未动·待 ≥200 场再定）·替代方案=快照前瞻积累（已有 11 份快照含 tick 时序）",
+            "②'' log loss **计算**本身：前置已就绪，但需新案例开始累积 pH/pD/pA 才有数据可算（历史 220 行留空·不臆造回填）"
+          ],
+          "关键实测": "同场 n=34：模型 any 47.1% == 市场单押热门 47.1%（+0.0pp）· vs 市场两向覆盖 76.5%（−29.4pp）；n=71：模型主锚 16.9% < 市场 Top1 22.5%（−5.6pp）· 分歧场净负 2:6"
+        },
+        "rule": "① 任何方向数字发布须同页附 eval_baseline 四基线 ② log loss 优先于 accuracy ③ 前瞻 holdout：2026-10-01 起新场次不再用于调参·仅作前向验证 ④ 发布门禁：新规则/特征须在前瞻 holdout vs「市场最低+次低 两向覆盖」≥ +3pp（≥0 且 <3pp 有条件·须标注；<0 回炉）⑤ 调参期绝不读前瞻 holdout",
+        "data": "data/tmp/eval_baseline.py · docs/双轨升级方案_v2_20260930.md · docs/比分基线体检_20260930.md · docs/比分基线体检_扩样诊断_20260930.md · docs/步骤75回测与偏离模式_20260930.md",
+        "status": "已固化（规则层）· 未落实项显式标注"
+      },
+      {
+        "id": "P-AUDIT-1",
+        "name": "新载体交付三态（存在 → 接线 → 活跃）",
+        "scenario": "任何新增模块 / 数据表 / 工具交付时 · 任何审计时",
+        "supersedes": "只做存在性检查（文件在即通过）→ 掩盖「存在≠活跃」孤岛",
+        "evidence": {
+          "本轮实抓": "2026-09-30 A 模式审计：score_prior 的 authority_resolve / scope_check / scope_for_league 三者【均无消费端】= 孤岛；而 check_sync 仅做字符串存在性检查（\"def X\" in src）= 假通过，掩盖了 6 天",
+          "对照": "同批 handi_prior_table 因被 live_score_engine 真实调用而正常 → 差异就在「有没有接消费端」",
+          "已修": "①live_score_engine.expect_triple_check 调 authority_resolve（res['ref'] 由权威表决定）②calc_all 联赛识别处调 scope_for_league+scope_check（输出【作用域开关】）③check_sync 4 条断言改实跑型"
+        },
+        "rule": "① 每个新载体交付必须三态报备：**存在**（文件在）→ **接线**（谁调用·给脚本:行号）→ **活跃**（实跑一次输出非空数值）② check_sync 断言**必须实跑型**（import + 调用 + 断言返回值）· 禁 `\"def X\" in src` 式关键词检查 ③ grep 接线扫描列为审计固定项（排除自身后调用者=0 → 判孤岛）④**教训写进注释 ≠ 教训被执行**（P-AUDIT-1 即因 2026-09-29 的教训次日复发而立）",
+        "data": "docs/审计报告_20260930_A模式.md",
+        "status": "已固化（2026-09-30·A 模式审计产出）"
+      },
+      {
+        "id": "P-OBS-1",
+        "name": "观察项必须落地运行时文档（治「复盘成果进不了执行路径」）",
+        "scenario": "任何复盘产出的观察项（O-系列）· 任何规则修正",
+        "supersedes": "观察项只写进记忆与复盘报告 → 运行时文档 0 处 → 分析时读不到 → 同类错误反复",
+        "evidence": {
+          "量化": "2026-09-30 A 模式审计：O-NL-1/2/3/4 · O-DIR-3 · O26 · O22 · O17 · O24 在 AGENTS/txt/SK-league-nations 的落地率 = **0/10**（仅早期 O1 落过 → 总落地率 1/10）",
+          "实证": "O-NL-3（NL 量级=离散度大 → 宽区间）09-29 已固化但未落文档 → 09-29 分析 case220 时读不到 → 按旧「折价」执行 → 折价过头（O26 第 5 例：真实 5 球 vs 折价后期望 3.48）",
+          "已修": "SK-league-nations 新增「NL 场观察项（运行时必查）」节（O-NL-1/2/3/4 + O26 + O-DIR-3 + 机理·658 场）· AGENTS(×2 处)/txt 的 Step4.8 行尾指引"
+        },
+        "rule": "① 任何复盘观察项（O-系列）**必须在当批落地运行时文档**（AGENTS / txt / 对应 SK-* 技能）· 禁只写记忆与报告 ② 落位规则: 通用观察项→AGENTS「关键约束」; 子模型专用→对应 SK-league-* 技能 + AGENTS/txt 的 Step 行尾指引 ③ check_sync 断言三处一致（防回退） ④ **观察项落地率**纳入 A 模式审计固定项",
+        "data": "SK-league-nations「NL 场观察项」节 · AGENTS/txt Step4.8 行 · docs/审计报告_20260930_A模式.md",
+        "status": "已固化（2026-09-30·A 模式审计产出）"
+      },
+      {
+        "id": "P-LEAK-1",
+        "name": "启用依据必须绑定「生产环境实际可得特征」（治数据泄露式伪证据）",
+        "scenario": "任何新模块/新层的启用裁决（用回测增益作为启用依据时）· 任何回测脚本",
+        "supersedes": "用「含赛后统计/未来信息」的特征做回测 → 增益虚高 → 据此启用（L1 在线 ML 的 +0.68pp 即此类）",
+        "evidence": {
+          "量化": "L1 原依据 +0.68pp(z=2.12) 来自 validate_fusion.py 的 26 特征，其中 **17 个是该场赛后统计**（射门/射正/角球/犯规/黄红牌/半场比分）—— 用赛后统计预测该场 = 看答案答题",
+          "对照实测": "227,518 场时间分割: 仅赛前可得(8特征) 融合 50.35% vs 热门基准 50.34% = **+0.01pp(≈0)**；含赛后统计(26特征) 52.23% = +1.89pp（泄露越大增益越大）；纯赔率(4特征) −0.02pp",
+          "旁证": "融合监测 n=48 融合21=基准21(+0.0) · 历史 L1 30000 场 −14.2pp → 三条独立证据一致 → 正式否决（rejected_leak）",
+          "附带缺陷": "validate_learning.py 的 RM.save_models(m) 把「11 特征回测模型」写回生产 → 污染 34 特征 StandardScaler（24 特征仅 81 样本·方差趋零）→ 数值爆炸（goals 3.1e12 / direction 饱和 96.5%）→ 已禁用写回"
+        },
+        "rule": "① 回测只准用**赛前可得**特征；含赛后统计/未来信息者一律判泄露 ② 启用裁定须**三重证据**: 回测(n) + 同场基准对照 + 独立旁证 ③ **回测脚本禁止写回生产状态**（state/*.pkl / *.json） ④ **门禁默认值必须与运行时状态一致**（防 gate.json 重建复活被否决层 —— 本次实抓缺陷） ⑤ check_sync 含实跑型断言（default_gate 一致性 + 迁移文档状态）",
+        "data": "docs/审计报告_20260930_A模式.md · data/online_learning/state/gate.json · validate_fusion.py 作废声明 · gate.py default_gate()",
+        "status": "已固化（2026-09-30·L1 泄露裁决）"
+      }
+    ]
+  },
+  "experiments": {
+    "purpose": "🔴变体实验台账（2026-09-30·方案 v2 任务 4）——每次「配置打分」追加一行，用于回答『试了多少变体 / 采纳多少 / 过 held-out 多少』（评论者建议①）。config_hash = md5(依赖 json 内容 + 脚本版本号)，因模型目录非 git 仓库。",
+    "proxy": "data/tmp/eval_baseline.py（config_hash() + --trial-log）",
+    "items": [
+      {
+        "date": "2026-09-30",
+        "rule_id": "EVAL-BASELINE-1",
+        "variant": "80385faf0633",
+        "sample": "prediction_log∩case-library",
+        "n": 34,
+        "model_strict_pp": 41.2,
+        "model_any_pp": 47.1,
+        "mkt_single_pp": 47.1,
+        "mkt_cover_pp": 76.5,
+        "delta_pp": -29.4,
+        "note": "基线体检（非规则变体）：模型 any 与市场单押热门持平(+0.0pp)·strict −5.9pp·vs 市场两向覆盖 −29.4pp；McNemar p=0.1649（n=34 不显著·需扩样）",
+        "adopted": false,
+        "held_out_status": "N/A(工具·非规则变体)"
+      },
+      {
+        "date": "2026-09-30",
+        "rule_id": "EVAL-BASELINE-2",
+        "variant": "score-baseline-v1",
+        "sample": "prediction_log(txt)∩case-library",
+        "n": 31,
+        "metric": "比分锚 vs 竞彩比分盘去水 Top2",
+        "model_anchor_pp": 25.8,
+        "mkt_cs_top2_pp": 22.6,
+        "delta_pp": 3.2,
+        "note": "🔴比分基线体检：模型(主锚+次锚) 25.8% > 市场比分盘Top2 22.6%（+3.2pp）·主锚 vs Top1 +6.5pp·95%CI 重叠不显著·无「第三/四候选命中」场次(口径已核对)·案例库全208场27.4%独立印证",
+        "adopted": false,
+        "held_out_status": "N/A(工具·非规则变体)"
+      },
+      {
+        "date": "2026-09-30",
+        "rule_id": "EVAL-BASELINE-3",
+        "variant": "score-baseline-v2(扩样)",
+        "sample": "txt(165)∩case-library",
+        "n": 71,
+        "metric": "比分锚 vs 竞彩比分盘去水 Top1/Top2（扩样 + 解析器修复：3 种格式 A/B/C）",
+        "model_anchor_pp": 31.0,
+        "model_top1_pp": 16.9,
+        "mkt_cs_top2_pp": 29.6,
+        "mkt_cs_top1_pp": 22.5,
+        "delta_pp": 1.4,
+        "note": "🔴扩样推翻首轮结论：模型−市场Top2 由 +3.2pp 降至 +1.4pp（McNemar p=1.0）；模型主锚 16.9% < 市场Top1 22.5%（−5.6pp）。🔴一致性诊断：分歧 30 场中 市场对6 / 模型对2 → **模型在分歧场净负** → 指向「融合层（live 引擎步骤7.5 量级重排）削弱市场信号」",
+        "adopted": false,
+        "held_out_status": "N/A(工具·非规则变体)"
+      },
+      {
+        "date": "2026-09-30",
+        "rule_id": "EVAL-BASELINE-4",
+        "variant": "step7.5-rerank-ablation",
+        "sample": "Matches.csv 全样本",
+        "n": 148261,
+        "metric": "步骤7.5 量级重排对比分 Top1/Top2 的影响（生产同款 market_matrix 分布）",
+        "base_top1_pp": 12.83,
+        "base_top2_pp": 24.03,
+        "rerank_top1_pp": 12.89,
+        "rerank_top2_pp": 24.05,
+        "delta_pp": 0.06,
+        "note": "🔴假设证伪：步骤7.5 **中性偏微正**（Top1 +0.06pp / Top2 +0.02pp·n=148,261·17s·作用面仅 9.8% 场次）→「分歧场净负」另有其因。🔴附带发现：71 场样本市场Top1=22.5% vs 全样本 12.83% → 样本明显偏易。🔴新诊断：模型偏离市场Top1 的 30 场命中仅 0-11%（偏低分 0/11·偏高分 2/18），而一致的 41 场 24.4% → 病灶候选 = ht(权重0.24) / prior(0.08-0.25)",
+        "adopted": false,
+        "held_out_status": "N/A(工具·非规则变体)"
+      },
+      {
+        "date": "2026-10-17",
+        "rule_id": "P5-MARKET-LEAD",
+        "variant": "market-baseline-dominant-ranking",
+        "sample": "真实快照 13 场 A/B（同批 prestep_1017·旧版 vs P5）",
+        "n": 13,
+        "metric": "波胆排名基线主导排序 vs 泊松主导（主锚/次锚变化）+ 沙盒三态 15/15",
+        "delta_pp": null,
+        "note": "P5 市场信号主导排序（《市场信号主导排序升级方案》·封装式补丁包）落地: 新增 `_market_baseline` 三态(S1 波胆排名 / S2 让球水位 / S3 泊松兜底) + 泊松基线降权 ×0.5 + E1 查表升权 0.20/0.10/0.05 + E5 仅 S1 升 0.30/0.15/0.05 + E6 水位共振 0.08。13 场真实快照 A/B: **3 场锚变化**(Betis-Barça 次锚 0:1→1:2 / Bayern-Leipzig 4:0→3:1 / Strasbourg-PSG 主次对调 0:2+1:2)·10 场不变；沙盒 15/15(S1/S2/S3 + 防死锚冲突回落 + 候选池零改动)。🔴全部新增权重系方案设计值·**待回测校准**·禁单场固化。",
+        "adopted": true,
+        "held_out_status": "未验证(2026-10-18 起前瞻 holdout·发布门禁须 vs 两向覆盖 ≥+3pp)"
+      }
+    ],
+    "summary": "累计尝试变体 5（4 项评估/回测工具 + 1 项规则变体 P5 市场主导排序）· 采纳 1（P5·仅排序权重·不改分布内核）· 过 held-out 0（P5 于 2026-10-18 起进入前瞻 holdout 验证） —— 结论：方向无增量（+0.0pp）· 比分无增量（扩样 +1.4pp·p=1.0；主锚 −5.6pp）· 步骤7.5 无害（+0.06pp·148k 场）· P5 待验证（13 场 A/B 锚变化 3 场·未做时间分割回测——Matches.csv 无波胆列）"
+  }
+}

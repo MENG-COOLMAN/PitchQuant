@@ -1,0 +1,991 @@
+[
+ {
+  "region": "欧洲",
+  "country": "英格兰",
+  "tier": "顶级",
+  "cn": "英超（英格兰足球超级联赛）",
+  "en": "Premier League",
+  "slug": "england-premier-league",
+  "_api_name": "Armenia - Premier League",
+  "_events": 33,
+  "_how": "verified_manual"
+ },
+ {
+  "region": "欧洲",
+  "country": "英格兰",
+  "tier": "二级",
+  "cn": "英冠（英格兰足球冠军联赛）",
+  "en": "EFL Championship",
+  "_how": "verified_manual",
+  "_events": 191,
+  "_auto_rejected": "england-championship",
+  "slug": "england-championship"
+ },
+ {
+  "region": "欧洲",
+  "country": "西班牙",
+  "tier": "顶级",
+  "cn": "西甲（西班牙足球甲级联赛）",
+  "en": "La Liga",
+  "slug": "spain-laliga",
+  "_api_name": "Chile - Copa de la Liga, Knockout Stage",
+  "_events": 1,
+  "_how": "verified_manual"
+ },
+ {
+  "region": "欧洲",
+  "country": "西班牙",
+  "tier": "二级",
+  "cn": "西乙（西班牙足球乙级联赛）",
+  "en": "Segunda División / LaLiga 2",
+  "_api_name": "Spain - LaLiga 2",
+  "_events": 133,
+  "_how": "verified_manual",
+  "_auto_rejected": "spain-laliga-2",
+  "slug": "spain-laliga-2"
+ },
+ {
+  "region": "欧洲",
+  "country": "意大利",
+  "tier": "顶级",
+  "cn": "意甲（意大利足球甲级联赛）",
+  "en": "Serie A",
+  "slug": "italy-serie-a",
+  "_api_name": "Brazil - Brasileiro Serie A",
+  "_events": 53,
+  "_how": "verified_manual"
+ },
+ {
+  "region": "欧洲",
+  "country": "意大利",
+  "tier": "二级",
+  "cn": "意乙（意大利足球乙级联赛）",
+  "en": "Serie B",
+  "_api_name": "Brazil - Brasileiro Serie B",
+  "_events": 130,
+  "_how": "verified_manual",
+  "_auto_rejected": "italy-serie-b",
+  "slug": "italy-serie-b"
+ },
+ {
+  "region": "欧洲",
+  "country": "德国",
+  "tier": "顶级",
+  "cn": "德甲（德国足球甲级联赛）",
+  "en": "Bundesliga",
+  "slug": "germany-bundesliga",
+  "_api_name": "Austria Amateur - Bundesliga Women",
+  "_events": 16,
+  "_how": "verified_manual"
+ },
+ {
+  "region": "欧洲",
+  "country": "德国",
+  "tier": "二级",
+  "cn": "德乙（德国足球乙级联赛）",
+  "en": "2. Bundesliga",
+  "_api_name": "Germany - 2. Bundesliga",
+  "_events": 79,
+  "_how": "verified_manual",
+  "_auto_rejected": "germany-2-bundesliga",
+  "slug": "germany-2-bundesliga"
+ },
+ {
+  "region": "欧洲",
+  "country": "法国",
+  "tier": "顶级",
+  "cn": "法甲（法国足球甲级联赛）",
+  "en": "Ligue 1",
+  "slug": "france-ligue-1",
+  "_api_name": "Algeria - Ligue 1",
+  "_events": 62,
+  "_how": "verified_manual"
+ },
+ {
+  "region": "欧洲",
+  "country": "法国",
+  "tier": "二级",
+  "cn": "法乙（法国足球乙级联赛）",
+  "en": "Ligue 2",
+  "_api_name": "Algeria - Ligue 2, Centre-East",
+  "_events": 67,
+  "_how": "verified_manual",
+  "_auto_rejected": "france-ligue-2",
+  "slug": "france-ligue-2"
+ },
+ {
+  "region": "欧洲",
+  "country": "葡萄牙",
+  "tier": "顶级",
+  "cn": "葡超（葡萄牙足球超级联赛）",
+  "en": "Primeira Liga",
+  "_how": "verified_manual",
+  "_events": 89,
+  "_auto_rejected": "portugal-liga-portugal-2",
+  "slug": "portugal-liga-portugal"
+ },
+ {
+  "region": "欧洲",
+  "country": "荷兰",
+  "tier": "顶级",
+  "cn": "荷甲（荷兰足球甲级联赛）",
+  "en": "Eredivisie",
+  "_api_name": "Netherlands - Eredivisie",
+  "_events": 90,
+  "_how": "verified_manual",
+  "_auto_rejected": "netherlands-eredivisie",
+  "slug": "netherlands-eredivisie"
+ },
+ {
+  "region": "欧洲",
+  "country": "比利时",
+  "tier": "顶级",
+  "cn": "比甲（比利时足球甲级联赛）",
+  "en": "Belgian Pro League",
+  "_how": "verified_manual",
+  "_events": 81,
+  "_auto_rejected": "belgium-challenger-pro-league",
+  "slug": "belgium-first-division-a"
+ },
+ {
+  "region": "欧洲",
+  "country": "苏格兰",
+  "tier": "顶级",
+  "cn": "苏超（苏格兰足球超级联赛）",
+  "en": "Scottish Premiership",
+  "_how": "verified_manual",
+  "_events": 77,
+  "_auto_rejected": "scotland-premiership",
+  "slug": "scotland-premiership"
+ },
+ {
+  "region": "欧洲",
+  "country": "俄罗斯",
+  "tier": "顶级",
+  "cn": "俄超（俄罗斯足球超级联赛）",
+  "en": "Russian Premier League",
+  "slug": "russia-1-liga",
+  "_how": "multi(9)",
+  "_events": 51
+ },
+ {
+  "region": "欧洲",
+  "country": "乌克兰",
+  "tier": "顶级",
+  "cn": "乌超（乌克兰足球超级联赛）",
+  "en": "Ukrainian Premier League",
+  "_how": "rejected_auto",
+  "_events": 48,
+  "_auto_rejected": "ukraine-premier-league"
+ },
+ {
+  "region": "欧洲",
+  "country": "土耳其",
+  "tier": "顶级",
+  "cn": "土超（土耳其足球超级联赛）",
+  "en": "Süper Lig",
+  "slug": ""
+ },
+ {
+  "region": "欧洲",
+  "country": "奥地利",
+  "tier": "顶级",
+  "cn": "奥甲（奥地利足球甲级联赛）",
+  "en": "Austrian Bundesliga",
+  "slug": "austria-2-liga",
+  "_how": "multi(16)",
+  "_events": 46
+ },
+ {
+  "region": "欧洲",
+  "country": "瑞士",
+  "tier": "顶级",
+  "cn": "瑞士足球超级联赛",
+  "en": "Swiss Super League",
+  "_how": "verified_manual",
+  "_events": 54,
+  "_auto_rejected": "switzerland-super-league",
+  "slug": "switzerland-super-league"
+ },
+ {
+  "region": "欧洲",
+  "country": "希腊",
+  "tier": "顶级",
+  "cn": "希腊足球超级联赛",
+  "en": "Super League Greece 1",
+  "_how": "verified_manual",
+  "_events": 70,
+  "_auto_rejected": "greece-super-league-2",
+  "slug": "greece-super-league"
+ },
+ {
+  "region": "欧洲",
+  "country": "波兰",
+  "tier": "顶级",
+  "cn": "波兰足球甲级联赛",
+  "en": "Ekstraklasa",
+  "slug": "poland-ekstraklasa",
+  "_api_name": "Poland - Ekstraklasa",
+  "_events": 52,
+  "_how": "verified_manual"
+ },
+ {
+  "region": "欧洲",
+  "country": "捷克",
+  "tier": "顶级",
+  "cn": "捷克足球甲级联赛",
+  "en": "Czech First League",
+  "slug": "czechia-1-liga",
+  "_how": "verified_manual",
+  "_events": 49
+ },
+ {
+  "region": "欧洲",
+  "country": "克罗地亚",
+  "tier": "顶级",
+  "cn": "克罗地亚足球甲级联赛",
+  "en": "HNL (Hrvatska Nogometna Liga)",
+  "slug": "croatia-hnl",
+  "_how": "verified_manual",
+  "_events": 40
+ },
+ {
+  "region": "欧洲",
+  "country": "塞尔维亚",
+  "tier": "顶级",
+  "cn": "塞尔维亚足球超级联赛",
+  "en": "Serbian SuperLiga",
+  "_how": "verified_manual",
+  "_events": 35,
+  "_auto_rejected": "serbia-srpska-liga-west",
+  "slug": "serbia-super-liga"
+ },
+ {
+  "region": "欧洲",
+  "country": "斯洛伐克",
+  "tier": "顶级",
+  "cn": "斯洛伐克足球超级联赛",
+  "en": "Slovak First Football League",
+  "slug": ""
+ },
+ {
+  "region": "欧洲",
+  "country": "斯洛文尼亚",
+  "tier": "顶级",
+  "cn": "斯洛文尼亚足球甲级联赛",
+  "en": "Slovenian PrvaLiga",
+  "slug": ""
+ },
+ {
+  "region": "欧洲",
+  "country": "匈牙利",
+  "tier": "顶级",
+  "cn": "匈牙利足球甲级联赛",
+  "en": "Nemzeti Bajnokság I",
+  "slug": ""
+ },
+ {
+  "region": "欧洲",
+  "country": "罗马尼亚",
+  "tier": "顶级",
+  "cn": "罗马尼亚足球甲级联赛",
+  "en": "Liga I (SuperLiga)",
+  "slug": ""
+ },
+ {
+  "region": "欧洲",
+  "country": "保加利亚",
+  "tier": "顶级",
+  "cn": "保加利亚足球甲级联赛",
+  "en": "Parva Liga",
+  "slug": "bulgaria-parva-liga",
+  "_api_name": "Bulgaria - Parva Liga",
+  "_events": 34
+ },
+ {
+  "region": "欧洲",
+  "country": "丹麦",
+  "tier": "顶级",
+  "cn": "丹麦足球超级联赛",
+  "en": "Danish Superliga",
+  "_how": "verified_manual",
+  "_events": 29,
+  "_auto_rejected": "denmark-u19-ligaen",
+  "slug": "denmark-superligaen"
+ },
+ {
+  "region": "欧洲",
+  "country": "挪威",
+  "tier": "顶级",
+  "cn": "挪威足球超级联赛",
+  "en": "Eliteserien",
+  "slug": "norway-eliteserien",
+  "_api_name": "Norway - Eliteserien",
+  "_events": 47,
+  "_how": "verified_manual"
+ },
+ {
+  "region": "欧洲",
+  "country": "瑞典",
+  "tier": "顶级",
+  "cn": "瑞典足球超级联赛",
+  "en": "Allsvenskan",
+  "slug": "sweden-allsvenskan",
+  "_api_name": "Sweden - Allsvenskan",
+  "_events": 32,
+  "_how": "verified_manual"
+ },
+ {
+  "region": "欧洲",
+  "country": "芬兰",
+  "tier": "顶级",
+  "cn": "芬兰足球超级联赛",
+  "en": "Veikkausliiga",
+  "slug": "finland-veikkausliiga-championship-round",
+  "_api_name": "Finland - Veikkausliiga, Championship Round",
+  "_events": 6
+ },
+ {
+  "region": "欧洲",
+  "country": "冰岛",
+  "tier": "顶级",
+  "cn": "冰岛足球超级联赛",
+  "en": "Besta deild karla",
+  "slug": ""
+ },
+ {
+  "region": "欧洲",
+  "country": "爱尔兰",
+  "tier": "顶级",
+  "cn": "爱尔兰足球超级联赛",
+  "en": "League of Ireland Premier Division",
+  "slug": ""
+ },
+ {
+  "region": "欧洲",
+  "country": "北爱尔兰",
+  "tier": "顶级",
+  "cn": "北爱尔兰足球超级联赛",
+  "en": "NIFL Premiership",
+  "slug": ""
+ },
+ {
+  "region": "欧洲",
+  "country": "威尔士",
+  "tier": "顶级",
+  "cn": "威尔士足球超级联赛",
+  "en": "Cymru Premier",
+  "slug": "wales-cymru-premier",
+  "_api_name": "Wales - Cymru Premier",
+  "_events": 66
+ },
+ {
+  "region": "欧洲",
+  "country": "塞浦路斯",
+  "tier": "顶级",
+  "cn": "塞浦路斯足球甲级联赛",
+  "en": "Cypriot First Division",
+  "slug": ""
+ },
+ {
+  "region": "欧洲",
+  "country": "以色列",
+  "tier": "顶级",
+  "cn": "以色列足球超级联赛",
+  "en": "Israeli Premier League",
+  "slug": ""
+ },
+ {
+  "region": "欧洲",
+  "country": "哈萨克斯坦",
+  "tier": "顶级",
+  "cn": "哈萨克斯坦足球超级联赛",
+  "en": "Kazakhstan Premier League",
+  "slug": "kazakhstan-premier-league",
+  "_api_name": "Kazakhstan - Premier League",
+  "_events": 8
+ },
+ {
+  "region": "欧洲",
+  "country": "阿尔巴尼亚",
+  "tier": "顶级",
+  "cn": "阿尔巴尼亚足球超级联赛",
+  "en": "Kategoria Superiore",
+  "slug": "albania-kategoria-superiore",
+  "_api_name": "Albania - Kategoria Superiore",
+  "_events": 45
+ },
+ {
+  "region": "欧洲",
+  "country": "波黑",
+  "tier": "顶级",
+  "cn": "波黑足球超级联赛",
+  "en": "Premier League of Bosnia and Herzegovina",
+  "slug": ""
+ },
+ {
+  "region": "欧洲",
+  "country": "北马其顿",
+  "tier": "顶级",
+  "cn": "北马其顿足球甲级联赛",
+  "en": "Prva Liga (Macedonian First Football League)",
+  "slug": ""
+ },
+ {
+  "region": "欧洲",
+  "country": "黑山",
+  "tier": "顶级",
+  "cn": "黑山足球甲级联赛",
+  "en": "Montenegrin First League",
+  "slug": ""
+ },
+ {
+  "region": "欧洲",
+  "country": "科索沃",
+  "tier": "顶级",
+  "cn": "科索沃足球超级联赛",
+  "en": "Football Superleague of Kosovo",
+  "slug": ""
+ },
+ {
+  "region": "欧洲",
+  "country": "亚美尼亚",
+  "tier": "顶级",
+  "cn": "亚美尼亚足球超级联赛",
+  "en": "Armenian Premier League",
+  "slug": ""
+ },
+ {
+  "region": "欧洲",
+  "country": "阿塞拜疆",
+  "tier": "顶级",
+  "cn": "阿塞拜疆足球超级联赛",
+  "en": "Azerbaijan Premier League",
+  "slug": "azerbaijan-premier-league",
+  "_api_name": "Azerbaijan - Premier League",
+  "_events": 49
+ },
+ {
+  "region": "欧洲",
+  "country": "格鲁吉亚",
+  "tier": "顶级",
+  "cn": "格鲁吉亚足球甲级联赛",
+  "en": "Erovnuli Liga",
+  "slug": "georgia-erovnuli-liga",
+  "_api_name": "Georgia - Erovnuli Liga",
+  "_events": 30
+ },
+ {
+  "region": "欧洲",
+  "country": "白俄罗斯",
+  "tier": "顶级",
+  "cn": "白俄罗斯足球超级联赛",
+  "en": "Belarusian Premier League",
+  "slug": ""
+ },
+ {
+  "region": "欧洲",
+  "country": "摩尔多瓦",
+  "tier": "顶级",
+  "cn": "摩尔多瓦足球超级联赛",
+  "en": "Moldovan Super Liga",
+  "slug": ""
+ },
+ {
+  "region": "欧洲",
+  "country": "拉脱维亚",
+  "tier": "顶级",
+  "cn": "拉脱维亚足球超级联赛",
+  "en": "Latvian Higher League (Virslīga)",
+  "slug": ""
+ },
+ {
+  "region": "欧洲",
+  "country": "立陶宛",
+  "tier": "顶级",
+  "cn": "立陶宛足球甲级联赛",
+  "en": "A Lyga",
+  "slug": ""
+ },
+ {
+  "region": "欧洲",
+  "country": "爱沙尼亚",
+  "tier": "顶级",
+  "cn": "爱沙尼亚足球甲级联赛",
+  "en": "Meistriliiga",
+  "slug": "estonia-meistriliiga-women",
+  "_api_name": "Estonia - Meistriliiga Women",
+  "_events": 5
+ },
+ {
+  "region": "欧洲",
+  "country": "卢森堡",
+  "tier": "顶级",
+  "cn": "卢森堡足球甲级联赛",
+  "en": "Luxembourg National Division",
+  "slug": ""
+ },
+ {
+  "region": "欧洲",
+  "country": "马耳他",
+  "tier": "顶级",
+  "cn": "马耳他足球超级联赛",
+  "en": "Maltese Premier League",
+  "slug": ""
+ },
+ {
+  "region": "欧洲",
+  "country": "安道尔",
+  "tier": "顶级",
+  "cn": "安道尔足球甲级联赛",
+  "en": "Primera Divisió",
+  "slug": ""
+ },
+ {
+  "region": "欧洲",
+  "country": "直布罗陀",
+  "tier": "顶级",
+  "cn": "直布罗陀足球联赛",
+  "en": "Gibraltar Football League",
+  "slug": ""
+ },
+ {
+  "region": "欧洲",
+  "country": "法罗群岛",
+  "tier": "顶级",
+  "cn": "法罗群岛足球超级联赛",
+  "en": "Faroe Islands Premier League",
+  "slug": "faroe-islands-premier-league",
+  "_api_name": "Faroe Islands - Premier League",
+  "_events": 5
+ },
+ {
+  "region": "欧洲",
+  "country": "圣马力诺",
+  "tier": "顶级",
+  "cn": "圣马力诺足球联赛",
+  "en": "Campionato Sammarinese di Calcio",
+  "slug": ""
+ },
+ {
+  "region": "南美洲",
+  "country": "巴西",
+  "tier": "顶级",
+  "cn": "巴甲（巴西足球甲级联赛）",
+  "en": "Campeonato Brasileiro Série A (Brasileirão)",
+  "_how": "verified_manual",
+  "_events": 53,
+  "_auto_rejected": "brazil-brasileiro-serie-a",
+  "slug": "brazil-brasileiro-serie-a"
+ },
+ {
+  "region": "亚洲",
+  "country": "中国",
+  "tier": "顶级",
+  "cn": "中超（中国足球超级联赛）",
+  "en": "Chinese Super League (CSL)",
+  "_how": "verified_manual",
+  "_events": 8,
+  "_auto_rejected": "china-chinese-super-league",
+  "slug": "china-chinese-super-league"
+ },
+ {
+  "region": "亚洲",
+  "country": "日本",
+  "tier": "顶级",
+  "cn": "日职联（日本职业足球甲级联赛）",
+  "en": "J1 League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "韩国",
+  "tier": "顶级",
+  "cn": "韩K1联赛（韩国职业足球联赛）",
+  "en": "K League 1",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "澳大利亚",
+  "tier": "顶级",
+  "cn": "澳超（澳大利亚足球超级联赛）",
+  "en": "A-League Men",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "沙特阿拉伯",
+  "tier": "顶级",
+  "cn": "沙特职业足球联赛",
+  "en": "Saudi Pro League (SPL)",
+  "slug": "saudi-arabia-saudi-professional-league",
+  "_how": "verified_manual",
+  "_events": 60
+ },
+ {
+  "region": "亚洲",
+  "country": "伊朗",
+  "tier": "顶级",
+  "cn": "伊朗职业足球联赛",
+  "en": "Persian Gulf Pro League",
+  "_how": "rejected_auto",
+  "_events": 11,
+  "_auto_rejected": "iran-pro-league"
+ },
+ {
+  "region": "亚洲",
+  "country": "卡塔尔",
+  "tier": "顶级",
+  "cn": "卡塔尔星级联赛",
+  "en": "Qatar Stars League",
+  "slug": "qatar-stars-league",
+  "_api_name": "Qatar - Stars League",
+  "_events": 21
+ },
+ {
+  "region": "亚洲",
+  "country": "阿联酋",
+  "tier": "顶级",
+  "cn": "阿联酋职业足球联赛",
+  "en": "UAE Pro League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "伊拉克",
+  "tier": "顶级",
+  "cn": "伊拉克星级联赛",
+  "en": "Iraq Stars League",
+  "slug": "iraq-stars-league",
+  "_api_name": "Iraq - Stars League",
+  "_events": 43
+ },
+ {
+  "region": "亚洲",
+  "country": "乌兹别克斯坦",
+  "tier": "顶级",
+  "cn": "乌兹别克斯坦足球超级联赛",
+  "en": "Uzbekistan Super League",
+  "_how": "rejected_auto",
+  "_events": 37,
+  "_auto_rejected": "uzbekistan-superliga"
+ },
+ {
+  "region": "亚洲",
+  "country": "泰国",
+  "tier": "顶级",
+  "cn": "泰国足球甲级联赛（泰超）",
+  "en": "Thai League 1",
+  "slug": "thailand-thai-league-1",
+  "_api_name": "Thailand - Thai League 1",
+  "_events": 71
+ },
+ {
+  "region": "亚洲",
+  "country": "越南",
+  "tier": "顶级",
+  "cn": "越南足球甲级联赛",
+  "en": "V.League 1",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "印度尼西亚",
+  "tier": "顶级",
+  "cn": "印尼足球甲级联赛",
+  "en": "Liga 1",
+  "_api_name": "Moldova - Liga 1, Group A",
+  "_events": 88,
+  "_how": "rejected_auto",
+  "_auto_rejected": "indonesia-indonesia-super-league"
+ },
+ {
+  "region": "亚洲",
+  "country": "马来西亚",
+  "tier": "顶级",
+  "cn": "马来西亚足球超级联赛",
+  "en": "Malaysia Super League",
+  "_api_name": "Malaysia - Super League",
+  "_events": 68,
+  "_how": "rejected_auto",
+  "_auto_rejected": "malaysia-liga-a1"
+ },
+ {
+  "region": "亚洲",
+  "country": "新加坡",
+  "tier": "顶级",
+  "cn": "新加坡足球超级联赛",
+  "en": "Singapore Premier League",
+  "_api_name": "Singapore - Premier League",
+  "_events": 46,
+  "_how": "rejected_auto",
+  "_auto_rejected": "singapore-premier-league-2"
+ },
+ {
+  "region": "亚洲",
+  "country": "菲律宾",
+  "tier": "顶级",
+  "cn": "菲律宾足球联赛",
+  "en": "Philippines Football League",
+  "slug": "philippines-philippines-football-league",
+  "_api_name": "Philippines - Philippines Football League",
+  "_events": 19
+ },
+ {
+  "region": "亚洲",
+  "country": "缅甸",
+  "tier": "顶级",
+  "cn": "缅甸国家足球联赛",
+  "en": "Myanmar National League",
+  "slug": "myanmar-national-league",
+  "_api_name": "Myanmar - National League",
+  "_events": 35
+ },
+ {
+  "region": "亚洲",
+  "country": "柬埔寨",
+  "tier": "顶级",
+  "cn": "柬埔寨足球超级联赛",
+  "en": "Cambodian Premier League",
+  "slug": "cambodia-cambodian-premier-league",
+  "_api_name": "Cambodia - Cambodian Premier League",
+  "_events": 60
+ },
+ {
+  "region": "亚洲",
+  "country": "老挝",
+  "tier": "顶级",
+  "cn": "老挝足球甲级联赛",
+  "en": "Lao League 1",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "文莱",
+  "tier": "顶级",
+  "cn": "文莱足球超级联赛",
+  "en": "Brunei Super League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "东帝汶",
+  "tier": "顶级",
+  "cn": "东帝汶足球甲级联赛",
+  "en": "Liga Futebol Amadora Primeira Divisão",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "印度",
+  "tier": "顶级",
+  "cn": "印度超级联赛",
+  "en": "Indian Super League (ISL)",
+  "_how": "rejected_auto",
+  "_events": 59,
+  "_auto_rejected": "india-super-league"
+ },
+ {
+  "region": "亚洲",
+  "country": "孟加拉国",
+  "tier": "顶级",
+  "cn": "孟加拉国足球超级联赛",
+  "en": "Bangladesh Premier League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "斯里兰卡",
+  "tier": "顶级",
+  "cn": "斯里兰卡足球超级联赛",
+  "en": "Sri Lanka Super League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "尼泊尔",
+  "tier": "顶级",
+  "cn": "尼泊尔烈士纪念A级联赛",
+  "en": "Martyr's Memorial A-Division League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "不丹",
+  "tier": "顶级",
+  "cn": "不丹足球超级联赛",
+  "en": "Bhutan Premier League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "马尔代夫",
+  "tier": "顶级",
+  "cn": "马尔代夫迪维希超级联赛",
+  "en": "Dhivehi Premier League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "巴基斯坦",
+  "tier": "顶级",
+  "cn": "巴基斯坦足球超级联赛",
+  "en": "Pakistan Premier League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "吉尔吉斯斯坦",
+  "tier": "顶级",
+  "cn": "吉尔吉斯斯坦足球超级联赛",
+  "en": "Kyrgyz Premier League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "塔吉克斯坦",
+  "tier": "顶级",
+  "cn": "塔吉克斯坦足球超级联赛",
+  "en": "Tajikistan Higher League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "土库曼斯坦",
+  "tier": "顶级",
+  "cn": "土库曼斯坦足球超级联赛",
+  "en": "Turkmenistan Higher League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "阿富汗",
+  "tier": "顶级",
+  "cn": "阿富汗冠军联赛",
+  "en": "Afghanistan Champions League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "约旦",
+  "tier": "顶级",
+  "cn": "约旦职业足球联赛",
+  "en": "Jordan Pro League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "科威特",
+  "tier": "顶级",
+  "cn": "科威特足球超级联赛",
+  "en": "Kuwait Premier League",
+  "slug": "kuwait-premier-league",
+  "_api_name": "Kuwait - Premier League",
+  "_events": 32
+ },
+ {
+  "region": "亚洲",
+  "country": "黎巴嫩",
+  "tier": "顶级",
+  "cn": "黎巴嫩足球超级联赛",
+  "en": "Lebanese Premier League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "阿曼",
+  "tier": "顶级",
+  "cn": "阿曼职业足球联赛",
+  "en": "Oman Professional League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "巴林",
+  "tier": "顶级",
+  "cn": "巴林足球超级联赛",
+  "en": "Bahraini Premier League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "叙利亚",
+  "tier": "顶级",
+  "cn": "叙利亚足球超级联赛",
+  "en": "Syrian Premier League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "也门",
+  "tier": "顶级",
+  "cn": "也门足球联赛",
+  "en": "Yemeni League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "巴勒斯坦",
+  "tier": "顶级",
+  "cn": "巴勒斯坦（加沙地带/西岸）超级联赛",
+  "en": "Gaza Strip / West Bank Premier League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "朝鲜",
+  "tier": "顶级",
+  "cn": "朝鲜足球超级联赛",
+  "en": "DPR Korea Premier Football League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "中国香港",
+  "tier": "顶级",
+  "cn": "香港超级联赛",
+  "en": "Hong Kong Premier League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "中国澳门",
+  "tier": "顶级",
+  "cn": "澳门足球甲级联赛（精英组）",
+  "en": "Liga de Elite",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "中国台湾",
+  "tier": "顶级",
+  "cn": "台湾企业足球甲级联赛",
+  "en": "Taiwan Football Premier League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "蒙古",
+  "tier": "顶级",
+  "cn": "蒙古足球超级联赛",
+  "en": "Mongolian Premier League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "关岛",
+  "tier": "顶级",
+  "cn": "关岛足球联赛",
+  "en": "Guam Soccer League",
+  "slug": ""
+ },
+ {
+  "region": "亚洲",
+  "country": "北马里亚纳群岛",
+  "tier": "顶级",
+  "cn": "马里亚纳足球联赛1级",
+  "en": "Marianas Soccer League 1",
+  "slug": ""
+ }
+]

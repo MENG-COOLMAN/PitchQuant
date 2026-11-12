@@ -1,6 +1,19 @@
 # -*- coding: utf-8 -*-
 """融合增益验证（2026-09-11·最后判据）: 热门基准 vs 热门+在线ML融合(权重0.10)
-判据: 融合 > 基准(p<0.05) → 启用 ENABLE_ONLINE_FUSION; 否则不启用"""
+判据: 融合 > 基准(p<0.05) → 启用 ENABLE_ONLINE_FUSION; 否则不启用
+
+🔴🔴2026-09-30 作废声明（L1 泄露裁决专项·本结论已被推翻）:
+  本脚本报出的 +0.68pp(z=2.12) 是**数据泄露**的产物，**不得再作为任何启用依据**。
+  根因: KEYS 的 26 个特征中有 17 个是「该场赛后才知道的」——
+        shots_h/shots_a(射门) · target_h/target_a(射正) · corners_h/corners_a(角球) ·
+        fouls_h/fouls_a(犯规) · yellow_h/yellow_a · red_h/red_a(牌) · ht_goals/ht_result(半场比分)
+        → 用赛后统计预测该场胜负 = 看答案答题（泄露越大·增益越大）。
+  对照实测（227,518 场·时间分割 182014/45504·2026-09-30）:
+        仅赛前可得(8特征)  融合 50.35% vs 基准 50.34% = **+0.01pp（≈0·真实水平）**
+        含赛后统计(26特征)  融合 52.23% vs 基准 50.34% = +1.89pp（泄露）
+        纯赔率(4特征)       融合 50.32% vs 基准 50.34% = −0.02pp
+  裁决: L1 在线 ML **否决**（旁证: 融合监测 n=48 融合21=基准21 · 历史 30000 场 −14.2pp）。
+  用途: 本脚本仅保留作「泄露量级对照」的教学/审计用例；禁止把其 KEYS 当生产特征集。"""
 import os, sys, io, csv
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')

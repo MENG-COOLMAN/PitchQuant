@@ -2,17 +2,17 @@
 """赛果自动学习入口（用户给比分即触发·一条命令）
 用法:
   # 单场（显式特征）
-  python scripts/online_learning/learn_result.py --case 158 --real 1:1 --league 欧冠 \
+  python data/online_learning/learn_result.py --case 158 --real 1:1 --league 欧冠 \
       --home-odds 3.32 --draw-odds 3.55 --away-odds 1.83 --handi 1 --o25 3.09 \
       --pred-dir 2 --pred-total 2.5 --pred-top2 "1:1|1:2"
 
   # 批量回填（用实战案例.csv 已复盘场次顺序学习·模拟学习曲线）
-  python scripts/online_learning/learn_result.py --backfill
-  python scripts/online_learning/learn_result.py --status
+  python data/online_learning/learn_result.py --backfill
+  python data/online_learning/learn_result.py --status
 """
 import os, sys, io, csv, json, argparse, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-# stdout 包装移至 __main__（被 import 时不得重复包装·防 I/O closed 错误）
+# 🔴stdout 包装移至 __main__（被 import 时不得重复包装·防 I/O closed 错误）
 import config as C
 import persistence as P
 import river_models as RM
@@ -96,7 +96,7 @@ def cmd_backfill(args):
         if not (oh and od and oa):
             continue
         league = r.get('联赛') or '?'
-        # 修复: 优先用 raw 提取的完整特征（A+B 类）·退化到显式赔率 11 特征
+        # 🔴2026-09-12 修复: 优先用 raw 提取的完整特征（A+B 类）·退化到显式赔率 11 特征
         f = None
         try:
             import importlib.util as _iu

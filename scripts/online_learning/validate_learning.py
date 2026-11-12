@@ -69,7 +69,14 @@ def main():
         RM.learn_one(m, f, ad, h + a)
         if (i + 1) % block == 0 and seen:
             curve.append((i + 1, round(hits / seen, 4), round(base_hits / (i + 1), 4)))
-    RM.save_models(m)
+    # 🔴2026-09-30 修复（L1 泄露裁决专项）: 禁止回测模型写回生产 state/river/*.pkl
+    #   旧行为 = RM.save_models(m) 把「只用 11 个赔率类特征训练的模型」写回生产 →
+    #   生产 34 特征的 StandardScaler 统计量被污染（24 个特征仅 81 样本·方差趋零）→
+    #   标准化爆炸（goals 输出 3.1e+12 被丢弃 / direction 饱和 96.5%）→ 退化守卫权重恒 0
+    #   本脚本的模型只用于脚本内样本外评估 → 不回写生产
+    # RM.save_models(m)   ← 🔴已禁用（2026-09-30）
+    print('⚠️ 本脚本为回测专用·模型不回写生产（旧 RM.save_models 会污染 state/river）；'
+          '样本外评估见下方输出')
     print('\n=== 学习曲线（训练期·每%d场累计命中率）===' % block)
     print('%-8s %-12s %-12s' % ('场次', '在线模型', '热门基准'))
     for idx, acc, base in curve:

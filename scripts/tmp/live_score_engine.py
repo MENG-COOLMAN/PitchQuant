@@ -30,6 +30,9 @@ def pois(k, l):
 def solve_lambda_live(oh, od, oa, o25, u25=None):
     """现场反推λ：欧盘去水主胜概率 + O2.5总进球期望 → λh/λa
     完全基于本场赔率，不查任何表"""
+    # 🔴P13.1 修复：缺 o25 时 1/None 抛 TypeError（原整引擎崩溃降级）；缺则三态返回
+    if not o25:
+        return None, None
     if u25 is None:
         u25 = max(1.01, 1/(1.04 - 1/o25))
     if min(oh, od, oa, o25, u25) <= 1.01:
@@ -77,10 +80,24 @@ def poisson_matrix(oh, od, oa, o25, u25=None, dc_rho=-0.12):
 # ═══════════════════════════════════════════════════════════════
 # 2. CS比分盘现场去抽水（市场直接定价·最强信号）
 # ═══════════════════════════════════════════════════════════════
-def market_net_band(oh, od, oa):
+import math
+
+
+def market_net_band(oh, od, oa, handi=None):
     """🔴市场净胜期望档（2026-09-13·回测: 市场定净胜档 ±1球覆盖 68.3%）
-    欧赔去水 → 期望净胜 → 档(H3+/H2/H1/D0/A1/A2/A3+)
-    返回 (档名, 期望净胜, (净胜下界, 净胜上界))——上下界按"±1球"口径定锚允许范围"""
+
+    🔴P43（2026-10-30 用户质疑「0:3 为什么违规·保守了吧」·实证修复）:
+      **问题**: 原实现只用 1x2 去水推期望净胜（本场 -0.851）→ A1 档 [-2,0]，
+        **完全忽略亚盘让球 1.5**（让 1.5 球 = 市场明说「净胜约 2 球」）→ 0:3（净-3）被判违规。
+      **实证**（Matches.csv）: 客队 ELO 高 150+ 的客胜 8,231 场中 —
+        净胜 -1 44.5% / -2 29.8% / **-3 15.1%** / -4+ 10.7% → **净胜≤-3 合计 25.8%**
+        A1 盘 [-2,0] 覆盖 **74.2%** ｜ 放宽到 [-3,-1] 覆盖 **89.3%**（+15.1pp）
+      **修复**: ①传 handi 时优先用「让球口径」定期望净胜（en = -handi）
+               ②**超深盘（|handi| ≥ 1.5）范围放宽到 ±1.5 球**（净胜方差更大·实证支持）
+               ③未传 handi → 完全回退原 1x2 逻辑（向后兼容·零影响）
+
+    返回 (档名, 期望净胜, (净胜下界, 净胜上界))
+    """
     try:
         _inv = {'H': 1/oh, 'D': 1/od, 'A': 1/oa}
     except Exception:
@@ -88,6 +105,30 @@ def market_net_band(oh, od, oa):
     _t = sum(_inv.values())
     p = {k: v/_t for k, v in _inv.items()}
     en = p['H']*1.35 + p['A']*(-1.35) + p['D']*(-0.05)
+
+    # 🔴P43: 亚盘让球口径（|handi| ≥ 0.5 时更精确·让球盘直接定净胜）
+    _h = None
+    try:
+        if handi is not None:
+            _h = float(handi)
+    except (TypeError, ValueError):
+        _h = None
+    if _h is not None and abs(_h) >= 0.5:
+        en = -_h                     # 主受让 1.5 → 期望净胜 -1.5；主让 1.5 → +1.5
+        _wide = 1.5 if abs(_h) >= 1.5 else 1.0   # 超深盘（≥1.5）放宽到 ±1.5 球
+        _lo = int(math.floor(en - _wide))
+        _hi = int(math.ceil(en + _wide))
+        # 档名按期望净胜
+        if en >= 1.8:      band = 'H3+'
+        elif en >= 0.9:    band = 'H2'
+        elif en >= 0.35:   band = 'H1'
+        elif en >= -0.35:  band = 'D0'
+        elif en >= -0.9:   band = 'A1'
+        elif en >= -1.8:   band = 'A2'
+        else:              band = 'A3+'
+        return band, en, (_lo, _hi)
+
+    # 原 1x2 口径（未传 handi 或 |handi|<0.5 = 平手盘·1x2 更合适）
     if en >= 1.8:      band, rng = 'H3+', (2, 6)
     elif en >= 0.9:    band, rng = 'H2', (1, 3)
     elif en >= 0.35:   band, rng = 'H1', (0, 2)
@@ -98,7 +139,7 @@ def market_net_band(oh, od, oa):
     return band, en, rng
 
 
-def anchor_market_check(top_scores, oh, od, oa, o25=None, u25=None, handi=None):
+def anchor_market_check(top_scores, oh, od, oa, o25=None, u25=None, handi=None, lam_h=None, lam_a=None, expect_adj=0.0, _pair_probe=False):
     """🔴锚-市场一致性检查（2026-09-13·用户要求"模型锚定一定要与市场信号一致"·脚本级强制）
 
     锚（主锚/次锚）必须与市场信号一致，三项逐条核查:
@@ -109,10 +150,25 @@ def anchor_market_check(top_scores, oh, od, oa, o25=None, u25=None, handi=None):
                → LLM 必须按建议取锚·禁机械照搬 Top1（市场是最校准信号·回测±5pp）
     返回 dict(ok, band, exp_net, checks[], conflicts[], suggestion[])
     """
-    band, en, rng = market_net_band(oh, od, oa)
+    band, en, rng = market_net_band(oh, od, oa, handi=handi)   # 🔴P43: 传 handi 走让球口径
     res = {'ok': True, 'band': band,
            'exp_net': (round(en, 2) if en is not None else None),
            'checks': [], 'conflicts': [], 'suggestion': []}
+    # 2026-09-27 新增（用户要求「期望进球和泊松查表必须联动·一致且自洽」）: 三源期望校验
+    _tri = expect_triple_check(o25, lam_h, lam_a)
+    res['expect_triple'] = _tri
+    if not _tri['ok']:
+        # 🔴V3.5.91 修（2026-11-03 case320 实证）: 三源不一致 **≠ 锚不匹配**
+        #   原实现 `res['ok'] = False` → 锚校验被短路 → 好锚被误杀
+        #   实证 case320: E=3.97(含N24) 主锚2:1偏离0.97≤1.0、软b 3≤3.97≤5 全过，
+        #   却因「table 3.52 vs market 3.30 差 0.23>0.20」被判 ❌ 并给出
+        #   「无可行组合·锚不可信」的错误建议。
+        #   按 AGENTS「超阈值以市场为准」→ 只留痕 + 用市场期望(_exp 已含 N24)继续判锚。
+        res['conflicts'].append(
+            '期望三源不一致（校验层·以市场为准继续判锚·不阻断）: ' + _tri['msg'])
+        res.setdefault('notes', []).append(
+            '三源期望分散属【N19 校验层】问题（查表/泊松仅交叉验证），'
+            '不参与锚匹配判定 → 锚仍按市场期望 E 校验')
     if not top_scores:
         return res
     lo, hi = rng
@@ -129,34 +185,158 @@ def anchor_market_check(top_scores, oh, od, oa, o25=None, u25=None, handi=None):
         msgs = []
         if lo is not None and not (lo <= net <= hi):
             msgs.append('净胜%+d 不在市场档 %s 允许范围 [%+d,%+d]' % (net, band, lo, hi))
-        if _big and tot <= 2:
-            msgs.append('总进球%d 与市场大球强(O25=%.2f)矛盾(应≥3)' % (tot, o25))
-        if _small and tot >= 3:
-            msgs.append('总进球%d 与市场小球强(O25=%.2f)矛盾(应≤2)' % (tot, o25))
+        # 🔴2026-10-13 修正（用户指令「锚定比分必须与期望进球能对上」）:
+        #   大小球约束【仅约束主锚】—— 主锚代表"最可能比分"须保守；
+        #   次锚的功能是【覆盖期望】（跨到期望另一侧）→ 允许向期望侧上/下探 1 档
+        if _big and tot <= 2 and lbl == '主锚':
+            msgs.append('主锚总进球%d 与市场大球强(O25=%.2f)矛盾(应≥3)' % (tot, o25))
+        if _small and tot >= 3 and lbl == '主锚':
+            msgs.append('主锚总进球%d 与市场小球强(O25=%.2f)矛盾(应≤2)' % (tot, o25))
         if handi is not None:
             if handi < 0 and net < 0:
                 msgs.append('客胜锚与市场主让(handi=%.2f)矛盾' % handi)
             if handi > 0 and net > 0:
                 msgs.append('主胜锚与市场受让(handi=%.2f)矛盾' % handi)
+        # 2026-09-26 新增 → 🔴2026-09-29 P0 结构修订（用户审计「是否系统性结构问题」）
+        #   原 ④「主锚总进球 ≥ 期望−1.0」为【全局硬约束】→ 在强小球场排除全部 1 球比分，
+        #   把主锚系统性钉在 1:1（次优·217/218/219 实证）。
+        #   根因: 规则全局化 vs 事实场景化 —— 真实数据是分盘口分大小球的:
+        #     主让1球+小球 1:0=15.8% vs 1:1=12.2%（n=3687·split_ok=True）
+        #     主让1球+中档 1:0=12.8% vs 1:1=10.9%（n=14225·split_ok=True）
+        #   替代: score_prior.handi_prior_table(handi,o25) 查「盘口×大小球」本场格，
+        #        以实测分布作【排序素材·不排除任何候选】·仅 split_ok=True 的格生效
+        # 2026-10-21 欧冠正赛大球校准（用户指令）: 期望可整体平移 expect_adj（默认 0 = 零影响·向后兼容）
+        #   实测 欧冠正赛(联赛阶段) 3.37球/O2.5 64.5% vs 五大 2.69/50.4% → 用户裁定 +0.67 球（点估计）
+        #   → 期望上修后锚须同步上移，否则大球场仍被 1:1/1:0 型锚占位（case259 净1收敛/260 CS-Top1 被剔 实证）
+        _exp = (_o25_expect(o25) + float(expect_adj or 0.0)) if o25 is not None else None
+        if _exp is not None:
+            res['exp_total'] = round(_exp, 2)
+            if expect_adj:
+                res['exp_adj'] = float(expect_adj)
+            # 上界保留（防虚高锚·回测 148397 场: 主锚不得高于期望 +1.5 球）
+            if lbl == '主锚' and tot > _exp + 1.5:
+                msgs.append('总进球%d 高于市场期望%.2f球超1.5球' % (tot, _exp))
         if msgs:
             res['ok'] = False
             res['conflicts'].append('%s %s: %s' % (lbl, sc, '; '.join(msgs)))
         else:
             res['checks'].append('%s %s ✅与市场一致' % (lbl, sc))
-    if not res['ok']:      # 建议锚: 筛满足全部市场约束的最高概率比分（按传入序即概率序）
-        for sc in top_scores:
+    # 🔴2026-09-29 P0: 让球盘×大小球 比分先验（替代全局下界·只调序不排除·P-SCORE-1）
+    try:
+        import sys as _sp_sys, os as _sp_os
+        _sp_d = _sp_os.path.dirname(_sp_os.path.abspath(__file__))
+        if _sp_d not in _sp_sys.path:
+            _sp_sys.path.insert(0, _sp_d)
+        from score_prior import handi_prior_table as _hpt
+        _pt = _hpt(handi, o25)
+        res['prior_table'] = _pt
+        if _pt.get('ok'):
+            res['checks'].append('比分先验表 %s(n=%d) → %s' % (
+                _pt['cell'], _pt['n'],
+                ' '.join('%s=%.1f%%' % (k, v) for k, v in _pt['top'][:4])))
+            _pool = [sc for sc in top_scores if sc in _pt.get('boost', {})]
+            if _pool:
+                res['prior_suggest'] = sorted(_pool, key=lambda s: -_pt['boost'][s])[:3]
+        else:
+            res['checks'].append('比分先验表不调序（%s）' % _pt.get('reason'))
+    except Exception as _e:
+        res.setdefault('warnings', []).append('score_prior 调用失败:' + str(_e)[:60])
+    # 🔴🔴2026-10-13 用户指令「修改模型·锚定比分必须与期望进球能对上」→【双锚期望匹配】强制
+    #   历史演进（本次收紧的原因）:
+    #     2026-09-26 引入「主+次锚共同覆盖期望 ±0.5」→ 09-27 放宽 ±1.0 且改判据为「至少一锚」(any)
+    #       09-29 又把建议锚改为「不排除·仅标注」
+    #   → 240/242 实证漏网: 主锚 1:1(2球) 在区间 · 次锚 1:0(1球) 偏离 −1.42 → any 误判「通过」❌
+    #   新规则（分级·硬 + 软·脚本强制 + LLM 必须执行）:
+    #     E = 市场期望 _o25_expect(o25)（三源联动校验·🔴禁 CS 谱系期望·CS 为截断分布偏高约 +0.25）
+    #     [硬1] 主锚 |tot − E| ≤ 1.0            —— 主锚不得远离期望
+    #     [硬2] 至少一锚 ∈ [E−1.0, E+1.0]       —— 保留原口径（防极端不可达场景）
+    #     [软·须满足其一]
+    #       (a) 两锚均 ∈ [E−1.0, E+1.0]         —— 理想：双锚贴住期望
+    #       (b) min(tot) ≤ E ≤ max(tot)         —— 次优：两锚夹住期望（一低一高）
+    #       (c) 两锚平均偏离 ≤ 0.75              —— 兜底
+    #     全不满足 → 锚与期望不匹配 → ok=False + 【建议锚】按 |tot−E| 升序重排（同偏离再按概率序）
+    _exp = res.get('exp_total')
+    if _exp is not None:
+        _tots = []
+        for _sc in top_scores[:2]:
+            try:
+                _h, _a = map(int, (_sc.split(':') if isinstance(_sc, str) else _sc))
+                _tots.append(_h + _a)
+            except Exception:
+                pass
+        if _tots:
+            _dev = [abs(_t - _exp) for _t in _tots]
+            # 🔴2026-11-01 用户裁决 dec-0231c5e22bbd5bf3：「R-ANCHOR-BIG 优先 →
+            #   次锚可偏离到 ≤1.5（放宽 N07b 大球场次容差）」
+            #   冲突实证（科莫场）：O2.5=1.36 明确大球 → P52 L4 要求次锚 ≥5 球，
+            #   但池内 5 球只有 4:1（偏离期望 3.56 达 1.44）→ 与「软约束 ≤1.0」冲突。
+            #   按 AGENTS P26「L4 期望是软约束（优先级最低）」→ 大球场次放宽软容差。
+            #   🔴主锚硬约束**仍 ≤1.0**（铁律不变·只放宽次锚参与的那部分软判据）
+            _bigf = (o25 is not None and float(o25) <= 1.40)   # 大球场次（P52 L4+ 门槛）
+            _tol = 1.5 if _bigf else 1.0
+            _hard1 = _dev[0] <= 1.0
+            _hard2 = any(_d <= 1.0 for _d in _dev)
+            _soft_a = all(_d <= _tol for _d in _dev)
+            _soft_b = (len(_tots) >= 2 and min(_tots) <= _exp <= max(_tots))
+            _soft_c = (sum(_dev) / float(len(_dev))) <= (1.10 if _bigf else 0.75)
+            res['anchor_expect'] = {
+                'exp': round(_exp, 2), 'tots': _tots, 'dev': [round(d, 2) for d in _dev],
+                'hard': (_hard1 and _hard2),
+                'soft': {'a_both_le1': _soft_a, 'b_straddle': _soft_b, 'c_avg_le075': _soft_c}}
+            if not ((_hard1 and _hard2) and (_soft_a or _soft_b or _soft_c)):
+                res['ok'] = False
+                res['conflicts'].append(
+                    '🔴锚-期望不匹配【2026-10-13 强制】主/次锚总进球%s vs 市场期望%.2f球·偏离%s '
+                    '(硬: 主锚≤1.0=%s 至少一锚≤1.0=%s ｜ 软: 双锚≤1.0=%s 夹住期望=%s 平均≤0.75=%s)'
+                    % (_tots, _exp, [round(d, 2) for d in _dev], _hard1, _hard2, _soft_a, _soft_b, _soft_c))
+    if not res['ok'] and not _pair_probe:      # 建议锚: 🔴2026-10-13 起【先按期望匹配·再按概率】(不再"仅标注")
+        _cand = []
+        for _idx, sc in enumerate(top_scores):
             try:
                 h, a = map(int, (sc.split(':') if isinstance(sc, str) else sc))
             except Exception:
                 continue
             net, tot = h - a, h + a
             if lo is not None and not (lo <= net <= hi): continue
-            if _big and tot <= 2: continue
-            if _small and tot >= 3: continue
             if handi is not None and ((handi < 0 and net < 0) or (handi > 0 and net > 0)): continue
-            res['suggestion'].append(sc)
-            if len(res['suggestion']) >= 3:
+            # 🔴2026-10-13: 大小球不再【排除】候选（否则小球强场无跨期望候选·240/242 实证）
+            #   → 降级为【排序罚项】·主锚保守性由调用方 + 循环内检查保证
+            _pen = 1 if ((_big and tot <= 2) or (_small and tot >= 3)) else 0
+            _devv = abs(tot - _exp) if _exp is not None else 9.9
+            _cand.append((_pen, _devv, _idx, sc))
+        # 排序: 无大小球罚项优先 → 偏离期望 ≤1.0 优先 → 偏离升序 → 同偏离保持原概率序
+        _cand.sort(key=lambda t: (t[0], 1 if t[1] > 1.0 else 0, t[1], t[2]))
+        res['suggestion'] = [c[3] for c in _cand[:3]]
+        # 🔴2026-10-25 修（case279 实证·「建议锚」死循环 P0）:
+        #   原 suggestion 只按 (大小球罚项, 偏离期望) 排序取前 3 → **未校验软约束** →
+        #   可输出「建议锚 = 当前锚，但该组合仍 ok=False」→ 调用方"替换为建议锚"后依旧不匹配 = 指令不可执行。
+        #   改为: 候选前 6 名内两两组合搜索，取**第一对通过完整判据(ok=True)** 的组合作为可执行建议；
+        #   全不通过 → 显式声明「锚不可信·须宽候选池」，不再给假建议。
+        _pair, _pair_ok = None, False
+        for _i2 in range(min(6, len(_cand))):
+            for _j2 in range(min(6, len(_cand))):
+                if _i2 == _j2:
+                    continue
+                try:
+                    _r2 = anchor_market_check([_cand[_i2][3], _cand[_j2][3]], oh, od, oa, o25=o25, u25=u25,
+                                              handi=handi, lam_h=lam_h, lam_a=lam_a, expect_adj=expect_adj,
+                                              _pair_probe=True)
+                except Exception:
+                    _r2 = None
+                if _r2 and _r2.get('ok'):
+                    _pair, _pair_ok = [_cand[_i2][3], _cand[_j2][3]], True
+                    break
+            if _pair:
                 break
+        res['suggestion_verified'] = _pair_ok
+        if _pair:
+            res['suggestion'] = _pair
+        else:
+            res.setdefault('warnings', []).append(
+                '候选池内无满足全部判据(硬+软)的锚组合 → 锚不可信·须宽候选池·比分不可预测')
+        if _cand and _cand[0][1] > 1.0 and _exp is not None:
+            res.setdefault('warnings', []).append(
+                '候选池内无比分总进球落在期望%.2f球±1.0 → 锚不可信·改宽候选池/标注比分不可预测' % _exp)
         if not res['suggestion']:
             # 候选池内全不满足市场约束 → 按市场净胜档给基准锚（大球/小球侧修正），提示须扩展候选池
             _base = {'H3+': ['3:0', '3:1'], 'H2': ['2:0', '2:1'], 'H1': ['1:0', '2:1'], 'D0': ['1:1', '0:0'],
@@ -192,7 +372,36 @@ def _o25_expect(o25):
         from calc_v3572 import goal_bin_probs as _gbp
         _g = _gbp(o25)
         if _g:
-            return (_g['prob_01']*0.5 + _g['prob_2']*2 + _g['prob_3']*3 + _g['prob_4']*5.2)
+            _band_val = (_g['prob_01']*0.5 + _g['prob_2']*2 + _g['prob_3']*3 + _g['prob_4']*5.2)
+            # 🔴2026-10-23 精度修复（用户质疑「前三场期望进球一模一样」）:
+            #   根因: goal_bin_probs 是**硬分档**（1.70-1.90 一档宽 0.20）→ O2.5 1.765/1.827/1.877
+            #         三场落同档 → 期望全部 2.821·而隐含大球 55.8%/53.9%/52.5% 差 3.3pp 被抹平
+            #   修法: 以各档实测期望为**锚点**做折线插值（档内连续·档间单调递减）
+            #         🔴末档 2.60-99.00 中心无意义 → 锚点取 lo(2.60)
+            try:
+                import json as _j, os as _o
+                _fp = _o.path.join(_o.path.dirname(_o.path.abspath(__file__)), 'goal_bins_table.json')
+                _T = _j.load(open(_fp, encoding='utf-8'))
+                _anc = []
+                for _b, _v in _T.items():
+                    _lo, _hi = map(float, _b.split('-'))
+                    _c = _lo if _hi >= 90 else (_lo + _hi) / 2.0
+                    _e = (_v['g01']*0.5 + _v['g2']*2 + _v['g3']*3 + _v['g4']*5.2) / 100.0
+                    _anc.append((_c, _e))
+                _anc.sort()
+                if len(_anc) >= 2:
+                    if o25 <= _anc[0][0]:
+                        return _anc[0][1]
+                    if o25 >= _anc[-1][0]:
+                        return _anc[-1][1]
+                    for _i in range(len(_anc) - 1):
+                        _x0, _e0 = _anc[_i]
+                        _x1, _e1 = _anc[_i + 1]
+                        if _x0 <= o25 <= _x1:
+                            return _e0 + (_e1 - _e0) * (o25 - _x0) / (_x1 - _x0)
+            except Exception:
+                pass
+            return _band_val
     except Exception:
         pass
     return 3.05 if o25 < 1.75 else (2.70 if o25 < 2.05 else 2.28)
@@ -206,8 +415,8 @@ def market_matrix(oh, od, oa, o25, u25=None):
     inv = {1: 1/oh, 0: 1/od, 2: 1/oa}
     t = sum(inv.values())
     p = {k: v/t for k, v in inv.items()}
-    # 总进球期望: O25→期望（🔴修复: 原硬编码 2.35/2.70/2.55 非单调·低估强攻场 0.81 球
-    # → 改由 goal_bin_probs(148397场实测档分布·重建) 动态反推·随表更新·兜底单调近似·详见 _o25_expect）
+    # 总进球期望: O25→期望（🔴2026-09-13 修复: 原硬编码 2.35/2.70/2.55 非单调·低估强攻场 0.81 球
+    #   → 改由 goal_bin_probs(148397场实测档分布·2026-09-15重建) 动态反推·随表更新·兜底单调近似·详见 _o25_expect）
     tot = _o25_expect(o25)
     # 净胜期望: 主胜≈+1.4球·客胜≈-1.4球·平≈0
     exp_net = p[1]*1.35 + p[2]*(-1.35) + p[0]*(-0.05)
@@ -234,7 +443,8 @@ def cs_market_matrix(cs_odds_str):
     for kv in re.finditer(r'(胜其他|平其他|负其他|胜其它|平其它|负其它)=([\d.]+)', cs_odds_str):
         odds[kv.group(1)] = float(kv.group(2))
     if len(odds) < 5: return None, 0
-    inv = {k: 1/v for k, v in odds.items() if v > 1}
+    # 🔴2026-10-12 加固: 1xbet CS 占位档（赔率恰好 100）不得计入去水（见 data/tmp/cs_snapshot.py）
+    inv = {k: 1/v for k, v in odds.items() if 1 < v < 100}
     total = sum(inv.values())
     vig = total - 1
     probs = {k: v/total for k, v in inv.items()}
@@ -540,7 +750,7 @@ def analyze_live(oh, od, oa, o25, u25=None, handi=None, cs_odds=None, bqc_odds=N
         return {'status': 'error', 'message': '泊松反推失败（赔率无效）'}
     poisson_P, lh, la = pm
     matrices = {'poisson': poisson_P}
-    # 市场源（用户建议+回测验证）
+    # 🔴市场源（2026-09-13·用户建议+回测验证）
     try:
         _mkt, _lam = market_matrix(oh, od, oa, o25, u25)
         matrices['market'] = _mkt
@@ -550,7 +760,7 @@ def analyze_live(oh, od, oa, o25, u25=None, handi=None, cs_odds=None, bqc_odds=N
     result['lambda'] = {'home': round(lh,2), 'away': round(la,2), 'total': round(lh+la,2)}
     result['sources_used'].append('poisson')
 
-    # 步骤2：CS比分盘(优先cs_deep_analyzer抽水偏差·审计: 原简单去水弱化CS深度·深接·退化简单)
+    # 步骤2：CS比分盘(优先cs_deep_analyzer抽水偏差·V3.5.74审计: 原简单去水弱化CS深度·深接·退化简单)
     cs_P, cs_vig = None, 0
     try:
         import sys as _sy2, os as _os2
@@ -605,7 +815,7 @@ def analyze_live(oh, od, oa, o25, u25=None, handi=None, cs_odds=None, bqc_odds=N
     weights = calculate_dynamic_weights(matrices, data_comp)
     result['dynamic_weights'] = weights
 
-    # 步骤5.5：16格先验表弱先验
+    # 步骤5.5：16格先验表弱先验(2026-09-07·降级·🔴禁机械锚定·仅弱平滑/数据不足兜底)
     try:
         import json as _json, os as _os
         _fp = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), 'odds_score_prior.json')
@@ -644,14 +854,14 @@ def analyze_live(oh, od, oa, o25, u25=None, handi=None, cs_odds=None, bqc_odds=N
     if final_P is None:
         return {'status': 'error', 'message': '融合失败'}
 
-    # 步骤7.5：量级一致性重排（用户指出"判大球却机械锚定1:1"根因修复）
-    # 问题: 融合后直接按概率排序 → CS/半场/泊松共同倾向 1:1 → 1:1 惯性主导
-    # 导致"大球判定 + 小球锚(1:1)"的逻辑不自洽（大球4+36.9% 却锚1:1·真实2:2）
-    # 修正: 按大小球判定对候选**降权重排**（不排除·只降权·保留全谱）
+    # 🔴步骤7.5：量级一致性重排（2026-09-13·用户指出"判大球却机械锚定1:1"根因修复）
+    #   问题: 融合后直接按概率排序 → CS/半场/泊松共同倾向 1:1 → 1:1 惯性主导
+    #        导致"大球判定 + 小球锚(1:1)"的逻辑不自洽（case164: 大球4+36.9% 却锚1:1·真实2:2）
+    #   修正: 按大小球判定对候选**降权重排**（不排除·只降权·保留全谱）
     _tot = sum(final_P.values()) or 1
     _over_p = sum(p for (h, a), p in final_P.items() if h + a >= 3) / _tot
-    # 判据优先级: O25 市场直读（最可靠）→ 融合 over_p 兜底
-    # O25<1.70=大球强 · O25>2.10=小球强（与 goalbins 分档一致）
+    # 🔴判据优先级: O25 市场直读（最可靠）→ 融合 over_p 兜底
+    #   O25<1.70=大球强 · O25>2.10=小球强（与 goalbins 分档一致）
     _mag_tag = ''
     _big = (o25 is not None and o25 < 1.70) or (o25 is None and _over_p >= 0.55)
     _small = (o25 is not None and o25 > 2.10) or (o25 is None and _over_p <= 0.42)
@@ -675,7 +885,7 @@ def analyze_live(oh, od, oa, o25, u25=None, handi=None, cs_odds=None, bqc_odds=N
 
     # 步骤8：输出Top10
     ranked = sorted(final_P.items(), key=lambda x: -x[1])[:10]
-    # 量级-锚一致性告警（）: Top1 总进球与量级判定矛盾时显式告警
+    # 🔴量级-锚一致性告警（2026-09-13）: Top1 总进球与量级判定矛盾时显式告警
     if ranked:
         _top1 = ranked[0][0]
         _g1 = sum(_top1)
@@ -691,9 +901,9 @@ def analyze_live(oh, od, oa, o25, u25=None, handi=None, cs_odds=None, bqc_odds=N
                 % (o25 or 0, _top1[0], _top1[1], _g1, ' / '.join(_small_cands) or '无'))
     result['top10'] = [{'score': f'{h}:{a}', 'prob': round(p*100,1)} for (h,a), p in ranked]
 
-    # 步骤8.5：锚-市场一致性检查（用户要求"模型锚定一定要与市场信号一致"·脚本级强制）
-    # 锚(主锚/次锚)须与市场信号三项一致: ①净胜档∈市场净胜期望档±1球 ②总进球方向 vs 市场大小球 ③方向 vs 亚盘
-    # 矛盾 → 以市场为准给【建议锚】（LLM 必须按建议取锚·禁机械照搬 Top1）
+    # 🔴步骤8.5：锚-市场一致性检查（2026-09-13·用户要求"模型锚定一定要与市场信号一致"·脚本级强制）
+    #   锚(主锚/次锚)须与市场信号三项一致: ①净胜档∈市场净胜期望档±1球 ②总进球方向 vs 市场大小球 ③方向 vs 亚盘
+    #   矛盾 → 以市场为准给【建议锚】（LLM 必须按建议取锚·禁机械照搬 Top1）
     _amc = anchor_market_check([f'{h}:{a}' for (h, a), _p in ranked], oh, od, oa,
                                o25=o25, u25=u25, handi=handi)
     result['market_anchor_check'] = _amc
@@ -747,6 +957,83 @@ def analyze_live(oh, od, oa, o25, u25=None, handi=None, cs_odds=None, bqc_odds=N
     return result
 
 # ═══════════════════════════════════════════════════════════════
+
+
+
+# ==================== 期望进球三源联动（2026-09-27·用户要求） ====================
+def expect_table(o25):
+    """查表分布期望总进球（goal_bins_table 档概率 × 档中点加权）—— 三源之一"""
+    try:
+        import calc_v3572 as _cv
+        g = _cv.goal_bin_probs(o25) or {}
+        if not g:
+            return None
+        return (0.8 * g.get('prob_01', 0) + 2 * g.get('prob_2', 0)
+                + 3 * g.get('prob_3', 0) + 5.2 * g.get('prob_4', 0))
+    except Exception:
+        return None
+
+
+def expect_triple_check(o25=None, lam_h=None, lam_a=None, tol=0.20):
+    """🔴2026-09-27 新增（用户要求「期望进球和泊松查表必须联动·一致且自洽」）
+
+    三源期望总进球一致性校验（同一场比赛的三个独立口径）:
+      ① exp_market  —— _o25_expect(o25)·O2.5 赔率反推（goal_bins 同源·校准基准）
+      ② exp_table   —— goal_bins_table 档概率 × 档中点加权（查表口径）
+      ③ exp_poisson —— λh + λa（1x2 + O2.5 反推口径）
+
+    铁律:
+      · 两两偏差 ≤ tol(默认 0.20 球) → ok=True（一致自洽）
+      · 超阈值 → ok=False·**以市场源为准**（市场源优先铁律·校准 ±5pp）并给出占优值
+      · 泊松/查表仅作交叉校验·**永不覆盖市场期望方向**（用户 2026-09-26 建议）
+    返回 dict(exp_market, exp_table, exp_poisson, devs, ok, msg, ref)
+    """
+    e_m = _o25_expect(o25) if o25 is not None else None
+    e_t = expect_table(o25) if o25 is not None else None
+    e_p = (lam_h + lam_a) if (lam_h is not None and lam_a is not None) else None
+    res = {'exp_market': (round(e_m, 2) if e_m else None),
+           'exp_table': (round(e_t, 2) if e_t else None),
+           'exp_poisson': (round(e_p, 2) if e_p else None),
+           'devs': {}, 'ok': True, 'msg': '', 'ref': 'market'}
+    pairs = [('market_table', e_m, e_t), ('market_poisson', e_m, e_p), ('table_poisson', e_t, e_p)]
+    devs = {}
+    for k, a, b in pairs:
+        if a is not None and b is not None:
+            devs[k] = round(b - a, 3)
+    res['devs'] = devs
+    over = {k: v for k, v in devs.items() if abs(v) > tol}
+    if over:
+        res['ok'] = False
+        res['msg'] = ('三源期望不一致(阈值%.2f球): %s → 以市场期望%s球为准·泊松/查表仅校验'
+                      % (tol, '; '.join('%s偏差%+.2f' % (k, v) for k, v in over.items()),
+                         ('%.2f' % e_m) if e_m else 'N/A'))
+    else:
+        res['msg'] = ('三源期望自洽(偏差≤%.2f球): 市场%s / 查表%s / 泊松%s'
+                      % (tol, ('%.2f' % e_m) if e_m else '-', ('%.2f' % e_t) if e_t else '-',
+                         ('%.2f' % e_p) if e_p else '-'))
+    # 🔴2026-09-30 审计修复（P1 接线）：score_prior.authority_resolve 原【无任何消费端】= 孤岛（存在≠活跃）
+    #   → 在此真实调用：由【口径权威表】决定「以谁为准」并写入 res['ref']（覆盖原硬编码 'market'）
+    try:
+        import sys as _as, os as _ao
+        _ad = _ao.path.dirname(_ao.path.abspath(__file__))
+        if _ad not in _as.path:
+            _as.path.insert(0, _ad)
+        from score_prior import authority_resolve as _ar
+        _vals = {}
+        if e_m is not None: _vals['market'] = e_m
+        if e_t is not None: _vals['table'] = e_t
+        if e_p is not None: _vals['poisson'] = e_p
+        _ra = _ar('expect_total', _vals)
+        res['authority'] = _ra
+        if _ra.get('authority'):
+            res['ref'] = _ra['authority']       # 权威源真正生效
+        if _ra.get('conflicts'):
+            res['msg'] += ' ｜ 权威表: ' + '; '.join(_ra['conflicts'])
+    except Exception as _ae:
+        res['authority'] = {'ok': False, 'msg': 'score_prior 不可用: ' + str(_ae)[:40]}
+    return res
+
+
 # CLI
 # ═══════════════════════════════════════════════════════════════
 if __name__ == '__main__':

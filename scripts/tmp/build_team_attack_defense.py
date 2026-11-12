@@ -1,3 +1,7 @@
+# ⛔已废弃（2026-10-21）: 本脚本只产出旧平铺结构 {队名:{gf,ga,n}}，会**覆盖** team_attack_defense.json
+#   并抹掉 N27 详档（teams/欧冠层/blend）→ 2026-10-21 已因此让 D5 静默失效一次。
+#   现行唯一入口: `python data/tmp/team_attack_defense.py build`（**同时**输出详档 + 平铺兼容层·1186 队）。
+#   禁再运行本脚本；如需重建，用新脚本。
 import csv, io, sys, json
 from collections import defaultdict
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')

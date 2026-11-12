@@ -1,4 +1,4 @@
-"""案例库全量统计（标准15列+分锚3列格式·V3.5.74）: python scripts/tmp/case_stats.py"""
+"""案例库全量统计（标准15列+分锚3列格式·V3.5.74）: python data/tmp/case_stats.py"""
 import csv, io, sys
 sys.stdout.reconfigure(encoding='utf-8')
 rows = list(csv.reader(open('data/case-library/实战案例.csv', encoding='utf-8-sig')))
@@ -6,22 +6,30 @@ hdr = rows[0]; idx = {h: i for i, h in enumerate(hdr)}
 done = [r for r in rows[1:] if r[idx['真实比分']].strip() and r[idx['方向命中']] in ('是','否')]
 wait = [r[0] for r in rows[1:] if not (r[idx['真实比分']].strip() and r[idx['方向命中']] in ('是','否'))]
 n = len(done)
+# 🔴2026-11-02 口径统一（用户指令·恢复报告待办②）：历史「无预测比分」的行（case05-08）标「未预测」
+#   → 排除出【比分/完美】分母；方向分母不变（当时方向确有判定）→ 两个口径都打印，可审计不丢信息
+done_score = [r for r in done if (r[idx['比分命中']] or '').strip() not in ('', '未预测')]
+ns = len(done_score)
 dh = sum(1 for r in done if r[idx['方向命中']]=='是')
-sh = sum(1 for r in done if r[idx['比分命中']]=='是')
-ph = sum(1 for r in done if r[idx['完美命中']]=='是')
+sh = sum(1 for r in done_score if r[idx['比分命中']]=='是')
+ph = sum(1 for r in done_score if r[idx['完美命中']]=='是')
 print('=' * 60)
 print('案例库统计（标准列·case数%d·已复盘%d）' % (len(rows)-1, n))
 print('=' * 60)
 print('方向命中(any·含并列): %d/%d = %.1f%%' % (dh, n, dh/n*100))
-print('比分命中(历史口径):   %d/%d = %.1f%%' % (sh, n, sh/n*100))
-print('完美命中:              %d/%d = %.1f%%' % (ph, n, ph/n*100))
+if ns:
+    print('比分命中(排除未预测): %d/%d = %.1f%%    ｜ 旧口径 %d/%d = %.1f%%' % (sh, ns, sh/ns*100, sh, n, sh/n*100))
+    print('完美命中(排除未预测): %d/%d = %.1f%%    ｜ 旧口径 %d/%d = %.1f%%' % (ph, ns, ph/ns*100, ph, n, ph/n*100))
+else:
+    print('比分命中: 无可统计场次'); print('完美命中: 无可统计场次')
+print('口径说明: 比分/完美分母=%d（排除 %d 场「未预测」·case05-08 早期归档无预测比分）' % (ns, n - ns))
 print('待赛果/待补充: %s' % (wait or '无'))
 # 分档（置信度层）
 from collections import Counter
 conf = Counter(r[idx['置信度层']] for r in done if r[idx['置信度层']])
 print('置信度层分布:', dict(conf))
 
-# ========= 分锚比分口径(P0-3·) =========
+# ========= 分锚比分口径(P0-3·V3.5.74) =========
 print()
 print('======== 分锚比分口径(P0-3·V3.5.74) ========')
 try:

@@ -24,7 +24,7 @@ def fetch_json(url, use_proxy=True, retries=RETRIES, timeout=TIMEOUT):
             if use_proxy:
                 cmd += ['-x', PROXY]
             cmd += [url]
-            r = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout + 10)
+            r = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=timeout + 10)
             if r.returncode == 0 and r.stdout.strip():
                 try:
                     return json.loads(r.stdout)
@@ -44,7 +44,7 @@ def fetch_text(url, use_proxy=True, retries=RETRIES, timeout=20):
             if use_proxy:
                 cmd += ['-x', PROXY]
             cmd += [url]
-            r = subprocess.run(cmd, capture_output=True, text=True, timeout=timeout + 10)
+            r = subprocess.run(cmd, capture_output=True, text=True, encoding='utf-8', errors='replace', timeout=timeout + 10)
             if r.returncode == 0 and r.stdout.strip():
                 return r.stdout
             if i < retries - 1:

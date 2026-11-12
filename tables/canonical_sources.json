@@ -1,0 +1,90 @@
+{
+ "meta": {
+  "generated": "2026-09-29",
+  "version": "V3.5.76",
+  "purpose": "口径权威表（P1·结构修订）——同一场比赛的每个量只认【一个权威源】，其余来源仅作交叉校验；超阈值时以权威源为准。",
+  "root_cause": "用户审计发现：同一场「期望总进球」同时存在 5 个取值（市场/查表/泊松/半场推断/子模型），无仲裁规则 → 217/218/219 用市场口径、220 用 NL 口径，且 217/219 内部大小球用 NL 口径而期望用市场口径，同场自相矛盾。",
+  "wired": "data/tmp/score_prior.py::authority_resolve()"
+ },
+ "rules": {
+  "on_conflict": "以 authority 为准；candidates 仅记录；偏差超 tol 时输出 conflicts（供留痕·不改变 authority）",
+  "scope_override": "若本场命中的子模型作用域（见 scope_registry.json）声明覆盖该量，则 authority 切换为 submodel 字段所指",
+  "honesty": "无权威源数据时（如 NL 无市场 O2.5）→ 三态标注，禁用降级源冒充权威"
+ },
+ "metrics": {
+  "expect_total": {
+   "desc": "期望总进球",
+   "authority": "market",
+   "authority_fn": "live_score_engine._o25_expect(o25)",
+   "candidates": ["table(expect_table)", "poisson(lam_h+lam_a)", "ht_inference(mean_ft)", "submodel_baseline"],
+   "tol": 0.20,
+   "submodel": "submodel_baseline（如 NL: R3 基线 2.51 / R4 档实测）",
+   "note": "市场为均值、非众数（回测 σ=1.61）；权威值用于【量级区间】判定，不得用于排除具体比分"
+  },
+  "over_under": {
+   "desc": "大小球方向/强度",
+   "authority": "market_implied",
+   "authority_fn": "live_score_engine.total_goals_constraint_matrix / O2.5·U2.5 去水",
+   "candidates": ["submodel_baseline", "step6_tiers(五大三档)", "quadrant_table"],
+   "tol": 0.05,
+   "submodel": "submodel_baseline（NL 基线 O2.5 45.3% ≪ 五大 53%+）",
+   "note": "五大口径三档（强≥58%/中55-58%/弱53-55%）在 NL 场属超域 → 仅参考"
+  },
+  "direction": {
+   "desc": "方向概率",
+   "authority": "market_dejuiced",
+   "authority_fn": "calc_match.dejuice / data_bridge(multi-book 去水)",
+   "candidates": ["nl_fair(R10)", "elo", "poisson", "official_api_football", "submodel_prior"],
+   "tol": 0.0,
+   "submodel": "submodel_prior（NL: R2 先验 主43.0/平25.1/客31.9）",
+   "note": "非赔率信号（ELO/伤停/xG/H2H/官方）只降档或扩大覆盖，不给改向权（22.7 万场回测裁定）"
+  },
+  "net_band": {
+   "desc": "净胜档",
+   "authority": "market",
+   "authority_fn": "live_score_engine.market_net_band(oh,od,oa)",
+   "candidates": ["handi(亚盘盘口)", "poisson"],
+   "tol": 1.0,
+   "submodel": null,
+   "note": "允许范围 = 市场档 ±1 球（回测覆盖 68.3%）；亚盘仅交叉"
+  },
+  "score_prior": {
+   "desc": "比分先验",
+   "authority": "handi_score_table",
+   "authority_fn": "score_prior.handi_prior_table(handi, o25)",
+   "candidates": ["goal_bins_table", "score_depth_table", "deep_anchor_table"],
+   "tol": 0.0,
+   "submodel": "submodel_goal_split（NL: R6 主/客热门进球分流）",
+   "note": "🔴 仅 split_ok=True 的格生效（P0）；其余表仅交叉校验；score_depth_table 在 NL 属超域"
+  }
+ },
+ "duplicate_impl": {
+  "purpose": "🔴重复实现登记（2026-09-29 结构一致性扫描产出）——同一逻辑多处实现 = 未来口径漂移的温床。要求：改动任一位置前必须 grep 全量；或按本表收敛到单一实现。",
+  "items": [
+   {
+    "logic": "大小球强/中/弱阈值（O2.5 <1.70 / >2.10）",
+    "impls": ["live_score_engine.py", "calc_v3572.py", "build_goal_bins.py", "score_prior.py", "_audit_pre2_v2.py(一次性)", "_pre2_ablation.py(一次性)"],
+    "risk": "阈值散落 6 处 → 改一处漏五处",
+    "action": "长期收敛到单一实现；短期改动必须 grep 全量"
+   },
+   {
+    "logic": "置信度五档（HIGH / MID-HIGH / MID / MID-LOW / LOW）",
+    "impls": ["live_score_engine.py", "calc_v3572.py", "case_write.py", "conf_calib.py", "output_checker.py", "check_sync.py"],
+    "risk": "档位映射 + strict 口径校准需在 6 处保持一致",
+    "action": "以 case_write / conf_calib 为权威；其余仅消费"
+   },
+   {
+    "logic": "期望总进球反推",
+    "impls": ["_o25_expect(市场)", "expect_table(查表)", "poisson λh+λa", "mean_ft(半场推断)", "子模型场均"],
+    "risk": "5 源并存无仲裁（本表 expect_total 已声明 market 为权威）",
+    "action": "✅ 已仲裁（expect_triple_check + authority_resolve）"
+   },
+   {
+    "logic": "比分先验表",
+    "impls": ["handi_score_table(新·权威)", "goal_bins_table", "score_depth_table", "deep_anchor_table", "odds_score_prior", "handicap_prior_table", "r19_conditional_scores", "draw_table", "quadrant_table", "water_table", "odds_table"],
+    "risk": "11 张表并存，未仲裁会重演口径病 ①",
+    "action": "✅ score_prior 已声明 handi_score_table 为权威、其余仅交叉"
+   }
+  ]
+ }
+}

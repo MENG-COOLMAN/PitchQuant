@@ -2,7 +2,7 @@
 """P0-1 跨机构赔率分歧模块（资金盘升级 2026-09-21）
 
 数据通道（按精度排序，自动选择）
-  A. api-football 13 家**逐家**赔率   → 真·跨机构（median/min/max/spread）★首选
+  A. the-odds-api 21-32 家**逐家**赔率   → 真·跨机构（median/min/max/spread）★首选
   B. Odds-API 1xbet + B365（常仅 2 家）→ 2 家通道（spread 用两家差/均值）
   C. Matches.csv 静态代理（Odd 均值 + Max 最高价）→ 回测校准通道（(Max-均值)/均值）
 
@@ -40,7 +40,7 @@ def consensus_label(spread_pct):
 
 
 def calc_spread_from_books(books, keys=('h', 'd', 'a')):
-    """通道 A：api-football 逐家赔率 → 真跨机构分歧
+    """通道 A：the-odds-api 逐家赔率 → 真跨机构分歧
 
     books: [{'bookmaker': 'Pinnacle', 'h': 1.85, 'd': 3.6, 'a': 4.2}, ...]
     返回 {outcome: {n, median, min, max, spread_pct, consensus, channel:'books'}}
@@ -112,7 +112,7 @@ def analyze(books=None, odd=None, mx=None, o25=None, max_o25=None,
 
     # 通道选择
     if books and len(books) >= 3:
-        res['channel'] = 'books(api-football 逐家)'
+        res['channel'] = 'books(the-odds-api 逐家)'
         res['direction'] = calc_spread_from_books(books)
     elif books and len(books) == 2:
         # 🔴2026-09-21 收尾修复: 2 家时启用 two_books 通道
@@ -219,10 +219,19 @@ def load_books(path):
     except Exception:
         return None
     if isinstance(raw, dict):
-        if raw.get('status') != 'ok':
+        # 🔴2026-10-27 修（case287 实抓）: the-odds-api 输出原无 status 字段 →
+        #   raw.get('status')=None != 'ok' → 41 家被静默判 None → P0-1 报「spread 不可得」
+        #   现: status 明确非 ok（有值且≠ok）才拒绝；缺 status 但有 books 列表 → 采信 + 告警
+        _st = raw.get('status')
+        if _st is not None and _st != 'ok':
             return None
         b = raw.get('books')
-        return b if isinstance(b, list) and b else None
+        if isinstance(b, list) and b:
+            if _st is None:
+                print('  ⚠️books 缺 status 字段（%d 家）→ 按「有数据」采信·建议生产端补 status=ok'
+                      % len(b))
+            return b
+        return None
     if isinstance(raw, list):
         return raw or None
     return None

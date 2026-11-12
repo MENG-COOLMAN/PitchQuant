@@ -1,0 +1,199 @@
+{
+ "generated": "2026-10-21",
+ "version": "V3.5.80-ucl",
+ "source": "data/europe/欧战全量.csv + data/Matches.csv(五大)",
+ "user_decision": {
+  "ucl_main_adj": 0.67,
+  "psg_permission": "并列+量级上修·不反转L2",
+  "psg_weak_threshold": 0.45
+ },
+ "table": {
+  "欧冠": {
+   "main": {
+    "n": 76,
+    "mean_goals": 3.37,
+    "o25": 64.5,
+    "o35": 52.6,
+    "label": "正赛(联赛阶段)"
+   },
+   "ko": {
+    "n": 17,
+    "mean_goals": 3.82,
+    "o25": 76.5,
+    "o35": 52.9,
+    "label": "淘汰赛(含附加赛)"
+   },
+   "qual": {
+    "n": 154,
+    "mean_goals": 2.62,
+    "o25": 44.8,
+    "o35": 26.6,
+    "label": "资格赛"
+   },
+   "qual_playoff": {
+    "n": 17,
+    "mean_goals": 2.53,
+    "o25": 47.1,
+    "o35": 35.3,
+    "label": "资格赛附加赛"
+   }
+  },
+  "欧联": {
+   "main": {
+    "n": 115,
+    "mean_goals": 2.7,
+    "o25": 48.7,
+    "o35": 30.4,
+    "label": "正赛(联赛阶段)"
+   },
+   "ko": {
+    "n": 52,
+    "mean_goals": 2.83,
+    "o25": 57.7,
+    "o35": 32.7,
+    "label": "淘汰赛(含附加赛)"
+   },
+   "qual": {
+    "n": 110,
+    "mean_goals": 2.44,
+    "o25": 48.2,
+    "o35": 26.4,
+    "label": "资格赛"
+   },
+   "qual_playoff": {
+    "n": 22,
+    "mean_goals": 3.05,
+    "o25": 68.2,
+    "o35": 40.9,
+    "label": "资格赛附加赛"
+   }
+  },
+  "欧协联": {
+   "main": {
+    "n": 111,
+    "mean_goals": 2.32,
+    "o25": 41.4,
+    "o35": 18.9,
+    "label": "正赛(联赛阶段)"
+   },
+   "ko": {
+    "n": 42,
+    "mean_goals": 2.79,
+    "o25": 57.1,
+    "o35": 31.0,
+    "label": "淘汰赛(含附加赛)"
+   },
+   "qual": {
+    "n": 416,
+    "mean_goals": 2.86,
+    "o25": 53.6,
+    "o35": 32.5,
+    "label": "资格赛"
+   },
+   "qual_playoff": {
+    "n": 42,
+    "mean_goals": 2.86,
+    "o25": 57.1,
+    "o35": 28.6,
+    "label": "资格赛附加赛"
+   }
+  }
+ },
+ "five_league_baseline": {
+  "n": 43708,
+  "mean_goals": 2.69,
+  "o25": 50.4,
+  "o35": 28.8
+ },
+ "weighted_by_ucl_main": {
+  "欧冠/正赛(联赛阶段)": {
+   "w_mean_goals": 3.37,
+   "w_o25": 64.5
+  },
+  "欧冠/资格赛": {
+   "w_mean_goals": 2.65,
+   "w_o25": 47.5
+  },
+  "欧联/正赛(联赛阶段)": {
+   "w_mean_goals": 2.81,
+   "w_o25": 51.9
+  },
+  "欧联/资格赛": {
+   "w_mean_goals": 2.52,
+   "w_o25": 49.6
+  },
+  "欧协联/正赛(联赛阶段)": {
+   "w_mean_goals": 2.38,
+   "w_o25": 43.5
+  },
+  "欧协联/资格赛": {
+   "w_mean_goals": 2.96,
+   "w_o25": 55.5
+  }
+ },
+ "significance": {
+  "ucl_vs_uel_mean_diff": 0.67,
+  "bootstrap_ci95": [
+   0.15,
+   1.2
+  ],
+  "permutation_p_1tail": 0.0252,
+  "binomial_p_2tail": 0.1213,
+  "note": "单赛季(2025-10-01~2026-01-29)·无法时间分割·两法结论不一须并列列出"
+ },
+ "apply": {
+  "main": 0.67,
+  "ko": 0.67,
+  "qual": 0.0,
+  "qual_playoff": 0.0,
+  "other": 0.0
+ },
+ "rule53_disambig": "rule53 欧冠次回合 2.50球/43.3% 小球 = 淘汰赛两回合次回合(历史旧赛制)；本表 欧冠正赛 3.37球/64.5% = 新赛制联赛阶段+附加赛。口径不同·禁互相覆盖",
+ "psg": {
+  "name": "巴黎圣日耳曼",
+  "samples_euro": 3,
+  "matches": [
+   {
+    "date": "26-2-26",
+    "round": "1/8决赛附加赛",
+    "score": "2:2",
+    "home": "巴黎圣曼",
+    "away": "摩纳哥",
+    "ph": 0.755
+   },
+   {
+    "date": "26-2-18",
+    "round": "1/8决赛附加赛",
+    "score": "2:3",
+    "home": "摩纳哥",
+    "away": "巴黎圣曼",
+    "ph": 0.15
+   },
+   {
+    "date": "25-9-18",
+    "round": "联赛",
+    "score": "4:0",
+    "home": "巴黎圣曼",
+    "away": "亚特兰大",
+    "ph": 0.679
+   }
+  ],
+  "mean_goals_euro": 4.33,
+  "case_library": [
+   {
+    "case": 150,
+    "score": "6:1",
+    "note": "欧冠 主胜 布拉迪斯拉发"
+   },
+   {
+    "case": 258,
+    "score": "4:2",
+    "note": "欧冠 主胜 巴萨（本模型判客胜+平局→方向✗）"
+   }
+  ],
+  "mean_goals_all5": 5.2,
+  "weak_threshold": 0.45,
+  "permission": "并列 + 量级上修（不反转 L2 硬核方向）",
+  "status": "有限权限观察项（样本<20·非定量系数）"
+ }
+}
