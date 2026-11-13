@@ -44,7 +44,7 @@ def key():
                 return str(j['bzzoiro']).strip()
         except Exception:
             continue
-    raise SystemExit('🔴 未找到 Bzzoiro key：请设环境变量 BZZOIRO_KEY 或在 data/tmp/api_keys.json 写 {"bzzoiro": "..."}')
+    raise RuntimeError('🔴 未找到 Bzzoiro key：请设环境变量 BZZOIRO_KEY 或在 data/tmp/api_keys.json 写 {"bzzoiro": "..."}')
 
 
 def get(path, timeout=25):

@@ -48,7 +48,7 @@ def _key():
                 return str(j['bzzoiro']).strip()
         except Exception:
             continue
-    raise SystemExit('🔴 未找到 Bzzoiro key（env BZZOIRO_KEY / data/tmp/api_keys.json 的 bzzoiro）')
+    raise RuntimeError('🔴 未找到 Bzzoiro key（env BZZOIRO_KEY / data/tmp/api_keys.json 的 bzzoiro）')
 
 
 def _get(url, timeout=25):

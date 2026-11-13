@@ -14,6 +14,20 @@ except Exception:
 
 
 BASE = os.path.dirname(os.path.abspath(__file__))
+
+def _tbl_path(name):
+    """🔴2026-11-14 表文件定位（目录无关）：脚本目录 → ROOT/data/tmp → ROOT/tables → ROOT/scripts/../tables
+    工作区: 脚本在 data/tmp，json 同目录 → 第一候选命中（行为不变）
+    发布版: 脚本在 scripts/tmp，json 在 data/tmp 或 tables/ → 第二/三候选命中
+    """
+    root = os.path.abspath(os.path.join(BASE, '..', '..'))
+    for c in (os.path.join(BASE, name),
+              os.path.join(root, 'data', 'tmp', name),
+              os.path.join(root, 'tables', name)):
+        if os.path.exists(c):
+            return c
+    return os.path.join(BASE, name)
+
 def load(n):
     p = os.path.join(BASE, n)
     return json.load(open(p, encoding='utf-8')) if os.path.exists(p) else {}
@@ -345,7 +359,7 @@ def score_depth_lookup(margin, over25, league=None, odd_draw=None, win_odd=None,
     """输入净胜球(正=主胜负=客胜,0=平)+Over25赔率+联赛代码 → 主锚/次锚/第三+条件概率
     联赛微调(德甲H1大球升权/法甲小球维持/欧冠3:2升权等)仅在 anchor-second 差<5pp 时生效"""
     import os, json
-    path = table_path or os.path.join(os.path.dirname(os.path.abspath(__file__)), 'score_depth_table.json')
+    path = table_path or _tbl_path('score_depth_table.json')
     tbl = json.load(open(path, encoding='utf-8'))
     def bucket(m):
         if m >= 4: return 'H4+'
@@ -487,7 +501,7 @@ _TEAM_AD = None
 def _load_team_ad():
     global _TEAM_AD
     if _TEAM_AD is None:
-        p = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), 'team_attack_defense.json')
+        p = _tbl_path('team_attack_defense.json')
         _TEAM_AD = _json.load(open(p, encoding='utf-8'))
     return _TEAM_AD
 def adjust_by_team_half(team_h, team_a, half_draw_prob, candidates):
@@ -522,7 +536,7 @@ def direction_full(oh, od, oa, over25=None, league_div=None, draw_group_score=0.
     s = sum(inv)
     ph, pd, pa = [x/s for x in inv]
     try:
-        calib = _json.load(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), 'prob_calibration.json'), encoding='utf-8'))
+        calib = _json.load(open(_tbl_path('prob_calibration.json'), encoding='utf-8'))
         for k, v in calib.items():
             lo, hi = float(k.split('-')[0]), float(k.split('-')[1])
             if lo <= ph < hi: ph += v['bias_pp']/100; break
@@ -571,7 +585,7 @@ def direction_full(oh, od, oa, over25=None, league_div=None, draw_group_score=0.
     #   联赛校准(5大联赛·主胜/平局校准pp级·校准=微调) + 欧战赛事校准(欧冠+3/欧联0/欧协联-2) + 欧战赔率档矩阵(7档·仅欧战)
     try:
         import os as _osl, json as _jsonl
-        _lcf = _osl.path.join(_osl.path.dirname(_osl.path.dirname(_osl.path.abspath(__file__))), 'league-modules', 'league_calibration.json')
+        _lcf = _osl.path.join(_osl.path.dirname(_osl.path.dirname(_osl.path.abspath(__file__))), 'data', 'league-modules', 'league_calibration.json')
         if _osl.path.exists(_lcf):
             _lc = _jsonl.load(open(_lcf, encoding='utf-8'))['calibration']
             _is_eu = league_div in ('欧冠', '欧联', '欧协联', 'ec', 'ucl', 'uel', 'uecl')
@@ -868,7 +882,7 @@ def goal_bin_probs(o25):
     global _GOAL_BINS
     if _GOAL_BINS is None:
         import os, json as _json
-        fp = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'goal_bins_table.json')
+        fp = _tbl_path('goal_bins_table.json')
         try: _GOAL_BINS = _json.load(open(fp, encoding='utf-8'))
         except: _GOAL_BINS = {}
     if not _GOAL_BINS or o25 is None: return None
@@ -1138,7 +1152,7 @@ def _quad_load():
         return _QUAD_CACHE
     import json as _json
     import io as _io
-    fp = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'quadrant_table.json')
+    fp = _tbl_path('quadrant_table.json')
     try:
         with _io.open(fp, encoding='utf-8') as _f:
             _QUAD_CACHE.update(_json.load(_f))

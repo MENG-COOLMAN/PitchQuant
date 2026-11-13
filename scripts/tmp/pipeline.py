@@ -20,7 +20,7 @@ pipeline.py — 单场分析「一键全流程」（2026-10-28 P21·治「漏步
   · **失败不掩盖**：任一阶段异常 → 三态标注 + 非零退出码（禁静默通过）
 
 用法：
-  python data/tmp/pipeline.py <竞彩txt> --teams "主,客" --league 意甲 --kickoff "YYYY-MM-DD HH:MM"
+  python pipeline.py <竞彩txt> --teams "主,客" --league 意甲 --kickoff "YYYY-MM-DD HH:MM"
       [--event <id>] [--eu "h,d,a"] [--handi <-1.5>] [--home_water <>] [--o25 <>] [--u25 <>]
       [--inj_list_h "..."] [--inj_list_a "..."] [--draw-score <>] [--case <id>]
       [--skip-net] [--no-skeleton]
@@ -32,6 +32,12 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, '..', '..'))
 os.chdir(ROOT)
 PY = sys.executable
+SC = HERE  # 脚本所在目录（工作区=data/tmp · 发布版=scripts/tmp）
+
+
+def _sc(name):
+    """子脚本路径（目录无关·禁写死 data/tmp）"""
+    return os.path.join(SC, name)
 
 TIMING = []
 STAGE_FAIL = []
@@ -64,8 +70,9 @@ def done(s, ok=True, note='', soft=False):
 
 
 def run(cmd, timeout=600, quiet=True):
+    _env = dict(os.environ, PYTHONIOENCODING='utf-8')  # 🔴2026-11-14 子进程 IO 强制 UTF-8（防 GBK 管道 emoji 崩溃）
     r = subprocess.run(cmd, capture_output=True, text=True,
-                       encoding='utf-8', errors='ignore', timeout=timeout)
+                       encoding='utf-8', errors='ignore', timeout=timeout, env=_env)
     return r.returncode, (r.stdout or ''), (r.stderr or '')
 
 
@@ -90,7 +97,7 @@ def stage_img(paths, league=None, teams=None, kickoff=None):
     🔴 识别失败 → 返回 (None, {}) → 主流程终止，绝不带病往下跑。
     """
     s = stage(-1, '图片识别 → 标准 txt')
-    cmd = [PY, 'data/tmp/image2txt.py'] + list(paths)
+    cmd = [PY, _sc('image2txt.py')] + list(paths)
     for k, v in (('--league', league), ('--teams', teams), ('--kickoff', kickoff)):
         if v:
             cmd += [k, v]
@@ -134,7 +141,7 @@ def stage0(txt):
     if os.path.basename(txt).startswith('std_'):
         done(s, True, '已是标准模板·跳过')
         return txt
-    rc, out, err = run([PY, 'data/tmp/txt_normalize.py', txt], timeout=120)
+    rc, out, err = run([PY, _sc('txt_normalize.py'), txt], timeout=120)
     m = re.search(r'标准模板已落盘:\s*(\S+)', out)
     if rc == 0 and m:
         p = m.group(1).strip()
@@ -147,7 +154,7 @@ def stage0(txt):
 # ───────────────────────── Stage 1 preflight ─────────────────────────
 def stage1(std, a):
     s = stage(1, 'preflight(run_guard)')
-    cmd = [PY, 'data/tmp/run_guard.py', std, '--teams', a.teams, '--league', a.league,
+    cmd = [PY, _sc('run_guard.py'), std, '--teams', a.teams, '--league', a.league,
            '--kickoff', a.kickoff]
     if a.event:
         cmd += ['--event', a.event]
@@ -178,9 +185,9 @@ def stage2(a):
             res['books'] = (1, '缺 --league/--teams')
             return
         h, w = [x.strip() for x in a.teams.split(',')][:2]
-        rc1, o1, _ = run([PY, 'data/tmp/the_odds_api_fetch.py', 'current',
+        rc1, o1, _ = run([PY, _sc('the_odds_api_fetch.py'), 'current',
                           '--league', a.league, '--case', str(a.case or 'tmp')], timeout=180)
-        rc2, o2, _ = run([PY, 'data/tmp/the_odds_api_fetch.py', 'books',
+        rc2, o2, _ = run([PY, _sc('the_odds_api_fetch.py'), 'books',
                           '--case', str(a.case or 'tmp'), '--home', h, '--away', w,
                           '--league', a.league], timeout=180)
         mm = re.search(r'→\s*(\d+)\s*家机构', o2)
@@ -243,7 +250,7 @@ def stage2(a):
         en_teams = _bsd_teams(raw_teams)
         tried = []
         for label, tstr in (('英文', en_teams), ('中文原样', raw_teams)):
-            rc, o, _ = run([PY, 'data/tmp/bzzoiro_fetch.py', '--teams', tstr], timeout=240)
+            rc, o, _ = run([PY, _sc('bzzoiro_fetch.py'), '--teams', tstr], timeout=240)
             n = len(re.findall(r'🏳', o))
             tried.append('%s[%s]→%d队' % (label, tstr, n))
             # 🔴2026-11-01 判据去 emoji 依赖（subprocess 捕获可能变 ?? → 假报未定位）
@@ -462,7 +469,7 @@ KEY_BLOCKS = [
 def _bsd_teams(cn_teams):
     """🔴2026-10-28 实跑修：BSD（Bzzoiro）只认英文队名 → 中文必须转英文，否则定位失败→BSD 整块缺失"""
     try:
-        sys.path.insert(0, 'data/tmp')
+        sys.path.insert(0, SC)
         from snapshot_save import cn2en_list
         out = []
         for x in [t.strip() for t in cn_teams.split(',') if t.strip()]:
@@ -499,7 +506,7 @@ KEY_BLOCKS = [(n, _emoji_tolerant(p)) for n, p in KEY_BLOCKS]
 
 def stage4(std, a, dirs, pre=None):
     s = stage(4, 'calc_all(一次跑全参数)')
-    cmd = [PY, 'data/tmp/calc_all.py', std, 'seriea' if a.league in ('意甲', 'seriea') else (a.league or 'seriea'),
+    cmd = [PY, _sc('calc_all.py'), std, 'seriea' if a.league in ('意甲', 'seriea') else (a.league or 'seriea'),
            # 🔴2026-11-01 去掉 --no-time：audit_steps S00 只读 calc 输出 → 不传给 calc 就判「遗漏」
         '--net', '--kickoff', a.kickoff, '--teams', a.teams, '--snapshot',
         # 🔴2026-11-01 透传 Bzzoiro 缺阵名单（否则 calc_all 判「伤停缺失」= 查了不用）
@@ -518,7 +525,7 @@ def stage4(std, a, dirs, pre=None):
         if v not in (None, ''):
             cmd += [k, str(v)]
     rc, out, err = run(cmd, timeout=900)
-    p = os.path.join('data/tmp', '_pipe_calc_%s.txt' % (a.case or 'tmp'))
+    p = os.path.join(ROOT, 'data', 'tmp', '_pipe_calc_%s.txt' % (a.case or 'tmp'))
     open(p, 'w', encoding='utf-8').write(out)
     lacks = [n for n, pat in KEY_BLOCKS if not re.search(pat, out)]
     ok = rc == 0 and not lacks
@@ -672,7 +679,7 @@ def stage5(a, std, calc_out, calc_path, inj_msg=None):
 
     # 🔴2026-10-29 P30 信号落地核查（程序预填表·模型只填处置与影响）
     try:
-        sys.path.insert(0, 'data/tmp')
+        sys.path.insert(0, SC)
         import signal_landing as _SL
         _sigs = _SL.signals(calc_out)
         _sim = _SL.simulate(calc_out, _sigs)
@@ -718,7 +725,7 @@ def stage5(a, std, calc_out, calc_path, inj_msg=None):
             _nl_sec = blk('NL欧国联')
             if ('未在 calc_all 输出中找到' in _nl_sec) or ('非欧国联' in _nl_sec):
                 buf.append('**欧国联/国家队子模型**: 🔴 **calc 未输出有效 NL 块**（league=%s）→ '
-                           '须手工跑 `python data/tmp/nl_model.py --league-id 5 --home-team <主> '
+                           '须手工跑 `python nl_model.py --league-id 5 --home-team <主> '
                            '--away-team <客> --md <轮次> --o-h X --o-d Y --o-a Z` 并把 R1-R10 抄进来【待模型判断】\n'
                            % _lg_o)
             else:
@@ -748,7 +755,7 @@ def stage5(a, std, calc_out, calc_path, inj_msg=None):
         except Exception as _ecvp:
             buf.append('⚪ 默认覆盖校验三态: %s\n' % _ecvp)
     except Exception as _e30:
-        buf.append('\n## 信号落地核查（P30）\n\n⚪程序预填失败（%s）→ 须手工跑 `python data/tmp/signal_landing.py --calc <calc输出> --raw auto` 后填表\n' % _e30)
+        buf.append('\n## 信号落地核查（P30）\n\n⚪程序预填失败（%s）→ 须手工跑 `python signal_landing.py --calc <calc输出> --raw auto` 后填表\n' % _e30)
 
     os.makedirs('data/case-library/raw', exist_ok=True)
     open(raw_p, 'w', encoding='utf-8').write('\n'.join(buf))
@@ -764,7 +771,7 @@ def stage6(calc_path, raw_p):
     if not raw_p:
         done(s, True, '⚪无 raw → 跳过')
         return
-    rc, out, err = run([PY, 'data/tmp/audit_consumption.py', calc_path, raw_p], timeout=180)
+    rc, out, err = run([PY, _sc('audit_consumption.py'), calc_path, raw_p], timeout=180)
     mm = re.search(r'必须 (\d+) ｜ ✅(\d+) ｜ 🔴(\d+)', out)
     if mm:
         must, ok, miss = int(mm.group(1)), int(mm.group(2)), int(mm.group(3))
@@ -774,7 +781,7 @@ def stage6(calc_path, raw_p):
     # 🔴2026-10-30 P33 步骤审计（用户最后通牒·20 步逐项·case299+ 硬门禁）
     try:
         _cid6 = re.sub(r'\D', '', os.path.basename(raw_p).split('_')[0])
-        rc6, o6, _ = run([PY, 'data/tmp/audit_steps.py', '--case', _cid6,
+        rc6, o6, _ = run([PY, _sc('audit_steps.py'), '--case', _cid6,
                           '--calc', calc_path], timeout=120)
         mm6 = re.search(r'PASS (\d+) ｜ ⚪ TRISTATE (\d+) ｜ ❌ MISSING (\d+)', o6)
         if mm6:
@@ -790,7 +797,7 @@ def stage6(calc_path, raw_p):
         print('  ⚪ 步骤审计: %s（三态）' % type(_e6).__name__)
     # 🔴2026-10-29 P30: 信号落地 + 最多两向（骨架阶段模型未填 → 显示待填数，非失败）
     try:
-        sys.path.insert(0, 'data/tmp')
+        sys.path.insert(0, SC)
         import signal_landing as _SL
         _cc = open(calc_path, encoding='utf-8', errors='ignore').read()
         _rw = open(raw_p, encoding='utf-8', errors='ignore').read()
@@ -808,7 +815,7 @@ def stage6(calc_path, raw_p):
 # ───────────────────────── main ─────────────────────────
 def do_verify(case):
     """🔴P42（2026-10-30）: raw 填完后**一键全量校验**（七道闸门）
-       用法: python data/tmp/pipeline.py --verify 997
+       用法: python pipeline.py --verify 997
        检查: ① raw 无残留待填 ② output_checker ③ check_luopan 七节 ④ audit_steps 20步\n      ⑤ audit_judgment 判定层（S3/3.5/4/4.5/4.6/7.5/9） ⑥ audit_chain 8 条传导链
     """
     import glob as _gl
@@ -832,7 +839,7 @@ def do_verify(case):
         print('  ✅ [1/7] 无残留待填')
 
     # ② output_checker
-    rc, o, _ = run([PY, 'data/tmp/output_checker.py', raw_p], timeout=180)
+    rc, o, _ = run([PY, _sc('output_checker.py'), raw_p], timeout=180)
     good = '全部必填块通过' in (o or '')
     print('  %s [2/7] output_checker: %s'
           % ('✅' if good else '🔴', '全部通过' if good else (o or '')[-160:].replace(chr(10), ' ')))
@@ -849,16 +856,16 @@ def do_verify(case):
     if not _in_csv:
         print('  ⚪ [3/7] check_luopan: case 未写入 CSV（先 case_write add）→ 跳过（三态）')
     else:
-        rc, o, _ = run([PY, 'data/tmp/check_luopan.py', str(case)], timeout=180)
+        rc, o, _ = run([PY, _sc('check_luopan.py'), str(case)], timeout=180)
         good = (rc == 0)
         print('  %s [3/7] check_luopan: %s'
               % ('✅' if good else '🔴', '通过' if good else (o or '')[-200:].replace(chr(10), ' ')))
         ok_all &= good
 
     # ④ audit_steps（20 步）
-    calc = 'data/tmp/_pipe_calc_%s.txt' % case
+    calc = os.path.join(ROOT, 'data', 'tmp', '_pipe_calc_%s.txt' % case)
     if os.path.exists(calc):
-        rc, o, _ = run([PY, 'data/tmp/audit_steps.py', '--case', str(case), '--calc', calc],
+        rc, o, _ = run([PY, _sc('audit_steps.py'), '--case', str(case), '--calc', calc],
                        timeout=180)
         mm = re.search(r'PASS (\d+) ｜ ⚪ TRISTATE (\d+) ｜ ❌ MISSING (\d+)', o or '')
         if mm:
@@ -873,7 +880,7 @@ def do_verify(case):
 
     # ⑤ audit_judgment（🔴2026-11-01 补 7 个原无审计的步骤：S3/3.5/4/4.5/4.6/7.5/9）
     #    判据区分 calc 层 vs raw 层：「calc 有但 raw 没写」= 算了没写 = 模型未消费
-    _rc5, _o5, _ = run([PY, 'data/tmp/audit_judgment.py',
+    _rc5, _o5, _ = run([PY, _sc('audit_judgment.py'),
                         '--calc', calc if os.path.exists(calc) else '',
                         '--raw', raw_p], timeout=180)
     _m5 = re.search(r'✅ 落地 (\d+) ｜ 🔴 算了没写 (\d+) ｜ ⚪ 三态 (\d+) ｜ ❌ 遗漏 (\d+)',
@@ -895,7 +902,7 @@ def do_verify(case):
 
     # ⑥ audit_chain（8 条传导链·数据源三态不计入分母）
     if os.path.exists(calc):
-        _rc6, _o6, _ = run([PY, 'data/tmp/audit_chain.py', '--l4'], timeout=180)
+        _rc6, _o6, _ = run([PY, _sc('audit_chain.py'), '--l4'], timeout=180)
         _m6 = re.search(r'贯通 (\d+)/(\d+)', _o6 or '')
         if _m6:
             _g6, _d6 = _m6.groups()
@@ -911,7 +918,7 @@ def do_verify(case):
     # ⑦ audit_semantic（🔴2026-11-01 **语义级**·calc 权威值 vs raw 声明值）
     #    补 audit_judgment 的诚实边界：关键词级只拦「完全没提」，拦不住「提了但判断错」
     if os.path.exists(calc):
-        _rc7, _o7, _ = run([PY, 'data/tmp/audit_semantic.py',
+        _rc7, _o7, _ = run([PY, _sc('audit_semantic.py'),
                             '--calc', calc, '--raw', raw_p], timeout=180)
         _m7 = re.search(r'✅ 一致 (\d+) ｜ ⚠️ 已说明 (\d+) ｜ 🔴 \*\*冲突 (\d+)\*\* ｜ ⚪ 未写 (\d+)',
                         _o7 or '')
@@ -944,7 +951,7 @@ def main():
         _vi = sys.argv.index("--verify")
         _cv = sys.argv[_vi + 1] if len(sys.argv) > _vi + 1 else None
         if not _cv:
-            print("用法: python data/tmp/pipeline.py --verify <case_id>")
+            print("用法: python pipeline.py --verify <case_id>")
             sys.exit(2)
         sys.exit(do_verify(_cv))
     ap = argparse.ArgumentParser()
@@ -1031,7 +1038,7 @@ def main():
     print('=' * 78)
     print('\n【下一步·模型必做】')
     print('  1) 打开 raw，逐处填【待模型判断】（%s）' % (raw_p or '未生成'))
-    print('  2) 填完跑: python data/tmp/pipeline.py --verify %s' % (a.case or '<case>'))
+    print('  2) 填完跑: python pipeline.py --verify %s' % (a.case or '<case>'))
     print('  3) case_write add 写入案例库 + 补填 CSV')
     print('  4) 🔴 禁重跑 calc_all（参数已在 Stage3/4 一次给全·重跑会覆盖锚）')
     if SOFT_WARN:

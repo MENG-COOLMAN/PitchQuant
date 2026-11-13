@@ -6,7 +6,11 @@
 # 输出: 完整预计算报告 + [必核清单] 段——LLM 照清单逐项消费·缺项=输出不完整
 
 import io, sys, os, subprocess, re, json
-sys.stdout.reconfigure(encoding='utf-8', line_buffering=True)  # 🔴2026-09-15合并(源自workbuddy): 防Windows管道块缓冲/丢行
+sys.stdout.reconfigure(encoding='utf-8', line_buffering=True)
+try:  # _STDERR_UTF8_GUARD 🔴2026-11-14 防 GBK 管道/重定向下 emoji 报错抛 UnicodeEncodeError 整段崩溃
+    sys.stderr.reconfigure(encoding='utf-8', errors='replace')
+except Exception:
+    pass  # 🔴2026-09-15合并(源自workbuddy): 防Windows管道块缓冲/丢行
 
 # ── 必核清单（脚本硬编码·随模型规则更新·替代LLM自我清单）──
 CHECKLIST = [
