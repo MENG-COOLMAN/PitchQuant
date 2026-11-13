@@ -5,6 +5,24 @@ All notable changes to this project are documented here.
 
 ---
 
+## [1.3.1] — 2026-11-14 · 仅发布模型本体 / Model-only release
+
+### 🗑 Removed · 移除（私人研究数据，不分发）
+
+- **整个案例库体系**：`templates/案例库模板.md` · `examples/case-monza-vs-sassuolo.md`（真实比赛复盘）
+- `skills/SL-case-library/`（案例库维护技能）
+- `scripts/tmp/case_write.py` · `case_stats.py` · `raw_features.py`（案例库读写工具）
+
+> 本仓库现在**只包含模型本体**：规则（`skills/` · `prompts/` · `AGENTS.md` 摘要）· 算法与审计脚本 · 蒸馏查表 · 文档。
+> 真实比赛记录 · 赔率快照 · 复盘档案属作者私人研究数据，**不再随仓库分发**。
+
+### 🔄 Changed · 变更
+
+- **README**：移除案例相关徽章与表述；quick start 新增「三个市场参数必须给全」警告（缺 `--eu`/`--o25`/`--handi` → 约 20 个块退化为三态，属**预期行为**而非故障）
+- **`.gitignore`**：新增 `data/case-library/`
+
+---
+
 ## [1.3.0] — 2026-11-13 · Core Model V3.5.94
 
 ### ✨ Added · 新增

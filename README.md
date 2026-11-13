@@ -2,7 +2,7 @@
 
 # ⚽ PitchQuant
 
-### 足球赔率分析模型 · Public Release v1.3 ｜ Core Model V3.5.94
+### 足球赔率分析模型 · Public Release v1.3.1 ｜ Core Model V3.5.94（模型本体 · 不含案例库）
 
 > ### 🎯 A football-odds pipeline where the LLM **executes** a 1,160-check auditable workflow — and every weight is **earned from 227k-match backtests**.
 > ### 🎯 一条由 **1,160 道校验**锁定的 LLM 分析流水线 —— 每一个权重都来自 **22.7 万场回测**。
@@ -17,7 +17,6 @@
 ![Scripts](https://img.shields.io/badge/Scripts-203-yellow)
 ![Auto--Checks](https://img.shields.io/badge/Auto--Checks-1160-orange)
 ![Backtest](https://img.shields.io/badge/Backtest-227k%20matches-purple)
-![Cases](https://img.shields.io/badge/Replayed%20cases-346-teal)
 ![License](https://img.shields.io/badge/License-MIT-lightgrey)
 
 > ## ⚠️ 重要声明 · IMPORTANT NOTICE
@@ -107,7 +106,7 @@ $ python scripts/tmp/calc_all.py examples/sample-odds.txt 意甲 \
 7. **🛡️ Anti-overfitting gates (four layers)** — any new feature/weight/"learned rule" must pass **(a)** time-split backtest **p<0.05**, **(b)** sample thresholds, **(c)** rolling 20-match deviation >10pp ⇒ auto-rollback, **(d)** out-of-range clipping. No evidence ⇒ no decision authority.
 8. **🧾 Evidence-bound self-check** — "**no number = not done**". Every item must be tri-state tagged (`triggered(value)` / `not-triggered(reason)` / `no-data(reason)`). Silent skipping is structurally impossible — and the audit layer catches **"computed but not written"** and even **"written but judged wrong"**.
 9. **🧠 37 domain skills** — referee rules (`rule51–70`), five league sub-models distilled from 8,700–9,300 matches each, **Nations League** sub-model (658 matches / 4 editions), European two-leg logic, UCL calibration, team attack-defense profiles (312 teams). Knowledge is versioned and auditable.
-10. **📚 Self-falsifying archive** — 346 replayed matches, 188 magnitude entries, 214 learning entries, all persisted with source odds, computed probabilities, rule traces and actual results.
+10. **📚 Self-falsifying archive** — the project keeps an in-house replay archive (346 reviewed matches) purely to falsify its own rules; **the raw records are private research data and are NOT distributed** with this repository.
 
 ## Architecture
 
@@ -171,7 +170,7 @@ $ python scripts/tmp/calc_all.py examples/sample-odds.txt 意甲 \
 | Over/Under signal strength tiers | strong **65.0%** / medium 57.0% / weak 54.8% (≈random) |
 | Magnitude: 4+ goals frequency | **44.4%** of matches (vs 2.0% in naive main anchors) |
 | UCL main-competition goals | **3.37 / O2.5 64.5%** vs big-5 baseline 2.69 / 50.4% (calibration **+0.67 goals**) |
-| Live case archive (346 replayed) | direction **≈73%** (any-coverage) · scoreline **≈27%** (main **or** secondary anchor) · perfect **≈18%** |
+| In-house replay archive (346 reviewed · **not distributed**) | direction **≈73%** (any-coverage) · scoreline **≈27%** (main **or** secondary anchor) · perfect **≈18%** |
 
 > ⚠️ These are **methodology-validation** numbers, not profit claims. See [DISCLAIMER.md](DISCLAIMER.md).
 
@@ -205,6 +204,8 @@ python scripts/tmp/pipeline.py examples/sample-odds.txt \
 **Input**: Chinese Sports Lottery odds text (1X2 / handicap / total goals / HT-FT / correct score, with per-timestamp series).
 `pipeline.py` also accepts **screenshots** (auto OCR → standard text).
 
+> ⚠️ **All three market parameters are required** (`--eu` / `--o25` / `--handi`). Omit them and ~20 blocks degrade to tri-state — that is *expected behaviour*, not a failure.
+
 **Two traps that silently corrupt everything**:
 - `--eu` must be the **real European market**, never the Chinese lottery's last price (it would make cross-market divergence identically 0 — a *fake consensus*).
 - `--handi` must be the **European balanced line**, not the lottery's fixed ±1 (otherwise net-margin band, water-level reading and the receiving-handicap anchor ban are all wrong).
@@ -219,15 +220,16 @@ scripts/online_learning/         21 learning-layer scripts (gated · L1 rejected
 scripts/backtest/                53 backtest & verification scripts
 tables/                          20 distilled lookup tables (league / goals / score depth / water / draw …)
 data/                            compatibility layer — clone & run, no path rewriting
-templates/                       analysis template · case template
+templates/                       analysis template
 docs/                            architecture · methodology · getting-started · data-and-apis
-examples/                        real-format odds sample + anonymized case (with a mis-prediction post-mortem)
+examples/                        odds-format sample only (no case records)
 .github/workflows/ci.yml         syntax compile · table integrity · secret-leak scan
 ```
 
 ## Data Notice
 
-This repository **does not ship** raw datasets: `Matches.csv` (227k matches), European historical databases, case-library raw archives and backups are **excluded** (size + third-party terms).
+This repository ships **the model only** — rules, algorithms, distilled tables, docs.
+`Matches.csv` (227k matches), European historical databases, and the **entire case library** (templates · raw archives · replay records — private research data) have been **removed**.
 All API keys, cookies, snapshots and personal paths have been **removed** — you must supply your own keys in `.env`.
 
 ## Disclaimer
@@ -338,7 +340,7 @@ $ python scripts/tmp/calc_all.py examples/sample-odds.txt 意甲 \
 7. **🛡️ 防过拟合四道门禁** —— 任何新特征/新权重/"学习成果"必须通过 ①时间分割回测 **p<0.05** ②样本量门槛 ③滚动 20 场偏差 >10pp 自动回滚 ④越界裁剪。**无证据即无判定权**。
 8. **🧾 证据绑定的自检** —— 「**没有数值 = 没做**」。每项必须三态标注（`触发(值)` / `不触发(原因)` / `无数据(原因)`）。并且审计层能抓出**「算了没写」**，甚至**「写了但判断错」**。
 9. **🧠 37 个领域知识模块** —— 裁判规则（`rule51–70`）、五大联赛子模型（各 8,700–9,300 场蒸馏）、**欧国联子模型**（658 场 / 四届）、欧战两回合逻辑、欧冠校准、312 队攻防档案。知识是**版本化、可审计的文件**，不是提示词里的感觉。
-10. **📚 可否证的档案** —— 346 场复盘、188 条量级台账、214 条学习台账，全部带原始赔率、计算概率、规则踪迹与真实赛果。
+10. **📚 可否证的档案** —— 项目内部维护复盘档案（346 场）专用于否证自己的规则；**原始记录属私人研究数据，不随仓库分发**。
 
 ## 架构详解
 
@@ -412,7 +414,7 @@ $ python scripts/tmp/calc_all.py examples/sample-odds.txt 意甲 \
 | 大小球信号三档 | 强 **65.0%** / 中 57.0% / 弱 54.8%（≈随机） |
 | 量级：真实 4+ 球占比 | **44.4%**（而朴素主锚仅 2.0%） |
 | 欧冠正赛进球 | **3.37 球 / O2.5 64.5%**（五大基线 2.69 / 50.4% → 校准 **+0.67 球**） |
-| 实战案例库（346 场复盘） | 方向 **≈73%**（两向覆盖口径）· 比分 **≈27%**（主锚**或**次锚）· 完美 **≈18%** |
+| 内部复盘档案（346 场·**不随仓库分发**） | 方向 **≈73%**（两向覆盖口径）· 比分 **≈27%**（主锚**或**次锚）· 完美 **≈18%** |
 
 > ⚠️ 这些是**方法论验证**数字，不是盈利承诺。详见 [DISCLAIMER.md](DISCLAIMER.md)。
 
@@ -446,6 +448,8 @@ python scripts/tmp/pipeline.py examples/sample-odds.txt \
 **输入**：竞彩赔率文本（胜平负 / 让球 / 总进球 / 半全场 / 比分，含逐时点序列）。
 `pipeline.py` 也接受**截图**（自动 OCR → 标准文本）。
 
+> ⚠️ **三个市场参数必须给全**（`--eu` / `--o25` / `--handi`）。缺了会有约 20 个块退化为三态 —— 这是**预期行为**，不是模型坏了。
+
 **两个会静默污染全部结论的陷阱**：
 - `--eu` 必须是**真实欧盘**，禁用竞彩末盘冒充（会让跨市场分歧恒为 0 —— **假一致**）；
 - `--handi` 必须是**欧盘均衡线**，不是竞彩固定 ±1（否则净胜档 / 让球水位 / 受让禁锚判断全部失真）。
@@ -460,15 +464,16 @@ scripts/online_learning/        21 个学习层脚本（受门禁控制 · L1 �
 scripts/backtest/               53 个回测与验证脚本
 tables/                         20 张蒸馏查表（联赛 / 进球档 / 比分深度 / 水位 / 平局 …）
 data/                           兼容层 —— clone 即跑，无需改路径
-templates/                      分析模板 · 案例模板
+templates/                      分析模板
 docs/                           架构 · 方法论 · 快速开始 · 数据与 API
-examples/                       真实格式赔率样例 + 脱敏案例（含一次误判复盘）
+examples/                       仅赔率格式样例（不含案例记录）
 .github/workflows/ci.yml        语法编译 · 表完整性 · 密钥残留扫描
 ```
 
 ## 数据说明
 
-本仓库**不含**原始数据集：`Matches.csv`（22.7 万场）、欧战历史库、案例库 raw 存档与备份均**排除**（体积 + 第三方条款）。
+本仓库**只发布模型本体** —— 规则 · 算法 · 蒸馏表 · 文档。
+`Matches.csv`（22.7 万场）、欧战历史库，以及**整个案例库**（模板 · raw 存档 · 复盘记录 —— 私人研究数据）均已**移除**。
 所有 API Key、Cookie、快照与个人路径均已**移除** —— 你需要在 `.env` 里自备密钥。
 
 ## 免责声明
@@ -515,7 +520,7 @@ examples/                       真实格式赔率样例 + 脱敏案例（含一
 | 🔴 **[`docs/data-and-apis.md`](docs/data-and-apis.md)** | **数据与 API 清单**——你必须自备什么 / 哪些 API / 免费额度 / 降级行为<br>Required data & APIs — what you must provide, free tiers, graceful degradation |
 | [`docs/architecture.md`](docs/architecture.md) | 架构与规则优先级——分层结构 / 子模型隔离 / 判定优先级体系 / 七道质量门<br>Architecture & priorities — layers, sub-model isolation, priority hierarchy, seven gates |
 | [`docs/methodology.md`](docs/methodology.md) | 方法论——关键回测结论 + 数学公式 + 复现步骤<br>Methodology — backtest findings, formulas, reproduction steps |
-| [`examples/`](examples/) | 脱敏完整案例（含一次误判复盘）<br>Anonymized real case, including a mis-prediction post-mortem |
+| [`examples/`](examples/) | 赔率输入格式样例（不含任何真实案例记录）<br>Odds input format sample only — no case records |
 | **[`DISCLAIMER.md`](DISCLAIMER.md)** | ⚠️ **法律免责声明**——学术用途 / 禁止博彩 / 无保证 / 责任限制<br>Legal disclaimer — academic use only, prohibitions, limitation of liability |
 | **[`NOTICE.md`](NOTICE.md)** | 第三方商标与数据来源归属<br>Third-party trademarks & data attribution |
 | **[`CHANGELOG.md`](CHANGELOG.md)** | 更新日志（版本变更与维护记录）<br>Changelog — release history & maintenance log |
