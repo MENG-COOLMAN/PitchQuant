@@ -196,8 +196,10 @@ python scripts/tmp/calc_poisson.py --home 2.50 --draw 3.40 --away 2.80 --o25 1.9
 python scripts/tmp/pipeline.py examples/sample-odds.txt \
     --teams "Home Team,Away Team" --league seriea --kickoff "2026-11-15 03:45"
 
-# 3) consistency self-check (run after ANY change)
-python scripts/tmp/check_sync.py
+# 3) OPTIONAL: workspace consistency self-check (maintainers only)
+#    NOTE: check_sync.py validates the ORIGINAL authoring workspace
+#    (.reasonix/skills + AGENTS.md + data/足球分析模型.txt must stay in sync).
+#    It is expected to FAIL in this release layout — see "Cross-agent usage" below.
 ```
 
 **Input**: Chinese Sports Lottery odds text (1X2 / handicap / total goals / HT-FT / correct score, with per-timestamp series).
@@ -238,6 +240,28 @@ For **academic & educational use only**. Gambling/betting use is **prohibited**.
 - **Scoreline prediction is a coverage problem, not a point-prediction problem** — a 5.3% event cannot be "predicted", only *covered* by a pool.
 - **Some layers are explicitly un-backtested** (wide-pool bin injection, some weighting coefficients) — they are tagged `⏳ pending backtest` in-code rather than presented as validated.
 - **Out-of-domain competitions** (cups, minor leagues) have **no** domain table; thresholds are tri-state tagged and excluded from ranking.
+## Cross-agent usage (non-Reasonix hosts)
+
+**Short answer: the model itself is host-agnostic; the workspace shell is not.**
+
+| Layer | Portable? | Why |
+|:--|:--|:--|
+| `scripts/tmp/*.py` (129) | ✅ **Yes** (verified) | Pure CLI; `sys.path` derived from `__file__`. Ran end-to-end from a clean clone: `calc_all.py examples/sample-odds.txt seriea` → exit 0, 253 lines |
+| `tables/*.json` (20) | ✅ Yes | Plain JSON, no host coupling |
+| `skills/*/SKILL.md` (37) + `prompts/*.md` (5) | ✅ Content yes | Markdown + frontmatter (`name` / `description` only) |
+| `AGENTS.md` wording | ⚠️ Rewrite verbs | Contains host verbs: `read_skill` ×4, `调 /SK-*` ×6, `调 /SL-*` ×2 — map them to "read this file" |
+| `check_sync.py` / `scripts/audit_*` | ❌ No (by design) | They validate the **original authoring workspace**: `.reasonix/skills` (79 refs) + `AGENTS.md` ↔ `data/足球分析模型.txt` triple-sync + 15 lines with an authoring-only absolute path |
+
+**To run under Cursor / Claude Code / Codex / Copilot (any agent with file-read + shell):**
+
+1. Point the agent at **`prompts/01-analyze-a-match.md`** (workflow) and `AGENTS.md` (rules) as system context; replace `调 /SK-xxx` with "read `skills/SK-xxx/SKILL.md`";
+2. Let the agent call **`scripts/tmp/pipeline.py`** (or `calc_all.py`) — all determinism lives there;
+3. Skip the `check_sync.py` / `audit_*` layer unless you recreate the authoring layout.
+
+> Verified: Windows / Python 3.14 / clean clone — `calc_poisson.py` prints λh/λa + Top-3 correctly; `calc_all.py` on the sample odds → **exit 0 / 253 lines / 62 s** (network sources degrade to tri-state without keys; local math is unaffected).
+
+---
+
 
 ---
 
@@ -413,8 +437,10 @@ python scripts/tmp/calc_poisson.py --home 2.50 --draw 3.40 --away 2.80 --o25 1.9
 python scripts/tmp/pipeline.py examples/sample-odds.txt \
     --teams "主队,客队" --league seriea --kickoff "2026-11-15 03:45"
 
-# ③ 一致性自检（改完任何东西都跑）
-python scripts/tmp/check_sync.py
+# ③ （可选 · 仅维护者）工作区一致性自检
+#    注意: check_sync.py 校验的是「原始创作工作区」
+#    （.reasonix/skills + AGENTS.md + data/足球分析模型.txt 三处同步）
+#    在本发布版布局下它会**预期失败** —— 详见下方「跨 agent 兼容性」
 ```
 
 **输入**：竞彩赔率文本（胜平负 / 让球 / 总进球 / 半全场 / 比分，含逐时点序列）。
@@ -455,6 +481,28 @@ examples/                       真实格式赔率样例 + 脱敏案例（含一
 - **比分预测是覆盖问题，不是点预测问题** —— 5.3% 的事件不可能"预测"，只能被候选池**覆盖**。
 - **部分层明确未回测**（宽池必含档补入、若干权重系数）—— 代码里标 `⏳ 待回测`，不冒充已验证。
 - **超域赛事**（杯赛 / 小联赛）**没有**本域档表；阈值一律三态标注并**排除在排序之外**。
+
+## 跨 agent 兼容性（非 Reasonix 宿主）
+
+**一句话：模型本体与宿主无关，工作区外壳不是。**
+
+| 层 | 可移植？ | 原因 |
+|:--|:--|:--|
+| `scripts/tmp/*.py`（129） | ✅ **可以**（实测） | 纯 CLI；`sys.path` 取自 `__file__`。**干净 clone 实测跑通**：`calc_all.py examples/sample-odds.txt seriea` → exit 0 / 253 行 |
+| `tables/*.json`（20） | ✅ 可以 | 纯 JSON，无宿主耦合 |
+| `skills/*/SKILL.md`（37）+ `prompts/*.md`（5） | ✅ 内容可以 | Markdown + frontmatter（只有 `name` / `description`） |
+| `AGENTS.md` 措辞 | ⚠️ 需替换 | 含宿主动词：`read_skill` ×4、`调 /SK-*` ×6、`调 /SL-*` ×2 → 理解为「读这个文件」即可 |
+| `check_sync.py` / `scripts/audit_*` | ❌ 不可用（设计使然） | 它们校验的是**原始创作工作区**：`.reasonix/skills`（79 处引用）+ `AGENTS.md` 与 `data/足球分析模型.txt` 三处同步 + 15 行仅作者可用的绝对路径 |
+
+**换到 Cursor / Claude Code / Codex / Copilot（任何能读文件 + 执行命令的 agent）：**
+
+1. 把 **`prompts/01-analyze-a-match.md`**（流程）与 `AGENTS.md`（规则）作为系统上下文；把「调 /SK-xxx」理解为「读 `skills/SK-xxx/SKILL.md`」；
+2. 让 agent 调用 **`scripts/tmp/pipeline.py`**（或 `calc_all.py`）—— 所有确定性计算都在这里；
+3. `check_sync.py` / `audit_*` 层可跳过（除非你重建原工作区布局）。
+
+> 实测环境：Windows / Python 3.14 / 干净 clone —— `calc_poisson.py` 正常输出 λh/λa + Top3；`calc_all.py` 跑示例赔率 → **exit 0 / 253 行 / 62 秒**（无 key 时网络源三态降级，不阻断本地计算）。
+
+---
 
 ---
 
