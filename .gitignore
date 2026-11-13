@@ -37,3 +37,11 @@ desktop.ini
 # 运行产物（脚本执行时自动生成）
 prediction_log/
 __pycache__/
+
+# ---- 运行产物（脚本执行时自动生成·禁入库）----
+_pipe_calc_*.txt
+std_*.txt
+cn2en_online_cache.json
+*_cache.json
+prediction_log/
+data/tmp/_*.txt
