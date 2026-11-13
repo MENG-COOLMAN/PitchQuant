@@ -854,7 +854,7 @@ def do_verify(case):
     except Exception:
         pass
     if not _in_csv:
-        print('  ⚪ [3/7] check_luopan: case 未写入 CSV（先 case_write add）→ 跳过（三态）')
+        print('  ⚪ [3/7] check_luopan: 本场未归档 CSV → 跳过（三态·本仓库不含案例库工具）')
     else:
         rc, o, _ = run([PY, _sc('check_luopan.py'), str(case)], timeout=180)
         good = (rc == 0)
@@ -1039,7 +1039,7 @@ def main():
     print('\n【下一步·模型必做】')
     print('  1) 打开 raw，逐处填【待模型判断】（%s）' % (raw_p or '未生成'))
     print('  2) 填完跑: python pipeline.py --verify %s' % (a.case or '<case>'))
-    print('  3) case_write add 写入案例库 + 补填 CSV')
+    print('  3) 自行归档本场结果（本仓库只含模型本体·不含案例库工具）')
     print('  4) 🔴 禁重跑 calc_all（参数已在 Stage3/4 一次给全·重跑会覆盖锚）')
     if SOFT_WARN:
         print('\n⚠️ 外部数据源三态（**不算流程失败**·但 raw 必须逐条留痕）：')

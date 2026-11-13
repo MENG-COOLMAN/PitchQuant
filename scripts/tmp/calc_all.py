@@ -44,7 +44,7 @@ CHECKLIST = [
     ('C27', 'xG深度比分判定(understat·防泄露)', '五大联赛', 'SK-xg-depth'),
     ('C28', '比分命中口径标注(主锚/次锚·第3/4候选不算)', None, '口径铁律'),
     ('C29', '自检表22项逐项证据', None, 'checklist'),
-    ('C30', '落盘: case_write add/review + raw七节 + check_luopan', None, 'case_write'),
+    ('C30', '落盘: raw七节 + check_luopan 归档', None, 'archiving'),
     # 🔴2026-09-27 审计补（根因: 清单缺 Step0 的 4 个源 → LLM 照清单执行必漏·case209 实证漏 B1+H2H）
     ('C31', 'Step0① txt归一化(txt_normalize·第一动作·禁手工转换喂下游)', None, 'txt_normalize'),
     ('C32', 'Step0② Odds-API欧盘全市场(B1·🔴主数据源: ML/Spread亚盘水位/Totals/CS/BTTS/HT-FT/DC)', None, 'Odds-API'),
@@ -3338,7 +3338,7 @@ def main():
     print('  批次2 方向批: C04-C16(变动/诱阻/方向/欧亚/诱阻分类/修正53) → 输出方向+置信度+诱盘')
     print('  批次3 比分批: C17-C22(量级/泊松/净胜档/查表/锚定/总进球) → 输出主锚次锚+停止分支')
     print('  批次4 输出批: C28-C29(口径标注+自检22项) → 组装完整输出')
-    print('  批次5 落盘批: C30(case_write+raw+check_luopan) + output_checker校验 → 落盘完成')
+    print('  批次5 落盘批: C30(raw归档+check_luopan) + output_checker校验 → 落盘完成')
     print('  🔴每批独立输出·完成一批再下一批·禁跳批·禁一批内赶完(防篇幅过载导致尾部弱化)')
     print('  🔴output_checker.py校验输出完整性·缺失=补齐重跑至全过')
 
